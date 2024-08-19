@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap&display=swap');
+
+/* Variables for colors */
+:root {
+    --primary-color: #1F0171;
+    --secondary-color: #FF5C00;
+    --background-color: #FBFBFF;
+    --text-color: #FFF;
+    --button-hover-bg: #1F0171;
+    --button-hover-text: #FBFBFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.app-container {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.app-section-container {
+    display: inline-flex;
+    background: #6f6fff;
+    width: 100%;
+    justify-content: space-evenly;
+    height: 400px;
+    align-items: center;
+}
+
+.app-section-left h3 {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.app-section-left p {
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.app-section-right {
+    display: grid;
+}
+
+.app-section-right button {
+    font-family: 'Poppins', sans-serif;
+    width: 350px;
+    height: 50px;
+    background-color: var(--background-color);
+    border-radius: 16px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px;
+    color: var(--primary-color);
+    
+    
+}
+
+.app-section-right button:hover {
+    background-color: var(--button-hover-bg);
+    
+}

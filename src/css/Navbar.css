@@ -1,0 +1,160 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
+  background-color: #1E3A8A; /* Azul escuro */
+  color: white;
+}
+
+.logo {
+  height: 30px; /* Reduzi a altura do logo */
+}
+
+.navbar-menu-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-menu-container a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu-container a:hover {
+  color: #FFA500; /* Laranja */
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #1E3A8A; /* Azul escuro */
+  color: white;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-container {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
+  background-color: #1E3A8A; /* Azul escuro */
+  color: white;
+}
+
+.logo {
+  height: 30px; /* Reduzi a altura do logo */
+}
+
+.navbar-menu-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-menu-container a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu-container a:hover {
+  color: #FFA500; /* Laranja */
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #1E3A8A; /* Azul escuro */
+  color: white;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-container {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+}
+
+.entrar {
+  background-color: #ff8800; /* Laranja */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  margin-top: 0px;
+}
