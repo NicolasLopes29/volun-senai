@@ -1,0 +1,52 @@
+@import url(./Global.css);
+
+.cadastrar-container {
+    text-align: center;
+    font-family: var(--font-family);
+    width: 100%;
+}
+.cadastrar-logo {
+    width: 500px;
+    height: 200px;
+}
+.cadastrar-formulario {
+    padding: 30px 0;
+    font-family: var(--font-family);
+    color: var(--fonte-cor-branco);
+    background-color: var(--cor-principal);
+    text-align: center;
+    height: auto;
+}
+.cadastrar-input-container {
+    display: grid;
+    text-align: center;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+.cadastrar-input-container label {
+    padding-bottom: 5px;
+    font-family: var(--font-family);
+}
+.cadastrar-input-container input {
+    width: 300px;
+    height: 40px;
+    background-color: var(--fundo-input);
+    border: 1px none;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 16px
+}
+.cadastrar-botao-container {
+    font-family: var(--font-family);
+}
+.cadastrar-botao-container button {
+    width: 250px;
+    height: 40px;
+    background-color: var(--cor-secundaria);
+    border-radius: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+}

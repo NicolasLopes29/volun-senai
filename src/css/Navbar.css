@@ -1,32 +1,56 @@
+@import url(./Global.css);
+
 .navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: #1E3A8A; /* Azul escuro */
-  color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 12px;
+    background-color: var(--cor-principal); /* Cor de fundo equivalente a bg-blue-900 */
+    color: var(--fonte-cor-branco);
+    font-family: "Poppins", sans-serif;
 }
 
-.logo {
-  height: 30px; /* Reduzi a altura do logo */
+.navbar-menu-container a{
+    display: inline-flex;
+    gap: 40px;
+    flex-direction: row;
+    padding-right: 20px;
+    text-decoration: none;
+    transition: color 0.3s ease-in;
+    color: var(--fonte-cor-branco);
+    cursor: pointer;
+    align-items: center;
+}
+ 
+.navbar-menu-container li:hover {
+    color: var(--cor-secundaria); /* Cor de hover equivalente a hover:text-orange-500 */
 }
 
-.navbar-menu-container {
-  display: flex;
-  gap: 1rem;
+.navbar-input-pesquisa input{
+    text-align: center;
+    width: 240px;
+    height: 35px;
+    border-radius: 25px;
+}
+  
+.navbar-container button {
+    display: block;
+    width: 200px;
+    height: 30px;
+    border-radius: 16px;
+    font-size: 16px;
+    background-color: var(--cor-secundaria);
+    border: none;
+    color: var(--fonte-cor-branco);
+    cursor: pointer;
 }
 
-.navbar-menu-container a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.navbar-container button:hover {
+    background-color: var(--fundo-principal);
+    color: var(--cor-principal);
 }
-
-.navbar-menu-container a:hover {
-  color: #FFA500; /* Laranja */
-}
-
-.menu-button {
+ 
+.navbar-menu-button {
   display: none;
   background: none;
   border: none;
@@ -34,127 +58,53 @@
   font-size: 28px;
 }
 
-.sidebar {
+.navbar-sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: #1E3A8A; /* Azul escuro */
-  color: white;
+  background-color: var(--cor-terciaria); /* Azul escuro */
+  color: var(--fonte-cor-branco);
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  font-family: var(--font-family);
 }
 
-.sidebar ul {
+.navbar-sidebar ul {
   list-style: none;
   padding: 0;
 }
 
-.sidebar li {
+.navbar-sidebar li {
   margin: 1rem 0;
 }
 
-.sidebar a {
+.navbar-sidebar a {
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
 }
-
+  /* Media Queries */
 @media (max-width: 768px) {
-  .navbar-menu-container {
-    display: none;
+    .navbar-menu-container {
+      display: none;
+      justify-content: space-between;
+    }
+    .navbar-input-pesquisa{
+      display: none;
+    }
+    .navbar-container button {
+      width: 150px;
+    }
+    .navbar-menu-button {
+      display: block;
+    }
   }
 
-  .menu-button {
-    display: block;
-  }
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: #1E3A8A; /* Azul escuro */
-  color: white;
-}
-
-.logo {
-  height: 30px; /* Reduzi a altura do logo */
-}
-
-.navbar-menu-container {
-  display: flex;
-  gap: 1rem;
-}
-
-.navbar-menu-container a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-menu-container a:hover {
-  color: #FFA500; /* Laranja */
-}
-
-.menu-button {
-  display: none;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 28px;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #1E3A8A; /* Azul escuro */
-  color: white;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  margin: 1rem 0;
-}
-
-.sidebar a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-@media (max-width: 768px) {
-  .navbar-menu-container {
-    display: none;
-  }
-
-  .menu-button {
-    display: block;
-  }
-}
-
-.entrar {
-  background-color: #ff8800; /* Laranja */
-  color: white;
-  border: none;
-  padding: 0.3rem 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: "Poppins", sans-serif;
-  margin-top: 0px;
+@media (max-width: 500px) {
+    .navbar-input-pesquisa{
+      display: none;
+    }
 }

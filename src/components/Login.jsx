@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./../css/Login.css";
+import Cadastrar from "./Cadastrar";
 
-const Login = ({onClose}) => {
+const Login = ({fecharLogin}) => {
 
     const SubmitForm = (e) => {
         e.preventDefault();
@@ -14,7 +15,7 @@ const Login = ({onClose}) => {
         <>
             <div className="login-body-container">
                 <div className="login-header-container">
-                    <button className="login-botao-fechar" onClick = {onClose}>✖</button>
+                    <button className="login-botao-fechar" onClick = {fecharLogin}>X</button>
                 </div>
                 <div className="login-main-container">
                     <main>
@@ -22,7 +23,7 @@ const Login = ({onClose}) => {
                             <input id="login-email" type="email" placeholder="Digite o e-mail" />
                             <input id="login-senha" type="password" placeholder="Digite a senha" />
                             <button type="submit">Entrar</button>
-                            <p>Esqueci a senha</p>
+                            <a href="./Recuperar.jsx">Esqueci a senha</a>
                             <div className="others-login">
                                 <div className="login-other">
                                     <a href="#">
@@ -38,7 +39,7 @@ const Login = ({onClose}) => {
                                     </a>
                                 </div>
                                 <div className="login-paragraph">
-                                    <p>Ainda não possui uma conta? Crie uma.</p>
+                                    <p>Ainda não possui uma conta? <a href={"Cadastrar"}>Crie uma conta</a></p>
                                 </div>
                             </div>
                         </form>

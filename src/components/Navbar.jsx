@@ -1,35 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import Modal from "react-modal";
 import Logo from "../assets/images/logo.svg";
 import "./../css/Navbar.css";
 import Login from "./Login";
-import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
+import { IoMdMenu } from "react-icons/io";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [modalAberta, setModalAberta] = useState(false);
+  const [AbrirMenu, setAbrirMenu] = useState(false);
+  const [AbrirLogin, setAbrirLogin] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setAbrirMenu(!AbrirMenu);
   };
-
+  
   return (
     <>
       <nav className="navbar-container">
         <img src={Logo} alt="Logo" className="logo" />
+        <div className="navbar-input-pesquisa">
+          <input type="text" placeholder="busque aqui" />
+        </div>
         <div className="navbar-menu-container">
           <a href="./../pages/Eventos.jsx">Eventos</a>
           <a href="./../pages/Sobre.jsx">Sobre Nós</a>
           <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
         </div>
-        <button className="entrar" type="button" onClick={() => setModalAberta(true)}>Entrar / Registre-se</button>
-        <button className="menu-button" onClick={toggleMenu}>
-          {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
+        <button type="button" onClick={() => setAbrirLogin(true)}>Entrar</button>
+        <button className="navbar-menu-button" onClick={toggleMenu}>
+          {AbrirMenu ? <IoCloseSharp /> : <IoMdMenu />}
         </button>
       </nav>
-      {menuOpen && (
-        <div className="sidebar">
+      {AbrirMenu && (
+        <div className="navbar-sidebar">
           <ul>
             <li><a href="./../pages/Eventos.jsx">Eventos</a></li>
             <li><a href="./../pages/Sobre.jsx">Sobre Nós</a></li>
@@ -38,8 +42,8 @@ const Navbar = () => {
         </div>
       )}
       <Modal
-        isOpen={modalAberta}
-        onRequestClose={() => setModalAberta(false)}
+        isOpen = {AbrirLogin}
+        onRequestClose={() => setAbrirLogin(false)}
         style={{
           overlay: {
             display: 'flex',
@@ -52,14 +56,17 @@ const Navbar = () => {
             top: 50,
             borderRadius: 32,
             textAlign: 'center',
-            backgroundColor: '#FBFBFE',
+            backgroundColor: '#FBFBFE', 
+            width: 500,
           }
         }}
       >
-        <Login onClose={() => setModalAberta(false)} />
+        <Login fecharLogin = {() => setAbrirLogin(false)}></Login>
       </Modal>
     </>
   );
 };
 
 export default Navbar;
+
+
