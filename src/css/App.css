@@ -35,3 +35,36 @@
     background-color: var(--cor-principal);
     color: var(--fonte-cor-branco);
 }
+
+.app-articles-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.article-number-one, .article-number-two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    margin: 50px;
+}
+
+.article-number-two{
+    flex-direction: row-reverse;
+}
+
+.article-number-one img, .article-number-two img {
+    width: 270px;
+    height: 160px;
+    border-radius: 10px;
+}
+
+.article-number-one p, .article-number-two p {
+    width: 280px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
