@@ -9,12 +9,15 @@
 :root {
     /* Cores das Páginas */
     --cor-principal: #1F0171;
-    --cor-secundaria: #FF5C00;
+    --cor-secundaria: #FFA500;
     --cor-terciaria: #280F58;
     --cor-quarta: #4B7CC6;
     --cor-fundo-gradiente: linear-gradient(to right, var(--cor-terciaria), var(--cor-quarta));
     --fundo-principal: #FBFBFE;
     --fundo-input: #E5E5E5;
+
+    /* Sidebar */
+    --sidebar: #1E3A8A;
 
     /* Sombra */
     --sombra: #C5C5C5;

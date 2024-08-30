@@ -38,7 +38,7 @@ const Navbar = () => {
           <a href="./../pages/Sobre.jsx">Sobre Nós</a>
           <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
         </div>
-        <button className="entrar" type="button" onClick={() => setModalAberta(true)}>Entrar / Registre-se</button>
+        <button className="navbar-entrar" type="button" onClick={() => setModalAberta(true)}>Entrar / Registre-se</button>
         <button className="menu-button" onClick={toggleMenu}>
           {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
         </button>
@@ -71,7 +71,7 @@ const Navbar = () => {
           }
         }}
       >
-        <Login onClose={() => setModalAberta(false)} />
+        <Login fecharLogin={() => setModalAberta(false)} />
       </Modal>
     </>
   );

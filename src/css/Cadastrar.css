@@ -3,6 +3,8 @@
 .cadastrar-container {
     text-align: center;
     font-family: var(--font-family);
+    background-image: url(./../assets/wallpaper/cadastrar-wallpaper.svg);
+    background-repeat: no-repeat;
     width: 100%;
 }
 .cadastrar-logo {

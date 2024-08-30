@@ -1,0 +1,37 @@
+@import url(./Global.css);
+
+.app-container {
+    font-family: var(--font-family);
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.app-section-container {
+    display: inline-flex;
+    background: var(--cor-fundo-gradiente);
+    width: 100%;
+    justify-content: space-evenly;
+    height: 400px;
+    align-items: center;
+}
+.app-section-left h3{
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--fonte-cor-branco);
+}
+.app-section-left p{
+    font-size: 24px;
+    color: var(--fonte-cor-branco);
+}
+.app-section-right {
+    text-align: center;    
+}
+.app-section-right p{
+    width: 500px;
+    color: var(--fonte-cor-branco);
+    
+}
+.app-section-right button:hover {
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+}
