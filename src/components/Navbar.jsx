@@ -6,9 +6,26 @@ import Login from "./Login";
 import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 
+const estiloModal = {
+  overlay: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    inset: 'auto',
+    position: 'relative',
+    top: 50,
+    borderRadius: 32,
+    textAlign: 'center',
+    backgroundColor: '#FBFBFE',
+    width: 600,
+  }
+};
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modalAberta, setModalAberta] = useState(false);
+  const [LoginAbrir, setLoginAbrir] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -38,7 +55,7 @@ const Navbar = () => {
           <a href="./../pages/Sobre.jsx">Sobre Nós</a>
           <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
         </div>
-        <button className="navbar-entrar" type="button" onClick={() => setModalAberta(true)}>Entrar / Registre-se</button>
+        <button className="navbar-entrar" type="button" onClick={() => setLoginAbrir(true)}>Entrar / Registre-se</button>
         <button className="menu-button" onClick={toggleMenu}>
           {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
         </button>
@@ -53,25 +70,11 @@ const Navbar = () => {
         </div>
       )}
       <Modal
-        isOpen={modalAberta}
-        onRequestClose={() => setModalAberta(false)}
-        style={{
-          overlay: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          content: {
-            inset: 'auto',
-            position: 'relative',
-            top: 50,
-            borderRadius: 32,
-            textAlign: 'center',
-            backgroundColor: '#FBFBFE',
-          }
-        }}
+        isOpen={LoginAbrir}
+        onRequestClose={() => setLoginAbrir(false)}
+        style={estiloModal}
       >
-        <Login fecharLogin={() => setModalAberta(false)} />
+        <Login fecharLogin={() => setLoginAbrir(false)} />
       </Modal>
     </>
   );

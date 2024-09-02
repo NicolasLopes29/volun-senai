@@ -1,14 +1,14 @@
 import React from "react"
-import Logo from "./../assets/images/logo.svg";
 import "./../css/Cadastrar.css";
 
-const Cadastrar = () => {
-
+const Cadastrar = ({ fecharCadastrar }) => {
     return (
         <>
-            <main className="cadastrar-container">
+            <div className="cadastrar-container">
+                <div className="cadastrar-header">
+                    <button onClick={fecharCadastrar}>X</button>
+                </div>
                 <div className="cadastrar-formulario">
-                    <img className="cadastrar-logo" src={Logo} alt="Logo"/>
                     <div className="cadastrar-input-container">
                         <label htmlFor="cadastrar-email">E-mail: </label>
                         <input id="cadastrar-email" type="email"/>
@@ -25,7 +25,7 @@ const Cadastrar = () => {
                         <button>CADASTRAR</button>
                     </div>
                 </div>
-            </main>
+            </div>
         </>
     );
 }

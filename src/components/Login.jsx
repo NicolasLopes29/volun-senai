@@ -1,8 +1,30 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
+import Recuperacao from "./Recuperacao";
+import Cadastrar from "./Cadastrar";
 
 import "./../css/Login.css";
 
-const Login = ({fecharLogin}) => {
+const estiloModal = {
+    overlay: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    content: {
+      inset: 'auto',
+      position: 'relative',
+      top: 0,
+      borderRadius: 32,
+      textAlign: 'center',
+      backgroundColor: '#FBFBFE',
+      width: 600,
+    }
+};
+
+const Login = ({ fecharLogin }) => {
+    const [RecupAbrir, setRecupAbrir] = useState(false);
+    const [CadastrarAbrir, setCadastrarAbrir] = useState(false);
 
     const SubmitForm = (e) => {
         e.preventDefault();
@@ -14,7 +36,7 @@ const Login = ({fecharLogin}) => {
         <>
             <div className="login-body-container">
                 <div className="login-header-container">
-                    <button className="login-botao-fechar" onClick = {fecharLogin}>X</button>
+                    <button className="login-botao-fechar" onClick={fecharLogin}>X</button>
                 </div>
                 <div className="login-main-container">
                     <main>
@@ -22,7 +44,7 @@ const Login = ({fecharLogin}) => {
                             <input id="login-email" type="email" placeholder="Digite o e-mail" />
                             <input id="login-senha" type="password" placeholder="Digite a senha" />
                             <button type="submit">Entrar</button>
-                            <a href={"Recuperacao"}>Esqueci a senha</a>
+                            <button type="button" onClick={() => setRecupAbrir(true)}>Esqueci a senha</button>
                             <div className="others-login">
                                 <div className="login-other">
                                     <a href="#">
@@ -38,13 +60,28 @@ const Login = ({fecharLogin}) => {
                                     </a>
                                 </div>
                                 <div className="login-paragraph">
-                                    <p>Ainda não possui uma conta? <a href={"Cadastrar"}>Crie uma conta</a></p>
+                                    <p>Ainda não possui uma conta?</p>
+                                    <button type="button" onClick={() => setCadastrarAbrir(true)}>Crie uma conta</button>
                                 </div>
                             </div>
                         </form>
                     </main>
                 </div>
             </div>
+            <Modal
+                isOpen={RecupAbrir}
+                onRequestClose={() => setRecupAbrir(false)}
+                style={estiloModal}
+            >
+                <Recuperacao fecharRecup={() => setRecupAbrir(false)} />
+            </Modal>
+            <Modal
+                isOpen={CadastrarAbrir}
+                onRequestClose={() => setCadastrarAbrir(false)}
+                style={estiloModal}
+            >
+                <Cadastrar fecharCadastrar={() => setCadastrarAbrir(false)}/>
+            </Modal>
         </>        
     );
 }
