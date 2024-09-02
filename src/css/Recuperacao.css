@@ -1,0 +1,34 @@
+@import url(./Global.css);
+
+.recuperacao-container {
+    text-align: center;
+    font-family: var(--font-family);
+    width: 100%;
+    background-color: var(--fundo-principal);
+}
+.recuperacao-form {
+    margin: 185px 50px;
+    text-align: left;
+    align-items: center;
+}
+.recuperacao-form label {
+    font-size: 16px;
+    font-weight: 500;
+    padding-right: 10px;
+}
+.recuperacao-form input {
+    width: 400px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: var(--fundo-input);
+    padding-left: 20px;
+    margin-right: 10px;
+}
+.recuperacao-form button {
+    width: 150px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    cursor: pointer;
+}
