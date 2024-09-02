@@ -1,21 +1,24 @@
 import React from "react";
 
-const Recuperacao = (fecharRecup) => {
+import "./../css/Recuperacao.css"
+
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+
+const Recuperacao = () => {
     return (
         <>
-            <div>
-                <div>
-                    <a href="recup-fechar" onClick={fecharRecup}>X</a>
-                </div>
-                <div>
-                    <label htmlFor="recup-label">Insira o email</label>
-                    <input id="recup-label" type="email" name="recup-label"/>
-                    <button onClick={recupEmail}>Enviar</button>
-                </div>
-            </div>
-            
+            <Navbar />
+                <main className="recuperacao-container">
+                    <div className="recuperacao-form">
+                        <label htmlFor="recup-label">Insira o email: </label>
+                        <input id="recup-label" type="email" name="recup-label" />
+                        <button onClick={"recupEmail"}>Enviar</button>
+                    </div>
+                </main>
+            <Footer />
         </>
     );
 }
 
-export default Recuperacao;
+export default Recuperacao
