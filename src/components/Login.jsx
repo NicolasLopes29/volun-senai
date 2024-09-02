@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import "./../css/Login.css";
-import Cadastrar from "./Cadastrar";
 
 const Login = ({fecharLogin}) => {
 
@@ -23,7 +22,7 @@ const Login = ({fecharLogin}) => {
                             <input id="login-email" type="email" placeholder="Digite o e-mail" />
                             <input id="login-senha" type="password" placeholder="Digite a senha" />
                             <button type="submit">Entrar</button>
-                            <a href="./Recuperar.jsx">Esqueci a senha</a>
+                            <a href={"Recuperacao"}>Esqueci a senha</a>
                             <div className="others-login">
                                 <div className="login-other">
                                     <a href="#">

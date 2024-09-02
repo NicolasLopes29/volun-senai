@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 import Cadastrar from './components/Cadastrar.jsx'
+import Recuperacao from './components/Recuperacao.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
@@ -12,6 +13,7 @@ root.render (
       <Routes>
         <Route path='/' element={<App />}/>
         <Route path='/cadastrar' element={<Cadastrar />}/>
+        <Route path='/recuperacao' element={<Recuperacao />}/>
       </Routes>
     </Router>
   </React.StrictMode>

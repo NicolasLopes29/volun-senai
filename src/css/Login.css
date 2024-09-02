@@ -17,7 +17,7 @@
 .login-botao-fechar {
     width: 20px;
     height: 20px;
-    box-shadow: 0 2px 2px 0 var(--sombra); 
+    box-shadow: var(--botão-shadow); 
 }
 .login-header-container img {
     width: 33%;
@@ -35,15 +35,16 @@
     align-items: center;
 }
 .login-main-form input {
-    background-color: var(--fundo-input);
-    border: none ;
+    background-color: var(--input-background);
+    box-shadow: var(--input-shadow);
+    border: var(--input-border);
     border-radius: 12px;
     padding-left: 20px;
     width: 300px;
     height: 32px;
     margin-bottom: 20px;
     font-size: 16px;
-    box-shadow: 0px 5px 5px 0px var(--sombra);
+    
 }
 .login-main-form button {
     background-color: var(--cor-principal);
@@ -71,7 +72,7 @@
     display: flex;
     background-color: var(--fundo-botao);
     border-radius: 10px;
-    box-shadow: 0px 5px 5px 0px var(--sombra);
+    box-shadow: var(--botão-shadow);
 }
  
 .login-other a{

@@ -32,8 +32,9 @@
 .cadastrar-input-container input {
     width: 300px;
     height: 40px;
-    background-color: var(--fundo-input);
-    border: 1px none;
+    background-color: var(--input-background);
+    box-shadow: var(--input-shadow);
+    border: var(--input-border);
     border-radius: 12px;
     margin-bottom: 10px;
     padding-left: 10px;

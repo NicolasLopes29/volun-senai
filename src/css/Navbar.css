@@ -87,7 +87,7 @@
 }
 
 .navbar-entrar {
-  background-color: #ff8800; /* Laranja */
+  background-color: var(--cor-secundaria); /* Laranja */
   color: white;
   border: none;
   padding: 0.3rem 0.5rem;
