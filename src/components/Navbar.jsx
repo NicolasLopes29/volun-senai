@@ -8,18 +8,27 @@ import { IoCloseSharp } from "react-icons/io5";
 
 const estiloModal = {
   overlay: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+      position: 'fixed',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      top: -50,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      margin: 'auto',
   },
   content: {
-    inset: 'auto',
-    position: 'relative',
-    top: 50,
-    borderRadius: 32,
-    textAlign: 'center',
-    backgroundColor: '#FBFBFE',
-    width: 600,
+      top: 20,
+      right: 40,
+      bottom: 20,
+      left: 40,
+      borderRadius: 32,
+      position: 'relative',
+      textAlign: 'center',
+      backgroundColor: '#FBFBFE',
+      width: 500,
   }
 };
 
