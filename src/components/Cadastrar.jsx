@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import Logo from "./../assets/logos/logo-name.svg"
 import "./../css/Cadastrar.css";
 
 const Cadastrar = ({ fecharCadastrar }) => {
@@ -8,6 +9,7 @@ const Cadastrar = ({ fecharCadastrar }) => {
                 <div className="cadastrar-header">
                     <button onClick={fecharCadastrar}>X</button>
                 </div>
+                <img src={Logo} alt="Logo"/>
                 <div className="cadastrar-formulario">
                     <div className="cadastrar-input-container">
                         <label htmlFor="cadastrar-email">E-mail: </label>

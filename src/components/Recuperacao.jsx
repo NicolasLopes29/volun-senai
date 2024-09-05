@@ -1,5 +1,5 @@
 import React from "react";
-
+import Logo from "./../assets/logos/logo-name.svg"
 import "./../css/Recuperacao.css"
 
 
@@ -10,7 +10,8 @@ const Recuperacao = ({ fecharRecup }) => {
                 <div className="recuperacao-header">
                     <button onClick={fecharRecup}>X</button>
                 </div>
-                <div className="recuperacao-main">
+                <img src={Logo} alt="Logo"/>
+                <div className="recuperacao-main">                    
                     <h3>RECUPERAÇÃO DE SENHA</h3>
                     <p>Insira o email para a recuperação de senha: </p>
                     <div className="recuperacao-form">
