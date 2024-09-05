@@ -46,3 +46,22 @@
 
 }
 
+/* Estilo para a camada de overlay */
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5); /* Cor de fundo com opacidade */
+}
+
+/* Estilo para o conteúdo do modal */
+.content {
+    position: relative;
+    top: 0;
+    inset: auto; /* Esse valor geralmente não é necessário no CSS */
+    border-radius: 32px;
+    text-align: center;
+    background-color: #FBFBFE;
+    width: 500px;
+    height: auto;
+}
