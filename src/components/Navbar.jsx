@@ -59,6 +59,10 @@ const Navbar = () => {
     <>
       <nav className="navbar-container">
         <img src={Logo} alt="Logo" className="logo" />
+        <div className="search-navbar">
+          <img  id="search-icon" src="src\assets\images\lupa.png" alt="" />
+          <input type="text" placeholder="busque aqui" />
+        </div>
         <div className="navbar-menu-container">
           <a href="./../pages/Eventos.jsx">Eventos</a>
           <a href="./../pages/Sobre.jsx">Sobre Nós</a>

@@ -17,9 +17,10 @@
     margin-bottom: 20px;
 }
 .footer-logo img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
+
 .footer-links {
     flex-direction: column;
 }
