@@ -3,13 +3,13 @@ import React, { useState } from "react";
 const DadosPessoal = () => {
     const [DadosPagina, setDadosPagina] = useState(1);
 
-    /*const proxPasso = () => {
+    const proxPasso = () => {
         setDadosPagina(DadosPagina + 1)
     }
 
     const antPasso = () => {
         setDadosPagina(DadosPagina - 1)
-    }*/
+    }
 
     const PassoPagina = () => {
         switch (DadosPagina) {

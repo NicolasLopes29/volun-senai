@@ -89,7 +89,6 @@ const Login = ({ fecharLogin, setLoginAbrir }) => {
                 isOpen={CadastrarAbrir}
                 onRequestClose={() => setCadastrarAbrir(false)}
                 style={estiloModalSecundaria}
-                onAfterOpen={() => setLoginAbrir(false)}
             >
                 <Cadastrar fecharCadastrar={() => setCadastrarAbrir(false)}/>
             </Modal>
