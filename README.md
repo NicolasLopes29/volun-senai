@@ -15,5 +15,4 @@ Este projeto é o Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvime
 - **Hospedagem:** Vercel
 
 
-
 <img width="543" border-radius="16" alt="Captura de tela 2024-09-04 083636" src="https://github.com/user-attachments/assets/60f3c1bb-0b29-4e7f-884e-d5249c41b224">
