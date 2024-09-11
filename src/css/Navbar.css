@@ -30,19 +30,21 @@
   color: var(--cor-secundaria); /* Laranja */
 }
 
-
- .search-navbar{
+.search-navbar {
   justify-content: center;
   align-items: center;
   display: flex;
- }
-.search-navbar input{
-  text-align: center;
-  width: 100%;
-  height: 20px;
+  width: 50%; /* Aumenta a largura da barra de pesquisa */
+  position: relative; /* Necessário para posicionar o ícone */
+}
+
+.search-navbar input {
+  text-align: left; /* Alinha o texto à esquerda */
+  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  height: 30px; /* Aumenta a altura do input */
   line-height: 28px;
   padding: 0 1rem;
-  padding-left: 2.5rem;
+  padding-left: 2.5rem; /* Espaço para o ícone */
   border: 2px solid transparent;
   border-radius: 10px;
   outline: none;
@@ -50,12 +52,13 @@
   color: #0d0c22;
   transition: 0.3s ease;
 }
-.search-navbar #search-icon{
-  padding-right: 12rem;
+
+.search-navbar #search-icon {
+  position: absolute;
+  left: 10px; /* Alinha o ícone à esquerda */
   width: 15px;
   height: 15px;
-  position: absolute;
-  fill: #9e9ea7;
+  opacity: 0.5; /* Diminui a opacidade do ícone */
 }
 
 .menu-button {
