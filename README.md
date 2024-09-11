@@ -1,7 +1,7 @@
 # Volun
 
 ## Descrição
-Este projeto é o Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvimento de Sistemas do SENAI. A ferramenta de voluntariado, chamada Volun, permite que organizações divulguem oportunidades de voluntariado e se conectem com usuários interessados em contribuir.
+Este projeto é o Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvimento de Sistemas do SENAI. A ferramenta de voluntariado, chamada Volun, permite que organizações divulguem oportunidades de voluntariado e se conectem com usuários interessados em contribuir
 
 ## Funcionalidades
 - **Divulgação de Oportunidades:** Organizações podem criar e gerenciar anúncios de oportunidades de voluntariado.
