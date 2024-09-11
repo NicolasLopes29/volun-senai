@@ -1,0 +1,122 @@
+@import url(./Global.css);
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
+  background-color: var(--cor-principal); /* Azul escuro */
+  color: var(--fonte-cor-branco);
+  font-family: var(--font-family);
+}
+
+.logo {
+  height: 30px; 
+}
+
+.navbar-menu-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-menu-container a {
+  color: var(--fonte-cor-branco);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 12px;
+}
+
+.navbar-menu-container a:hover {
+  color: var(--cor-secundaria); /* Laranja */
+}
+
+.search-navbar {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 50%; /* Aumenta a largura da barra de pesquisa */
+  position: relative; /* Necessário para posicionar o ícone */
+}
+
+.search-navbar input {
+  text-align: left; /* Alinha o texto à esquerda */
+  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  height: 30px; /* Aumenta a altura do input */
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem; /* Espaço para o ícone */
+  border: 2px solid transparent;
+  border-radius: 10px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+.search-navbar #search-icon {
+  position: absolute;
+  left: 10px; /* Alinha o ícone à esquerda */
+  width: 15px;
+  height: 15px;
+  opacity: 0.5; /* Diminui a opacidade do ícone */
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--fonte-cor-branco);
+  font-size: 28px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: var(--sidebar); /* Azul escuro */
+  color: var(--fonte-cor-branco);
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-family: var(--font-family);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
+  color: var(--fonte-cor-branco);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-container {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+}
+
+.navbar-entrar {
+  background-color: var(--cor-secundaria); /* Laranja */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  margin-top: 0px;
+}
