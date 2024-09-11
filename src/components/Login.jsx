@@ -77,7 +77,7 @@ const Login = ({ fecharLogin, setLoginAbrir, onLoginSuccess }) => {
     <>
       <div className="login-body-container">
         <div className="login-header-container">
-          <button className="login-botao-fechar" onClick={fecharLogin}>X</button>
+          <button className="login-botao-fechar" onClick={fecharLogin}></button>
         </div>
         <div className="login-main-container">
           <main>
