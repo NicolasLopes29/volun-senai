@@ -25,9 +25,7 @@ const App = () => {
           <div className="article-number-one">
             <img src="https://i.pinimg.com/474x/b6/11/18/b611184e6e47ecfeff928ac382b5dd37.jpg"/>
             <p>
-            TecdEa consequatur repellendus nam voluptatem
-            earum id sapiente voluptate eos impedit sunt vel dolores sunt.
-            Sit veritatis laboriosam ex natus laboriosam..
+            Alguma coisa alguma coisaaaaaaaaaaaaaa alguma coisa
             </p>
           </div>
           <div className="article-number-two">
@@ -36,8 +34,15 @@ const App = () => {
             TecdEa consequatur repellendus nam voluptatem earum id sapiente voluptate eos impedit sunt vel dolores sunt.
             Sit veritatis laboriosam ex natus laboriosam..
             </p>
+            
           </div>
+           
         </article>
+        <div className="app-destaque-container">
+          <h1>Em destaque</h1>
+          <h2>Eventos e causas esperando por você</h2>
+        </div>
+
       </div>
       <Footer />
     </>
