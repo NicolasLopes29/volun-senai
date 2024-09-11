@@ -10,7 +10,7 @@ Este projeto é o Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvime
 - **Notificações:** Sistema de notificações para manter os usuários informados sobre novas oportunidades e atualizações.
 
 ## Tecnologias Utilizadas
-- **Frontend:** React.js
+- **Frontend:** React
 - **Banco de Dados:** Firebase
 - **Hospedagem:** Vercel
 
