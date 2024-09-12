@@ -1,45 +1,67 @@
+
 import React, { useState } from "react";
-import Logo from "./../assets/logos/logo-name.svg"
+import Logo from "./../assets/logos/logo-name.svg";
 import "./../css/Cadastrar.css";
-import axios from "axios";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate } from "react-router";
+import { auth } from "./../services/firebase-config"; // Importa a configuração do Firebase
 
 const Cadastrar = ({ fecharCadastrar }) => {
     const [cadastrarEmail, setCadastrarEmail] = useState("");
     const [cadastrarSenha, setCadastrarSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
-    
+
     const [sucesso, setSucesso] = useState(false);
-    const [erro, setErro] = useState(false);
-    
+    const [erro, setErro] = useState("");
+
     const navigate = useNavigate();
-    
+
+    // Validação de email
+    const validarEmail = (email) => {
+        const regex = /\S+@\S+\.\S+/;
+        return regex.test(email);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (confirmarSenha === cadastrarSenha) {
-            try {
-                const response = await axios.post("https:\\volun-api-eight.vercel.app/login/create", {
-                    email: cadastrarEmail,
-                    password: cadastrarSenha,
-                });
 
-                if (response.status === 201) {
-                    setSucesso(true);
-                    setErro(false);
-                    navigate("./DadosPessoal.jsx");
-                    // Optionally, reset the form or close the modal
-                }
-            }
-            catch (error) {
-                setSucesso(true);
-                setErro(false);
-            }
+        // Verifica se os campos não estão vazios
+        if (!cadastrarEmail.trim() || !cadastrarSenha.trim() || !confirmarSenha.trim()) {
+            setErro("Preencha todos os campos.");
+            return;
         }
-        else {
-            setErro(true);
+
+        // Verifica o formato do email
+        if (!validarEmail(cadastrarEmail)) {
+            setErro("Formato de email inválido.");
+            return;
+        }
+
+        // Verifica se as senhas coincidem
+        if (cadastrarSenha !== confirmarSenha) {
+            setErro("As senhas não coincidem.");
+            return;
+        }
+
+        try {
+            // Criação do usuário no Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, cadastrarEmail, cadastrarSenha);
+            const user = userCredential.user;
+
+            // Envio de email de verificação
+            await sendEmailVerification(user);
+
+            setSucesso("Cadastro realizado com sucesso! Verifique seu email para ativar a conta.");
+            setErro(null);
+
+            // Redireciona para a página de dados pessoais após o envio do email de verificação
+            navigate("/dados");
+
+        } catch (error) {
+            setErro("Erro ao cadastrar: " + error.message);
             setSucesso(false);
         }
-    }
+    };
 
     return (
         <>
@@ -47,29 +69,44 @@ const Cadastrar = ({ fecharCadastrar }) => {
                 <div className="cadastrar-header">
                     <button onClick={fecharCadastrar}>X</button>
                 </div>
-                <img src={Logo} alt="Logo"/>
+                <img src={Logo} alt="Logo" />
                 <div className="cadastrar-formulario" onSubmit={handleSubmit}>
                     <div className="cadastrar-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>
-                        <input type="email" name="cadastrarEmail" value={cadastrarEmail} onChange={(e) => setCadastrarEmail(e.target.value)}/>
+                        <input
+                            type="email"
+                            name="cadastrarEmail"
+                            value={cadastrarEmail}
+                            onChange={(e) => setCadastrarEmail(e.target.value)}
+                        />
                     </div>
                     <div className="cadastrar-input-container">
                         <label htmlFor="cadastrarSenha">Senha: </label>
-                        <input  type="password" name="cadastrarSenha" value={cadastrarSenha} onChange={(e) => setCadastrarSenha(e.target.value)}/>
+                        <input
+                            type="password"
+                            name="cadastrarSenha"
+                            value={cadastrarSenha}
+                            onChange={(e) => setCadastrarSenha(e.target.value)}
+                        />
                     </div>
                     <div className="cadastrar-input-container">
                         <label htmlFor="confirmarSenha">Confirmar a Senha: </label>
-                        <input type="password" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)}/>
+                        <input
+                            type="password"
+                            name="confirmarSenha"
+                            value={confirmarSenha}
+                            onChange={(e) => setConfirmarSenha(e.target.value)}
+                        />
                     </div>
                     <div className="cadastrar-botao-container">
                         <button type="submit" onClick={handleSubmit}>CADASTRAR</button>
                     </div>
-                    {sucesso && <p>Cadastro realizado com sucesso!</p>}
-                    {erro && <p>Ocorreu um erro no cadastro.</p>}
+                    {sucesso && <p>{sucesso}</p>}
+                    {erro && <p>{erro}</p>}
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default Cadastrar;
