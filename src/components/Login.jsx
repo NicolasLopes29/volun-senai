@@ -33,7 +33,7 @@ const estiloModalSecundaria = {
   },
 };
 
-const Login = ({ fecharLogin, setLoginAbrir, onLoginSuccess }) => {
+const Login = ({ fecharLogin, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState(null);
@@ -122,7 +122,6 @@ const Login = ({ fecharLogin, setLoginAbrir, onLoginSuccess }) => {
         isOpen={RecupAbrir}
         onRequestClose={() => setRecupAbrir(false)}
         style={estiloModalSecundaria}
-        onAfterOpen={() => setLoginAbrir(false)}
       >
         <Recuperacao fecharRecup={() => setRecupAbrir(false)} />
       </Modal>

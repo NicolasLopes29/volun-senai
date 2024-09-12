@@ -105,6 +105,9 @@ const Cadastrar = ({ fecharCadastrar }) => {
                     {erro && <p>{erro}</p>}
                 </div>
             </div>
+            <Modal>
+                
+            </Modal>
         </>
     );
 };

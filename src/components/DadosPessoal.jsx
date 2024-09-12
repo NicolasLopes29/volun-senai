@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
     const [dadosNome, setDadosNome] = useState("");
@@ -28,14 +29,14 @@ const DadosPessoal = () => {
 
     const buscarCEP = async (e) => {
         e.preventDefault();
-        const cep = dadosBairro
-
-        if (cep.length === 8){
+        const cep = dadosCEP.replace(/\D/g, '');
+        if (cep.length >= 8){
             try {
-                const response = await fetch(`viacep.com.br/ws/${cep}/json/`)
+                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 const data = await response.json();
 
                 if (! data.erro) {
+                    setDadosCEP(data.cep);
                     setDadosEndereco(data.logradouro);
                     setDadosBairro(data.bairro);
                     setDadosCidade(data.localidade);
@@ -91,46 +92,46 @@ const DadosPessoal = () => {
                     <h4>Insira os dados pessoais</h4>
                     <div>
                         <label htmlFor="dadosNome">Nome: </label>
-                        <input type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
+                        <input className="dados-input" type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
                         <label htmlFor="dadosSobrenome">Sobrenome: </label>
-                        <input type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)}/>
+                        <input className="dados-input" type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)}/>
                     </div>
                     <div>
                         <label htmlFor="dadosCPF">CPF: </label>
-                        <input type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)}/>
+                        <input className="dados-input-medio" type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)}/>
                     </div>
                     <div>
                         <label htmlFor="dadosDataNasc">Data de Nascimento: </label>
-                        <input type="date" name="dadosDataNasc" value={dadosDataNasc} onChange={(e) => setDadosDataNasc(e.target.value)}/>
+                        <input className="dados-input-medio" type="date" name="dadosDataNasc" value={dadosDataNasc} onChange={(e) => setDadosDataNasc(e.target.value)}/>
                     </div>
                     <div>
                         <label htmlFor="dadosDDD">DDD: </label>
-                        <input type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)}/>
+                        <input className="dados-input-pequeno" type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)}/>
                         <label htmlFor="dadosTelefone">Telefone: </label>
-                        <input type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)}/>
+                        <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)}/>
                     </div>
                 </div>
                 <div className="dados-endereco-container">
                     <div>
                         <label htmlFor="dadosCEP">CEP: </label>
-                        <input type="text" name="dadosCEP" value={dadosCEP} onChange={(e) => setDadosCEP(e.target.value)}/>
+                        <input className="dados-input-medio" type="text" name="dadosCEP" value={dadosCEP} onChange={(e) => setDadosCEP(e.target.value)}/>
                         <button type="submit" onClick={buscarCEP}>Buscar</button>
                     </div>
                     <div>
                         <label htmlFor="dadosEndereco">Endereço: </label>
-                        <input type="text" name="dadosEndereco" value={dadosEndereco} onChange={(e) => setDadosEndereco(e.target.value)}/>
+                        <input className="dados-input-grande" type="text" name="dadosEndereco" value={dadosEndereco} onChange={(e) => setDadosEndereco(e.target.value)}/>
                         <label htmlFor="dadosNumero">Numero: </label>
-                        <label type="text" name="dadosNumero" value={dadosNumero} onChange={(e) => setDadosNumero(e.target.value)}/>
+                        <input className="dados-input-pequeno" type="text" name="dadosNumero" value={dadosNumero} onChange={(e) => setDadosNumero(e.target.value)}/>
                     </div>
                     <div>
                         <label htmlFor="dadosBairro">Bairro: </label>
-                        <input type="text" name="dadosBairro" value={dadosBairro} onChange={(e) => setDadosBairro(e.target.value)}/>
+                        <input className="dados-input" type="text" name="dadosBairro" value={dadosBairro} onChange={(e) => setDadosBairro(e.target.value)}/>
                     </div>
                     <div>
                         <label htmlFor="dadosCidade">Cidade: </label>
-                        <input type="text" name="dadosCidade" value={dadosCidade} onChange={(e) => setDadosCidade(e.target.value)}/>
+                        <input className="dados-input-grande" type="text" name="dadosCidade" value={dadosCidade} onChange={(e) => setDadosCidade(e.target.value)}/>
                         <label htmlFor="dadosEstado">Estado: </label>
-                        <select name="dadosEstado" value={dadosEstado} onChange={(e) => setDadosEstado}>
+                        <select className="dados-input-pequeno" name="dadosEstado" value={dadosEstado} onChange={(e) => setDadosEstado(e.target.value)}>
                             <option>-- selecione o estado --</option>
                             {Estado().map((estado, index) => (
                                 <option key={index} value={estado}>

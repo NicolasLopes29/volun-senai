@@ -52,12 +52,9 @@
     color: var(--fonte-cor-branco);
     cursor: pointer;
 }
-
-
 .notificacao-sucesso {
     margin-top: 20px;
 }
-
 .notificacao-sucesso p {
     color: var(--sucesso-fonte-cor);
     margin-bottom: 10px; /* Espaço entre o texto e o botão */
