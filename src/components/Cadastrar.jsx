@@ -1,115 +1,77 @@
+import React from "react";
+import { useState } from "react";
 
-import React, { useState } from "react";
-import Logo from "./../assets/logos/logo-name.svg";
-import "./../css/Cadastrar.css";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { useNavigate } from "react-router";
-import { auth } from "./../services/firebase-config"; // Importa a configuração do Firebase
+import DadosIniciais from "./DadosIniciais";
+import DadosPessoal from "./DadosPessoal";
+import DadosEndereco from "./DadosEndereco";
 
-const Cadastrar = ({ fecharCadastrar }) => {
-    const [cadastrarEmail, setCadastrarEmail] = useState("");
-    const [cadastrarSenha, setCadastrarSenha] = useState("");
-    const [confirmarSenha, setConfirmarSenha] = useState("");
+const Cadastrar = () => {
+    const [Passo, setPasso] = useState(1);
 
-    const [sucesso, setSucesso] = useState(false);
-    const [erro, setErro] = useState("");
+    const ProxPasso = () => {
+        if (Passo < 3 ) setPasso(Passo + 1);
+    }
+    const AntPasso = () => {
+        if (Passo > 1) setPasso(Passo - 1);
+    }
 
-    const navigate = useNavigate();
-
-    // Validação de email
-    const validarEmail = (email) => {
-        const regex = /\S+@\S+\.\S+/;
-        return regex.test(email);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // Verifica se os campos não estão vazios
-        if (!cadastrarEmail.trim() || !cadastrarSenha.trim() || !confirmarSenha.trim()) {
-            setErro("Preencha todos os campos.");
-            return;
-        }
-
-        // Verifica o formato do email
-        if (!validarEmail(cadastrarEmail)) {
-            setErro("Formato de email inválido.");
-            return;
-        }
-
-        // Verifica se as senhas coincidem
-        if (cadastrarSenha !== confirmarSenha) {
-            setErro("As senhas não coincidem.");
-            return;
-        }
-
-        try {
-            // Criação do usuário no Firebase Authentication
-            const userCredential = await createUserWithEmailAndPassword(auth, cadastrarEmail, cadastrarSenha);
-            const user = userCredential.user;
-
-            // Envio de email de verificação
-            await sendEmailVerification(user);
-
-            setSucesso("Cadastro realizado com sucesso! Verifique seu email para ativar a conta.");
-            setErro(null);
-
-            // Redireciona para a página de dados pessoais após o envio do email de verificação
-            navigate("/dados");
-
-        } catch (error) {
-            setErro("Erro ao cadastrar: " + error.message);
-            setSucesso(false);
+    const PaginaRender = () => {
+        switch (Passo) {
+            case 1:
+                return (
+                    <div>
+                        <div>
+                            <h2>Etapa 1: Dados Iniciais</h2>
+                            <DadosIniciais />
+                        </div>
+                        <div>
+                            <button disabled></button>
+                            <button onClick={ProxPasso}>Proximo Passo</button>
+                        </div>
+                    </div>
+                    
+                );
+            case 2:
+                return (
+                    <div>
+                        <div>
+                            <h2>Etapa 2: Dados Pessoais</h2>
+                            <DadosPessoal />
+                        </div>
+                        <div>
+                            <button onClick={AntPasso}>Voltar</button>
+                            <button onClick={ProxPasso}>Proximo</button>
+                        </div>
+                    </div>
+                );
+            case 3:
+                return (
+                    <div>
+                        <div>
+                            <h2>Etapa 3: Endereço</h2>
+                            <DadosEndereco />
+                        </div>
+                        <div>
+                            <button onClick={AntPasso}>Voltar</button>
+                            <button onClick={ProxPasso}>Proximo</button>
+                        </div>
+                        
+                    </div>
+                );
+            default:
+                return <h2>Formulário Completo!</h2>;
         }
     };
 
     return (
         <>
-            <div className="cadastrar-container">
-                <div className="cadastrar-header">
-                    <button onClick={fecharCadastrar}>X</button>
-                </div>
-                <img src={Logo} alt="Logo" />
-                <div className="cadastrar-formulario" onSubmit={handleSubmit}>
-                    <div className="cadastrar-input-container">
-                        <label htmlFor="cadastrarEmail">E-mail: </label>
-                        <input
-                            type="email"
-                            name="cadastrarEmail"
-                            value={cadastrarEmail}
-                            onChange={(e) => setCadastrarEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="cadastrar-input-container">
-                        <label htmlFor="cadastrarSenha">Senha: </label>
-                        <input
-                            type="password"
-                            name="cadastrarSenha"
-                            value={cadastrarSenha}
-                            onChange={(e) => setCadastrarSenha(e.target.value)}
-                        />
-                    </div>
-                    <div className="cadastrar-input-container">
-                        <label htmlFor="confirmarSenha">Confirmar a Senha: </label>
-                        <input
-                            type="password"
-                            name="confirmarSenha"
-                            value={confirmarSenha}
-                            onChange={(e) => setConfirmarSenha(e.target.value)}
-                        />
-                    </div>
-                    <div className="cadastrar-botao-container">
-                        <button type="submit" onClick={handleSubmit}>CADASTRAR</button>
-                    </div>
-                    {sucesso && <p>{sucesso}</p>}
-                    {erro && <p>{erro}</p>}
-                </div>
-            </div>
-            <Modal>
-                
-            </Modal>
+            <main>
+                <div>
+                    <PaginaRender />
+                </div>        
+            </main>
         </>
     );
-};
+}
 
 export default Cadastrar;

@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from "../services/firebase-config"; 
 import Recuperacao from "./Recuperacao";
-import Cadastrar from "./Cadastrar";
+import { useNavigate } from "react-router";
 
 import "./../css/Login.css";
 
@@ -33,15 +33,15 @@ const estiloModalSecundaria = {
   },
 };
 
-const Login = ({ fecharLogin, onLoginSuccess }) => {
+const Login = ({ fecharLogin }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState(null);
   const [RecupAbrir, setRecupAbrir] = useState(false);
-  const [CadastrarAbrir, setCadastrarAbrir] = useState(false);
 
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   // Função para logar com email e senha
   const handleLogin = (e) => {
@@ -72,6 +72,10 @@ const Login = ({ fecharLogin, onLoginSuccess }) => {
         setError("Erro ao logar com Google: " + error.message);
       });
   };
+
+  const CadastrarRedir = () => {
+    navigate("./cadastrar");
+  }
 
   return (
     <>
@@ -111,7 +115,7 @@ const Login = ({ fecharLogin, onLoginSuccess }) => {
                 </div>
                 <div className="login-paragraph">
                   <p>Ainda não possui uma conta?</p>
-                  <button type="button" onClick={() => setCadastrarAbrir(true)}>Crie uma conta</button>
+                  <button type="button" onClick={CadastrarRedir}>Crie uma conta</button>
                 </div>
               </div>
             </form>
@@ -124,13 +128,6 @@ const Login = ({ fecharLogin, onLoginSuccess }) => {
         style={estiloModalSecundaria}
       >
         <Recuperacao fecharRecup={() => setRecupAbrir(false)} />
-      </Modal>
-      <Modal
-        isOpen={CadastrarAbrir}
-        onRequestClose={() => setCadastrarAbrir(false)}
-        style={estiloModalSecundaria}
-      >
-        <Cadastrar fecharCadastrar={() => setCadastrarAbrir(false)} />
       </Modal>
     </>
   );
