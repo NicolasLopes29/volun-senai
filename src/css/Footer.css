@@ -1,80 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-}
+@import url(./Global.css);
 
 .footer-container {
-    background-color: #1E40AF;
-    color: #FFF;
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
     display: block;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 30px 50px;
+    padding: 20px 0px;
     text-align: center;
-    font-family: "Poppins", sans-serif;
-}  
+    font-family: var(--font-family);
+    width: 100%;
+}
 .footer-row {
     display: flex;
-    gap: 50px;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.footer-logo img {
+    width: 80px;
+    height: 80px;
+}
+
+.footer-links {
     flex-direction: column;
 }
-.footer-logo {
-    width: 150px;
-    height: 150px;
-    margin-right: 200px;
-    align-items: center;
-}
-.footer-links {
-    margin-right: 200px;
-}
+.footer-links a{
+    display: block;
+    text-decoration: none;
+    color: var(--fonte-cor-branco);
+    padding-bottom: 10px;
+} 
 .footer-social-icons {
     display: flex;
-    gap: 10px;
-    font-size: 22px;
+    align-items: center;
 }
-.footer-social-icons div {
-    cursor: pointer;
-    transition: color 0.3s ease-in;
-}  
-.footer-social-icons div:hover {
-    color: #FF5C00; /* hover:text-Lime-Green */
-}  
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-}  
-.footer-links a {
-    color: white;
-    transition: color 0.3s ease-in;
-    text-decoration: none;
-}  
-.footer-links a:hover {
-    color: #FF5C00; /* hover:text-Lime-Green */
-}  
-.footer-rights {
-    color: #6b7280; /* text-Grayish-Blue */
-    font-size: 14px;
-    margin-top: 10px;
-}
-  
-  /* Media Queries */
-@media (min-width: 768px) {
-    .footer-container {
-      flex-direction: row;
-    }
-  
-    .footer-row {
-      flex-direction: row;
-      gap: 40px;
-    }
-  
-    .footer-links {
-      align-items: center;
-    }
+.footer-icons{
+    padding-right:5px ;
 }

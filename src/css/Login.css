@@ -1,84 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url(./Global.css);
 
 * {
-    margin: 0;
-    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; /* Tamanho de fonte padronizado */
 }
+
 .login-body-container {
-    text-align: center; 
-    display: flex;  
+    text-align: center;
+    justify-content: center;
+    display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #FBFBFF;
-    color: #000;
-    font-family: "Poppins", sans-serif;
-    
+    background-color: var(--fundo-principal);
+    color: var(--fonte-cor-preto);
 }
+
 .login-header-container {
     height: auto;
     margin: 20px 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinha todos os itens à esquerda */
+    justify-content: space-between;
+    align-items: center;
 }
+
 .login-botao-fechar {
-    background-color: rgba(255, 0, 0, 0);
-    width: 40px; /* Aumenta a largura do botão */
-    height: 40px; /* Aumenta a altura do botão */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+    border-radius: 50%;
     border: none;
-    align-self: flex-start; /* Alinha o botão individualmente à esquerda */
-    margin-left: 20px; /* Ajusta a posição do botão conforme necessário */
-    font-size: 22px; /* Ajusta o tamanho da fonte, se necessário */
-    color: gray; /* Define a cor da fonte como cinza */
-    transition: color 0.3s ease; /* Adiciona uma transição suave para a mudança de cor */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .login-botao-fechar:hover {
-    color: #4d4d4d; /* Define a cor da fonte como 10% mais escura no hover */
+    background-color: black;
+    transform: scale(1.1);
 }
+
+.login-botao-fechar::before {
+    content: '✖'; /* Unicode character for a close icon */
+    font-size: 16px;
+}
+
 .login-header-container img {
     width: 33%;
     height: 33%;
 }
+
 .login-main-container {
-    margin: 0px 100px;
+    margin: 0px 50px;
     border-radius: 12px;
 }
+
 .login-main-form {
-    margin: 50px 0px;
+    margin: 10px 0px;
     justify-content: baseline;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.login-main-form input,
+.login-main-form button {
+    width: 300px;
+    height: 40px; /* Altura padronizada */
+}
+
 .login-main-form input {
-    background-color: #E5E5E5;
-    border: none ;
+    background-color: var(--input-background);
+    border: var(--input-border);
     border-radius: 12px;
     padding-left: 20px;
-    width: 300px;
-    height: 32px;
     margin-bottom: 20px;
-    font-size: 16px;
-    box-shadow: 0px 5px 5px 0px #C5C5C5;
 }
+
 .login-main-form button {
-    background-color: #1F0171;
-    color: #FBFBFF;
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
     border-radius: 16px;
     border: none;
-    width: 300px;
-    height: 40px;
-    font-size: 16px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
+
 .login-main-form p {
     font-size: 12px;
 }
+
 .others-login {
     margin: 15px 0;
 }
-.login-other{
+
+.login-other {
     width: 400px;
     height: 30px;
     margin: 15px;
@@ -86,37 +105,33 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: #FBFBFF;
     border-radius: 10px;
-    box-shadow: 0px 5px 5px 0px #C5C5C5;
 }
- 
-.login-other a{
+
+.login-other a {
+    background-color: var(--botao-tela-branco);
     justify-content: center;
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #000;
+    color: var(--fonte-cor-preto);
     font-size: 32px;
 }
- 
-.icon-log{
+
+.icon-log {
     display: flex;
-    padding: 10px;
+    padding-right: 10px;
     width: 30px;
     height: 30px;
     justify-content: center;
     align-items: center;
 }
-.login-paragraph {
-    margin-top: 15px;
-    font-size: 12px;
-}   
 
-.entrar {
-    margin-top: 15px;
+.login-paragraph {
+    margin-top: 10px;
     font-size: 12px;
-    color: #1F0171;
-    text-decoration: none;
-    border-radius: 12px;
+}
+
+.login-paragraph button {
+    cursor: pointer;
 }

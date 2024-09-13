@@ -1,21 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import "./App.css";
-import Modal from "react-modal";
+import "./css/App.css";
 
-import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 const App = () => {
-  const [ModalAberta, setModalAberta] = useState(false);
-
-  const navigate = useNavigate();
-
-  const registraLink = () => {
-    navigate ("/registrar")
-  };
-
   return (
     <>
       <Navbar/>
@@ -26,37 +15,36 @@ const App = () => {
             <p>A sua plataforma de Voluntariado</p>
           </div>
           <div className="app-section-right">
-            <button type="button" onClick={registraLink}>Registrar</button>
-            <button type="button" onClick={() => setModalAberta(true)}>Entrar</button>
+            <p>Olá! Somos a VOLUN Uma empresa que visa lhe oferecer 
+              eventos de voluntários para que você, possa participar!
+              Tanto como voluntário, como organizador de evento!  
+            </p>
           </div>
         </section>  
-        <article>
+        <article className="app-articles-container">
+          <div className="article-number-one">
+            <img src="https://i.pinimg.com/474x/b6/11/18/b611184e6e47ecfeff928ac382b5dd37.jpg"/>
+            <p>
+            Alguma coisa alguma coisaaaaaaaaaaaaaa alguma coisa
+            </p>
+          </div>
+          <div className="article-number-two">
+            <img src="https://i.pinimg.com/474x/b6/11/18/b611184e6e47ecfeff928ac382b5dd37.jpg"/>
+            <p>
+            TecdEa consequatur repellendus nam voluptatem earum id sapiente voluptate eos impedit sunt vel dolores sunt.
+            Sit veritatis laboriosam ex natus laboriosam..
+            </p>
             
+          </div>
+           
         </article>
+        <div className="app-destaque-container">
+          <h1>Em destaque</h1>
+          <h2>Eventos e causas esperando por você</h2>
+        </div>
+
       </div>
       <Footer />
-      <Modal
-        isOpen = {ModalAberta}
-        onRequestClose={() => setModalAberta(false)}
-        style={{
-          overlay: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.75)', // Fundo escuro com opacidade
-          },
-          content: {
-            inset: 'auto',
-            position: 'relative',
-            top: 50,
-            borderRadius: 32,
-            textAlign: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          }
-        }}
-      >
-        <Login onClose = {() => setModalAberta(false)}></Login>
-      </Modal>
     </>
   );
 }
