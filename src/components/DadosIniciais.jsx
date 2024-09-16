@@ -1,9 +1,10 @@
-
 import React, { useState } from "react";
 
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { auth } from "../services/firebase-config"; // Importa a configuração do Firebase
+
+import "./../css/DadosIniciais.css"
 
 const DadosIniciais = () => {
     const [cadastrarEmail, setCadastrarEmail] = useState("");
@@ -101,8 +102,7 @@ const DadosIniciais = () => {
                 </div>
             </div>
         </>
-    );
-    
+    ); 
 };
 
 export default DadosIniciais;

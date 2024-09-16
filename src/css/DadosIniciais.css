@@ -1,0 +1,41 @@
+@import url(./Global.css);
+
+.dados-iniciais-container {
+    text-align: center;
+    font-family: var(--font-family);
+}
+
+.dados-iniciais-formulario {
+    padding: 20px 0px;
+    text-align: center;
+    
+}
+.dados-iniciais-input-container {
+    margin: auto;
+    text-align: center;
+    display: grid;
+}
+.dados-iniciais-input-container label {
+    margin-left: 210px;
+    text-align: left;
+}
+.dados-iniciais-input-container input{
+    background-color: var(--input-background);
+    width: 300px;
+    height: 40px;
+    border-radius: 12px;
+    box-shadow: var(--input-shadow);
+    border: var(--input-border);
+    margin: 5px auto 10px auto;
+    text-align: center;
+}
+
+.dados-iniciais-botao-container button {
+    background-color: #1F0171;
+    border-radius: 16px;
+    width: 150px;
+    height: 40px;
+    color: var(--fonte-cor-branco);
+    box-shadow: var(--botao-shadow);
+    margin-bottom: 10px;
+}

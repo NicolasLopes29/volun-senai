@@ -6,6 +6,9 @@ import DadosPessoal from "./DadosPessoal";
 import DadosEndereco from "./DadosEndereco";
 import "./../css/Cadastrar.css"
 
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+
 const Cadastrar = () => {
     const [Passo, setPasso] = useState(1);
 
@@ -21,42 +24,39 @@ const Cadastrar = () => {
             case 1:
                 return (
                     <div>
-                        <div>
-                            <h2>Etapa 1: Dados Iniciais</h2>
+                        <div className="cadastrar-section">
+                            <h3>Etapa 1: Dados Iniciais</h3>
                             <DadosIniciais />
                         </div>
-                        <div>
-                            <button disabled></button>
-                            <button onClick={ProxPasso}>Proximo Passo</button>
+                        <div className="cadastrar-buttons">
+                            <button onClick={ProxPasso}>Próximo</button>
                         </div>
                     </div>
-                    
                 );
             case 2:
                 return (
                     <div>
-                        <div>
-                            <h2>Etapa 2: Dados Pessoais</h2>
+                        <div className="cadastrar-section">
+                            <h3>Etapa 2: Dados Pessoais</h3>
                             <DadosPessoal />
                         </div>
-                        <div>
+                        <div className="cadastrar-buttons">
                             <button onClick={AntPasso}>Voltar</button>
-                            <button onClick={ProxPasso}>Proximo</button>
+                            <button onClick={ProxPasso}>Próximo</button>
                         </div>
                     </div>
                 );
             case 3:
                 return (
                     <div>
-                        <div>
-                            <h2>Etapa 3: Endereço</h2>
+                        <div className="cadastrar-section">
+                            <h3>Etapa 3: Endereço</h3>
                             <DadosEndereco />
                         </div>
-                        <div>
+                        <div className="cadastrar-buttons">
                             <button onClick={AntPasso}>Voltar</button>
-                            <button onClick={ProxPasso}>Proximo</button>
-                        </div>
-                        
+                            <button onClick={ProxPasso}>Próximo</button>
+                        </div>    
                     </div>
                 );
             default:
@@ -65,15 +65,16 @@ const Cadastrar = () => {
     };
 
     return (
-        <div className="cadastrar-background">
-          <main className="cadastrar-container">
-            <div>
-              <PaginaRender />
-            </div>        
-          </main>
+        <div>
+        <Navbar />
+            <main className="cadastrar-container">
+                <div>
+                    <PaginaRender />
+                </div>        
+            </main>
+        <Footer />
         </div>
-      );
-      
+    );  
 }
 
 export default Cadastrar;

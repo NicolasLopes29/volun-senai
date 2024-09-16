@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
     const [dadosNome, setDadosNome] = useState("");
