@@ -4,6 +4,7 @@ import { useState } from "react";
 import DadosIniciais from "./DadosIniciais";
 import DadosPessoal from "./DadosPessoal";
 import DadosEndereco from "./DadosEndereco";
+import "./../css/Cadastrar.css"
 
 const Cadastrar = () => {
     const [Passo, setPasso] = useState(1);
@@ -64,14 +65,15 @@ const Cadastrar = () => {
     };
 
     return (
-        <>
-            <main>
-                <div>
-                    <PaginaRender />
-                </div>        
-            </main>
-        </>
-    );
+        <div className="cadastrar-background">
+          <main className="cadastrar-container">
+            <div>
+              <PaginaRender />
+            </div>        
+          </main>
+        </div>
+      );
+      
 }
 
 export default Cadastrar;

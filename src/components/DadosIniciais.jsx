@@ -64,9 +64,9 @@ const DadosIniciais = () => {
 
     return (
         <>
-            <div className="cadastrar-container">
-                <div className="cadastrar-formulario">
-                    <div className="cadastrar-input-container">
+            <div className="dados-iniciais-container">
+                <div className="dados-iniciais-formulario">
+                    <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>
                         <input
                             type="email"
@@ -75,7 +75,7 @@ const DadosIniciais = () => {
                             onChange={(e) => setCadastrarEmail(e.target.value)}
                         />
                     </div>
-                    <div className="cadastrar-input-container">
+                    <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarSenha">Senha: </label>
                         <input
                             type="password"
@@ -84,7 +84,7 @@ const DadosIniciais = () => {
                             onChange={(e) => setCadastrarSenha(e.target.value)}
                         />
                     </div>
-                    <div className="cadastrar-input-container">
+                    <div className="dados-iniciais-input-container">
                         <label htmlFor="confirmarSenha">Confirmar a Senha: </label>
                         <input
                             type="password"
@@ -96,12 +96,13 @@ const DadosIniciais = () => {
                     {sucesso && <p>{sucesso}</p>}
                     {erro && <p>{erro}</p>}
                 </div>
-                <div>
+                <div className="dados-iniciais-botao-container">
                     <button type="submit" onClick={handleSubmit}>Enviar</button>
                 </div>
             </div>
         </>
     );
+    
 };
 
 export default DadosIniciais;

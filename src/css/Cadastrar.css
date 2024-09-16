@@ -1,60 +1,49 @@
-@import url(./Global.css);
-
-.cadastrar-container {
-    text-align: center;
-    font-family: var(--font-family);
-    background-color: var(--fundo-principal);
-    border-radius: 12px;
+.dados-iniciais-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white; /* ou outra cor de fundo */
 }
-.cadastrar-container img{
-    width: 50%;
-    height: 50%;
-    margin: 50px auto;
-}
-.cadastrar-header button {
-    border: none;
-    font-size: 16px;
-    color: var(--fonte-cor-preto);
-}
-.cadastrar-formulario {
-    padding: 10px 0;
-    font-family: var(--font-family);
-    color: var(--fonte-cor-preto);
+
+.dados-iniciais-formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    height: auto;
+    padding: 20px;
 }
-.cadastrar-input-container {
-    display: grid;
-    text-align: center;
-    justify-content: space-around;
-    padding-top: 10px;
+
+.dados-iniciais-input-container {
+    margin-bottom: 20px;
 }
-.cadastrar-input-container label {
-    padding-bottom: 5px;
-    font-family: var(--font-family);
+
+.dados-iniciais-input-container label {
+    display: block;
+    margin-bottom: 5px;
 }
-.cadastrar-input-container input {
+
+.dados-iniciais-input-container input {
     width: 300px;
     height: 40px;
     background-color: var(--input-background);
-    box-shadow: var(--input-shadow);
-    border: var(--input-border);
-    border-radius: 12px;
-    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Remove a sombra e mantém apenas a borda */
+    border-radius: 8px;
     padding-left: 10px;
-    font-size: 16px
 }
-.cadastrar-botao-container {
-    font-family: var(--font-family);
+
+.dados-iniciais-botao-container {
+    margin-top: 20px;
 }
-.cadastrar-botao-container button {
-    width: 250px;
+
+.dados-iniciais-botao-container button {
+    width: 200px;
     height: 40px;
     background-color: var(--cor-secundaria);
-    border-radius: 15px;
-    margin-top: 20px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 300;
 }
+
