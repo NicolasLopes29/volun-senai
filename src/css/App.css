@@ -1,70 +1,24 @@
-@import url(./Global.css);
+body{
+    background-color: #F5F4FF;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-.app-container {
-    font-family: var(--font-family);
-    display: block;
+.header{
     width: 100%;
-    text-align: center;
-}
-.app-section-container {
-    display: inline-flex;
-    background: var(--cor-fundo-gradiente);
-    width: 100%;
-    justify-content: space-evenly;
-    height: 400px;
-    align-items: center;
-}
-.app-section-left h3{
-    font-size: 48px;
-    font-weight: bold;
-    color: var(--fonte-cor-branco);
-}
-.app-section-left p{
-    font-size: 24px;
-    color: var(--fonte-cor-branco);
-}
-.app-section-right {
-    text-align: center;    
-}
-.app-section-right p{
-    width: 500px;
-    color: var(--fonte-cor-branco);
-    
-}
-.app-section-right button:hover {
-    background-color: var(--cor-principal);
-    color: var(--fonte-cor-branco);
+    height: 100px;
+    background-color: #1F0171;
 }
 
-.app-articles-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
+.header h1{
+    position: relative;
+    left: 100px;
+    bottom: 120px;
+    font-size: 65px;
+    color: #fff; 
+    font-family: "Poppins", sans-serif;  
 }
 
-.article-number-one, .article-number-two {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8rem;
-    margin: 50px;
-}
 
-.article-number-two{
-    flex-direction: row-reverse;
-}
-
-.article-number-one img, .article-number-two img {
-    width: 270px;
-    height: 160px;
-    border-radius: 10px;
-}
-
-.article-number-one p, .article-number-two p {
-    width: 280px;
-    text-align: justify;
-    text-justify: inter-word;
-}
 
