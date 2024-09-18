@@ -1,80 +1,119 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { auth, storage } from "../services/firebase-config"; // Import Firebase auth and storage
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
     const [dadosNome, setDadosNome] = useState("");
     const [dadosSobrenome, setDadosSobrenome] = useState("");
     const [dadosCPF, setDadosCPF] = useState("");
-    const [dadosDataNasc, setDadosDataNasc] = useState("");
+    const [dadosdata_nascimento, setDadosdata_nascimento] = useState("");
     const [dadosDDD, setDadosDDD] = useState("");
     const [dadosTelefone, setDadosTelefone] = useState("");
-
+    const [fotoPerfil, setFotoPerfil] = useState(null); // Para a foto de perfil
+    const [uid, setUid] = useState(null);
+    const [erro, setErro] = useState(false);
+    const [sucesso, setSucesso] = useState(false);
+    
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Obtém o UID do usuário autenticado
+        const user = auth.currentUser;
+        if (user) {
+            setUid(user.uid);
+        } else {
+            navigate("/login"); // Redireciona se o usuário não estiver logado
+        }
+    }, [navigate]);
+
+    const handleFotoChange = (e) => {
+        setFotoPerfil(e.target.files[0]); // Salva o arquivo de foto de perfil
+    };
 
     const EnviarDados = async (e) => {
         e.preventDefault();
-        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosDataNasc || !dadosDDD || !dadosTelefone) {
-            try {
-                const response = await axios.post("https:\\volun-api-eight.vercel.app/usuario", {
-                    nome : dadosNome,
-                    sobrenome : dadosSobrenome,
-                    cpf : dadosCPF,
-                    dataNasc : dadosDataNasc,
-                    ddd : dadosDDD,
-                    telefone : dadosTelefone
-                });
-                
-                if (response.status === 201) {
-                    setSucesso(true);
-                    setErro(false);
-                    // Optionally, reset the form or close the modal
-                    navigate("/dados_endereco");
-                }
-            }
-            catch (error){
-                setSucesso(true);
-                setErro(false);
-            }
-        }
-        else {
+        
+        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone || !fotoPerfil) {
             setErro(true);
-            setSucesso(false);
+            return;
         }
-    }
+        
+        setErro(false);
 
-    return(
-        <>
-            <div className="dados-container">
-                <div className="dados-pessoal-container">
-                    <h4>Insira os dados pessoais</h4>
-                    <div>
-                        <label htmlFor="dadosNome">Nome: </label>
-                        <input className="dados-input" type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
-                        <label htmlFor="dadosSobrenome">Sobrenome: </label>
-                        <input className="dados-input" type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosCPF">CPF: </label>
-                        <input className="dados-input-medio" type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosDataNasc">Data de Nascimento: </label>
-                        <input className="dados-input-medio" type="date" name="dadosDataNasc" value={dadosDataNasc} onChange={(e) => setDadosDataNasc(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosDDD">DDD: </label>
-                        <input className="dados-input-pequeno" type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)}/>
-                        <label htmlFor="dadosTelefone">Telefone: </label>
-                        <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)}/>
-                    </div>
-                </div>
+        try {
+            // Primeiro faz o upload da foto no Firebase Storage
+            const storageRef = ref(storage, `perfilFotos/${uid}/${fotoPerfil.name}`);
+            await uploadBytes(storageRef, fotoPerfil);
+            const fotoURL = await getDownloadURL(storageRef);
+
+            // Agora envia os dados do usuário para a collection do Firestore
+            const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
+                nome: dadosNome,
+                sobrenome: dadosSobrenome,
+                cpf: dadosCPF,
+                data_nascimento: dadosdata_nascimento,
+                ddd: dadosDDD,
+                telefone: dadosTelefone,
+                foto_perfil: fotoURL // URL da foto de perfil
+            });
+
+            if (response.status === 201) {
+                setSucesso(true);
+                navigate("/"); // Redireciona para a página inicial
+            }
+        } catch (error) {
+            console.error("Erro ao enviar dados: ", error);
+            setErro(true);
+        }
+    };
+
+    return (
+        <div className="dados-container">
+            <div className="dados-pessoal-container">
+                <h4>Insira os dados pessoais</h4>
                 <div>
-                    <button type="submit" onClick={EnviarDados}>Cadastrar</button>    
+                    <label htmlFor="dadosNome">Nome: </label>
+                    <input className="dados-input" type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
+                    
+                    <label htmlFor="dadosSobrenome">Sobrenome: </label>
+                    <input className="dados-input" type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)} />
                 </div>
+                
+                <div>
+                    <label htmlFor="dadosCPF">CPF: </label>
+                    <input className="dados-input-medio" type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)} />
+                </div>
+
+                <div>
+                    <label htmlFor="dadosdata_nascimento">Data de Nascimento: </label>
+                    <input className="dados-input-medio" type="date" name="dadosdata_nascimento" value={dadosdata_nascimento} onChange={(e) => setDadosdata_nascimento(e.target.value)} />
+                </div>
+
+                <div>
+                    <label htmlFor="dadosDDD">DDD: </label>
+                    <input className="dados-input-pequeno" type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)} />
+                    
+                    <label htmlFor="dadosTelefone">Telefone: </label>
+                    <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)} />
+                </div>
+
+                <div>
+                    <label htmlFor="fotoPerfil">Foto de Perfil: </label>
+                    <input className="dados-input" type="file" name="fotoPerfil" onChange={handleFotoChange} />
+                </div>
+
+                <div>
+                    <button type="submit" onClick={EnviarDados}>Finalizar Cadastro</button>
+                </div>
+
+                {erro && <p className="erro-mensagem">Preencha todos os campos corretamente.</p>}
+                {sucesso && <p className="sucesso-mensagem">Usuário cadastrado com sucesso!</p>}
             </div>
-        </>
-    );    
-}
+        </div>
+    );
+};
 
 export default DadosPessoal;

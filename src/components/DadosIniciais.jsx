@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { auth } from "../services/firebase-config"; // Importa a configuração do Firebase
+import "./../css/DadosIniciais.css";
 
-import "./../css/DadosIniciais.css"
-
-const DadosIniciais = () => {
+const DadosIniciais = ({ onEmailVerificacao }) => {
     const [cadastrarEmail, setCadastrarEmail] = useState("");
     const [cadastrarSenha, setCadastrarSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
@@ -51,11 +49,11 @@ const DadosIniciais = () => {
             // Envio de email de verificação
             await sendEmailVerification(user);
 
+            // Chama a função para ativar a página de espera
+            onEmailVerificacao();
+
             setSucesso("Cadastro realizado com sucesso! Verifique seu email para ativar a conta.");
             setErro(null);
-
-            // Redireciona para a página de dados pessoais após o envio do email de verificação
-            navigate("/dados_pessoal");
 
         } catch (error) {
             setErro("Erro ao cadastrar: " + error.message);
@@ -98,11 +96,11 @@ const DadosIniciais = () => {
                     {erro && <p>{erro}</p>}
                 </div>
                 <div className="dados-iniciais-botao-container">
-                    <button type="submit" onClick={handleSubmit}>Enviar</button>
+                    <button type="submit" onClick={handleSubmit}>Próximo</button>
                 </div>
             </div>
         </>
-    ); 
+    );
 };
 
 export default DadosIniciais;
