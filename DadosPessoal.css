@@ -1,0 +1,101 @@
+@import url(./Global.css);
+
+.dados-container {
+    background-color: var(--fundo-principal);
+    text-align: center;
+    font-family: var(--font-family);    
+    border-radius: 12px;
+    width: 100%;
+}
+.dados-pessoal-container {
+    background-color: var(--fundo-principal);
+    margin: 20px auto;
+    display: block;
+    text-align: left;
+    width: 80%;
+    justify-content: center;
+    padding-left: 50px;
+}
+.dados-endereco-container {
+    background-color: var(--fundo-principal);
+    margin: 20px auto;
+    display: block;
+    text-align: left;
+    width: 80%;
+    justify-content: center;
+    padding-left: 50px;    
+}
+.dados-pessoal-container h4 {
+    margin: 40px auto;
+}
+.dados-container label {
+    padding-right: 10px;
+}
+.dados-container input {
+    margin-bottom: 15px;
+    border: var(--input-border);
+    background-color: var(--input-background);
+    box-shadow: var(--input-shadow);
+    border-radius: 12px;
+    height: 30px;
+    text-align: center;
+    margin-right: 10px;
+}
+.dados-container select {
+    height: 30px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    box-shadow: var(--input-shadow);
+    border-radius: 16px;
+    text-align: center;
+}
+.dados-container button {
+    width: 160px;
+    height: 40px;
+    background-color: var(--botao-tela-branca);
+    border-radius: 16px;
+    box-shadow: var(--botao-shadow);
+    color: var(--fonte-cor-branco);
+}
+.dados-input {
+    width: 240px;
+}
+.dados-input-medio{
+    width: 160px; 
+}
+.dados-input-pequeno {
+    width: 80px;
+}
+.dados-input-grande {
+    width: 320px;
+}
+
+
+.dados-container {
+    background-color: var(--fundo-principal);
+    text-align: center;
+    padding: 50px;
+}
+
+.dados-pessoal-container {
+    border: solid 2px var(--cor-principal);
+    border-radius: 32px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    text-align: left;
+    background-color: var(--fundo-formulario);
+    box-shadow: var(--botao-shadow);
+}
+
+
+.erro-mensagem {
+    color: red;
+    font-weight: bold;
+}
+
+.sucesso-mensagem {
+    color: green;
+    font-weight: bold;
+}
+
