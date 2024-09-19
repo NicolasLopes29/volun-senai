@@ -65,8 +65,8 @@ const Login = ({ fecharLogin }) => {
       .then((result) => {
         const user = result.user;
         console.log("Logado com Google:", user);
-        onLoginSuccess(); // Chamamos a função de sucesso ao logar
-        fecharLogin(); // Fechar modal após login
+        onLoginSuccess();
+        fecharLogin(); 
       })
       .catch((error) => {
         setError("Erro ao logar com Google: " + error.message);

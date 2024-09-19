@@ -30,3 +30,45 @@
     box-shadow: var(--botao-shadow);
     margin: 0 10px;
 }
+
+.espera-confirmacao {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.espera-confirmacao h2 {
+    color: #1F0171;
+    font-size: 24px;
+}
+
+.espera-confirmacao p {
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+.verificacao-container {
+    text-align: center;
+    padding: 50px;
+    background-color: var(--fundo-principal);
+    border: solid 2px var(--cor-principal);
+    border-radius: 32px;
+    margin: 0 auto;
+    width: 50%;
+    box-shadow: var(--botao-shadow);
+}
+
+.verificacao-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.verificacao-container p {
+    font-size: 18px;
+    margin: 10px 0;
+}
