@@ -8,7 +8,6 @@
 .dados-iniciais-formulario {
     padding: 20px 0px;
     text-align: center;
-    
 }
 .dados-iniciais-input-container {
     margin: auto;
@@ -16,7 +15,7 @@
     display: grid;
 }
 .dados-iniciais-input-container label {
-    margin-left: 210px;
+    margin-left: 0px;
     text-align: left;
 }
 .dados-iniciais-input-container input{
@@ -27,7 +26,8 @@
     box-shadow: var(--input-shadow);
     border: var(--input-border);
     margin: 5px auto 10px auto;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
 }
 
 .dados-iniciais-botao-container button {
@@ -40,18 +40,14 @@
     margin-bottom: 10px;
 }
 
-.dados-iniciais-container {
+.dados-iniciais-picture-container {
+    margin-bottom: 30px;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    padding-left: 10px;
+    font-size: 12px;
 }
-
-.profile-picture-container {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.profile-picture {
+.dados-iniciais-picture {
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -60,7 +56,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
+    justify-content: center;
 }
 
 .profile-picture-img {
@@ -72,8 +68,8 @@
 .profile-picture-input {
     margin-top: 10px;
     cursor: pointer;
+    text-align: center;
 }
-
 .dados-iniciais-formulario {
     display: flex;
     flex-direction: column;

@@ -74,24 +74,23 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     return (
         <>
             <div className="dados-iniciais-container">
-                <div className="profile-picture-container">
-                    {/* Div Circular para Exibir a Foto de Perfil */}
-                    <div className="profile-picture">
-                        {profileImagePreview ? (
-                            <img src={profileImagePreview} alt="Foto de Perfil" className="profile-picture-img" />
-                        ) : (
-                            <span>Selecionar Imagem</span>
-                        )}
-                    </div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleProfileImageChange}
-                        className="profile-picture-input"
-                    />
-                </div>
-
                 <div className="dados-iniciais-formulario">
+                    <div className="dados-iniciais-picture-container">
+                        {/* Div Circular para Exibir a Foto de Perfil */}
+                        <div className="dados-iniciais-picture">
+                            {profileImagePreview ? (
+                                <img src={profileImagePreview} alt="Foto de Perfil" className="profile-picture-img" />
+                            ) : (
+                                <span>Selecionar Imagem</span>
+                            )}
+                        </div>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleProfileImageChange}
+                            className="profile-picture-input"
+                        />
+                    </div>
                     <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>
                         <input
