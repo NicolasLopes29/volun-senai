@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { auth, storage } from "../services/firebase-config"; // Import Firebase auth and storage
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth } from "../services/firebase-config"; // Import Firebase auth
 import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
@@ -12,7 +11,6 @@ const DadosPessoal = () => {
     const [dadosdata_nascimento, setDadosdata_nascimento] = useState("");
     const [dadosDDD, setDadosDDD] = useState("");
     const [dadosTelefone, setDadosTelefone] = useState("");
-    const [fotoPerfil, setFotoPerfil] = useState(null); // Para a foto de perfil
     const [uid, setUid] = useState(null);
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
@@ -25,18 +23,14 @@ const DadosPessoal = () => {
         if (user) {
             setUid(user.uid);
         } else {
-            navigate("/login"); // Redireciona se o usuário não estiver logado
+            navigate("/");
         }
     }, [navigate]);
-
-    const handleFotoChange = (e) => {
-        setFotoPerfil(e.target.files[0]); // Salva o arquivo de foto de perfil
-    };
 
     const EnviarDados = async (e) => {
         e.preventDefault();
         
-        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone || !fotoPerfil) {
+        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone) {
             setErro(true);
             return;
         }
@@ -44,20 +38,14 @@ const DadosPessoal = () => {
         setErro(false);
 
         try {
-            // Primeiro faz o upload da foto no Firebase Storage
-            const storageRef = ref(storage, `perfilFotos/${uid}/${fotoPerfil.name}`);
-            await uploadBytes(storageRef, fotoPerfil);
-            const fotoURL = await getDownloadURL(storageRef);
-
-            // Agora envia os dados do usuário para a collection do Firestore
+            // Envia os dados do usuário para a API e cria o documento com o UID do usuário no Firestore
             const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
                 nome: dadosNome,
                 sobrenome: dadosSobrenome,
                 cpf: dadosCPF,
                 data_nascimento: dadosdata_nascimento,
                 ddd: dadosDDD,
-                telefone: dadosTelefone,
-                foto_perfil: fotoURL // URL da foto de perfil
+                telefone: dadosTelefone
             });
 
             if (response.status === 201) {
@@ -98,11 +86,6 @@ const DadosPessoal = () => {
                     
                     <label htmlFor="dadosTelefone">Telefone: </label>
                     <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)} />
-                </div>
-
-                <div>
-                    <label htmlFor="fotoPerfil">Foto de Perfil: </label>
-                    <input className="dados-input" type="file" name="fotoPerfil" onChange={handleFotoChange} />
                 </div>
 
                 <div>

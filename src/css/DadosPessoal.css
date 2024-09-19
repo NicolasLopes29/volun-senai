@@ -88,13 +88,6 @@
     box-shadow: var(--botao-shadow);
 }
 
-.dados-input, .dados-input-medio, .dados-input-pequeno {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid var(--input-border);
-}
 
 .erro-mensagem {
     color: red;

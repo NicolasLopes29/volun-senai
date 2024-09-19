@@ -8,9 +8,10 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     const [cadastrarEmail, setCadastrarEmail] = useState("");
     const [cadastrarSenha, setCadastrarSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
-
     const [sucesso, setSucesso] = useState(false);
     const [erro, setErro] = useState("");
+    const [profileImage, setProfileImage] = useState(null); // Para armazenar a imagem de perfil
+    const [profileImagePreview, setProfileImagePreview] = useState(null); // Para exibir a pré-visualização da imagem
 
     const navigate = useNavigate();
 
@@ -18,6 +19,15 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     const validarEmail = (email) => {
         const regex = /\S+@\S+\.\S+/;
         return regex.test(email);
+    };
+
+    // Lidar com a seleção da imagem de perfil
+    const handleProfileImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfileImage(file);
+            setProfileImagePreview(URL.createObjectURL(file)); // Gerar URL de pré-visualização
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -64,6 +74,23 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     return (
         <>
             <div className="dados-iniciais-container">
+                <div className="profile-picture-container">
+                    {/* Div Circular para Exibir a Foto de Perfil */}
+                    <div className="profile-picture">
+                        {profileImagePreview ? (
+                            <img src={profileImagePreview} alt="Foto de Perfil" className="profile-picture-img" />
+                        ) : (
+                            <span>Selecionar Imagem</span>
+                        )}
+                    </div>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleProfileImageChange}
+                        className="profile-picture-input"
+                    />
+                </div>
+
                 <div className="dados-iniciais-formulario">
                     <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>

@@ -51,8 +51,9 @@ const Login = ({ fecharLogin }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Usuário logado:", user);
-        onLoginSuccess(); // Chamamos a função de sucesso ao logar
         fecharLogin(); // Fechar modal após login
+        // Redirecionar ou realizar outras ações após login bem-sucedido
+        navigate("/"); 
       })
       .catch((error) => {
         setError("Erro ao logar: " + error.message);
@@ -65,8 +66,8 @@ const Login = ({ fecharLogin }) => {
       .then((result) => {
         const user = result.user;
         console.log("Logado com Google:", user);
-        onLoginSuccess();
         fecharLogin(); 
+        navigate("/"); // Exemplo de redirecionamento
       })
       .catch((error) => {
         setError("Erro ao logar com Google: " + error.message);
@@ -74,7 +75,7 @@ const Login = ({ fecharLogin }) => {
   };
 
   const CadastrarRedir = () => {
-    navigate("./cadastrar");
+    navigate("/cadastrar");
   }
 
   return (
@@ -134,4 +135,3 @@ const Login = ({ fecharLogin }) => {
 };
 
 export default Login;
-
