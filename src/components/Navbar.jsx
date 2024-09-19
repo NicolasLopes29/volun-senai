@@ -7,6 +7,7 @@ import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
+import { useNavigate } from "react-router";
 
 const estiloModal = {
   overlay: {
@@ -39,6 +40,7 @@ const Navbar = () => {
   const [LoginAbrir, setLoginAbrir] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false); // Novo estado para acompanhar o login
   const [botaoEstilo, setBotaoEstilo] = useState({}); // Estado para o estilo do botão
+  const navigate = useNavigate(); // Inicializando o useNavigate para navegação
 
   const auth = getAuth(app); // Autenticação Firebase
 
@@ -74,10 +76,18 @@ const Navbar = () => {
       });
   };
 
+  // retorna á pagina inicial
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
+
   return (
     <>
       <nav className="navbar-container">
-        <img src={Logo} alt="Logo" className="logo" />
+      <div onClick={handleLogoClick} style={{ cursor: "pointer" }}> 
+          <img src={Logo} alt="Logo" className="logo" />
+        </div>
         <div className="search-navbar">
           <img id="search-icon" src="src/assets/images/lupa.png" alt="" />
           <input type="text" placeholder="Busque aqui" />
@@ -130,4 +140,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
