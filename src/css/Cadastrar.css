@@ -1,60 +1,74 @@
 @import url(./Global.css);
 
 .cadastrar-container {
-    text-align: center;
-    font-family: var(--font-family);
     background-color: var(--fundo-principal);
-    border-radius: 12px;
-    width: 100%;
+    text-align: center;
+    padding: 50px;
 }
-.cadastrar-container img{
+
+.cadastrar-section {
+    border: solid 2px var(--cor-principal);
+    border-radius: 32px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: block;
+    margin: 20px 200px;
+}
+.cadastrar-section h3 {
+    font-size: 18px;
+    text-align: left;
+}
+.cadastrar-buttons {
+    justify-content: space-between;
+}
+.cadastrar-buttons button {
+    background-color: #1F0171;
+    border-radius: 16px;
+    width: 150px;
+    height: 40px;
+    color: var(--fonte-cor-branco);
+    box-shadow: var(--botao-shadow);
+    margin: 0 10px;
+}
+
+.espera-confirmacao {
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.espera-confirmacao h2 {
+    color: #1F0171;
+    font-size: 24px;
+}
+
+.espera-confirmacao p {
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+.verificacao-container {
+    text-align: center;
+    padding: 50px;
+    background-color: var(--fundo-principal);
+    border: solid 2px var(--cor-principal);
+    border-radius: 32px;
+    margin: 0 auto;
     width: 50%;
-    height: 50%;
-    margin: 50px auto;
+    box-shadow: var(--botao-shadow);
 }
-.cadastrar-header button {
-    border: none;
-    font-size: 16px;
-    color: var(--fonte-cor-preto);
+
+.verificacao-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
-.cadastrar-formulario {
-    padding: 10px 0;
-    font-family: var(--font-family);
-    color: var(--fonte-cor-preto);
-    text-align: center;
-    height: auto;
-}
-.cadastrar-input-container {
-    display: grid;
-    text-align: center;
-    justify-content: space-around;
-    padding-top: 10px;
-}
-.cadastrar-input-container label {
-    padding-bottom: 5px;
-    font-family: var(--font-family);
-}
-.cadastrar-input-container input {
-    width: 300px;
-    height: 40px;
-    background-color: var(--input-background);
-    box-shadow: var(--input-shadow);
-    border: var(--input-border);
-    border-radius: 12px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    font-size: 16px
-}
-.cadastrar-botao-container {
-    font-family: var(--font-family);
-}
-.cadastrar-botao-container button {
-    width: 250px;
-    height: 40px;
-    background-color: var(--cor-secundaria);
-    border-radius: 15px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 300;
+
+.verificacao-container p {
+    font-size: 18px;
+    margin: 10px 0;
 }

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { app } from "../services/firebase-config"; 
 import Recuperacao from "./Recuperacao";
-import Cadastrar from "./Cadastrar";
+import { useNavigate } from "react-router";
 
 import "./../css/Login.css";
 
@@ -38,10 +38,10 @@ const Login = ({ fecharLogin }) => {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState(null);
   const [RecupAbrir, setRecupAbrir] = useState(false);
-  const [CadastrarAbrir, setCadastrarAbrir] = useState(false);
 
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   // Função para logar com email e senha
   const handleLogin = (e) => {
@@ -51,8 +51,8 @@ const Login = ({ fecharLogin }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Usuário logado:", user);
-        onLoginSuccess(); // Chamamos a função de sucesso ao logar
         fecharLogin(); // Fechar modal após login
+        navigate("/"); // Redirecionar após login
       })
       .catch((error) => {
         setError("Erro ao logar: " + error.message);
@@ -62,16 +62,26 @@ const Login = ({ fecharLogin }) => {
   // Função para logar com Google
   const handleLoginWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log("Logado com Google:", user);
-        onLoginSuccess(); // Chamamos a função de sucesso ao logar
-        fecharLogin(); // Fechar modal após login
+        
+        // Atualiza o perfil do usuário com a foto do Google
+        await updateProfile(user, {
+          photoURL: user.photoURL // Armazena a foto de perfil do Google
+        });
+
+        fecharLogin(); 
+        navigate("/"); // Redirecionar após login
       })
       .catch((error) => {
         setError("Erro ao logar com Google: " + error.message);
       });
   };
+
+  const CadastrarRedir = () => {
+    navigate("/cadastrar");
+  }
 
   return (
     <>
@@ -111,7 +121,7 @@ const Login = ({ fecharLogin }) => {
                 </div>
                 <div className="login-paragraph">
                   <p>Ainda não possui uma conta?</p>
-                  <button type="button" onClick={() => setCadastrarAbrir(true)}>Crie uma conta</button>
+                  <button type="button" onClick={CadastrarRedir}>Crie uma conta</button>
                 </div>
               </div>
             </form>
@@ -125,16 +135,8 @@ const Login = ({ fecharLogin }) => {
       >
         <Recuperacao fecharRecup={() => setRecupAbrir(false)} />
       </Modal>
-      <Modal
-        isOpen={CadastrarAbrir}
-        onRequestClose={() => setCadastrarAbrir(false)}
-        style={estiloModalSecundaria}
-      >
-        <Cadastrar fecharCadastrar={() => setCadastrarAbrir(false)} />
-      </Modal>
     </>
   );
 };
 
 export default Login;
-

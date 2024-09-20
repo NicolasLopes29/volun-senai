@@ -1,153 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../services/firebase-config"; // Import Firebase auth
 import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
     const [dadosNome, setDadosNome] = useState("");
     const [dadosSobrenome, setDadosSobrenome] = useState("");
     const [dadosCPF, setDadosCPF] = useState("");
-    const [dadosDataNasc, setDadosDataNasc] = useState("");
+    const [dadosdata_nascimento, setDadosdata_nascimento] = useState("");
     const [dadosDDD, setDadosDDD] = useState("");
     const [dadosTelefone, setDadosTelefone] = useState("");
-    const [dadosCEP, setDadosCEP] = useState("");
-    const [dadosEndereco, setDadosEndereco] = useState("");
-    const [dadosNumero, setDadosNumero] = useState("");
-    const [dadosBairro, setDadosBairro] = useState("");
-    const [dadosCidade, setDadosCidade] = useState("");
-    const [dadosEstado, setDadosEstado] = useState("");
-    
-    const [sucesso, setSucesso] = useState(false);
+    const [uid, setUid] = useState(null);
     const [erro, setErro] = useState(false);
+    const [sucesso, setSucesso] = useState(false);
+    
+    const navigate = useNavigate();
 
-    const Estado = () => {
-        return [
-            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", 
-            "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", 
-            "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
-        ];
-    };
-
-    const buscarCEP = async (e) => {
-        e.preventDefault();
-        const cep = dadosCEP.replace(/\D/g, '');
-        if (cep.length >= 8){
-            try {
-                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                const data = await response.json();
-
-                if (! data.erro) {
-                    setDadosDDD(data.ddd)
-                    setDadosCEP(data.cep);
-                    setDadosEndereco(data.logradouro);
-                    setDadosBairro(data.bairro);
-                    setDadosCidade(data.localidade);
-                    setDadosEstado(data.uf);
-                }
-                else {
-                    alert("CEP não encontrado.");
-                }
-            } 
-            catch (error) {
-                alert("Erro ao buscar CEP. Tente novamente.");
-            }
-        } 
-        else {
-            alert("CEP inválido.");
+    useEffect(() => {
+        // Obtém o UID do usuário autenticado
+        const user = auth.currentUser;
+        if (user) {
+            setUid(user.uid);
+        } else {
+            navigate("/");
         }
-    }
+    }, [navigate]);
+
+    const validarCPF = (cpf) => {
+        cpf = cpf.replace(/\D/g, ''); // Remove non-numeric characters
+
+        if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+            return false;
+        }
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+
+        let rev1 = 11 - (soma % 11);
+        if (rev1 === 10 || rev1 === 11) rev1 = 0;
+        if (rev1 !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+
+        let rev2 = 11 - (soma % 11);
+        if (rev2 === 10 || rev2 === 11) rev2 = 0;
+        return rev2 === parseInt(cpf.charAt(10));
+    };
 
     const EnviarDados = async (e) => {
         e.preventDefault();
-        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosDataNasc || !dadosDDD || !dadosTelefone) {
-            try {
-                const response = await axios.post("https:\\volun-api-eight.vercel.app/usuario", {
-                    nome : dadosNome,
-                    sobrenome : dadosSobrenome,
-                    cpf : dadosCPF,
-                    dataNasc : dadosDataNasc,
-                    ddd : dadosDDD,
-                    telefone : dadosTelefone
-                });
-                
-                if (response.status === 201) {
-                    setSucesso(true);
-                    setErro(false);
-                    // Optionally, reset the form or close the modal
-                }
-            }
-            catch (error){
-                setSucesso(true);
-                setErro(false);
-            }
-        }
-        else {
-            setErro(true);
-            setSucesso(false);
-        }
-    }
+        setErro(false);
+        setSucesso(false);
 
-    return(
-        <>
-            <div className="dados-container">
-                <div className="dados-pessoal-container">
-                    <h4>Insira os dados pessoais</h4>
-                    <div>
-                        <label htmlFor="dadosNome">Nome: </label>
-                        <input className="dados-input" type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
-                        <label htmlFor="dadosSobrenome">Sobrenome: </label>
-                        <input className="dados-input" type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosCPF">CPF: </label>
-                        <input className="dados-input-medio" type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosDataNasc">Data de Nascimento: </label>
-                        <input className="dados-input-medio" type="date" name="dadosDataNasc" value={dadosDataNasc} onChange={(e) => setDadosDataNasc(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosDDD">DDD: </label>
-                        <input className="dados-input-pequeno" type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)}/>
-                        <label htmlFor="dadosTelefone">Telefone: </label>
-                        <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)}/>
-                    </div>
+        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone) {
+            setErro(true);
+            return;
+        }
+
+        if (!validarCPF(dadosCPF)) {
+            alert("CPF inválido");
+            return;
+        }
+
+        try {
+            const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
+                nome: dadosNome,
+                sobrenome: dadosSobrenome,
+                cpf: dadosCPF,
+                data_nascimento: dadosdata_nascimento,
+                ddd: dadosDDD,
+                telefone: dadosTelefone
+            });
+
+            if (response.status === 201) {
+                setSucesso(true);
+                navigate("/"); // Redireciona para a página inicial
+            }
+        } catch (error) {
+            console.error("Erro ao enviar dados: ", error);
+            setErro(true);
+        }
+    };
+
+    return (
+        <div className="dados-container">
+            <div className="dados-pessoal-container">
+                <h4>Insira os dados pessoais</h4>
+                <div>
+                    <label htmlFor="dadosNome">Nome: </label>
+                    <input className="dados-input" type="text" name="dadosNome" value={dadosNome} onChange={(e) => setDadosNome(e.target.value)} />
+                    
+                    <label htmlFor="dadosSobrenome">Sobrenome: </label>
+                    <input className="dados-input" type="text" name="dadosSobrenome" value={dadosSobrenome} onChange={(e) => setDadosSobrenome(e.target.value)} />
                 </div>
-                <div className="dados-endereco-container">
-                    <div>
-                        <label htmlFor="dadosCEP">CEP: </label>
-                        <input className="dados-input-medio" type="text" name="dadosCEP" value={dadosCEP} onChange={(e) => setDadosCEP(e.target.value)}/>
-                        <button type="submit" onClick={buscarCEP}>Buscar</button>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosEndereco">Endereço: </label>
-                        <input className="dados-input-grande" type="text" name="dadosEndereco" value={dadosEndereco} onChange={(e) => setDadosEndereco(e.target.value)}/>
-                        <label htmlFor="dadosNumero">Numero: </label>
-                        <input className="dados-input-pequeno" type="text" name="dadosNumero" value={dadosNumero} onChange={(e) => setDadosNumero(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosBairro">Bairro: </label>
-                        <input className="dados-input" type="text" name="dadosBairro" value={dadosBairro} onChange={(e) => setDadosBairro(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label htmlFor="dadosCidade">Cidade: </label>
-                        <input className="dados-input-grande" type="text" name="dadosCidade" value={dadosCidade} onChange={(e) => setDadosCidade(e.target.value)}/>
-                        <label htmlFor="dadosEstado">Estado: </label>
-                        <select className="dados-input-pequeno" name="dadosEstado" value={dadosEstado} onChange={(e) => setDadosEstado(e.target.value)}>
-                            <option>-- selecione o estado --</option>
-                            {Estado().map((estado, index) => (
-                                <option key={index} value={estado}>
-                                    {estado}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <button type="submit" onClick={EnviarDados}>Cadastrar</button>
-                    </div>
+                
+                <div>
+                    <label htmlFor="dadosCPF">CPF: </label>
+                    <input className="dados-input-medio" type="text" name="dadosCPF" value={dadosCPF} onChange={(e) => setDadosCPF(e.target.value)} />
                 </div>
+
+                <div>
+                    <label htmlFor="dadosdata_nascimento">Data de Nascimento: </label>
+                    <input className="dados-input-medio" type="date" name="dadosdata_nascimento" value={dadosdata_nascimento} onChange={(e) => setDadosdata_nascimento(e.target.value)} />
+                </div>
+
+                <div>
+                    <label htmlFor="dadosDDD">DDD: </label>
+                    <input className="dados-input-pequeno" type="text" name="dadosDDD" value={dadosDDD} onChange={(e) => setDadosDDD(e.target.value)} />
+                    
+                    <label htmlFor="dadosTelefone">Telefone: </label>
+                    <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)} />
+                </div>
+
+                <div>
+                    <button type="submit" onClick={EnviarDados}>Finalizar Cadastro</button>
+                </div>
+
+                {erro && <p className="erro-mensagem">Preencha todos os campos corretamente.</p>}
+                {sucesso && <p className="sucesso-mensagem">Usuário cadastrado com sucesso!</p>}
             </div>
-        </>
-    );    
-}
+        </div>
+    );
+};
 
 export default DadosPessoal;

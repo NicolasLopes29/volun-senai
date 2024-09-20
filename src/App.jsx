@@ -15,7 +15,8 @@ const App = () => {
             <p>A sua plataforma de Voluntariado</p>
           </div>
           <div className="app-section-right">
-            <p>Olá! Somos a VOLUN Uma empresa que visa lhe oferecer 
+            <p>
+              Olá! Somos a VOLUN Uma empresa que visa lhe oferecer 
               eventos de voluntários para que você, possa participar!
               Tanto como voluntário, como organizador de evento!  
             </p>
@@ -33,8 +34,7 @@ const App = () => {
             <p>
             TecdEa consequatur repellendus nam voluptatem earum id sapiente voluptate eos impedit sunt vel dolores sunt.
             Sit veritatis laboriosam ex natus laboriosam..
-            </p>
-            
+            </p>       
           </div>
            
         </article>

@@ -71,4 +71,31 @@
 }
 
 
+.dados-container {
+    background-color: var(--fundo-principal);
+    text-align: center;
+    padding: 50px;
+}
+
+.dados-pessoal-container {
+    border: solid 2px var(--cor-principal);
+    border-radius: 32px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    text-align: left;
+    background-color: var(--fundo-formulario);
+    box-shadow: var(--botao-shadow);
+}
+
+
+.erro-mensagem {
+    color: red;
+    font-weight: bold;
+}
+
+.sucesso-mensagem {
+    color: green;
+    font-weight: bold;
+}
 
