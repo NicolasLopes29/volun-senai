@@ -8,17 +8,25 @@
 .dados-iniciais-formulario {
     padding: 20px 0px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 .dados-iniciais-input-container {
     margin: auto;
     text-align: center;
     display: grid;
+    margin-bottom: 10px;
+    text-align: left;
 }
+
 .dados-iniciais-input-container label {
     margin-left: 0px;
     text-align: left;
 }
-.dados-iniciais-input-container input{
+
+.dados-iniciais-input-container input {
     background-color: var(--input-background);
     width: 300px;
     height: 40px;
@@ -28,6 +36,10 @@
     margin: 5px auto 10px auto;
     text-align: left;
     padding-left: 20px;
+}
+
+.dados-iniciais-botao-container {
+    margin-top: 20px;
 }
 
 .dados-iniciais-botao-container button {
@@ -40,13 +52,14 @@
     margin-bottom: 10px;
 }
 
+
 .dados-iniciais-picture-container {
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    font-size: 12px;
+    position: relative; /* Necessário para posicionar o botão de edição */
 }
+
 .dados-iniciais-picture {
     width: 120px;
     height: 120px;
@@ -55,8 +68,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    justify-content: center;
+    position: relative;
 }
 
 .profile-picture-img {
@@ -65,22 +77,27 @@
     object-fit: cover;
 }
 
-.profile-picture-input {
-    margin-top: 10px;
-    cursor: pointer;
-    text-align: center;
-}
-.dados-iniciais-formulario {
+.edit-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #6c00d7;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    cursor: pointer;
+    z-index: 10; /* Certifique-se que o botão está acima dos outros elementos */
 }
 
-.dados-iniciais-input-container {
-    margin-bottom: 10px;
-    text-align: left;
+.edit-button input {
+    display: none;
 }
 
-.dados-iniciais-botao-container {
-    margin-top: 20px;
+.edit-icon {
+    width: 16px;
+    height: 16px;
 }
