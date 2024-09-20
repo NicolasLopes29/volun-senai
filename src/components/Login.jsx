@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { app } from "../services/firebase-config"; 
 import Recuperacao from "./Recuperacao";
 import { useNavigate } from "react-router";
@@ -43,7 +43,6 @@ const Login = ({ fecharLogin }) => {
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
 
-  // Função para logar com email e senha
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -51,8 +50,8 @@ const Login = ({ fecharLogin }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Usuário logado:", user);
-        onLoginSuccess(); // Chamamos a função de sucesso ao logar
-        fecharLogin(); // Fechar modal após login
+        fecharLogin(); 
+        navigate("/"); 
       })
       .catch((error) => {
         setError("Erro ao logar: " + error.message);
@@ -62,11 +61,16 @@ const Login = ({ fecharLogin }) => {
   // Função para logar com Google
   const handleLoginWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log("Logado com Google:", user);
-        onLoginSuccess();
+        
+        await updateProfile(user, {
+          photoURL: user.photoURL 
+        });
+
         fecharLogin(); 
+        navigate("/"); 
       })
       .catch((error) => {
         setError("Erro ao logar com Google: " + error.message);
@@ -74,7 +78,7 @@ const Login = ({ fecharLogin }) => {
   };
 
   const CadastrarRedir = () => {
-    navigate("./cadastrar");
+    navigate("/cadastrar");
   }
 
   return (
@@ -134,4 +138,3 @@ const Login = ({ fecharLogin }) => {
 };
 
 export default Login;
-

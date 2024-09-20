@@ -6,20 +6,29 @@
 }
 
 .dados-iniciais-formulario {
-    padding: 20px 0px;
-    text-align: center;
-    
+    padding: 20px;
+    width: 100%; /* Ajusta o formulário ao tamanho da div */
+    max-width: 400px; /* Define um tamanho máximo */
+    margin: auto; /* Centraliza o formulário */
 }
+
+
+
 .dados-iniciais-input-container {
     margin: auto;
     text-align: center;
     display: grid;
-}
-.dados-iniciais-input-container label {
-    margin-left: 210px;
+    margin-bottom: 10px;
     text-align: left;
 }
-.dados-iniciais-input-container input{
+
+.dados-iniciais-input-container label {
+    margin-left: 0px;
+    text-align: left;
+    color: aliceblue;
+}
+
+.dados-iniciais-input-container input {
     background-color: var(--input-background);
     width: 300px;
     height: 40px;
@@ -27,7 +36,12 @@
     box-shadow: var(--input-shadow);
     border: var(--input-border);
     margin: 5px auto 10px auto;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.dados-iniciais-botao-container {
+    margin-top: 20px;
 }
 
 .dados-iniciais-botao-container button {
@@ -36,6 +50,54 @@
     width: 150px;
     height: 40px;
     color: var(--fonte-cor-branco);
-    box-shadow: var(--botao-shadow);
     margin-bottom: 10px;
+}
+
+
+.dados-iniciais-picture-container {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    position: relative; /* Necessário para posicionar o botão de edição */
+}
+
+.dados-iniciais-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.profile-picture-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #6c00d7;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.edit-button input {
+    display: none;
+}
+
+.edit-icon {
+    width: 16px;
+    height: 16px;
 }

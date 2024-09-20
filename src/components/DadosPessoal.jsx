@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { auth, storage } from "../services/firebase-config"; // Import Firebase auth and storage
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth } from "../services/firebase-config"; // Import Firebase auth
 import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
@@ -12,7 +11,6 @@ const DadosPessoal = () => {
     const [dadosdata_nascimento, setDadosdata_nascimento] = useState("");
     const [dadosDDD, setDadosDDD] = useState("");
     const [dadosTelefone, setDadosTelefone] = useState("");
-    const [fotoPerfil, setFotoPerfil] = useState(null); // Para a foto de perfil
     const [uid, setUid] = useState(null);
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
@@ -25,39 +23,59 @@ const DadosPessoal = () => {
         if (user) {
             setUid(user.uid);
         } else {
-            navigate("/login"); // Redireciona se o usuário não estiver logado
+            navigate("/");
         }
     }, [navigate]);
 
-    const handleFotoChange = (e) => {
-        setFotoPerfil(e.target.files[0]); // Salva o arquivo de foto de perfil
+    const validarCPF = (cpf) => {
+        cpf = cpf.replace(/\D/g, ''); // Remove non-numeric characters
+
+        if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+            return false;
+        }
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+
+        let rev1 = 11 - (soma % 11);
+        if (rev1 === 10 || rev1 === 11) rev1 = 0;
+        if (rev1 !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+
+        let rev2 = 11 - (soma % 11);
+        if (rev2 === 10 || rev2 === 11) rev2 = 0;
+        return rev2 === parseInt(cpf.charAt(10));
     };
 
     const EnviarDados = async (e) => {
         e.preventDefault();
-        
-        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone || !fotoPerfil) {
+        setErro(false);
+        setSucesso(false);
+
+        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone) {
             setErro(true);
             return;
         }
-        
-        setErro(false);
+
+        if (!validarCPF(dadosCPF)) {
+            alert("CPF inválido");
+            return;
+        }
 
         try {
-            // Primeiro faz o upload da foto no Firebase Storage
-            const storageRef = ref(storage, `perfilFotos/${uid}/${fotoPerfil.name}`);
-            await uploadBytes(storageRef, fotoPerfil);
-            const fotoURL = await getDownloadURL(storageRef);
-
-            // Agora envia os dados do usuário para a collection do Firestore
             const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
                 nome: dadosNome,
                 sobrenome: dadosSobrenome,
                 cpf: dadosCPF,
                 data_nascimento: dadosdata_nascimento,
                 ddd: dadosDDD,
-                telefone: dadosTelefone,
-                foto_perfil: fotoURL // URL da foto de perfil
+                telefone: dadosTelefone
             });
 
             if (response.status === 201) {
@@ -98,11 +116,6 @@ const DadosPessoal = () => {
                     
                     <label htmlFor="dadosTelefone">Telefone: </label>
                     <input className="dados-input" type="text" name="dadosTelefone" value={dadosTelefone} onChange={(e) => setDadosTelefone(e.target.value)} />
-                </div>
-
-                <div>
-                    <label htmlFor="fotoPerfil">Foto de Perfil: </label>
-                    <input className="dados-input" type="file" name="fotoPerfil" onChange={handleFotoChange} />
                 </div>
 
                 <div>

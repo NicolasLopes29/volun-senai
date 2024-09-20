@@ -65,9 +65,10 @@ const Cadastrar = () => {
     };
 
     return (
-        <div>
+        <div className="cadastrar-container">
+            <div className="transparencia-azul"></div> 
             <Navbar />
-            <main className="cadastrar-container">
+            <main>
                 <div>{PaginaRender()}</div>
             </main>
             <Footer />

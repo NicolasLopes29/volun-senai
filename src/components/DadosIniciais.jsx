@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { useNavigate } from "react-router";
-import { auth } from "../services/firebase-config"; // Importa a configuração do Firebase
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth"; // Adicionado updateProfile
+import { auth } from "../services/firebase-config";
+import defaultProfileImage from "../assets/images/photo-perfil.png"; 
+import logo from "../assets/logos/logo-small.svg"; 
 import "./../css/DadosIniciais.css";
 
 const DadosIniciais = ({ onEmailVerificacao }) => {
     const [cadastrarEmail, setCadastrarEmail] = useState("");
     const [cadastrarSenha, setCadastrarSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
-
     const [sucesso, setSucesso] = useState(false);
     const [erro, setErro] = useState("");
-
-    const navigate = useNavigate();
 
     // Validação de email
     const validarEmail = (email) => {
@@ -23,38 +21,38 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Verifica se os campos não estão vazios
         if (!cadastrarEmail.trim() || !cadastrarSenha.trim() || !confirmarSenha.trim()) {
             setErro("Preencha todos os campos.");
             return;
         }
 
-        // Verifica o formato do email
         if (!validarEmail(cadastrarEmail)) {
             setErro("Formato de email inválido.");
             return;
         }
 
-        // Verifica se as senhas coincidem
         if (cadastrarSenha !== confirmarSenha) {
             setErro("As senhas não coincidem.");
             return;
         }
 
         try {
-            // Criação do usuário no Firebase Authentication
             const userCredential = await createUserWithEmailAndPassword(auth, cadastrarEmail, cadastrarSenha);
             const user = userCredential.user;
 
-            // Envio de email de verificação
+            // Enviar email de verificação
             await sendEmailVerification(user);
+
+            // Atualizar o perfil com a imagem de perfil padrão
+            await updateProfile(user, {
+                photoURL: defaultProfileImage, // Enviando a imagem padrão para o Firebase Auth
+            });
 
             // Chama a função para ativar a página de espera
             onEmailVerificacao();
 
             setSucesso("Cadastro realizado com sucesso! Verifique seu email para ativar a conta.");
             setErro(null);
-
         } catch (error) {
             setErro("Erro ao cadastrar: " + error.message);
             setSucesso(false);
@@ -65,6 +63,10 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
         <>
             <div className="dados-iniciais-container">
                 <div className="dados-iniciais-formulario">
+                    <div className="dados-iniciais-logo-container">
+                        {/* Exibir logo no lugar da imagem de perfil */}
+                        <img src={logo} alt="Logo do site" className="site-logo" />
+                    </div>
                     <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>
                         <input
