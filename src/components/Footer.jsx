@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logos/logo.svg";
+import Logo from "../assets/images/logo.svg";
 import { IoLogoFacebook } from "react-icons/io";
 import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
@@ -22,10 +22,10 @@ const Footer = () => {
           <a href="/">Enviar Feedback</a>
         </div>
         <div className="footer-social-icons">
-          <div className="footer-icons"><IoLogoFacebook /></div>
-          <div className="footer-icons"><FaInstagram /></div>
-          <div className="footer-icons"><FaTwitter /></div>
-          <div className="footer-icons"><FaPinterest /></div>
+          <div><IoLogoFacebook /></div>
+          <div><FaInstagram /></div>
+          <div><FaTwitter /></div>
+          <div><FaPinterest /></div>
         </div>
       </div>
       <div className="footer-rights">

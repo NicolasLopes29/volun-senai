@@ -1,0 +1,73 @@
+@import url('./Global.css');
+
+html, body {
+    height: 100vh;
+}
+
+.cardong {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.cardong-left, .cardong-rigth {
+    height: 100vh;
+}
+
+.cardong-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f4ff;
+}
+
+.cardong-right {
+    background-image: url("/src/assets/images/fundobonito.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.cardong-form {
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+    border: 1.5px solid var(--cor-secundaria);
+    border-radius: 10px;
+    height: 80%;
+    width: 70%;
+}
+
+.cardong-form-logo {
+    width: 3em;
+    margin: .7em 12.5em -1em 12.5em;
+}
+
+.cardong-form > p {
+    font-family: var(--font-family);
+    font-size: 18px;
+    text-align: left;
+    padding: 1em 0 .7em 2em
+}
+
+.cardong-form > input {
+    display: block;
+    margin: auto;
+    width: 65%;
+    height:7%;
+    border-radius: 15px;
+    border: none;
+    margin-top: 1em;
+    padding-left: .7em;
+}
+
+.cardong-form > button {
+    display: block;
+    margin: auto;
+    margin-top: 1em;
+    width: 66.7%;
+    height: 7%;
+    color: var(--fonte-cor-branco);
+    background-color: var(--cor-secundaria);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}

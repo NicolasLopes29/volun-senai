@@ -1,0 +1,11 @@
+@import url(./Global.css);
+
+.card {
+    width: 40%;
+    
+}
+
+.card-capa {
+    background: url("/src/assets/images/Limpezadapraia.png") no-repeat;
+    background-size: contain;
+}
