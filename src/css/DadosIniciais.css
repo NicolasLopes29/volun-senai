@@ -48,7 +48,7 @@
     width: 150px;
     height: 40px;
     color: var(--fonte-cor-branco);
-    box-shadow: var(--botao-shadow);
+    /* box-shadow: var(--botao-shadow); */
     margin-bottom: 10px;
 }
 
@@ -90,7 +90,6 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    z-index: 10; /* Certifique-se que o botão está acima dos outros elementos */
 }
 
 .edit-button input {

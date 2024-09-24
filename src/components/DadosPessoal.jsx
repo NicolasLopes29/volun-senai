@@ -80,7 +80,7 @@ const DadosPessoal = () => {
 
             if (response.status === 201) {
                 setSucesso(true);
-                navigate("/"); // Redireciona para a página inicial
+                navigate("usuario/"); // Redireciona para a página inicial
             }
         } catch (error) {
             console.error("Erro ao enviar dados: ", error);

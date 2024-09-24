@@ -1,18 +1,26 @@
 @import url(./Global.css);
 
 .cadastrar-container {
-    background-color: var(--fundo-principal);
+    /* background-color: var(--fundo-principal); */
+    color: #f0f0f0;
+    background-image: url("../assets/wallpaper/orange-wallpaper.svg");
     text-align: center;
-    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    height: 120vh;
 }
 
 .cadastrar-section {
-    border: solid 2px var(--cor-principal);
+    backdrop-filter: blur(5px); /* Desfoca o conteúdo atrás do elemento */
+    border: solid 2px var(--fundo-principal);
     border-radius: 32px;
     padding: 20px;
     margin-bottom: 20px;
     display: block;
     margin: 20px 200px;
+    padding: 50px;
 }
 .cadastrar-section h3 {
     font-size: 18px;
@@ -27,40 +35,18 @@
     width: 150px;
     height: 40px;
     color: var(--fonte-cor-branco);
-    box-shadow: var(--botao-shadow);
     margin: 0 10px;
 }
-
-.espera-confirmacao {
-    background-color: #f0f0f0;
-    border-radius: 12px;
-    padding: 40px;
-    text-align: center;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-.espera-confirmacao h2 {
-    color: #1F0171;
-    font-size: 24px;
-}
-
-.espera-confirmacao p {
-    font-size: 16px;
-    color: #333;
-}
-
 
 
 .verificacao-container {
     text-align: center;
     padding: 50px;
-    background-color: var(--fundo-principal);
-    border: solid 2px var(--cor-principal);
+    border: solid 2px #f0f0f0;
+    backdrop-filter: blur(5px); 
     border-radius: 32px;
     margin: 0 auto;
     width: 50%;
-    box-shadow: var(--botao-shadow);
 }
 
 .verificacao-container h2 {
