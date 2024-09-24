@@ -59,11 +59,11 @@ function App() {
         </section>
         <div className="app-articles-container">
           <div className="article-number-one">
-            <img src="" alt="Article 1" />
+            <img src="https://www.infomoney.com.br/wp-content/uploads/2024/09/TVCultura1.png?fit=1280%2C624&quality=50&strip=all" alt="Article 1" />
             <p>Alguma</p>
           </div>
           <div className="article-number-two">
-            <img src="" alt="Article 2" />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRePztwuq9PA9DT9Ibg8thR61licdZ5H8wifw&s" alt="Article 2" />
             <p>Tec</p>
           </div>
         </div>
