@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth"; // Adicionado updateProfile
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { useNavigate } from "react-router";
 import { auth } from "../services/firebase-config";
-import defaultProfileImage from "../assets/images/photo-perfil.png"; // Imagem de perfil padrão
-import logo from "../assets/logos/logo-small.svg"; // Logo do site
+import defaultProfileImage from "../assets/images/photo-perfil.png"; // Corrigindo o nome da imagem padrão
+import EditPinIcon from "../assets/images/edit-pin.png"; 
 import "./../css/DadosIniciais.css";
 
 const DadosIniciais = ({ onEmailVerificacao }) => {
@@ -11,11 +12,22 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [sucesso, setSucesso] = useState(false);
     const [erro, setErro] = useState("");
+    const [profileImage, setProfileImage] = useState(null); 
+    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage); // Definindo a imagem padrão
 
-    // Validação de email
+    const navigate = useNavigate();
+
     const validarEmail = (email) => {
         const regex = /\S+@\S+\.\S+/;
         return regex.test(email);
+    };
+
+    const handleProfileImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfileImage(file);
+            setProfileImagePreview(URL.createObjectURL(file)); // Gerar URL de pré-visualização
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -40,19 +52,13 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
             const userCredential = await createUserWithEmailAndPassword(auth, cadastrarEmail, cadastrarSenha);
             const user = userCredential.user;
 
-            // Enviar email de verificação
             await sendEmailVerification(user);
 
-            // Atualizar o perfil com a imagem de perfil padrão
-            await updateProfile(user, {
-                photoURL: defaultProfileImage, // Enviando a imagem padrão para o Firebase Auth
-            });
-
-            // Chama a função para ativar a página de espera
             onEmailVerificacao();
 
             setSucesso("Cadastro realizado com sucesso! Verifique seu email para ativar a conta.");
             setErro(null);
+
         } catch (error) {
             setErro("Erro ao cadastrar: " + error.message);
             setSucesso(false);
@@ -63,9 +69,19 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
         <>
             <div className="dados-iniciais-container">
                 <div className="dados-iniciais-formulario">
-                    <div className="dados-iniciais-logo-container">
-                        {/* Exibir logo no lugar da imagem de perfil */}
-                        <img src={logo} alt="Logo do site" className="site-logo" />
+                    <div className="dados-iniciais-picture-container">
+                        <div className="dados-iniciais-picture">
+                            <img src={profileImagePreview} alt="Foto de Perfil" className="profile-picture-img" />
+                            <label className="edit-button">
+                                <img src={EditPinIcon} alt="Editar" className="edit-icon" />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleProfileImageChange}
+                                    className="profile-picture-input"
+                                />
+                            </label>
+                        </div>
                     </div>
                     <div className="dados-iniciais-input-container">
                         <label htmlFor="cadastrarEmail">E-mail: </label>

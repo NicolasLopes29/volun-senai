@@ -66,11 +66,11 @@ const Cadastrar = () => {
 
     return (
         <div>
-            {/* <Navbar /> */}
+            <Navbar />
             <main className="cadastrar-container">
                 <div>{PaginaRender()}</div>
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 };
