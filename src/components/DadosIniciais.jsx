@@ -67,32 +67,35 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
                         {/* Exibir logo no lugar da imagem de perfil */}
                         <img src={logo} alt="Logo do site" className="site-logo" />
                     </div>
-                    <div className="dados-iniciais-input-container">
-                        <label htmlFor="cadastrarEmail">E-mail: </label>
+                    <div className="input-field">
                         <input
+                            required
                             type="email"
                             name="cadastrarEmail"
                             value={cadastrarEmail}
                             onChange={(e) => setCadastrarEmail(e.target.value)}
                         />
+                        <label>E-mail</label>
                     </div>
-                    <div className="dados-iniciais-input-container">
-                        <label htmlFor="cadastrarSenha">Senha: </label>
+                    <div className="input-field">
                         <input
+                            required
                             type="password"
                             name="cadastrarSenha"
                             value={cadastrarSenha}
                             onChange={(e) => setCadastrarSenha(e.target.value)}
                         />
+                        <label>Senha</label>
                     </div>
-                    <div className="dados-iniciais-input-container">
-                        <label htmlFor="confirmarSenha">Confirmar a Senha: </label>
+                    <div className="input-field">
                         <input
+                            required
                             type="password"
                             name="confirmarSenha"
                             value={confirmarSenha}
                             onChange={(e) => setConfirmarSenha(e.target.value)}
                         />
+                        <label>Confirmar a Senha</label>
                     </div>
                     {sucesso && <p>{sucesso}</p>}
                     {erro && <p>{erro}</p>}

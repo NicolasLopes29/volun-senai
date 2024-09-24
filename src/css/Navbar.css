@@ -11,7 +11,7 @@
 }
 
 .logo {
-  height: 20px; 
+  height: 30px; 
 }
 
 .navbar-menu-container {
@@ -115,8 +115,8 @@
 }
 
 .perfil-foto {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
 }

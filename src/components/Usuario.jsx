@@ -1,76 +1,64 @@
 import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { getAuth, onAuthStateChanged } from "firebase/auth";  // Importando onAuthStateChanged para detectar mudanças de autenticação
 
-import defaultProfileImage from "../assets/images/photo-perfil.png"; // Corrigindo o nome da imagem padrão
-import EditPinIcon from "../assets/images/edit-pin.png"; 
+import defaultProfileImage from "../assets/images/photo-perfil.png";
+import EditPinIcon from "../assets/images/edit-pin.png";
 
 import "./../css/Usuario.css";
-import Footer from "./Footer";
 import Navbar from "./Navbar";
-
+import Footer from "./Footer";
 
 const Usuario = () => {
-    const [profileImage, setProfileImage] = useState(null); 
-    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage); 
-    
+    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
     const [userData, setUserData] = useState({
-        nome: '',
-        sobrenome: '',
-        ddd: '',
-        telefone: '',
-        email: '',
-        photoURL: '',
+        nome: "",
+        sobrenome: "",
+        ddd: "",
+        telefone: "",
     });
-    const [authData, setAuthData] = useState({});
+    const [user, setUser] = useState(null);  // Estado para armazenar o usuário logado
 
-    useEffect (() => {
-        handleGetUsers();
-    }, [])
-
+    const navigate = useNavigate();
+    // Função para manipular a troca de imagem de perfil
     const handleProfileImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setProfileImage(file);
-            setProfileImagePreview(URL.createObjectURL(file)); 
+            setProfileImagePreview(URL.createObjectURL(file));
         }
     };
 
-    const handleGetUsers = async () => {
+    // Função para buscar os dados do usuário na API
+    const handleGetUserData = async (uid) => {
+        try {
+            const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
+            setUserData(response.data);  // Define os dados do usuário obtidos da API
+        } catch (error) {
+            console.error("Erro ao buscar dados do usuário:", error);
+        }
+    };
+
+    useEffect(() => {
         const auth = getAuth();
-        const user = auth.currentUser;
-        
-        if (user) {
-            setAuthData({
-                email: user.email,
-                photoURL: user.photoURL || defaultProfileImage,
-            });
-
-            try {
-                const userID = user.uid;
-                const db = getFirestore();
-                const userDOC = await getDoc(doc(db, "usuarios", userID));
-
-                if (userDOC.exists()){
-                    const userDataFromFirestore = userDOC.data();
-                    setUserData({
-                        ...userDataFromFirestore,
-                        email, // Adiciona o email ao objeto de dados do usuário
-                        photoURL // Adiciona a foto de perfil ao objeto de dados do usuário
-                    });
-                }
-                else {
-                    alert("Usuário não encontrado");
-                }
+        // Detectar mudanças de autenticação
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);  // Define o usuário logado
+                setUserData((prevData) => ({
+                    ...prevData,
+                    email: currentUser.email, // Define o email diretamente do Firebase
+                }));
+                handleGetUserData(currentUser.uid);  // Busca os dados da API usando o UID do usuário logado
+            } 
+            else {
+                alert("Nenhum usuário autenticado.");
+                navigate("./")
             }
-            catch (error){
-                alert("Erro ao buscar dados", error);
-            }
-        }
-        else {
-            alert("Nenhum usuário autenticado!");
-        }
-    }
+        });
+
+        return () => unsubscribe();  // Limpar o listener ao desmontar o componente
+    }, [navigate]);
 
     return (
         <>
@@ -90,23 +78,21 @@ const Usuario = () => {
                         </label>
                     </div>
                     <div className="usuario-dados">
-                        <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
                         <div>
-                            <p>Cidade: {userData.cidade} </p>
-                            <p>Email: {userData.email}</p>
-                            <p>Telefone: {userData.telefone}</p>
+                            <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
+                            <p>Telefone: ({userData.ddd})-{userData.telefone}</p>
                         </div>
                     </div>
                 </section>
                 <article className="usuario-article">
                     <div>
-
+                        {/* Conteúdo adicional pode ser adicionado aqui */}
                     </div>
                 </article>
             </div>
             <Footer />
         </>
     );
-}
+};
 
-export default Usuario
+export default Usuario;

@@ -6,36 +6,11 @@
 }
 
 .dados-iniciais-formulario {
-    padding: 20px 0px;
+    padding: 20px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.dados-iniciais-input-container {
-    margin: auto;
-    text-align: center;
-    display: grid;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.dados-iniciais-input-container label {
-    margin-left: 0px;
-    text-align: left;
-}
-
-.dados-iniciais-input-container input {
-    background-color: var(--input-background);
-    width: 300px;
-    height: 40px;
-    border-radius: 12px;
-    box-shadow: var(--input-shadow);
-    border: var(--input-border);
-    margin: 5px auto 10px auto;
-    text-align: left;
-    padding-left: 20px;
 }
 
 .dados-iniciais-botao-container {
@@ -48,55 +23,41 @@
     width: 150px;
     height: 40px;
     color: var(--fonte-cor-branco);
-    /* box-shadow: var(--botao-shadow); */
     margin-bottom: 10px;
 }
 
-
-.dados-iniciais-picture-container {
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    position: relative; /* Necessário para posicionar o botão de edição */
-}
-
-.dados-iniciais-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.input-field {
     position: relative;
-}
-
-.profile-picture-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.edit-button {
+    border-bottom: 2px solid #fff;
+    margin: 15px 0;
+  }
+  
+  .input-field label {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #6c00d7;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.edit-button input {
-    display: none;
-}
-
-.edit-icon {
-    width: 16px;
-    height: 16px;
-}
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+  }
+  
+  .input-field input {
+    width: 100%;
+    min-width: 20rem;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+  }
+  

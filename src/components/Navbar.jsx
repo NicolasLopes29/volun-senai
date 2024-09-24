@@ -87,7 +87,7 @@ const Navbar = () => {
 
   // Redireciona para a página de perfil ao clicar na imagem
   const handleProfileClick = () => {
-    navigate("/perfil"); // Mude "/perfil" para a rota desejada
+    navigate("/usuario"); // Mude "/perfil" para a rota desejada
   };
 
   return (
@@ -101,9 +101,9 @@ const Navbar = () => {
           <input type="text" placeholder="Busque aqui" />
         </div>
         <div className="navbar-menu-container">
-          <a href=".Eventos.jsx">Eventos</a>
-          <a href="./Sobre.jsx">Sobre Nós</a>
-          <a href="./Organizacao.jsx">Sou uma organização</a>
+          <a href="./../pages/Eventos.jsx">Eventos</a>
+          <a href="./../pages/Sobre.jsx">Sobre Nós</a>
+          <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
         </div>
         {usuarioLogado ? (
           <div className="perfil-logout-container">
