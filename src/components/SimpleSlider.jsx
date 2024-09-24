@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import "../css/SimpleSlider.css";
+import "./SimpleSlider.css";
 
 export default function SimpleSlider() {
   const settings = {
