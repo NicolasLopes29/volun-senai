@@ -7,7 +7,7 @@ import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router"; // Importando o useNavigate
 
 const estiloModal = {
   overlay: {
@@ -87,7 +87,7 @@ const Navbar = () => {
 
   // Redireciona para a página de perfil ao clicar na imagem
   const handleProfileClick = () => {
-    navigate("/usuario"); // Mude "/perfil" para a rota desejada
+    navigate("/perfil"); // Mude "/perfil" para a rota desejada
   };
 
   return (

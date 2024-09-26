@@ -3,7 +3,7 @@ import './css/Navbar.css';
 
 const NavBar = ({ setActiveTab }) => {
   return (
-    <div className="navbar-container">
+    <div className="navbar-container-mod">
       <button onClick={() => setActiveTab('usuarios')}>usuarios</button>
       <button onClick={() => setActiveTab('historico')}>historico</button>
       <button onClick={() => setActiveTab('denuncias')}>denuncias</button>

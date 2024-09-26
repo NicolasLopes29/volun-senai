@@ -1,4 +1,4 @@
-.navbar-container {
+.navbar-container-mod {
     display: flex;
     justify-content: center; /* Centraliza os botões */
     align-items: center;
@@ -7,7 +7,7 @@
     width: 100%;
   }
   
-  button {
+  .button-mod {
     background-color: #ffffff;
     color: #000;
     border: none;
@@ -19,10 +19,10 @@
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .button-mod:hover {
     background-color: #d4d1d1;
   }
   
-  button:focus {
+  .button-mod:focus {
     outline: none;
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../assets/logos/logo.svg";
 import { IoLogoFacebook } from "react-icons/io";
-import { FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
+import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
 
 const Footer = () => {
