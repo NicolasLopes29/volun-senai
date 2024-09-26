@@ -1,0 +1,39 @@
+@import url(./Global.css);
+
+.footer-container {
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px;
+    text-align: center;
+    font-family: var(--font-family);
+    width: 100%;
+}
+.footer-row {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.footer-logo img {
+    width: 80px;
+    height: 80px;
+}
+
+.footer-links {
+    flex-direction: column;
+}
+.footer-links a{
+    display: block;
+    text-decoration: none;
+    color: var(--fonte-cor-branco);
+    padding-bottom: 10px;
+} 
+.footer-social-icons {
+    display: flex;
+    align-items: center;
+}
+.footer-icons{
+    padding-right:5px ;
+}

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url(./Global.css);
+
+* {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; /* Tamanho de fonte padronizado */
+}
+
+.login-body-container {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--fundo-principal);
+    color: var(--fonte-cor-preto);
+}
+
+.login-header-container {
+    height: auto;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-botao-fechar {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-botao-fechar:hover {
+    background-color: black;
+    transform: scale(1.1);
+}
+
+.login-botao-fechar::before {
+    content: '✖'; /* Unicode character for a close icon */
+    font-size: 16px;
+}
+
+.login-header-container img {
+    width: 33%;
+    height: 33%;
+}
+
+.login-main-container {
+    margin: 0px 50px;
+    border-radius: 12px;
+}
+
+.login-main-form {
+    margin: 10px 0px;
+    justify-content: baseline;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-main-form input,
+.login-main-form button {
+    width: 300px;
+    height: 40px; /* Altura padronizada */
+}
+
+.login-main-form input {
+    background-color: var(--input-background);
+    border: var(--input-border);
+    border-radius: 12px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.login-main-form button {
+    background-color: var(--cor-principal);
+    color: var(--fonte-cor-branco);
+    border-radius: 16px;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.login-main-form p {
+    font-size: 12px;
+}
+
+.others-login {
+    margin: 15px 0;
+}
+
+.login-other {
+    width: 400px;
+    height: 30px;
+    margin: 15px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+}
+
+.login-other a {
+    background-color: var(--botao-tela-branco);
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--fonte-cor-preto);
+    font-size: 32px;
+}
+
+.icon-log {
+    display: flex;
+    padding-right: 10px;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-paragraph {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.login-paragraph button {
+    cursor: pointer;
+}
