@@ -19,7 +19,7 @@ root.render (
         <Route path='/dados_inicial' element={<DadosIniciais />}/>
         <Route path='/dados_pessoal' element={<DadosPessoal />}/>
         <Route path='/dados_endereco' element={<DadosEndereco />}/>
-        <Route path='/usuario' element={<Usuario />}/>
+        <Route path='/usuario' element={<Usuario/>}/>
       </Routes>
     </Router>
   </React.StrictMode>

@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { getAuth, onAuthStateChanged } from "firebase/auth";  // Importando onAuthStateChanged para detectar mudanças de autenticação
-
-import defaultProfileImage from "../assets/images/photo-perfil.png";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
+import defaultProfileImage from "../assets/images/photo-perfil.png"; // Corrigindo o nome da imagem padrão
 import EditPinIcon from "../assets/images/edit-pin.png";
+import { Link } from "react-router-dom";
 
-import "./../css/Usuario.css";
+import "../css/Usuario.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Usuario = () => {
-    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
+    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage); 
     const [userData, setUserData] = useState({
         nome: "",
         sobrenome: "",
         ddd: "",
         telefone: "",
     });
-    const [user, setUser] = useState(null);  // Estado para armazenar o usuário logado
+    const [user, setUser] = useState(null);
+    const [ativarComp, setAtivarComp] = useState("Histórico");
 
     const navigate = useNavigate();
-    // Função para manipular a troca de imagem de perfil
+
     const handleProfileImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setProfileImagePreview(URL.createObjectURL(file));
+            setProfileImagePreview(URL.createObjectURL(file)); 
         }
     };
-
-    // Função para buscar os dados do usuário na API
+    
     const handleGetUserData = async (uid) => {
         try {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
@@ -60,39 +60,46 @@ const Usuario = () => {
         return () => unsubscribe();  // Limpar o listener ao desmontar o componente
     }, [navigate]);
 
+    const handleComponentChange = (InformacaoPessoal) => {
+        setAtivarComp(InformacaoPessoal);
+    };
+
     return (
         <>
             <Navbar />
             <div className="usuario-container">
                 <section className="usuario-section">
-                    <div className="usuario-picture">
-                        <img src={profileImagePreview} alt="Foto de Perfil" className="usuario-picture-img" />
-                        <label className="usuario-edit">
-                            <img src={EditPinIcon} alt="Editar" className="usuario-icon" />
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleProfileImageChange}
-                                className="profile-picture-input"
-                            />
-                        </label>
-                    </div>
-                    <div className="usuario-dados">
-                        <div>
-                            <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
-                            <p>Telefone: ({userData.ddd})-{userData.telefone}</p>
+                    <div className="usuario-info">
+                        <div className="usuario-picture">
+                            <img src={profileImagePreview} alt="Foto de Perfil" className="usuario-picture-img" />
+                            <label className="usuario-edit">
+                                <input type="file" onChange={handleProfileImageChange} style={{ display: "none" }} />
+                                <img src={EditPinIcon} alt="Editar" className="usuario-icon" />
+                            </label>
                         </div>
+                        <div className="usuario-dados">
+                            <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
+                            <p>Cidade: </p>
+                            <p>Email: {user?.email}</p>
+                            <p>Telefone: ({userData.ddd})-{userData.telefone} </p>
+                        </div>
+                    </div>
+                    <div className="usuario-nav">
+                        <Link to={"Historico"} onClick={() => handleComponentChange(Historico)}>Histórico</Link>
+                        <Link to={"Informacao"} onClick={() => handleComponentChange(InformacaoPessoal)}>Informações Pessoais</Link>
                     </div>
                 </section>
                 <article className="usuario-article">
                     <div>
-                        {/* Conteúdo adicional pode ser adicionado aqui */}
+                        {activeComponent === Historico && <Historico />}
+                        {activeComponent === InformacaoPessoal && <InformacaoPessoal />}
                     </div>
                 </article>
             </div>
             <Footer />
         </>
     );
-};
+}
+
 
 export default Usuario;

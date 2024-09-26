@@ -79,9 +79,10 @@ const Login = ({ fecharLogin }) => {
       });
   };
 
-  const CadastrarRedir = () => {
-    navigate("/cadastrar");
+ const CadastrarRedir = () => {
+    window.open("/cadastrar", "_blank"); // Abre em uma nova aba
   }
+
 
   return (
     <>
