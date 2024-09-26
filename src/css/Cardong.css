@@ -52,10 +52,36 @@ html, body {
     display: block;
     margin: auto;
     width: 65%;
-    height:7%;
+    height: 2.5em;
     border-radius: 15px;
     border: none;
     margin-top: 1em;
+    padding-left: .7em;
+}
+
+.telefone-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Alinha os inputs verticalmente para a mesma altura */
+    width: 67%;
+    margin: auto;
+    margin-top: 1em;
+}
+
+#ddd-ong {
+    width: 3em;
+    height: 2.5em;
+    margin-right: 1em;
+}
+
+#telefone-ong {
+    flex: 1;
+    height: 2.5em;
+}
+
+.telefone-container > input {
+    border-radius: 15px;
+    border: none;
     padding-left: .7em;
 }
 
