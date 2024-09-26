@@ -87,7 +87,7 @@ const Navbar = () => {
 
   // Redireciona para a página de perfil ao clicar na imagem
   const handleProfileClick = () => {
-    navigate("/perfil"); // Mude "/perfil" para a rota desejada
+    navigate("/usuario"); 
   };
 
   return (
