@@ -73,7 +73,8 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {
         console.log("Usuário deslogado com sucesso!");
-        window.location.reload(); 
+        navigate("/"); 
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Erro ao deslogar: ", error);
