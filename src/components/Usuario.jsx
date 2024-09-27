@@ -7,9 +7,11 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import defaultProfileImage from "../assets/images/photo-perfil.png";
 import EditPinIcon from "../assets/images/edit-pin.png";
 
-import "./../css/Usuario.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Loader from "./Loader"; // Importa o Loader
+
+import "./../css/Usuario.css";
 
 const Usuario = () => {
     const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
@@ -20,7 +22,9 @@ const Usuario = () => {
         telefone: "",
     });
     const [user, setUser] = useState(null);
-    
+    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
+    const [error, setError] = useState(null); // Estado para controlar erros
+
     const navigate = useNavigate();
     const storage = getStorage();
 
@@ -29,22 +33,13 @@ const Usuario = () => {
         if (file && user) {
             const storageRef = ref(storage, `profilePictures/${user.uid}`);
             try {
-                // Faz upload da imagem no Firebase Storage
                 await uploadBytes(storageRef, file);
-                
-                // Obtém a URL de download da imagem
                 const downloadURL = await getDownloadURL(storageRef);
-                
-                // Atualiza a foto de perfil no Firebase Authentication
                 await updateProfile(user, {
                     photoURL: downloadURL,
                 });
-                
-                // Atualiza a pré-visualização da imagem
                 setProfileImagePreview(downloadURL);
-
                 window.location.reload();
-
             } catch (error) {
                 console.error("Erro ao atualizar foto de perfil:", error);
             }
@@ -55,8 +50,10 @@ const Usuario = () => {
         try {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
             setUserData(response.data);
+            setLoading(false); // Finaliza o carregamento quando os dados forem recebidos
         } catch (error) {
-            console.error("Erro ao buscar dados do usuário:", error);
+            setError("Erro ao buscar dados do usuário.");
+            setLoading(false); // Finaliza o carregamento em caso de erro
         }
     };
 
@@ -77,8 +74,37 @@ const Usuario = () => {
             }
         });
 
-        return () => unsubscribe();
-    }, [navigate]);
+        // Define o timeout de 15 segundos para resposta da API
+        const timeout = setTimeout(() => {
+            if (loading) {
+                setError("A requisição demorou muito para responder. Tente novamente mais tarde.");
+                setLoading(false);
+            }
+        }, 15000);
+
+        return () => {
+            unsubscribe();
+            clearTimeout(timeout);
+        };
+    }, [navigate, loading]);
+
+    // Renderiza o loader enquanto está carregando
+    if (loading) {
+        return <Loader />;
+    }
+
+    // Renderiza a mensagem de erro caso ocorra
+    if (error) {
+        return (
+            <>
+                <Navbar />
+                <div className="error-container">
+                    <p>{error}</p>
+                </div>
+                <Footer />
+            </>
+        );
+    }
 
     return (
         <>
@@ -117,3 +143,4 @@ const Usuario = () => {
 };
 
 export default Usuario;
+
