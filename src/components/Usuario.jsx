@@ -10,6 +10,9 @@ import "../css/Usuario.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
+import Historico from "./Historico";
+import InformacaoPessoal from "./InformacaoPessoal";
+
 const Usuario = () => {
     const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage); 
     const [userData, setUserData] = useState({
@@ -19,7 +22,7 @@ const Usuario = () => {
         telefone: "",
     });
     const [user, setUser] = useState(null);
-    const [ativarComp, setAtivarComp] = useState("Histórico");
+    const [activeComponent, setActiveComponent] = useState("Historico");
 
     const navigate = useNavigate();
 
@@ -60,8 +63,24 @@ const Usuario = () => {
         return () => unsubscribe();  // Limpar o listener ao desmontar o componente
     }, [navigate]);
 
-    const handleComponentChange = (InformacaoPessoal) => {
-        setAtivarComp(InformacaoPessoal);
+    const handleHistorico = () => {
+        setActiveComponent("Historico");
+        console.log("Histórico clicked");
+    };
+
+    const handleInfo = () => {
+        setActiveComponent("Informação");
+        console.log("Informações Pessoais clicked");
+    };
+
+    const handleComponentChange = () => {
+        if (activeComponent === "Historico") {
+            return <Historico />; 
+        }
+        if (activeComponent === "Informação") {
+            return <InformacaoPessoal/>; 
+        }
+        return null;
     };
 
     return (
@@ -85,14 +104,13 @@ const Usuario = () => {
                         </div>
                     </div>
                     <div className="usuario-nav">
-                        <Link to={"Historico"} onClick={() => handleComponentChange(Historico)}>Histórico</Link>
-                        <Link to={"Informacao"} onClick={() => handleComponentChange(InformacaoPessoal)}>Informações Pessoais</Link>
+                        <Link to={"#"} onClick={handleHistorico}>Histórico</Link>
+                        <Link to={"#"} onClick={handleInfo}>Informações Pessoais</Link>
                     </div>
                 </section>
                 <article className="usuario-article">
                     <div>
-                        {activeComponent === Historico && <Historico />}
-                        {activeComponent === InformacaoPessoal && <InformacaoPessoal />}
+                        {handleComponentChange()}
                     </div>
                 </article>
             </div>
