@@ -1,0 +1,24 @@
+body{
+    background-color: #F5F4FF;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header{
+    width: 100%;
+    height: 100px;
+    background-color: #1F0171;
+}
+
+.header h1{
+    position: relative;
+    left: 100px;
+    bottom: 120px;
+    font-size: 65px;
+    color: #fff; 
+    font-family: "Poppins", sans-serif;  
+}
+
+
+

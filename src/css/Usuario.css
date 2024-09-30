@@ -1,0 +1,68 @@
+@import url(./Global.css);
+
+.usuario-container {
+    background-color: var(--fundo-principal);
+    width: 100%;
+    display: block;
+}
+.usuario-section {
+    background-color: var(--cor-quarta);
+    padding: 20px;
+    justify-content: baseline;
+    display: block;
+    align-items: center;
+}
+.usuario-info {
+    display: flex;
+}
+.usuario-picture {
+    display: flex;
+    margin-right: 50px;
+}
+.usuario-picture label{
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.usuario-picture-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%; 
+    object-fit: cover; /* Faz a imagem preencher a área sem distorção */
+    border: 2px solid #fff; 
+}
+
+.usuario-icon {
+    width: 50px; /* Tamanho do ícone de edição */
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(177, 177, 177);
+    border: 1px solid #fff;
+    border-radius: 50%; /* Ícone também circular */
+    padding: 5px; /* Espaçamento interno para o ícone */
+    cursor: pointer;
+}
+
+.usuario-edit img {
+    width: 25px;
+    height: 25px;
+}
+.usuario-icon {
+    width: 15px;
+    height: 15px;
+}
+.usuario-dados h3{
+    font-size: 36px;
+    padding-bottom: 20px;
+}
+.usuario-nav {
+    display: flex;
+    padding-top: 20px;
+}
+.usuario-nav :link {
+    text-decoration: none;
+    padding-right: 20px;
+}

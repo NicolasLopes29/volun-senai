@@ -108,6 +108,38 @@
   }
 }
 
+.perfil-logout-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.perfil-foto {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.foto-usuario {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: red; 
+}
+
+
 .navbar-entrar {
   background-color: var(--cor-secundaria); /* Laranja */
   color: white;

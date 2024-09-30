@@ -5,6 +5,8 @@
     align-items: flex-start;
     padding-top: 20px;
     padding-left: 50px;
+    height: 120vh;
+    width: 100%;
   }
   .Eventos-h1{
     font: 'sans-serif';
@@ -15,6 +17,7 @@
     position: relative;
     display: inline-block;
     padding: 10px;
+    padding-left: 10px;
    }
    
    .Eventos-input {
@@ -67,8 +70,8 @@
 }
 
 .button-buscar:active {
-  transform: translate(0.05em, 0.05em);
-  box-shadow: 0.05em 0.05em;
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
 }
 
 .Eventos-estado-busca{
@@ -90,12 +93,12 @@
   padding-left: 5px;
   width: 14rem;
   height: 2rem;
-  margin: 10px;
+  margin: 1rem;
 }
 
 .Eventos-select{
   display: flex;
-  padding: 10px;
+  padding: 5px;
 }
 
 .Eventos-arrumar-botão{
@@ -104,4 +107,22 @@
 
 .Eventos-resultado-pesquisa-texto{
   padding: 10px;
+  
+}
+.Eventos-resultado-pesquisa{
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-around;
+  
+  
+}
+.Eventos-card-falso{
+  background-color: green;
+  width: 350px;
+  height: 200px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  margin-left: 20px;
+
 }
