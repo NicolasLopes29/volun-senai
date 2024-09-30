@@ -47,7 +47,7 @@ const DadosEndereco = () => {
             <div className="form-group">
                 <label htmlFor="dadosCEP">CEP: </label>
                 <input className="input-medio" type="text" name="dadosCEP" value={dadosCEP} onChange={(e) => setDadosCEP(e.target.value)} />
-                <button className="buscar-cep-button" type="submit" onClick={buscarCEP}>Buscar</button>
+                <button className="" type="submit" onClick={buscarCEP}>Buscar</button>
             </div>
 
             {/* Segunda linha: Endereço e Número */}
@@ -57,13 +57,11 @@ const DadosEndereco = () => {
                 <label htmlFor="dadosNumero">Número: </label>
                 <input className="input-pequeno" type="text" name="dadosNumero" value={dadosNumero} onChange={(e) => setDadosNumero(e.target.value)} />
             </div>
-
             {/* Terceira linha: Bairro */}
             <div className="form-group">
                 <label htmlFor="dadosBairro">Bairro: </label>
                 <input className="input-grande" type="text" name="dadosBairro" value={dadosBairro} onChange={(e) => setDadosBairro(e.target.value)} />
             </div>
-
             {/* Quarta linha: Cidade e Estado */}
             <div className="form-group">
                 <label htmlFor="dadosCidade">Cidade: </label>

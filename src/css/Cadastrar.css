@@ -1,7 +1,6 @@
 @import url(./Global.css);
 
 .cadastrar-container {
-    /* background-color: var(--fundo-principal); */
     color: #f0f0f0;
     background-image: url("../assets/wallpaper/orange-wallpaper.svg");
     text-align: center;

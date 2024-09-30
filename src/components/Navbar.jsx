@@ -73,7 +73,8 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {
         console.log("Usuário deslogado com sucesso!");
-        window.location.reload(); 
+        navigate("/"); 
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Erro ao deslogar: ", error);
@@ -87,7 +88,7 @@ const Navbar = () => {
 
   // Redireciona para a página de perfil ao clicar na imagem
   const handleProfileClick = () => {
-    navigate("/usuario"); // Mude "/perfil" para a rota desejada
+    navigate("/usuario"); 
   };
 
   return (

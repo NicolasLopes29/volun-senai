@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
-import { app } from "../services/firebase-config"; 
+import { app, firestore } from "../services/firebase-config"; // Importando firestore
 import Recuperacao from "./Recuperacao";
 import { useNavigate } from "react-router";
+import { doc, setDoc, getDoc } from "firebase/firestore"; // Importando getDoc para verificar no Firestore
 
 import "./../css/Login.css";
 
@@ -44,45 +45,68 @@ const Login = ({ fecharLogin }) => {
   const navigate = useNavigate();
 
   // Função para logar com email e senha
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, senha)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+      const user = userCredential.user;
+
+      // Verifica se existe um documento de usuário com o UID no Firestore
+      const userDocRef = doc(firestore, "usuarios", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        // Se o documento não existir, redireciona para preencher os dados pessoais
+        navigate("/dados_pessoal");
+      } else {
+        // Caso o documento exista, salva os dados no Firestore
+        await setDoc(userDocRef, {
+          email: user.email,
+          photoURL: user.photoURL || '',
+        }, { merge: true });
         console.log("Usuário logado:", user);
-        fecharLogin(); // Fechar modal após login
         navigate("/"); // Redirecionar após login
-      })
-      .catch((error) => {
-        setError("Erro ao logar: " + error.message);
-      });
+      }
+    } catch (error) {
+      setError("Erro ao logar: " + error.message);
+    }
   };
 
-  // Função para logar com Google
-  const handleLoginWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        const user = result.user;
-        console.log("Logado com Google:", user);
-        
-        // Atualiza o perfil do usuário com a foto do Google
-        await updateProfile(user, {
-          photoURL: user.photoURL // Armazena a foto de perfil do Google
-        });
+ // Função para logar com Google
+const handleLoginWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
 
-        fecharLogin(); 
-        navigate("/"); // Redirecionar após login
-      })
-      .catch((error) => {
-        setError("Erro ao logar com Google: " + error.message);
-      });
-  };
+    // Atualiza o perfil do usuário com a foto do Google
+    await updateProfile(user, {
+      photoURL: user.photoURL // Armazena a foto de perfil do Google
+    });
 
- const CadastrarRedir = () => {
+    // Verifica se existe um documento de usuário com o UID no Firestore
+    const userDocRef = doc(firestore, "usuarios", user.uid);
+    const userDoc = await getDoc(userDocRef);
+
+    // Sempre redireciona para a página de dados pessoais se não existir o documento
+    if (!userDoc.exists()) {
+      // Se o documento não existir, redireciona para preencher os dados pessoais
+      navigate("/dados_pessoal");
+    } else {
+      // Caso o documento exista, continua com a lógica de login
+      console.log("Logado com Google:", user);
+      fecharLogin(); 
+      navigate("/"); // Redirecionar após login
+    }
+  } catch (error) {
+    setError("Erro ao logar com Google: " + error.message);
+  }
+};
+
+
+  const CadastrarRedir = () => {
     window.open("/cadastrar", "_blank"); // Abre em uma nova aba
   }
-
 
   return (
     <>
@@ -112,13 +136,6 @@ const Login = ({ fecharLogin }) => {
                 <div className="login-other" onClick={handleLoginWithGoogle}>
                   <img src="https://cdn-icons-png.flaticon.com/128/2991/2991148.png" className="icon-log" />
                   <p>Entrar com Google</p>
-                </div>
-                {/* Placeholder para login com Facebook */}
-                <div className="login-other">
-                  <a href="#">
-                    <img src="https://cdn-icons-png.flaticon.com/128/733/733547.png" className="icon-log" />
-                    <p>Entrar com Facebook</p>
-                  </a>
                 </div>
                 <div className="login-paragraph">
                   <p>Ainda não possui uma conta?</p>
