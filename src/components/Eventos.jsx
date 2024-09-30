@@ -59,9 +59,15 @@ const estados = [
             <div className="Eventos-resultado-pesquisa-texto">
                 <h1>Resultado da pesquisa</h1>
                 <h3>Foram acahdos XX resultados referentes a sua busca</h3>
-                <div>Here go</div>
                     <div className="Eventos-resultado-pesquisa">
-                                
+                        <div className="Eventos-resultado-pesquisa">
+                            <div className="Eventos-card-falso"></div>
+                            <div className="Eventos-card-falso"></div>
+                            <div className="Eventos-card-falso"></div>
+
+                          
+                            
+                        </div>   
                     </div>
                 </div>        
             </div>
