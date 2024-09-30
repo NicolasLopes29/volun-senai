@@ -2,29 +2,32 @@
 
 .usuario-container {
     background-color: var(--fundo-principal);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    display: block;
 }
-
 .usuario-section {
     background-color: var(--cor-quarta);
-    padding: 8rem;
+    padding: 20px;
     justify-content: baseline;
-    display: flex;
+    display: block;
     align-items: center;
-    justify-content: space-evenly;
 }
-
+.usuario-info {
+    display: flex;
+}
 .usuario-picture {
-    display: grid;
-    position: relative; /* Permite posicionar o ícone sobre a imagem */
-    justify-content: center;
+    display: flex;
+    margin-right: 50px;
+}
+.usuario-picture label{
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
 }
 
 .usuario-picture-img {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%; 
     object-fit: cover; /* Faz a imagem preencher a área sem distorção */
     border: 2px solid #fff; 
@@ -43,20 +46,23 @@
     cursor: pointer;
 }
 
-.profile-picture-input {
-    display: none; 
+.usuario-edit img {
+    width: 25px;
+    height: 25px;
 }
-
-.usuario-edit {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    cursor: pointer;
+.usuario-icon {
+    width: 15px;
+    height: 15px;
 }
-
-.usuario-aritcle{
-    justify-content: center;
+.usuario-dados h3{
+    font-size: 36px;
+    padding-bottom: 20px;
+}
+.usuario-nav {
     display: flex;
-    align-items: center;
-    text-align: center;
+    padding-top: 20px;
+}
+.usuario-nav :link {
+    text-decoration: none;
+    padding-right: 20px;
 }

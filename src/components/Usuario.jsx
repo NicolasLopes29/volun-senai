@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import axios from "axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
 import defaultProfileImage from "../assets/images/photo-perfil.png";
 import EditPinIcon from "../assets/images/edit-pin.png";
+import { Link } from "react-router-dom";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loader from "./Loader"; // Importa o Loader
 
-import "./../css/Usuario.css";
+import Historico from "./Historico";
+import InformacaoPessoal from "./InformacaoPessoal";
+
+import "../css/Usuario.css";
 
 const Usuario = () => {
     const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
@@ -22,8 +25,9 @@ const Usuario = () => {
         telefone: "",
     });
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
-    const [error, setError] = useState(null); // Estado para controlar erros
+    const [loading, setLoading] = useState(true); // Estado para o Loader
+    const [error, setError] = useState(null); // Estado para controle de erros
+    const [activeComponent, setActiveComponent] = useState("Historico");
 
     const navigate = useNavigate();
     const storage = getStorage();
@@ -39,7 +43,7 @@ const Usuario = () => {
                     photoURL: downloadURL,
                 });
                 setProfileImagePreview(downloadURL);
-                window.location.reload();
+                window.location.reload(); // Atualiza a página para refletir a nova imagem
             } catch (error) {
                 console.error("Erro ao atualizar foto de perfil:", error);
             }
@@ -50,7 +54,7 @@ const Usuario = () => {
         try {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
             setUserData(response.data);
-            setLoading(false); // Finaliza o carregamento quando os dados forem recebidos
+            setLoading(false); // Finaliza o carregamento após obter os dados
         } catch (error) {
             setError("Erro ao buscar dados do usuário.");
             setLoading(false); // Finaliza o carregamento em caso de erro
@@ -74,7 +78,7 @@ const Usuario = () => {
             }
         });
 
-        // Define o timeout de 15 segundos para resposta da API
+        // Timeout para evitar espera muito longa na requisição da API
         const timeout = setTimeout(() => {
             if (loading) {
                 setError("A requisição demorou muito para responder. Tente novamente mais tarde.");
@@ -88,7 +92,18 @@ const Usuario = () => {
         };
     }, [navigate, loading]);
 
-    // Renderiza o loader enquanto está carregando
+    // Função para alternar entre os componentes "Histórico" e "Informação Pessoal"
+    const handleComponentChange = () => {
+        if (activeComponent === "Historico") {
+            return <Historico />;
+        }
+        if (activeComponent === "Informação") {
+            return <InformacaoPessoal />;
+        }
+        return null;
+    };
+
+    // Renderiza o Loader se a página ainda estiver carregando
     if (loading) {
         return <Loader />;
     }
@@ -111,30 +126,33 @@ const Usuario = () => {
             <Navbar />
             <div className="usuario-container">
                 <section className="usuario-section">
-                    <div className="usuario-picture">
-                        <img src={profileImagePreview} alt="Foto de Perfil" className="usuario-picture-img" />
-                        <label className="usuario-edit">
-                            <img src={EditPinIcon} alt="Editar" className="usuario-icon" />
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleProfileImageChange}
-                                className="profile-picture-input"
-                            />
-                        </label>
-                    </div>
-                    <div className="usuario-dados">
-                        <div>
+                    <div className="usuario-info">
+                        <div className="usuario-picture">
+                            <img src={profileImagePreview} alt="Foto de Perfil" className="usuario-picture-img" />
+                            <label className="usuario-edit">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleProfileImageChange}
+                                    className="profile-picture-input"
+                                    style={{ display: "none" }}
+                                />
+                                <img src={EditPinIcon} alt="Editar" className="usuario-icon" />
+                            </label>
+                        </div>
+                        <div className="usuario-dados">
                             <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
-                            <h3>Email: {user?.email}</h3>
+                            <p>Email: {user?.email}</p>
                             <p>Telefone: ({userData.ddd})-{userData.telefone}</p>
                         </div>
                     </div>
+                    <div className="usuario-nav">
+                        <Link to={"#"} onClick={() => setActiveComponent("Historico")}>Histórico</Link>
+                        <Link to={"#"} onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
+                    </div>
                 </section>
                 <article className="usuario-article">
-                    <div>
-                        Palmeiras nao tem 
-                    </div>
+                    {handleComponentChange()}
                 </article>
             </div>
             <Footer />
@@ -143,4 +161,3 @@ const Usuario = () => {
 };
 
 export default Usuario;
-
