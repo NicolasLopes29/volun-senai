@@ -1,0 +1,13 @@
+.slider-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+  }
+
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: #000000;
+  }
