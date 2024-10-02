@@ -5,6 +5,9 @@ import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
 
 const Footer = () => {
+  const CadastrarRedir = () => {
+    window.open("/modera", "_blank"); // Abre a moderação
+  }
   return (
     <footer className="footer-container">
       <div className="footer-row">
@@ -20,6 +23,7 @@ const Footer = () => {
           <a href="/">Contato</a>
           <a href="/">Sou uma organização</a>
           <a href="/">Enviar Feedback</a>
+          <a href="/" onClick={CadastrarRedir}>Sou um moderador</a> {}
         </div>
         <div className="footer-social-icons">
           <div className="footer-icons"><IoLogoFacebook /></div>
