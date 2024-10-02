@@ -63,7 +63,6 @@ const DadosPessoal = () => {
 
     const formatarTelefone = (telefone) => {
         telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
-        telefone = telefone.replace(/(\d{2})(\d)/, "($1) $2"); // Coloca parênteses no DDD
         telefone = telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Coloca o hífen no número
         return telefone;
     };
