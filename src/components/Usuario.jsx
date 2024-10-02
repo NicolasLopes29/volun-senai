@@ -137,7 +137,6 @@ const Usuario = () => {
                                     className="profile-picture-input"
                                     style={{ display: "none" }}
                                 />
-                                <img src={EditPinIcon} alt="Editar" className="usuario-icon" />
                             </label>
                         </div>
                         <div className="usuario-dados">

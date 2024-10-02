@@ -66,6 +66,7 @@ const Login = ({ fecharLogin }) => {
           photoURL: user.photoURL || '',
         }, { merge: true });
         console.log("Usuário logado:", user);
+        fecharLogin();
         navigate("/"); // Redirecionar após login
       }
     } catch (error) {
@@ -92,7 +93,8 @@ const handleLoginWithGoogle = async () => {
     if (!userDoc.exists()) {
       // Se o documento não existir, redireciona para preencher os dados pessoais
       navigate("/dados_pessoal");
-    } else {
+    } 
+    else {
       // Caso o documento exista, continua com a lógica de login
       console.log("Logado com Google:", user);
       fecharLogin(); 

@@ -35,6 +35,8 @@ const estiloModal = {
   }
 };
 
+Modal.setAppElement('#root');
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [LoginAbrir, setLoginAbrir] = useState(false);
