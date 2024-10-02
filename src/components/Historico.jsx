@@ -1,9 +1,10 @@
 import React from "react";
+import "./../css/Historico.css"
 
 const Historico = () => {
     return (
         <>
-            <div>
+            <div className="historico-container">
                 <h3>Histórico</h3>
                 <div>
                     

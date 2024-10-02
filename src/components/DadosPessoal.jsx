@@ -172,7 +172,7 @@ const DadosPessoal = () => {
                             type="text"
                             name="dadosTelefone"
                             value={dadosTelefone}
-                            placeholder="(11) 12345-6789"
+                            placeholder="12345-6789"
                             onChange={(e) => setDadosTelefone(formatarTelefone(e.target.value))}
                         />
                     </div>
