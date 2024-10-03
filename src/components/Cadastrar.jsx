@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import DadosIniciais from "./DadosIniciais";
 import { auth } from "../services/firebase-config"; // Firebase Authentication
 import "./../css/Cadastrar.css";
+import DadosPessoal from "./DadosPessoal";
+import DadosEndereco from "./DadosEndereco";
 
 const Cadastrar = () => {
     const [passo, setPasso] = useState(1);
@@ -60,8 +62,8 @@ const Cadastrar = () => {
                 </div>
             );
         }
-    };
-
+    }
+    
     return (
         <div>
             <main className="cadastrar-container">

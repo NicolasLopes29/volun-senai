@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import "./../css/InformacaoPessoal.css";
-import { data } from "autoprefixer";
-
 
 const Estados = () => {
     return [
@@ -28,7 +26,7 @@ const InformacaoPessoal = () => {
     });
     const [userLocalizacao, setUserLocalizacao] = useState({
         id: "",
-        endereco: "",
+        logradouro: "",
         numero: "",
         cep: "",
         bairro: "",
@@ -98,12 +96,12 @@ const InformacaoPessoal = () => {
             } else {
                 setUserLocalizacao({
                     ...userLocalizacao,
-                    endereco: response.data.logradouro,
+                    logradouro: response.data.logradouro,
                     bairro: response.data.bairro,
                     cidade: response.data.localidade,
                     estado: response.data.uf
                 });
-                setError(false);
+                setSucesso(true);
             }
         } catch (error) {
             console.error("Erro ao buscar CEP:", error);
@@ -201,8 +199,8 @@ const InformacaoPessoal = () => {
                         <input 
                             className="info-local-endereco" 
                             type="text" 
-                            value={userLocalizacao.endereco} 
-                            onChange={(e) => setUserLocalizacao({ ...userLocalizacao, endereco: e.target.value })} 
+                            value={userLocalizacao.logradouro} 
+                            onChange={(e) => setUserLocalizacao({ ...userLocalizacao, logradouro: e.target.value })} 
                             disabled={disable}
                         />
                         <label htmlFor="numero">Numero: </label>
