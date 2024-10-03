@@ -1,0 +1,50 @@
+@import url(./Global.css);
+
+.info-pessoal-container {
+    width: 90%;
+    padding: auto;
+    text-align: center;
+}
+.info-pessoal-container h1 {
+    font-size: 24px;
+    padding-top: 10px;
+}
+.info-pessoal-form-container {
+    background-color: var(--fundo-principal);
+    width: 75%;
+    text-align: left;
+    margin: auto;
+    padding: 20px 0;
+}
+.info-pessoal-form-container input {
+    margin: 10px 10px 10px 0px;
+    padding: 5px 0px 5px 20px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    border-radius: 16px;
+}
+.input-pessoal-nome {
+    width: 250px;
+}
+.input-pessoal-ddd {
+    width: 80px;
+}
+.input-pessoal-email {
+    width: 350px;
+}
+.info-local-endereco {
+    width: 350px
+}
+.info-local-numero {
+    width: 100px;
+}
+.form-button-container {
+    padding: 20px 0;
+}
+.form-button-container button {
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 16px;
+}
