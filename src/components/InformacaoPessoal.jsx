@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import "./../css/InformacaoPessoal.css";
-import { data } from "autoprefixer";
 
 
 const Estados = () => {
@@ -74,42 +73,20 @@ const InformacaoPessoal = () => {
         }
     };
 
-    const handleFormLocal = async ( enderecoid ) => {
+    const handleFormLocal = async ({ enderecoid }) => {
         try {
+            const enderecoid = userLocalizacao.id
             const response = await axios.get(`https://volun-api-eight.vercel.app/endereco/${enderecoid}`)
             setUserLocalizacao(response.data);
-        } 
-        catch (error) {
-            console.error("Erro ao buscar dados de endereço:", error);
-            setError("Erro ao buscar dados de endereço.");
-        }   
-    }
 
-    const buscarCEP = async () => {
-        if (!userLocalizacao.cep) {
-            setError("CEP não pode estar vazio.");
-            return;
-        }
-
-        try {
-            const response = await axios.get(`https://viacep.com.br/ws/${userLocalizacao.cep}/json/`);
-            if (response.data.erro) {
-                setError("CEP não encontrado.");
-            } else {
-                setUserLocalizacao({
-                    ...userLocalizacao,
-                    endereco: response.data.logradouro,
-                    bairro: response.data.bairro,
-                    cidade: response.data.localidade,
-                    estado: response.data.uf
-                });
-                setError(false);
+            if (enderecoid === userData.enderecoid){
+                
             }
-        } catch (error) {
-            console.error("Erro ao buscar CEP:", error);
-            setError("Erro ao buscar CEP.");
-        }
-    };
+        }   
+        catch (error) {
+
+        } 
+    }
 
     useEffect(() => {
         handleFormUser();
@@ -159,9 +136,8 @@ const InformacaoPessoal = () => {
                             placeholder="Data de Nascimento"
                             type="date" 
                             value={userData.dataNasc} 
-                            onChange={(e) => setUserData({ ...userData, dataNasc: e.target.valueAsDate })} 
-                            disabled={disable}
-
+                            onChange={(e) => setUserData({ ...userData, dataNasc: e.target.value })} 
+                            disabled={disable}                    
                         />
                     </div>
                     <div>
@@ -222,7 +198,7 @@ const InformacaoPessoal = () => {
                             onChange={(e) => setUserLocalizacao({ ...userLocalizacao, cep: e.target.value })} 
                             disabled={disable}
                         />
-                        <button className="buscar-cep-button" type="submit" onClick={buscarCEP} disabled={disable}>Buscar</button>
+                        <button className="buscar-cep-button" type="submit" disabled={disable}>Buscar</button>
                     </div>
                     <div>
                         <label htmlFor="bairro">Bairro: </label>

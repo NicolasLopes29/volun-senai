@@ -7,7 +7,7 @@ import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
-import { Link, useNavigate } from "react-router-dom"; // Importando Link
+import { useNavigate } from "react-router"; // Importando o useNavigate
 
 const estiloModal = {
   overlay: {
@@ -34,6 +34,8 @@ const estiloModal = {
     width: 500,
   }
 };
+
+Modal.setAppElement('#root');
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -74,16 +76,19 @@ const Navbar = () => {
       .then(() => {
         console.log("Usuário deslogado com sucesso!");
         navigate("/"); 
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Erro ao deslogar: ", error);
       });
   };
 
+  // Retorna à página inicial
   const handleLogoClick = () => {
     navigate("/");
   };
 
+  // Redireciona para a página de perfil ao clicar na imagem
   const handleProfileClick = () => {
     navigate("/usuario"); 
   };
@@ -99,9 +104,9 @@ const Navbar = () => {
           <input type="text" placeholder="Busque aqui" />
         </div>
         <div className="navbar-menu-container">
-          <Link to="/eventos">Eventos</Link>
-          <Link to="/sobre">Sobre Nós</Link>
-          <Link to="/organizacao">Sou uma organização</Link>
+          <a href="./../pages/Eventos.jsx">Eventos</a>
+          <a href="./../pages/Sobre.jsx">Sobre Nós</a>
+          <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
         </div>
         {usuarioLogado ? (
           <div className="perfil-logout-container">
@@ -134,9 +139,9 @@ const Navbar = () => {
       {menuOpen && (
         <div className="sidebar">
           <ul>
-            <li><Link to="/eventos">Eventos</Link></li>
-            {/* <li><Link to="/sobre">Sobre Nós</Link></li> */}
-            <li><Link to="/organizacao">Sou uma organização</Link></li>
+            <li><a href="./../pages/Eventos.jsx">Eventos</a></li>
+            <li><a href="./../pages/Sobre.jsx">Sobre Nós</a></li>
+            <li><a href="./../pages/Organizacao.jsx">Sou uma organização</a></li>
           </ul>
         </div>
       )}
@@ -152,3 +157,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

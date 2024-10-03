@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../modera/components/css/Appmod.css';
+import './components/css/App.css';
 import NavBar from './components/navbar';
 import Logo from "./assets/img/logo.svg";
 import Usuarios from './components/usuarios';
@@ -31,11 +31,11 @@ const Appmod = () => {
 
     return (
         <div>
-            <div className="header-mod">
-                <img src={Logo} alt="logo" className="logo-mod" />
+            <div className="header">
+                <img src={Logo} alt="logo" className="logo" />
                 <h1>Central</h1>
             </div>
-            <div className='navbar'>
+            <div className='nav-bar'>
                 <NavBar setActiveTab={setActiveTab} />
                 <div>{content}</div>
             </div>

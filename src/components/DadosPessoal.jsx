@@ -5,12 +5,14 @@ import { auth } from "../services/firebase-config"; // Import Firebase auth
 import "./../css/DadosPessoal.css";
 
 const DadosPessoal = () => {
-    const [dadosNome, setDadosNome] = useState("");
-    const [dadosSobrenome, setDadosSobrenome] = useState("");
-    const [dadosCPF, setDadosCPF] = useState("");
-    const [dadosdata_nascimento, setDadosdata_nascimento] = useState("");
-    const [dadosDDD, setDadosDDD] = useState("");
-    const [dadosTelefone, setDadosTelefone] = useState("");
+    const [userDados, setUserDados] = useState({
+        nome: "",
+        sobrenome: "",
+        cpf: "",
+        dataNasc: "",
+        ddd: "",
+        telefone: "",
+    });
     const [uid, setUid] = useState(null);
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
@@ -72,12 +74,14 @@ const DadosPessoal = () => {
         setErro(false);
         setSucesso(false);
 
-        if (!dadosNome || !dadosSobrenome || !dadosCPF || !dadosdata_nascimento || !dadosDDD || !dadosTelefone) {
+        const { nome, sobrenome, cpf, dataNasc, ddd, telefone } = userDados;
+
+        if (!nome || !sobrenome || !cpf || !dataNasc || !ddd || !telefone) {
             setErro(true);
             return;
         }
 
-        if (!validarCPF(dadosCPF)) {
+        if (!validarCPF(cpf)) {
             alert("CPF inválido");
             return;
         }
@@ -85,12 +89,12 @@ const DadosPessoal = () => {
         try {
             // Tenta enviar os dados para a API
             const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
-                nome: dadosNome,
-                sobrenome: dadosSobrenome,
-                cpf: dadosCPF,
-                data_nascimento: dadosdata_nascimento,
-                ddd: dadosDDD,
-                telefone: dadosTelefone
+                nome,
+                sobrenome,
+                cpf,
+                data_nascimento: dataNasc,
+                ddd,
+                telefone
             });
 
             if (response.status === 201) {
@@ -109,78 +113,73 @@ const DadosPessoal = () => {
                 <h4>Insira os dados pessoais</h4>
                 <form onSubmit={EnviarDados}>
                     <div>
-                        <label htmlFor="dadosNome">Nome: </label>
+                        <label htmlFor="nome">Nome: </label>
                         <input
                             className="dados-input"
                             type="text"
-                            name="dadosNome"
-                            value={dadosNome}
+                            name="nome"
+                            value={userDados.nome}
                             placeholder="Digite seu nome"
-                            onChange={(e) => setDadosNome(e.target.value)}
+                            onChange={(e) => setUserDados({ ...userDados, nome: e.target.value })}
                         />
                     </div>
-
                     <div>
-                        <label htmlFor="dadosSobrenome">Sobrenome: </label>
+                        <label htmlFor="sobrenome">Sobrenome: </label>
                         <input
                             className="dados-input"
                             type="text"
-                            name="dadosSobrenome"
-                            value={dadosSobrenome}
+                            name="sobrenome"
+                            value={userDados.sobrenome}
                             placeholder="Digite seu sobrenome"
-                            onChange={(e) => setDadosSobrenome(e.target.value)}
+                            onChange={(e) => setUserDados({ ...userDados, sobrenome: e.target.value })}
                         />
                     </div>
-
                     <div>
-                        <label htmlFor="dadosCPF">CPF: </label>
+                        <label htmlFor="cpf">CPF: </label>
                         <input
                             className="dados-input-medio"
                             type="text"
-                            name="dadosCPF"
-                            value={dadosCPF}
+                            name="cpf"
+                            value={userDados.cpf}
                             placeholder="000.000.000-00"
-                            onChange={(e) => setDadosCPF(formatarCPF(e.target.value))}
+                            onChange={(e) => setUserDados({ ...userDados, cpf: formatarCPF(e.target.value) })}
                         />
                     </div>
-
                     <div>
-                        <label htmlFor="dadosdata_nascimento">Data de Nascimento: </label>
+                        <label htmlFor="dataNasc">Data de Nascimento: </label>
                         <input
                             className="dados-input-medio"
                             type="date"
-                            name="dadosdata_nascimento"
-                            value={dadosdata_nascimento}
-                            onChange={(e) => setDadosdata_nascimento(e.target.value)}
+                            name="dataNasc"
+                            value={userDados.dataNasc}
+                            onChange={(e) => setUserDados({ ...userDados, dataNasc: e.target.value })}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="dadosDDD">DDD: </label>
+                        <label htmlFor="ddd">DDD: </label>
                         <input
                             className="dados-input-pequeno"
                             type="text"
-                            name="dadosDDD"
-                            value={dadosDDD}
+                            name="ddd"
+                            value={userDados.ddd}
                             placeholder="Ex: 11"
-                            onChange={(e) => setDadosDDD(e.target.value)}
+                            onChange={(e) => setUserDados({ ...userDados, ddd: e.target.value })}
                         />
 
-                        <label htmlFor="dadosTelefone">Telefone: </label>
+                        <label htmlFor="telefone">Telefone: </label>
                         <input
                             className="dados-input"
                             type="text"
-                            name="dadosTelefone"
-                            value={dadosTelefone}
-                            placeholder="12345-6789"
-                            onChange={(e) => setDadosTelefone(formatarTelefone(e.target.value))}
+                            name="telefone"
+                            value={userDados.telefone}
+                            placeholder="(11) 12345-6789"
+                            onChange={(e) => setUserDados({ ...userDados, telefone: formatarTelefone(e.target.value) })}
                         />
                     </div>
-
                     <div>
                         <button type="submit">Finalizar Cadastro</button>
                     </div>
-
                     {erro && <p className="erro-mensagem">Preencha todos os campos corretamente.</p>}
                     {sucesso && <p className="sucesso-mensagem">Usuário cadastrado com sucesso!</p>}
                 </form>
