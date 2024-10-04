@@ -6,8 +6,8 @@ const Eventos = () => {
     return(
         <>
             <main>
-                <Cardong />
-                {/* <Card /> */}
+                {/* <Cardong /> */}
+                <Card />
             </main>
         </>
     );
