@@ -5,6 +5,10 @@ import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
 
 const Footer = () => {
+  const openModera = () => {
+    window.open("/modera", "_blank"); // Abre a moderação
+  }
+  
   return (
     <footer className="footer-container">
       <div className="footer-row">
