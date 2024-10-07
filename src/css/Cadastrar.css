@@ -1,4 +1,4 @@
-@import url(./Global.css);
+@import url('./Global.css');
 
 .cadastrar-container {
     color: #f0f0f0;
@@ -8,16 +8,16 @@
     justify-content: center;
     align-items: center;
     background-size: cover;
-    height: 120vh;
+    height: auto;
 }
 
 .cadastrar-section {
     backdrop-filter: blur(5px); /* Desfoca o conteúdo atrás do elemento */
     border: solid 2px var(--fundo-principal);
     border-radius: 32px;
-    margin-bottom: 20px;
+    margin: 28px auto;
     display: block;
-    padding: 100px;
+    padding: 50px;
 }
 .cadastrar-section h3 {
     font-size: 18px;
@@ -42,7 +42,7 @@
     border: solid 2px #f0f0f0;
     backdrop-filter: blur(5px); 
     border-radius: 32px;
-    margin: 0 auto;
+    margin: 166px auto;
     width: 50%;
 }
 
