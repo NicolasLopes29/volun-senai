@@ -19,6 +19,7 @@ const Footer = () => {
           <a href="/">Home</a>
           <a href="/">Eventos</a>
           <a href="/">Sobre Nós</a>
+          <a href="/" onClick={openModera}>Sou um moderador</a>
         </div>
         <div className="footer-links">
           <a href="/">Contato</a>
