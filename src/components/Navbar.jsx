@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import Modal from "react-modal";
 import Logo from "../assets/images/logo.svg";
 import "./../css/Navbar.css";
@@ -7,7 +7,8 @@ import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
-import { useNavigate } from "react-router"; // Importando o useNavigate
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const estiloModal = {
   overlay: {
@@ -104,9 +105,9 @@ const Navbar = () => {
           <input type="text" placeholder="Busque aqui" />
         </div>
         <div className="navbar-menu-container">
-          <a href="./../pages/Eventos.jsx">Eventos</a>
-          <a href="./../pages/Sobre.jsx">Sobre Nós</a>
-          <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
+            <Link to="/eventos">Eventos</Link>
+            <Link to="/">Sobre Nós</Link>
+            <Link to="/cardong">Sou uma organização</Link>
         </div>
         {usuarioLogado ? (
           <div className="perfil-logout-container">
