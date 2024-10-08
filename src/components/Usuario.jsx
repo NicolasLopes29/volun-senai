@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import axios from "axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import defaultProfileImage from "../assets/images/photo-perfil.png";
-import EditPinIcon from "../assets/images/edit-pin.png";
+
 import { Link } from "react-router-dom";
 
 import Navbar from "./Navbar";
@@ -73,7 +73,7 @@ const Usuario = () => {
                 handleGetUserData(currentUser.uid);
                 setProfileImagePreview(currentUser.photoURL || defaultProfileImage);
             } else {
-                alert("Nenhum usuário autenticado.");
+                alert("Usuario deslogado com sucesso.");
                 navigate("/");
             }
         });

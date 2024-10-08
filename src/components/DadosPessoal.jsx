@@ -93,7 +93,7 @@ const DadosPessoal = () => {
 
             if (response.status === 201) {
                 setSucesso(true);
-                navigate("/dados_endereco"); // Redireciona para a página inicial
+                navigate("/dados_endereco"); // Redireciona para a página de endereço
             }
         } catch (error) {
             console.error("Erro ao enviar dados: ", error);

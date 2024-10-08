@@ -113,6 +113,7 @@ const Navbar = () => {
             {fotoPerfilUrl && (
               <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
                 <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                <p>Olá</p>
               </div>
             )}
             <button
