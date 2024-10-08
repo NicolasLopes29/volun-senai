@@ -1,13 +1,13 @@
 import React from 'react';
-import './css/Navbar.css';
+import '../components/css/Navmod.css';
 
 const NavBar = ({ setActiveTab }) => {
   return (
     <div className="navbar-container-mod">
-      <button onClick={() => setActiveTab('usuarios')}>usuarios</button>
-      <button onClick={() => setActiveTab('historico')}>historico</button>
-      <button onClick={() => setActiveTab('denuncias')}>denuncias</button>
-      <button onClick={() => setActiveTab('eventos')}>eventos</button>
+      <button className='button-mod' onClick={() => setActiveTab('usuarios')}>usuarios</button>
+      <button className='button-mod' onClick={() => setActiveTab('historico')}>historico</button>
+      <button className='button-mod' onClick={() => setActiveTab('denuncias')}>denuncias</button>
+      <button className='button-mod' onClick={() => setActiveTab('eventos')}>eventos</button>
     </div>
   );
 };
