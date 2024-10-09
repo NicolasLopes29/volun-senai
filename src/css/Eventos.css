@@ -1,15 +1,22 @@
 @import url(./Global.css);
 
-.Filtro-Eventos{
+.Pesquisa-Eventos{
     justify-content: flex-start;
     align-items: flex-start;
     padding-top: 20px;
-    padding-left: 50px;
-    height: 120vh;
+    /* padding-left: 40px; */
+    /* height: 110vh; */
     width: 100%;
+    font-family: var(--font-family);
   }
-  .Eventos-h1{
-    font: 'sans-serif';
+
+.arrumar-tudo{
+  padding-left: 70px;
+  padding-top: 5px;
+}
+
+  .Eventos-h1 {
+    font-size: 30px;
     color: #1F0171;
   }
 /* input tirado do uiverso  */
@@ -54,7 +61,7 @@
   /* From Uiverse.io by adamgiebl */ 
 .Eventos-button-buscar {
   background: #1F0171;
-  padding: 0.6em 1.3em;
+  padding: 10px 15px ;
   font-weight: 900;
   font-size: 18px;
   border: 3px solid black;
@@ -62,15 +69,16 @@
   box-shadow: 0.1em 0.1em;
   cursor: pointer;
   color: #FBFBFE;
+  width: 15rem;
 }
 
-.button-buscar:hover {
-  transform: translate(-0.05em, -0.05em);
+.Eventos-button-buscar:hover {
+  transform: translate(-0.03em, -0.03em);
   box-shadow: 0.15em 0.15em;
 }
 
-.button-buscar:active {
-  transform: translate(-0.05em, -0.05em);
+.Eventos-button-buscar:active {
+  transform: translate(-0.03em, -0.03em);
   box-shadow: 0.15em 0.15em;
 }
 
@@ -79,10 +87,11 @@
   display: block;
   border: 2px solid #1F0171;
   border-radius: 20px;
-  width: 7rem;
-  height: 2rem;
+  width: 8rem;
+  height: 40px;
   padding-right: 10px;
-  /*position: relative;*/
+  padding-left: 5px;
+  /* position: relative; */
   margin: 1rem;
 
 }
@@ -92,7 +101,7 @@
   border-radius: 20px;
   padding-left: 5px;
   width: 14rem;
-  height: 2rem;
+  height: 40px;
   margin: 1rem;
 }
 
@@ -102,27 +111,36 @@
 }
 
 .Eventos-arrumar-botão{
-  padding-left: 20px;
+  padding-left: px;
 }
 
 .Eventos-resultado-pesquisa-texto{
-  padding: 10px;
-  
-}
-.Eventos-resultado-pesquisa{
-  display: flex;
+  font-size: 900px;
   padding-top: 10px;
-  justify-content: space-around;
-  
-  
+  color: #1F0171;
 }
-.Eventos-card-falso{
-  background-color: green;
-  width: 350px;
-  height: 200px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-  margin-right: 20px;
-  margin-left: 20px;
 
+.Eventos-titulo h1{
+  padding-top: 15px;
+  padding-left: 100px;
+  font-size: 50px;
 }
+
+.Eventos-titulo h3{
+  padding-left: 100px;
+  font: 'sans-serif';
+  font-size: 25px;
+}
+
+.Eventos-resultado-pesquisa {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px; /* Ajuste o valor conforme necessário */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
