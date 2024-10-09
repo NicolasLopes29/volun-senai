@@ -3,15 +3,15 @@ import { getAuth, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import defaultProfileImage from "../assets/images/photo-perfil.png";
+import "../css/UsuarioMenu.css";
 
 const UsuarioMenu = () => {
-    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
     const [userData, setUserData] = useState({
         nome: "",
         sobrenome: "",
     });
     const [usuarioLogado, setUsuarioLogado] = useState(false); 
-    const [fotoPerfilUrl, setFotoPerfilUrl] = useState("");
+    const [fotoPerfilUrl, setFotoPerfilUrl] = useState(defaultProfileImage);
     const [loading, setLoading] = useState(true);  
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -34,7 +34,8 @@ const UsuarioMenu = () => {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
             setUserData(response.data);
             setLoading(false);
-        } catch (error) {
+        } 
+        catch (error) {
             setError("Erro ao buscar dados do usuário.");
             setLoading(false);
         }
@@ -61,12 +62,14 @@ const UsuarioMenu = () => {
     }
 
     return (
-        <div>
-            <div>
-                <img src={fotoPerfilUrl} alt="Foto de Perfil"/>
+        <div className="usuario-menu-container">
+            <div className="usuario-menu-info">
+                <div>
+                    <img src={fotoPerfilUrl} alt="Foto de Perfil"/>
+                </div>
                 <p>{userData.nome} {userData.sobrenome}</p>
             </div>
-            <div>
+            <div className="usuario-menu-link">
                 <a href="./usuario">Minha Página</a>
                 <button onClick={handleUserLogOut}>Deslogar</button>
             </div>

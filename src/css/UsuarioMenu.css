@@ -1,0 +1,40 @@
+@import url('./Global.css');
+
+.usuario-menu-container {
+    width: 200px;
+    text-align: center;
+    font-size: 10px;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    margin: auto;
+    font-family: var(--font-family);
+}
+.usuario-menu-info {
+    text-align: center;
+    display: grid;
+    padding: 10px 0px;
+}
+.usuario-menu-info img {
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+.usuario-menu-link {
+    display: grid;
+    padding: 20px 0px;
+    margin-left: 10px;
+    justify-content: left;
+}
+.usuario-menu-link a {
+    text-decoration: none;
+    color: var(--fonte-cor-preto);
+}
+.usuario-menu-link button {
+    margin-top: 5px;
+    margin-left: 10px ;
+    padding: 5px 25px;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    border: none;
+    border-radius: 16px;
+}
