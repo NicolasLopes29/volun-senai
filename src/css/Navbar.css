@@ -5,9 +5,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: var(--cor-principal); /* Azul escuro */
+  background-color: rgba(6, 0, 37, 0.922); /* Fundo semitransparente */
+  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
+  position: fixed; /* Fixa a navbar no topo */
+  top: 0; /* Alinha a navbar ao topo */
+  width: 100%; /* Faz a navbar ocupar toda a largura da tela */
+  z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
 }
 
 .logo {
@@ -138,7 +143,6 @@
 .logout-button:hover {
   color: red; 
 }
-
 
 .navbar-entrar {
   background-color: var(--cor-secundaria); /* Laranja */
