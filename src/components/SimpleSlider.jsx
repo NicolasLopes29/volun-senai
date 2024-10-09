@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./../css/SimpleSlider.css";
+import Card from "./Card"; // Import the Card component
 
 export default function SimpleSlider() {
   var settings = {
@@ -57,15 +58,7 @@ export default function SimpleSlider() {
     <div className="slider-container">
       <Slider {...settings}>
         {events.map(event => (
-          <div key={event.id} className="event-card">
-            <div className="card-image-container">
-              <img src={event.image} alt={event.name} className="event-image" />
-            </div>
-            <div className="card-content">
-              <h3 className="event-name">{event.name}</h3>
-              <p className="event-place">{event.place}</p>
-            </div>
-          </div>
+          <Card key={event.id} event={event} /> // Use the Card component
         ))}
       </Slider>
     </div>
