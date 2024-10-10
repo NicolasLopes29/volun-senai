@@ -1,5 +1,5 @@
 @import url(./Global.css);
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 .bold {
     font-weight: bold;
@@ -31,14 +31,14 @@
     padding: .2em 2.5em .2em .9em;
     border-radius: 15px 0 15px 0;
     font-weight: 600;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .card-description {
     display: none;
     margin: 1em .9em 1em .9em;
     text-align: justify;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .card-text-first, .card-text-second {
@@ -49,7 +49,7 @@
 
 .card-text-first > strong {
     color: #1F0171;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-style: italic;
     font-weight: 700;
 }
@@ -74,7 +74,7 @@
 
 .card-text-second > span, strong {
     color: #1F0171;
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .card-details > p {
-    font-family: "Inter", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     color: white;
     font-weight: 700;
 }
