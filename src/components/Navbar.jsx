@@ -8,6 +8,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
 import { useNavigate } from "react-router"; // Importando o useNavigate
+import { Hamburger } from "../assets/images/icon-hamburger.svg";
+import UsuarioMenu from "./UsuarioMenu";
 
 const estiloModal = {
   overlay: {
@@ -38,6 +40,7 @@ const estiloModal = {
 Modal.setAppElement('#root');
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [LoginAbrir, setLoginAbrir] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false); 
@@ -71,16 +74,8 @@ const Navbar = () => {
     return () => unsubscribe(); 
   }, [auth]);
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("Usuário deslogado com sucesso!");
-        navigate("/"); 
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Erro ao deslogar: ", error);
-      });
+  const handleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   // Retorna à página inicial
@@ -117,12 +112,16 @@ const Navbar = () => {
               </div>
             )}
             <button
-              type="button"
-              onClick={handleLogout}
-              className="logout-button"
+              onMouseOver={handleDropdown}
+              className="logout-dpdw"
             >
-              Deslogar
+              { Hamburger }
             </button>
+            {isDropdownOpen && (
+              <div className="dropdown-content" >
+                <UsuarioMenu />
+              </div>
+            )}
           </div>
         ) : (
           <button
