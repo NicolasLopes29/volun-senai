@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./../css/Eventos.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Card from "./Card";
+import seta from "./../assets/images/seta-page.svg";
 
 const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE",
@@ -20,9 +22,10 @@ const estados = [
    return(
     <>
         <Navbar />
-        <div class="Filtro-Eventos">
+        <div class="Pesquisa-Eventos">
+        <section className="arrumar-tudo">
             <h1 className="Eventos-h1">Pesquise aqui</h1>
-            <section className="arrumar-tudo">
+            
                 <div className="Eventos-input-filtro">
                     <input required type="text" name="text" className="Eventos-input"/>
                     <label className="Eventos-user-label">Área de atuação</label>
@@ -35,6 +38,7 @@ const estados = [
                     <input required type="text" name="text" autoComplete="off" className="Eventos-input"/>
                     <label className="Eventos-user-label">Cidade</label>
                 </div>
+           
                 <div className="Eventos-select">
                     <select className="Eventos-estado-busca" value={estadoSelecionado} onChange={handleChange}>
                         <option value="">Estado</option>
@@ -57,18 +61,45 @@ const estados = [
             </section>
 
             <div className="Eventos-resultado-pesquisa-texto">
-                <h1>Resultado da pesquisa</h1>
-                <h3>Foram acahdos XX resultados referentes a sua busca</h3>
-                    <div className="Eventos-resultado-pesquisa">
+                <div className="Eventos-titulo">
+                <h1>Resultado da pesquisa:</h1>
+                <h3>Foram achados X{}X resultados referentes a sua busca</h3>
+                </div>
                         <div className="Eventos-resultado-pesquisa">
-                            <div className="Eventos-card-falso"></div>
-                            <div className="Eventos-card-falso"></div>
-                            <div className="Eventos-card-falso"></div>
+                            <Card/>
+                            <Card/>
+                            <Card/>
 
-                          
+                            <Card/>
+                            <Card/>
+                            <Card/>
                             
+                            <Card/>
+                            <Card/>
+                            <Card/>
                         </div>   
+
+                    <div className="page-count">
+
+                        <div className="Botao-page">
+                            <img src={seta} alt="" className="seta"/>
+                            <button> Anterior</button>
+                        </div>
+                        <div className="numero-page">
+                            <button>1</button>
+                        </div>
+                        <div className="numero-page">
+                            <button>2</button>
+                        </div>
+                        <div className="numero-page">
+                            <button>3</button>
+                        </div>
+                        <div className="Botao-page">
+                            <button>Seguinte</button>
+                            <img src={seta} alt="" className="seta-right"/>
+                        </div>
                     </div>
+
                 </div>        
             </div>
         <Footer />
