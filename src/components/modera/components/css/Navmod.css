@@ -1,0 +1,28 @@
+.navbar-container-mod {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .button-mod {
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    margin: 0 65px; /* Adiciona margem horizontal para espaçar os botões */
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-mod:hover {
+    background-color: #d4d1d1;
+  }
+  
+  .button-mod:focus {
+    outline: none;
+  }

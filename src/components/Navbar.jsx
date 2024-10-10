@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import Modal from "react-modal";
 import Logo from "../assets/images/logo.svg";
 import "./../css/Navbar.css";
@@ -7,9 +7,11 @@ import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
-import { useNavigate } from "react-router"; // Importando o useNavigate
-import { Hamburger } from "../assets/images/icon-hamburger.svg";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import UsuarioMenu from "./UsuarioMenu";
+import { MdArrowDropDown } from "react-icons/md";
+import { MdOutlineMenuOpen } from "react-icons/md";
 
 const estiloModal = {
   overlay: {
@@ -40,7 +42,7 @@ const estiloModal = {
 Modal.setAppElement('#root');
 
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userMenu, setUserMenu] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false);
   const [LoginAbrir, setLoginAbrir] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false); 
@@ -75,7 +77,7 @@ const Navbar = () => {
   }, [auth]);
 
   const handleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setUserMenu(!userMenu);
   };
 
   // Retorna à página inicial
@@ -99,30 +101,24 @@ const Navbar = () => {
           <input type="text" placeholder="Busque aqui" />
         </div>
         <div className="navbar-menu-container">
-          <a href="./../pages/Eventos.jsx">Eventos</a>
-          <a href="./../pages/Sobre.jsx">Sobre Nós</a>
-          <a href="./../pages/Organizacao.jsx">Sou uma organização</a>
+            <Link to="/eventos">Eventos</Link>
+            <Link to="/">Sobre Nós</Link>
+            <Link to="/cardong">Sou uma organização</Link>
         </div>
         {usuarioLogado ? (
-          <div className="perfil-logout-container">
+          <div className="logout-dropdown-container">
             {fotoPerfilUrl && (
               <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
                 <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
-                <p>Olá</p>
               </div>
             )}
-            <button
-              onMouseOver={handleDropdown}
-              className="logout-dpdw"
-            >
-              { Hamburger }
+            <button onClick={handleDropdown}>
+              <MdArrowDropDown />
             </button>
-            {isDropdownOpen && (
-              <div className="dropdown-content" >
-                <UsuarioMenu />
-              </div>
+            { userMenu &&(
+                <UsuarioMenu/>
             )}
-          </div>
+          </div>     
         ) : (
           <button
             className="navbar-entrar"

@@ -1,0 +1,146 @@
+@import url('./Global.css');
+
+.Pesquisa-Eventos{
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 20px;
+    /* padding-left: 40px; */
+    /* height: 110vh; */
+    width: 100%;
+    font-family: var(--font-family);
+  }
+
+.arrumar-tudo{
+  padding-left: 70px;
+  padding-top: 5px;
+}
+
+  .Eventos-h1 {
+    font-size: 30px;
+    color: #1F0171;
+  }
+/* input tirado do uiverso  */
+.Eventos-input-filtro {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    padding-left: 10px;
+   }
+   
+   .Eventos-input {
+    border: solid 2px #1F0171;
+    border-radius: 2rem;
+    padding: 10px;
+    font-size: 20px;
+    color: #1F0171;
+    transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+    box-shadow: #1F0171 5px;
+   }
+   
+   .Eventos-user-label {
+    position: absolute;
+    left: 25px;
+    color: #1F0171;
+    pointer-events: none;
+    transform: translateY(15px);
+    transition: 150ms cubic-bezier(0.4,0,0.2,1);
+   }
+   
+   .input:focus, input:valid {
+    outline: none;
+    border: 1px solid #1a73e8;
+   }
+   
+   .input:focus ~ label, input:valid ~ label {
+    transform: translateY(-50%) scale(0.8);
+    background-color: #FBFBFE;
+    padding:  0.2em;
+    color: #2196f3;
+   }
+
+  /* From Uiverse.io by adamgiebl */ 
+.Eventos-button-buscar {
+  background: #1F0171;
+  padding: 10px 15px ;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+  color: #FBFBFE;
+  width: 15rem;
+}
+
+.Eventos-button-buscar:hover {
+  transform: translate(-0.03em, -0.03em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.Eventos-button-buscar:active {
+  transform: translate(-0.03em, -0.03em);
+  box-shadow: 0.15em 0.15em;
+}
+
+.Eventos-estado-busca{
+  color: #1F0171;
+  display: block;
+  border: 2px solid #1F0171;
+  border-radius: 20px;
+  width: 8rem;
+  height: 40px;
+  padding-right: 10px;
+  padding-left: 5px;
+  /* position: relative; */
+  margin: 1rem;
+
+}
+.Eventos-tipo{
+  border: 2px solid #1F0171;
+  color: #1F0171;
+  border-radius: 20px;
+  padding-left: 5px;
+  width: 14rem;
+  height: 40px;
+  margin: 1rem;
+}
+
+.Eventos-select{
+  display: flex;
+  padding: 5px;
+}
+
+.Eventos-arrumar-botão{
+  padding-left: px;
+}
+
+.Eventos-resultado-pesquisa-texto{
+  font-size: 900px;
+  padding-top: 10px;
+  color: #1F0171;
+}
+
+.Eventos-titulo h1{
+  padding-top: 15px;
+  padding-left: 100px;
+  font-size: 50px;
+}
+
+.Eventos-titulo h3{
+  padding-left: 100px;
+  font: 'sans-serif';
+  font-size: 25px;
+}
+
+.Eventos-resultado-pesquisa {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px; /* Ajuste o valor conforme necessário */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+

@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import axios from "axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import defaultProfileImage from "../assets/images/photo-perfil.png";
-import "../css/UsuarioMenu.css"
+import EditPinIcon from "../assets/images/edit-pin.png";
 import { Link } from "react-router-dom";
 
 import Navbar from "./Navbar";
@@ -72,9 +72,6 @@ const Usuario = () => {
                 }));
                 handleGetUserData(currentUser.uid);
                 setProfileImagePreview(currentUser.photoURL || defaultProfileImage);
-            } else {
-                alert("Usuario deslogado com sucesso.");
-                navigate("/");
             }
         });
 
@@ -142,7 +139,7 @@ const Usuario = () => {
                         <div className="usuario-dados">
                             <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
                             <p>Email: {user?.email}</p>
-                            <p>Telefone: ({userData.ddd}) {userData.telefone}</p>
+                            <p>Telefone: ({userData.ddd})-{userData.telefone}</p>
                         </div>
                     </div>
                     <div className="usuario-nav">

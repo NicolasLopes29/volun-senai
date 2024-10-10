@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { getAuth } from "firebase/auth"; // Importação do Firebase Authentication
 import "../css/DadosEndereco.css";
 
 const DadosEndereco = () => {
@@ -14,8 +15,22 @@ const DadosEndereco = () => {
     });
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
-    
+    const [usuarioId, setUsuarioId] = useState(null); // Estado para armazenar o ID do usuário
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Obtém o usuário logado e o seu uid
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (user) {
+            setUsuarioId(user.uid); // Armazena o uid do usuário logado
+        } else {
+            // Se não estiver logado, redireciona ou mostra mensagem de erro
+            console.log("Usuário não está logado");
+        }
+    }, []);
 
     const Estado = () => {
         return [
@@ -61,7 +76,7 @@ const DadosEndereco = () => {
 
         if (!cep || !logradouro || !numero || !bairro || !cidade || !estado) {
             setErro(true);
-            return; // Adicionando um return para não prosseguir se houver erro
+            return;
         }
 
         try {
@@ -72,13 +87,13 @@ const DadosEndereco = () => {
                 bairro,
                 cidade,
                 estado,
+                usuario_id: usuarioId, 
             });
 
-            if (response.status === 201){
+            if (response.status === 201) {
                 setSucesso(true);
-                navigate('/')
+                navigate('/');
             }
-             // Definindo sucesso
         } catch (error) {
             console.error("Erro ao enviar dados do endereco: ", error);
             setErro(true);

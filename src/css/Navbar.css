@@ -1,19 +1,23 @@
 @import url('./Global.css');
 
 .navbar-container {
+  position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: var(--cor-principal); /* Azul escuro */
+  padding: 0.5rem 0; /* Reduzi o padding para diminuir a altura */
+  background-color: var(--cor-principal); /* Fundo semitransparente */
+  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
-  font-family: var(--font-family);
+  font-family: var(--font-family);/* Fixa a navbar no topo */
+  top: 0; /* Alinha a navbar ao topo */
+  width: 100%; /* Faz a navbar ocupar toda a largura da tela */
+  z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
 }
-
 .logo {
-  height: 30px; 
+  height: 30px;
+  padding-left: 10px; 
 }
-
 .navbar-menu-container {
   display: flex;
   gap: 1rem;
@@ -24,8 +28,19 @@
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 12px;
+  
 }
-
+.navbar-dropdown-container {
+  position: relative;
+  display: inline-flex; /* Para referenciar o dropdown corretamente */
+}
+.navbar-dropdown { /* Para permitir que o dropdown apareça sobre outros elementos */
+  top: 100%; /* Faz o dropdown aparecer logo abaixo do botão */
+  right: 0; /* Alinha o dropdown à esquerda do botão */
+  z-index: 1000; /* Garante que o dropdown fique acima do conteúdo */
+  padding: 10px;
+  width: 200px;
+}
 .navbar-menu-container a:hover {
   color: var(--cor-secundaria); /* Laranja */
 }
@@ -40,11 +55,12 @@
 
 .search-navbar input {
   text-align: left; /* Alinha o texto à esquerda */
-  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  width: 80%; /* Faz o input ocupar toda a largura disponível */
   height: 30px; /* Aumenta a altura do input */
   line-height: 28px;
-  padding: 0 1rem;
-  padding-left: 2.5rem; /* Espaço para o ícone */
+  padding: 0 2rem;
+  padding-left: 2rem; /* Espaço para o ícone */
+  margin: 0px 10px;
   border: 2px solid transparent;
   border-radius: 10px;
   outline: none;
@@ -54,8 +70,8 @@
 }
 
 .search-navbar #search-icon {
-  position: absolute;
-  left: 10px; /* Alinha o ícone à esquerda */
+  position: relative;
+  left: 40px; /* Alinha o ícone à esquerda */
   width: 15px;
   height: 15px;
   opacity: 0.5; /* Diminui a opacidade do ícone */
@@ -67,11 +83,6 @@
   border: none;
   color: var(--fonte-cor-branco);
   font-size: 28px;
-}
-
-.logout-dpdw {
-  width: 50px;
-  height: 50px;
 }
 
 .sidebar {
@@ -143,7 +154,6 @@
 .logout-button:hover {
   color: red; 
 }
-
 
 .navbar-entrar {
   background-color: var(--cor-secundaria); /* Laranja */

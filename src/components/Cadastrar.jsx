@@ -4,7 +4,6 @@ import DadosIniciais from "./DadosIniciais";
 import { auth } from "../services/firebase-config"; // Firebase Authentication
 import "./../css/Cadastrar.css";
 import DadosPessoal from "./DadosPessoal";
-import DadosEndereco from "./DadosEndereco";
 
 const Cadastrar = () => {
     const [passo, setPasso] = useState(1);
@@ -38,6 +37,10 @@ const Cadastrar = () => {
         setPasso(2); // Avança para a etapa de verificação de e-mail
     };
 
+    const irParaDadosPessoal = () => {
+        setPasso(3);
+    }
+
     const PaginaRender = () => {
         if (passo === 1) {
             return (
@@ -46,10 +49,11 @@ const Cadastrar = () => {
                     <DadosIniciais onEmailVerificacao={irParaVerificacaoEmail} />
                 </div>
             );
-        } else if (passo === 2) {
+        } 
+        else if (passo === 2) {
             return (
                 <div className="verificacao-container">
-                    <h2>Verificação de E-mail</h2>
+                    <h3>Verificação de E-mail</h3>
                     <p>
                         Por favor, verifique seu e-mail e clique no link de ativação enviado para continuar.
                     </p>
@@ -59,11 +63,23 @@ const Cadastrar = () => {
                     ) : (
                         <p>Aguardando verificação de e-mail...</p>
                     )}
+                    
                 </div>
             );
         }
-    }
-    
+        else if (passo === 3){
+            if (setEmailVerificado === true){
+                return (
+                    <div className="cadastrar-pessoal">
+                        <h3>Dados Pessoais</h3>
+                        <DadosPessoal />
+                    </div>
+                );
+            }
+        }
+        
+    };
+
     return (
         <div>
             <main className="cadastrar-container">

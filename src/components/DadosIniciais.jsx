@@ -62,7 +62,7 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
     return (
         <>
             <div className="dados-iniciais-container">
-                <form className="dados-iniciais-formulario" onSubmit={handleSubmit}>
+                <div className="dados-iniciais-formulario">
                     <div className="dados-iniciais-logo-container">
                         {/* Exibir logo no lugar da imagem de perfil */}
                         <img src={logo} alt="Logo do site" className="site-logo" />
@@ -97,12 +97,12 @@ const DadosIniciais = ({ onEmailVerificacao }) => {
                         />
                         <label>Confirmar a Senha</label>
                     </div>
-                    <div className="dados-iniciais-botao-container">
-                        <button type="submit">Próximo</button>
-                    </div>
                     {sucesso && <p>{sucesso}</p>}
                     {erro && <p>{erro}</p>}
-                </form>
+                </div>
+                <div className="dados-iniciais-botao-container">
+                    <button type="submit" onClick={handleSubmit}>Próximo</button>
+                </div>
             </div>
         </>
     );

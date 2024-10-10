@@ -58,7 +58,7 @@ const Login = ({ fecharLogin }) => {
 
       if (!userDoc.exists()) {
         // Se o documento não existir, redireciona para preencher os dados pessoais
-        navigate("/dadosInicial");
+        navigate("/dados_pessoal");
       } else {
         // Caso o documento exista, salva os dados no Firestore
         await setDoc(userDocRef, {

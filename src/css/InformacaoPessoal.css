@@ -38,10 +38,18 @@
 .info-local-numero {
     width: 100px;
 }
+
+.input-pessoal-logradouro{
+    width: 40%;
+}
 .form-button-container {
-    padding: 20px 0;
+    padding: 20px ;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 .form-button-container button {
+    margin: 10px;
     background-color: var(--botao-tela-branca);
     color: var(--fonte-cor-branco);
     padding: 10px 30px;

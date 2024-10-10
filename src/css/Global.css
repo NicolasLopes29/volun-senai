@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -24,7 +23,7 @@
     --sidebar: #1E3A8A;
 
     /* Sombra */
-    --sombra: 0 5px 5px 0 #C5C5C5;
+    --sombra: #C5C5C5;
 
     /* Cores das Fontes */
     --fonte-cor-branco: #FBFBFE;
@@ -42,8 +41,7 @@
     --botao-shadow: 0px 5px 5px 0px #c5c5c5;
 
     /* Fontes */
-    --font-family: "Poppins", sans-serif;
-
+    --font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-/* Estilo para a camada de overlay */
+/* Estilo para a camada de overlay */   

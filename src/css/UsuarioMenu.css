@@ -1,13 +1,20 @@
 @import url('./Global.css');
 
 .usuario-menu-container {
-    width: 200px;
-    text-align: center;
+    position: absolute;
+    background-color: /*var(--fundo-principal)*/ #c5c5c5;
+    text-align: left;
     font-size: 10px;
+    top: 100%; /* Faz o dropdown aparecer logo abaixo do botão */
+    right: 0; /* Alinha o dropdown à esquerda do botão */
+    z-index: 1000; /* Garante que o dropdown fique acima do conteúdo */
+    padding-right: 10px;
+    width: 200px;
     justify-content: center;
     box-shadow: var(--sombra);
-    margin: auto;
+    margin: 0;
     font-family: var(--font-family);
+    right: 0;
 }
 .usuario-menu-info {
     text-align: center;
@@ -16,8 +23,13 @@
 }
 .usuario-menu-info img {
     align-items: center;
-    width: 50%;
+    width: 25%;
     height: 100%;
+    border-radius: 50%;
+    justify-content: left;
+}
+.usuario-menu-info p {
+    color: var(--fonte-cor-preto);
 }
 .usuario-menu-link {
     display: grid;
