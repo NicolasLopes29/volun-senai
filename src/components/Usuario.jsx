@@ -72,9 +72,6 @@ const Usuario = () => {
                 }));
                 handleGetUserData(currentUser.uid);
                 setProfileImagePreview(currentUser.photoURL || defaultProfileImage);
-            } else {
-                alert("Nenhum usuário autenticado.");
-                navigate("/");
             }
         });
 

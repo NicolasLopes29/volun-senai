@@ -20,7 +20,6 @@ const DadosPessoal = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Obtém o UID do usuário autenticado
         const user = auth.currentUser;
         if (user) {
             setUid(user.uid);
@@ -99,7 +98,7 @@ const DadosPessoal = () => {
 
             if (response.status === 201) {
                 setSucesso(true);
-                navigate("/"); // Redireciona para a página inicial
+                navigate("/dados_endereco"); // Redireciona para a página inicial
             }
         } catch (error) {
             console.error("Erro ao enviar dados: ", error);
