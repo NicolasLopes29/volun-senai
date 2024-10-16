@@ -1,0 +1,65 @@
+@import url(./Global.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #F5F4FF;
+}
+
+.blue {
+    color: #1F0171;
+    font-family: "Poppins", sans-serif;
+}
+
+.ong-profile {
+    background-color: white;
+    margin: 1.3em;
+    padding: 3em 2em;
+    /* border: 1px solid black; */
+    display: grid;
+    grid-template-columns: 34% 42% 25%;
+}
+
+#ong-pfp {
+    width: 17.5em;
+}
+
+#ong-name {
+    font-size: 2.5em;
+    font-weight: 500;
+}
+
+#ong-date {
+    font-size: 1.5em;
+    font-weight: 450;
+}
+
+#gps-icon, #cate-icon, #flws-icon {
+    width: 1.2em;
+}
+
+#ong-address, #ong-genre, #ong-followers {
+    display: flex;
+    gap: .5em;
+}
+
+#ong-address-text {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#ong-genre-text {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#ong-flws-text {
+    font-size: 1.3em;
+    font-weight: 400;
+}
+
+.ong-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+}
