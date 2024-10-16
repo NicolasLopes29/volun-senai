@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
-import { app, firestore } from "../services/firebase-config"; // Importando firestore
+import { app } from "../services/firebase-config";
 import Recuperacao from "./Recuperacao";
 import { useNavigate } from "react-router";
-import { doc, setDoc, getDoc } from "firebase/firestore"; // Importando getDoc para verificar no Firestore
 
 import "./../css/Login.css";
 
@@ -52,63 +51,57 @@ const Login = ({ fecharLogin }) => {
       const userCredential = await signInWithEmailAndPassword(auth, email, senha);
       const user = userCredential.user;
 
-      // Verifica se existe um documento de usuário com o UID no Firestore
-      const userDocRef = doc(firestore, "usuarios", user.uid);
-      const userDoc = await getDoc(userDocRef);
+      // Verifica se existe o usuário no MongoDB
+      const response = await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`);
 
-      if (!userDoc.exists()) {
-        // Se o documento não existir, redireciona para preencher os dados pessoais
+      if (!response.ok || response.status === 404) {
+        throw new Error("Usuário não encontrado no MongoDB");
+      }
+
+      const userData = await response.json();
+
+      if (!userData || !userData._id) {
         navigate("/dados_pessoal");
       } else {
-        // Caso o documento exista, salva os dados no Firestore
-        await setDoc(userDocRef, {
-          email: user.email,
-          photoURL: user.photoURL || '',
-        }, { merge: true });
-        console.log("Usuário logado:", user);
         fecharLogin();
-        navigate("/"); // Redirecionar após login
+        navigate("/");
       }
     } catch (error) {
       setError("Erro ao logar: " + error.message);
     }
   };
 
- // Função para logar com Google
-const handleLoginWithGoogle = async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
+  // Função para logar com Google
+  const handleLoginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
-    // Atualiza o perfil do usuário com a foto do Google
-    await updateProfile(user, {
-      photoURL: user.photoURL // Armazena a foto de perfil do Google
-    });
+      await updateProfile(user, { photoURL: user.photoURL });
 
-    // Verifica se existe um documento de usuário com o UID no Firestore
-    const userDocRef = doc(firestore, "usuarios", user.uid);
-    const userDoc = await getDoc(userDocRef);
+      const response = await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`);
 
-    // Sempre redireciona para a página de dados pessoais se não existir o documento
-    if (!userDoc.exists()) {
-      // Se o documento não existir, redireciona para preencher os dados pessoais
+      if (!response.ok || response.status === 404) {
+        throw new Error("Usuário não encontrado no MongoDB");
+      }
+
+      const userData = await response.json();
+
+      if (!userData || !userData._id) {
+        navigate("/dados_pessoal");
+      } else {
+        fecharLogin();
+        navigate("/");
+      }
+    } catch (error) {
+      setError("Erro ao logar com Google: " + error.message);
       navigate("/dados_pessoal");
-    } 
-    else {
-      // Caso o documento exista, continua com a lógica de login
-      console.log("Logado com Google:", user);
-      fecharLogin(); 
-      navigate("/"); // Redirecionar após login
     }
-  } catch (error) {
-    setError("Erro ao logar com Google: " + error.message);
-  }
-};
-
+  };
 
   const CadastrarRedir = () => {
-    window.open("/cadastrar", "_blank"); // Abre em uma nova aba
-  }
+    window.open("/cadastrar", "_blank");
+  };
 
   return (
     <>
