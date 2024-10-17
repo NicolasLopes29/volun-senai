@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: rgba(6, 0, 37, 0.922); /* Fundo semitransparente */
+  background-color: #050c20e4; /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
@@ -51,7 +51,7 @@
   padding: 0 1rem;
   padding-left: 2.5rem; /* Espaço para o ícone */
   border: 2px solid transparent;
-  border-radius: 10px;
+  border-radius: 30px;
   outline: none;
   background-color: #f3f3f4;
   color: #0d0c22;
@@ -80,7 +80,8 @@
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: var(--sidebar); /* Azul escuro */
+  background-color: #09122be4; /* Fundo semitransparente */
+  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
