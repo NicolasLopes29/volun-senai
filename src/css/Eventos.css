@@ -169,8 +169,13 @@
   margin-right: 10px;
 }
 
+.seta{
+  cursor: pointer;
+}
+
 .seta-right {
   transform: rotate(180deg);
+  cursor: pointer;
 }
 
 .numero-page button{
@@ -183,4 +188,3 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-
