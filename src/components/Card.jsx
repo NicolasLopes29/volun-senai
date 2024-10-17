@@ -2,7 +2,25 @@ import React, { useState } from "react";
 import './../css/Card.css';
 import { Link } from "react-router-dom";
 
+
+
 const Card = () => {
+    const MudaCard = () => {
+ 
+        const card = document.querySelector(".card");
+        const cardDescription = document.querySelector(".card-description");
+        const cardDetails = document.querySelector(".card-details");
+ 
+        card.style.height = "28em";
+       
+        cardDescription.style.display = "block";
+       
+        cardDetails.style.display = "flex";
+        cardDetails.style.alignItems ="center";
+        cardDetails.style.justifyContent ="center";
+       
+    }
+
     return (
         <div className="card">
             <div className="card-capa">
