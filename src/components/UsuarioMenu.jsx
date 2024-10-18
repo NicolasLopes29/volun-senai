@@ -10,9 +10,7 @@ const UsuarioMenu = () => {
         nome: "",
         sobrenome: "",
     });
-    const [usuarioLogado, setUsuarioLogado] = useState(false); 
     const [fotoPerfilUrl, setFotoPerfilUrl] = useState(defaultProfileImage);
-    const [loading, setLoading] = useState(true);  
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     
@@ -33,7 +31,6 @@ const UsuarioMenu = () => {
         try {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
             setUserData(response.data);
-            setLoading(false);
         } 
         catch (error) {
             setError("Erro ao buscar dados do usuário.");
@@ -48,13 +45,9 @@ const UsuarioMenu = () => {
             handleGetUser(user.uid);
             setFotoPerfilUrl(user.photoURL || defaultProfileImage);
         } else {
-            setLoading(false); 
+            return null; 
         }
     }, []); 
-
-    if (loading) {
-        return <p>Carregando...</p>;
-    }
 
     if (error) {
         return <p>{error}</p>;

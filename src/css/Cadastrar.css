@@ -8,16 +8,16 @@
     justify-content: center;
     align-items: center;
     background-size: cover;
-    height: 120vh;
+    height: 100%;
 }
 
 .cadastrar-section {
     backdrop-filter: blur(5px); /* Desfoca o conteúdo atrás do elemento */
     border: solid 2px var(--fundo-principal);
     border-radius: 32px;
-    margin-bottom: 20px;
+    margin: 53px auto;
     display: block;
-    padding: 100px;
+    padding: 40px;
 }
 .cadastrar-section h3 {
     font-size: 18px;

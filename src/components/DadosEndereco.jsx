@@ -15,7 +15,7 @@ const DadosEndereco = () => {
     });
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
-    const [usuarioId, setUsuarioId] = useState(null); // Estado para armazenar o ID do usuário
+    const [usuarioID, setUsuarioId] = useState("");    
 
     const navigate = useNavigate();
 
@@ -87,7 +87,7 @@ const DadosEndereco = () => {
                 bairro,
                 cidade,
                 estado,
-                usuario_id: usuarioId, 
+                usuario_id: usuarioID, 
             });
 
             if (response.status === 201) {

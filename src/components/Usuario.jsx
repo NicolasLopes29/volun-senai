@@ -120,7 +120,6 @@ const Usuario = () => {
 
     return (
         <>
-            <Navbar />
             <div className="usuario-container">
                 <section className="usuario-section">
                     <div className="usuario-info">
@@ -151,7 +150,6 @@ const Usuario = () => {
                     {handleComponentChange()}
                 </article>
             </div>
-            <Footer />
         </>
     );
 };

@@ -3,6 +3,22 @@ import './../css/Card.css';
 import { Link } from "react-router-dom";
 
 const Card = () => {
+    const MudaCard = () => {
+ 
+        const card = document.querySelector(".card");
+        const cardDescription = document.querySelector(".card-description");
+        const cardDetails = document.querySelector(".card-details");
+ 
+        card.style.height = "28em";
+       
+        cardDescription.style.display = "block";
+       
+        cardDetails.style.display = "flex";
+        cardDetails.style.alignItems ="center";
+        cardDetails.style.justifyContent ="center";
+       
+    }
+
     return (
         <div className="card">
             <div className="card-capa">
@@ -44,11 +60,11 @@ const Card = () => {
                 </div>
             </div>
             <button className="card-details">
-                <p><Link to="/detalhes/DetalhesEventos">Ver detalhes</Link></p>
+                <p><Link to="/detalhes_eventos">Ver detalhes</Link></p>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 10L12 15L17 10" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
             </button>
         </div>
-    )
-}
+    );
+};
 
 export default Card;

@@ -94,6 +94,7 @@ const InformacaoPessoal = () => {
         }
     };
 
+    
     const handleFormUser = async () => {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -179,7 +180,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Data de Nascimento"
-                                type="date"
+                                type="text"
                                 value={userData.data_nascimento}
                                 onChange={(e) => setUserData({ ...userData, data_nascimento: e.target.value })}
                                 disabled={true} // Desabilitado para edição
