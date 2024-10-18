@@ -81,10 +81,11 @@ const estados = [
 
                     <div className="page-count">
 
-                        <div className="Botao-page">
                             <img src={seta} alt="" className="seta"/>
+                        <div className="Botao-page">
                             <button> Anterior</button>
                         </div>
+                        
                         <div className="numero-page">
                             <button>1</button>
                         </div>
@@ -96,8 +97,9 @@ const estados = [
                         </div>
                         <div className="Botao-page">
                             <button>Seguinte</button>
-                            <img src={seta} alt="" className="seta-right"/>
                         </div>
+                            <img src={seta} alt="" className="seta-right"/>
+                    
                     </div>
 
                 </div>        
