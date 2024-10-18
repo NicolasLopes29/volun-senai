@@ -43,18 +43,17 @@ const InformacaoPessoal = () => {
     const handleSalvarAlteracoes = async () => {
         setLoading(true);
         setError(false);
-        setSucesso(false);
         
         const auth = getAuth();
         const user = auth.currentUser;
-
+    
         if (!user) {
             setError("Usuário não autenticado.");
             return;
         }
-
+    
         const uid = user.uid;
-
+    
         // Atualizar os dados pessoais no estado
         const updatedUserData = {
             nome: userData.nome,
@@ -63,7 +62,7 @@ const InformacaoPessoal = () => {
             ddd: userData.ddd,
             telefone: userData.telefone,
         };
-
+    
         // Atualizar os dados de endereço no estado
         const updatedEnderecoData = {
             logradouro: enderecoData.logradouro,
@@ -73,19 +72,18 @@ const InformacaoPessoal = () => {
             estado: enderecoData.estado,
             numero: enderecoData.numero,
         };
-
+    
         try {
             // Atualizar os dados pessoais do usuário
             await axios.put(`https://volun-api-eight.vercel.app/usuarios/${uid}`, updatedUserData);
-
+    
             // Atualizar os dados de endereço se um ID existir
             if (enderecoData.id) {
                 await axios.put(`https://volun-api-eight.vercel.app/endereco/${enderecoData.id}`, updatedEnderecoData);
             }
-
-            setSucesso("Dados atualizados com sucesso.");
-            setDisable(true);
-            setGerarBotao(false);
+    
+            // Recarregar a página após salvar as alterações
+            window.location.reload();
         } catch (error) {
             setError("Erro ao salvar alterações.");
             console.error("Erro ao salvar dados:", error);
@@ -93,6 +91,7 @@ const InformacaoPessoal = () => {
             setLoading(false);
         }
     };
+    
 
     const handleFormUser = async () => {
         const auth = getAuth();

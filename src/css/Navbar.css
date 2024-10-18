@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: #050c20e4; /* Fundo semitransparente */
+  background-color: #050c20ba; /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);

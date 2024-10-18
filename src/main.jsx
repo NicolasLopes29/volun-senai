@@ -10,6 +10,7 @@ import Appmod from './components/modera/Appmode.jsx'
 import Usuario from './components/Usuario.jsx'
 import Eventos from './components/Eventos.jsx'
 import DetalhesEventos from './components/DetalhesEventos.jsx'
+import Cardong from './components/Cardong.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
@@ -24,6 +25,7 @@ root.render (
         <Route path='/eventos' element={<Eventos />}/>
         <Route path='/detalhes_eventos' element={<DetalhesEventos />}/>
         <Route path='/modera' element= {<Appmod/>}/>
+        <Route path='/cardong' element= {<Cardong/>}/>
       </Routes>
     </Router>
   </React.StrictMode>
