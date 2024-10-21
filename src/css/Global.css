@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap');
 
 * {
     margin: 0;
@@ -13,14 +14,7 @@
     --cor-quarta: #4B7CC6;
     --cor-fundo-gradiente: linear-gradient(to right, var(--cor-terciaria), var(--cor-quarta));
     --fundo-principal: #FBFBFE;
-
-    /* Input */
-    --input-background: #E5E5E5;
-    --input-shadow: 0px 5px 5px 0px #c5c5c5;
-    --input-border: none;
-
-    /* Sidebar */
-    --sidebar: #1E3A8A;
+    --fundo-input: #E5E5E5;
 
     /* Sombra */
     --sombra: #C5C5C5;
@@ -37,11 +31,8 @@
     /* Cores do Botão */
     --botao-tela-branca: #1F0171;
     --botao-tela-escura: #FCFCFE;
-    --botao-hover: #FF5C00;
-    --botao-shadow: 0px 5px 5px 0px #c5c5c5;
+    --botão-hover: #FF5C00;
 
     /* Fontes */
-    --font-family: "Plus Jakarta Sans", sans-serif;
+    --font-family: "Poppins", sans-serif;
 }
-
-/* Estilo para a camada de overlay */   

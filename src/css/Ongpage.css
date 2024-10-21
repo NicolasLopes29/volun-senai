@@ -1,0 +1,114 @@
+@import url(./Global.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #e4e3ef;
+}
+
+.blue {
+    color: #1F0171;
+    font-family: "Poppins", sans-serif;
+}
+
+.ong-content {
+    background-color: white;
+    margin: 1.3em;
+    padding-bottom: 1em;
+    border-radius: 1em;
+}
+
+.ong-profile {
+    padding: 3em 2em;
+    display: flex;
+    justify-content: space-around;
+}
+
+#ong-pfp {
+    width: 17.5em;
+}
+
+#ong-name {
+    font-size: 2.5em;
+    font-weight: 500;
+}
+
+#ong-date {
+    font-size: 1.5em;
+    font-weight: 450;
+}
+
+#gps-icon, #cate-icon, #flws-icon {
+    width: 1.2em;
+}
+
+#ong-address, #ong-genre, #ong-followers {
+    display: flex;
+    gap: .5em;
+}
+
+#ong-address-text {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#ong-genre-text {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#ong-flws-text {
+    font-size: 1.3em;
+    font-weight: 400;
+}
+
+.ong-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+}
+
+.ong-media {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.media-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5em;
+}
+
+#flw-btn {
+    background-color: #1F0171;
+    color: white;
+    padding: .5em 5.5em;
+    border-radius: 15px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.3em;
+}
+
+#ong-line {
+    border: 1.3px solid #1F0171;
+    width: 90%;
+    margin: auto;
+}
+
+.about-ong {
+    background-color: white;
+    margin: 1.3em;
+    padding: 1.5em;
+    border-radius: 1em;
+}
+
+#about-title {
+    font-weight: 500;
+}
+
+#about-text {
+    font-size: 1.1em;
+    font-weight: 400;
+    text-align: justify;
+}
