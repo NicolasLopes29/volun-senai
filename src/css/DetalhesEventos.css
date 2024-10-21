@@ -1,10 +1,12 @@
 @import url(./Global.css);
 
+
 /* Principais, que arruma tudo */
 .pega-tudo{
     display: grid;
     grid-template-columns: 50% 50%;
     margin: 40px;
+    margin-top: 60px;
 }
 
 .parte-1{
@@ -15,23 +17,34 @@
 
 .parte-2{
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     flex-direction: column;
-    margin-right: 40px;
+    margin: 40px;
 }
 
-.Endereco-mapa{
-    
-}
+
 
 /* parte-1 estilos */
+
+.titulo-evento h1{
+    font-size: 40px;
+    color: #1F0171;
+    font-family: 'jacarta';
+}
+
+.titulo-evento p{
+    color: #1F0171;
+    font-family: 'jacarta';
+    font-size: 20px;
+}
 
 /* Botões */
 .participar{
     display: flex;
-    padding-left: 110px;
-    margin: 5px;
-    width: 20rem;
+    padding-left: 14rem;
+    margin: 4px;
+    margin-top: 10px;
+    width: 34rem;
     height: 2rem; 
     background-color: #1F0171;  
     color: white;
@@ -48,8 +61,9 @@
 }
 
 .compartilhar{
-    margin: 5px;
-    width: 20rem;
+    margin: 4px;
+    margin-top: 10px;
+    width: 34rem;
     height: 2rem;
     background-color: #FF5C00;
     color: white;
@@ -78,3 +92,23 @@
     padding: 10px;
     margin-right: 1rem;
 }
+
+/* Parte 2 Estilos */
+
+.imagem-evento{
+
+}
+
+.calendario{
+    width: 40px;
+}
+
+.relogio{
+
+}
+
+.local{
+
+}
+
+
