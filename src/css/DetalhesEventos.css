@@ -4,7 +4,7 @@
 .pega-tudo{
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-top: 5rem;
+    margin-top: 10rem;
 }
 
 .parte-1{
