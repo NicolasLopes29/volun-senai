@@ -4,6 +4,7 @@
     background-color: var(--fundo-principal);
     width: 100%;
     display: block;
+    margin-top: 2rem
 }
 .usuario-section {
     background-color: var(--cor-quarta);

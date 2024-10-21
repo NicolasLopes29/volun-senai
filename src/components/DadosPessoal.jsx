@@ -151,7 +151,7 @@ const DadosPessoal = () => {
                             type="date"
                             name="dataNasc"
                             value={userDados.dataNasc}
-                            onChange={(e) => setUserDados({ ...userDados, dataNasc: e.target.value})}
+                            onChange={(e) => setUserDados({ ...userDados, dataNasc: e.target.value })}
                         />
                     </div>
 

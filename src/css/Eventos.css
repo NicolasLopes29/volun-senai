@@ -3,8 +3,7 @@
 .Pesquisa-Eventos{
     justify-content: flex-start;
     align-items: flex-start;
-    padding-top: 20px;
-    /* padding-left: 40px; */
+    padding-top: 4rem;
     /* height: 110vh; */
     width: 100%;
     font-family: var(--font-family);
@@ -169,8 +168,13 @@
   margin-right: 10px;
 }
 
+.seta{
+  cursor: pointer;
+}
+
 .seta-right {
   transform: rotate(180deg);
+  cursor: pointer;
 }
 
 .numero-page button{
@@ -183,4 +187,3 @@
   margin-left: 10px;
   margin-right: 10px;
 }
-

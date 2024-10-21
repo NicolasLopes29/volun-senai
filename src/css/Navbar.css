@@ -9,7 +9,8 @@
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
-  top: 0; /* Alinha a navbar ao topo */
+  position: fixed; /* Fixa a navbar no topo */
+  top: 0;
   width: 100%; /* Faz a navbar ocupar toda a largura da tela */
   z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
 }
@@ -38,19 +39,19 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 40%; /* Aumenta a largura da barra de pesquisa */
+  width: 50%; /* Aumenta a largura da barra de pesquisa */
   position: relative; /* Necessário para posicionar o ícone */
 }
 
 .search-navbar input {
   text-align: left; /* Alinha o texto à esquerda */
-  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  width: 75%; /* Faz o input ocupar toda a largura disponível */
   height: 30px; /* Aumenta a altura do input */
   line-height: 28px;
   padding: 0 1rem;
   padding-left: 2.5rem; /* Espaço para o ícone */
   border: 2px solid transparent;
-  border-radius: 10px;
+  border-radius: 30px;
   outline: none;
   background-color: #f3f3f4;
   color: #0d0c22;
@@ -58,8 +59,8 @@
 }
 
 .search-navbar #search-icon {
-  position: absolute;
-  left: 10px; /* Alinha o ícone à esquerda */
+  position:relative;
+  left: 20px; /* Alinha o ícone à esquerda */
   width: 15px;
   height: 15px;
   opacity: 0.5; /* Diminui a opacidade do ícone */
@@ -79,7 +80,8 @@
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: var(--sidebar); /* Azul escuro */
+  background-color: #09122be4; /* Fundo semitransparente */
+  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
@@ -112,7 +114,7 @@
   }
 }
 
-.perfil-dropdown-container {
+.perfil-logout-container {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -154,19 +156,4 @@
   transition: background-color 0.3s ease;
   font-family: "Poppins", sans-serif;
   margin-top: 0px;
-}
-
-.perfil-detalhes {
-  display: flex;
-}
-.perfil-saudacao {
-  display: grid;
-  margin: auto 10px;
-}
-.perfil-saudacao p {
-  color: var(--fonte-cor-branco);
-  font-size: 16px;
-}
-.perfil-saudacao p:nth-child(2) {
-  font-size: 12px;
 }

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import "./css/App.css"; // Ensure this path is correct
-
 import SimpleSlider from "./components/SimpleSlider"; // Import the SimpleSlider component
 
 const Card_Slider = () => {
@@ -37,10 +36,9 @@ const Card_Slider = () => {
   );
 };
 
-const App = () =>  {
+function App() {
   return (
     <>
-      
       <div className="app-container">
         <section className="app-section-container">
           <div className="app-section-left">

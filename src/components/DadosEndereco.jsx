@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { getAuth } from "firebase/auth"; // Importação do Firebase Authentication
-import "../css/DadosEndereco.css";
+import "./../css/DadosEndereco.css";
 
 const DadosEndereco = () => {
     const [enderecoDados, setEnderecoDados] = useState({
@@ -15,7 +15,7 @@ const DadosEndereco = () => {
     });
     const [erro, setErro] = useState(false);
     const [sucesso, setSucesso] = useState(false);
-    const [usuarioID, setUsuarioId] = useState("");    
+    const [usuarioId, setUsuarioId] = useState(null); // Estado para armazenar o ID do usuário
 
     const navigate = useNavigate();
 
@@ -87,7 +87,7 @@ const DadosEndereco = () => {
                 bairro,
                 cidade,
                 estado,
-                usuario_id: usuarioID, 
+                usuario_id: usuarioId, 
             });
 
             if (response.status === 201) {

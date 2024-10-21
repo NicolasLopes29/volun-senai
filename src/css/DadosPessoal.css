@@ -64,20 +64,18 @@
     /* box-shadow: var(--botao-shadow); */
     color: var(--fonte-cor-branco);
 }
-.dados-input {
-    width: 240px;
-}
-.dados-input-medio{
-    width: 160px; 
-}
-.dados-input-pequeno {
-    width: 80px;
-}
-.dados-input-grande {
+.input-grande {
     width: 320px;
 }
-
-
+.input-medio {
+    width: 240px;
+}
+.input-medio-grande {
+    width: 280px;
+}
+.input-pequeno{
+    width: 120px;
+}
 .dados-container {
     background-color: var(--fundo-principal);
     text-align: center;

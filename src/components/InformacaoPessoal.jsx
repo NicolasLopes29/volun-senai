@@ -43,18 +43,17 @@ const InformacaoPessoal = () => {
     const handleSalvarAlteracoes = async () => {
         setLoading(true);
         setError(false);
-        setSucesso(false);
         
         const auth = getAuth();
         const user = auth.currentUser;
-
+    
         if (!user) {
             setError("Usuário não autenticado.");
             return;
         }
-
+    
         const uid = user.uid;
-
+    
         // Atualizar os dados pessoais no estado
         const updatedUserData = {
             nome: userData.nome,
@@ -63,7 +62,7 @@ const InformacaoPessoal = () => {
             ddd: userData.ddd,
             telefone: userData.telefone,
         };
-
+    
         // Atualizar os dados de endereço no estado
         const updatedEnderecoData = {
             logradouro: enderecoData.logradouro,
@@ -73,17 +72,17 @@ const InformacaoPessoal = () => {
             estado: enderecoData.estado,
             numero: enderecoData.numero,
         };
-
+    
         try {
             // Atualizar os dados pessoais do usuário
             await axios.put(`https://volun-api-eight.vercel.app/usuarios/${uid}`, updatedUserData);
-
+    
             // Atualizar os dados de endereço se um ID existir
             if (enderecoData.id) {
                 await axios.put(`https://volun-api-eight.vercel.app/endereco/${enderecoData.id}`, updatedEnderecoData);
             }
-
-            setSucesso("Dados atualizados com sucesso.");
+    
+            // Recarregar a página após salvar as alterações
             setDisable(true);
             setGerarBotao(false);
         } catch (error) {
@@ -93,8 +92,8 @@ const InformacaoPessoal = () => {
             setLoading(false);
         }
     };
-
     
+
     const handleFormUser = async () => {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -153,7 +152,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Nome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.nome}
                                 onChange={(e) => setUserData({ ...userData, nome: e.target.value })}
@@ -161,7 +160,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Sobrenome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.sobrenome}
                                 onChange={(e) => setUserData({ ...userData, sobrenome: e.target.value })}
@@ -170,6 +169,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CPF"
                                 type="text"
                                 value={userData.cpf}
@@ -179,8 +179,9 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Data de Nascimento"
-                                type="text"
+                                type="date"
                                 value={userData.data_nascimento}
                                 onChange={(e) => setUserData({ ...userData, data_nascimento: e.target.value })}
                                 disabled={true} // Desabilitado para edição
@@ -189,13 +190,14 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="DDD"
-                                className="input-pessoal-ddd"
+                                className="input-pequeno"
                                 type="text"
                                 value={userData.ddd}
                                 onChange={(e) => setUserData({ ...userData, ddd: e.target.value })}
                                 disabled={disable}
                             />
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Telefone"
                                 type="text"
                                 value={userData.telefone}
@@ -206,7 +208,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Email"
-                                className="input-pessoal-email"
+                                className="input-medio-grande"
                                 type="email"
                                 value={userData.email}
                                 onChange={(e) => setUserData({ ...userData, email: e.target.value })}
@@ -220,7 +222,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Endereço"
-                                className="info-local-endereco"
+                                className="input-grande"
                                 type="text"
                                 value={enderecoData.logradouro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, logradouro: e.target.value })}
@@ -228,7 +230,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Número"
-                                className="info-local-numero"
+                                className="input-pequeno"
                                 type="text"
                                 value={enderecoData.numero}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, numero: e.target.value })}
@@ -237,6 +239,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CEP"
                                 type="text"
                                 value={enderecoData.cep}
@@ -244,6 +247,7 @@ const InformacaoPessoal = () => {
                                 disabled={disable}
                             />
                             <input
+                                className="input-medio-grande"
                                 placeholder="Bairro"
                                 type="text"
                                 value={enderecoData.bairro}
@@ -253,6 +257,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-grande"
                                 placeholder="Cidade"
                                 type="text"
                                 value={enderecoData.cidade}
@@ -260,6 +265,7 @@ const InformacaoPessoal = () => {
                                 disabled={disable}
                             />
                             <select
+                                className="input-select"
                                 value={enderecoData.estado}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, estado: e.target.value })}
                                 disabled={disable}

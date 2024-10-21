@@ -6,10 +6,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import defaultProfileImage from "../assets/images/photo-perfil.png";
 import EditPinIcon from "../assets/images/edit-pin.png";
 import { Link } from "react-router-dom";
-
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Loader from "./Loader"; // Importa o Loader
+import Loader from "./Loader"; 
 
 import Historico from "./Historico";
 import InformacaoPessoal from "./InformacaoPessoal";
@@ -109,11 +106,9 @@ const Usuario = () => {
     if (error) {
         return (
             <>
-                <Navbar />
                 <div className="error-container">
                     <p>{error}</p>
                 </div>
-                <Footer />
             </>
         );
     }

@@ -9,9 +9,6 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import UsuarioMenu from "./UsuarioMenu";
-import { MdArrowDropDown } from "react-icons/md";
-import axios from "axios";
 
 const estiloModal = {
   overlay: {
@@ -43,46 +40,16 @@ Modal.setAppElement('#root');
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [userMenu, setUserMenu] = useState(false);
   const [LoginAbrir, setLoginAbrir] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false); 
   const [fotoPerfilUrl, setFotoPerfilUrl] = useState(""); 
   const [botaoEstilo, setBotaoEstilo] = useState({}); 
-  const [userData, setUserData] = useState({
-    nome : "",
-  });
-  const [error, setError] = useState(null);
   const navigate = useNavigate(); // Inicializando o useNavigate
-  
+
   const auth = getAuth(app); 
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  };
-
-  const handleDropdown = () => {
-    setUserMenu(!userMenu);
-  };
-
-  // Retorna à página inicial
-  const handleLogoClick = () => {
-    navigate("/");
-  };
-
-  const handleGetUsername = async (uid) => {
-    setError(false);
-    
-    try {
-      const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
-      setUserData(response.data, userData.nome);
-    } 
-    catch (error) {
-      setError("Erro ao buscar dados do usuário.");
-    }
-  }
-  // Redireciona para a página de perfil ao clicar na imagem
-  const handleProfileClick = () => {
-    navigate("/usuario"); 
   };
 
   useEffect(() => {
@@ -91,7 +58,6 @@ const Navbar = () => {
         setUsuarioLogado(true); 
 
         if (user.photoURL) {
-          handleGetUsername(user.uid);
           setFotoPerfilUrl(user.photoURL);
         } else {
           setFotoPerfilUrl(""); 
@@ -105,6 +71,28 @@ const Navbar = () => {
 
     return () => unsubscribe(); 
   }, [auth]);
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("Usuário deslogado com sucesso!");
+        navigate("/"); 
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Erro ao deslogar: ", error);
+      });
+  };
+
+  // Retorna à página inicial
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
+  // Redireciona para a página de perfil ao clicar na imagem
+  const handleProfileClick = () => {
+    navigate("/usuario"); 
+  };
 
   return (
     <>
@@ -122,26 +110,19 @@ const Navbar = () => {
             <Link to="/cardong">Sou uma organização</Link>
         </div>
         {usuarioLogado ? (
-          <div className="perfil-dropdown-container">
+          <div className="perfil-logout-container">
             {fotoPerfilUrl && (
-              <div className="perfil-detalhes">
-                <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                  <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
-                </div>
-                <div className="perfil-saudacao">
-                  <p>Bem-Vindo</p>
-                  <p>{userData.nome}</p>
-                </div>
+              <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
               </div>
             )}
             <button
-              onClick={handleDropdown}
+              type="button"
+              onClick={handleLogout}
+              className="logout-button"
             >
-              <MdArrowDropDown />
+              Deslogar
             </button>
-            { userMenu &&(
-                <UsuarioMenu/>
-            )}
           </div>
         ) : (
           <button
