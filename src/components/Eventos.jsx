@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./../css/Eventos.css";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
 
@@ -21,7 +19,6 @@ const estados = [
 
    return(
     <>
-        <Navbar />
         <div class="Pesquisa-Eventos">
         <section className="arrumar-tudo">
             <h1 className="Eventos-h1">Pesquise aqui</h1>
@@ -104,8 +101,6 @@ const estados = [
 
                 </div>        
             </div>
-        <Footer />
-
     </>
   );
 }
