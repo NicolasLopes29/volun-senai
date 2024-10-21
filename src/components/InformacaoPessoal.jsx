@@ -83,7 +83,8 @@ const InformacaoPessoal = () => {
             }
     
             // Recarregar a página após salvar as alterações
-            window.location.reload();
+            setDisable(true);
+            setGerarBotao(false);
         } catch (error) {
             setError("Erro ao salvar alterações.");
             console.error("Erro ao salvar dados:", error);
@@ -151,7 +152,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Nome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.nome}
                                 onChange={(e) => setUserData({ ...userData, nome: e.target.value })}
@@ -159,7 +160,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Sobrenome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.sobrenome}
                                 onChange={(e) => setUserData({ ...userData, sobrenome: e.target.value })}
@@ -168,6 +169,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CPF"
                                 type="text"
                                 value={userData.cpf}
@@ -177,6 +179,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Data de Nascimento"
                                 type="date"
                                 value={userData.data_nascimento}
@@ -187,13 +190,14 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="DDD"
-                                className="input-pessoal-ddd"
+                                className="input-pequeno"
                                 type="text"
                                 value={userData.ddd}
                                 onChange={(e) => setUserData({ ...userData, ddd: e.target.value })}
                                 disabled={disable}
                             />
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Telefone"
                                 type="text"
                                 value={userData.telefone}
@@ -204,7 +208,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Email"
-                                className="input-pessoal-email"
+                                className="input-medio-grande"
                                 type="email"
                                 value={userData.email}
                                 onChange={(e) => setUserData({ ...userData, email: e.target.value })}
@@ -218,7 +222,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Endereço"
-                                className="info-local-endereco"
+                                className="input-grande"
                                 type="text"
                                 value={enderecoData.logradouro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, logradouro: e.target.value })}
@@ -226,7 +230,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Número"
-                                className="info-local-numero"
+                                className="input-pequeno"
                                 type="text"
                                 value={enderecoData.numero}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, numero: e.target.value })}
@@ -235,6 +239,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CEP"
                                 type="text"
                                 value={enderecoData.cep}
@@ -242,6 +247,7 @@ const InformacaoPessoal = () => {
                                 disabled={disable}
                             />
                             <input
+                                className="input-medio-grande"
                                 placeholder="Bairro"
                                 type="text"
                                 value={enderecoData.bairro}
@@ -251,6 +257,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-grande"
                                 placeholder="Cidade"
                                 type="text"
                                 value={enderecoData.cidade}
@@ -258,6 +265,7 @@ const InformacaoPessoal = () => {
                                 disabled={disable}
                             />
                             <select
+                                className="input-select"
                                 value={enderecoData.estado}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, estado: e.target.value })}
                                 disabled={disable}

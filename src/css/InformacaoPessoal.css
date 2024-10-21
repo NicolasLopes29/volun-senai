@@ -21,7 +21,7 @@
     padding: 20px 0;
     justify-content: space-between;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .info-pessoal-form-container h3{
@@ -35,22 +35,34 @@
     border: var(--input-border);
     border-radius: 16px;
 }
-.input-pessoal-nome {
-    width: 250px;
+.input-grande {
+    width: 320px;
 }
-.input-pessoal-ddd {
+.input-medio {
+    width: 240px;
+}
+.input-medio-grande {
+    width: 280px;
+}
+.input-medio-pequeno{
+    width: 160px;
+}
+.input-pequeno {
     width: 80px;
 }
-.input-pessoal-email {
-    width: 250px;
+.input-select {
+    width: 120px;
+    padding: 5px 0px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    border-radius: 16px;
+    margin-top: 10px;
 }
-.info-local-endereco {
-    width: 250px
-}
-.info-local-numero {
+.input-select option {
+    justify-content: center;
     width: 100px;
+    text-align: center;
 }
-
 .input-pessoal-logradouro{
     width: 40%;
 }

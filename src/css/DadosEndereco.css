@@ -62,13 +62,13 @@
     width: 320px;
 }
 .input-medio {
-    width: 200px;
+    width: 240px;
 }
 .input-medio-grande {
-    width: 260px;
+    width: 280px;
 }
 .input-pequeno{
-    width: 120px
+    width: 120px;
 }
 .erro-mensagem {
     color: red;

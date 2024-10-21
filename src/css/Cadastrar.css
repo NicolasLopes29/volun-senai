@@ -1,52 +1,57 @@
 @import url(./Global.css);
 
 .cadastrar-container {
+    color: #f0f0f0;
+    background-image: url("../assets/wallpaper/orange-wallpaper.svg");
     text-align: center;
-    font-family: var(--font-family);
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    height: 120vh;
 }
-.cadastrar-logo {
-    width: 500px;
-    height: 200px;
+
+.cadastrar-section {
+    backdrop-filter: blur(5px); /* Desfoca o conteúdo atrás do elemento */
+    border: solid 2px var(--fundo-principal);
+    border-radius: 32px;
+    margin-bottom: 20px;
+    display: block;
+    padding: 100px;
 }
-.cadastrar-formulario {
-    padding: 30px 0;
-    font-family: var(--font-family);
+.cadastrar-section h3 {
+    font-size: 18px;
+    text-align: left;
+}
+.cadastrar-buttons {
+    justify-content: space-between;
+}
+.cadastrar-buttons button {
+    background-color: #1F0171;
+    border-radius: 16px;
+    width: 150px;
+    height: 40px;
     color: var(--fonte-cor-branco);
-    background-color: var(--cor-principal);
+    margin: 0 10px;
+}
+
+
+.verificacao-container {
     text-align: center;
-    height: auto;
+    padding: 50px;
+    border: solid 2px #f0f0f0;
+    backdrop-filter: blur(5px); 
+    border-radius: 32px;
+    margin: 0 auto;
+    width: 50%;
 }
-.cadastrar-input-container {
-    display: grid;
-    text-align: center;
-    justify-content: space-around;
-    padding-top: 10px;
+
+.verificacao-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
-.cadastrar-input-container label {
-    padding-bottom: 5px;
-    font-family: var(--font-family);
-}
-.cadastrar-input-container input {
-    width: 300px;
-    height: 40px;
-    background-color: var(--fundo-input);
-    border: 1px none;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    font-size: 16px
-}
-.cadastrar-botao-container {
-    font-family: var(--font-family);
-}
-.cadastrar-botao-container button {
-    width: 250px;
-    height: 40px;
-    background-color: var(--cor-secundaria);
-    border-radius: 15px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 300;
+
+.verificacao-container p {
+    font-size: 18px;
+    margin: 10px 0;
 }
