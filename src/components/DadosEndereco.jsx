@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { getAuth } from "firebase/auth"; // Importação do Firebase Authentication
-import "../css/DadosEndereco.css";
+import "./../css/DadosEndereco.css";
 
 const DadosEndereco = () => {
     const [enderecoDados, setEnderecoDados] = useState({

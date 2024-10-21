@@ -10,7 +10,7 @@ import pessoas from "./../assets/images/icon-pessoas.svg";
 const DetalhesEventos = () => {
     return(
         <>
-        <Navbar/>
+       
         <div className="pega-tudo">
             <div className="parte-1">
                 <div className="titulo-evento">
@@ -62,7 +62,6 @@ const DetalhesEventos = () => {
             <div className="endereco-mapa">
                 <h2>Endereço: Rua dos Banzeiros Senai 32</h2>
             </div>
-        <Footer/>
         </>
     );
 };

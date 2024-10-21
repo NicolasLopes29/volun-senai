@@ -10,7 +10,7 @@
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
   position: fixed; /* Fixa a navbar no topo */
-  top: 0; /* Alinha a navbar ao topo */
+  top: 0;
   width: 100%; /* Faz a navbar ocupar toda a largura da tela */
   z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
 }

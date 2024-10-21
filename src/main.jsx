@@ -11,21 +11,23 @@ import Usuario from './components/Usuario.jsx'
 import Eventos from './components/Eventos.jsx'
 import DetalhesEventos from './components/DetalhesEventos.jsx'
 import Cardong from './components/Cardong.jsx'
+import Footer from './components/Footer.jsx'
+import NavBar from './components/Navbar.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path='/' element={<App />}/>
-        <Route path='/cadastrar' element={<Cadastrar />}/>
-        <Route path='/dados_pessoal' element={<DadosPessoal />}/>
-        <Route path='/dados_endereco' element={<DadosEndereco />}/>
-        <Route path='/usuario' element={<Usuario />}/>
-        <Route path='/eventos' element={<Eventos />}/>
-        <Route path='/detalhes_eventos' element={<DetalhesEventos />}/>
-        <Route path='/modera' element= {<Appmod/>}/>
-        <Route path='/cardong' element= {<Cardong/>}/>
+        <Route path='/'                 element= {<><NavBar/> <App /> <Footer/></>}/>
+        <Route path='/cadastrar'        element= {<Cadastrar />}/>
+        <Route path='/dados_pessoal'    element= {<DadosPessoal /> }/>
+        <Route path='/dados_endereco'   element= {<DadosEndereco />}/>
+        <Route path='/usuario'          element= {<><NavBar/> <Usuario /> <Footer/></>}/>
+        <Route path='/eventos'          element= {<><NavBar/> <Eventos /> <Footer/></>}/>
+        <Route path='/detalhes_eventos' element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
+        <Route path='/modera'           element= {<Appmod/>}/>
+        <Route path='/cardong'          element= {<Cardong/>}/>
       </Routes>
     </Router>
   </React.StrictMode>
