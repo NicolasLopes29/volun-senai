@@ -2,10 +2,10 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0rem; /* Reduzi o padding para diminuir a altura */
-  background-color: var(--cor-principal); /* Fundo semitransparente */
+  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
+  background-color: #050c20ba; /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
@@ -45,7 +45,7 @@
 
 .search-navbar input {
   text-align: left; /* Alinha o texto à esquerda */
-  width: 75%; /* Faz o input ocupar toda a largura disponível */
+  width: 100%; /* Faz o input ocupar toda a largura disponível */
   height: 30px; /* Aumenta a altura do input */
   line-height: 28px;
   padding: 0 1rem;
@@ -59,8 +59,8 @@
 }
 
 .search-navbar #search-icon {
-  position:relative;
-  left: 20px; /* Alinha o ícone à esquerda */
+  position: absolute;
+  left: 10px; /* Alinha o ícone à esquerda */
   width: 15px;
   height: 15px;
   opacity: 0.5; /* Diminui a opacidade do ícone */
