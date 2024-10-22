@@ -24,7 +24,7 @@ const Eventos = () => {
             try {
                 const response = await fetch('https://volun-api-eight.vercel.app/eventos/'); // Substitua pela URL correta da sua API
                 const data = await response.json();
-                setEventos(data); // Supondo que `data` seja um array de eventos
+                setEventos(data); 
             } catch (error) {
                 console.error("Erro ao buscar eventos:", error);
             }
@@ -33,7 +33,7 @@ const Eventos = () => {
         fetchEventos();
     }, []);
 
-    return(
+    return (
         <>
             <div className="Pesquisa-Eventos">
                 <section className="arrumar-tudo">
@@ -76,11 +76,19 @@ const Eventos = () => {
                 <div className="Eventos-resultado-pesquisa-texto">
                     <div className="Eventos-titulo">
                         <h1>Resultado da pesquisa:</h1>
-                        <h3>Foram achados X resultados referentes a sua busca</h3>
+                        <h3>Foram achados {eventos.length} resultados referentes a sua busca</h3>
                     </div>
                     <div className="Eventos-resultado-pesquisa">
                         {eventos.map((evento, index) => (
-                            <Card key={index} evento={evento} /> // Passa o evento como prop para o Card
+                            <Card 
+                                key={index}
+                                titulo={evento.titulo}
+                                descricao={evento.descricao}
+                                ongNome={evento.ong_id?.nome}
+                                dataInicio={evento.data_inicio}
+                                imgUrl={evento.imagem}
+                                vagaLimite={evento.vaga_limite}
+                            />
                         ))}
                     </div>   
 
