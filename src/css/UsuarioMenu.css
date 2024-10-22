@@ -5,9 +5,9 @@
     background-color: var(--fundo-principal) ;
     text-align: left;
     font-size: 10px;
-    top: 100%; /* Faz o dropdown aparecer logo abaixo do botão */
+    top: 50%; /* Faz o dropdown aparecer logo abaixo do botão */
     right: 0; /* Alinha o dropdown à esquerda do botão */
-    left: 1000;
+    left: 78%;
     z-index: 1000; /* Garante que o dropdown fique acima do conteúdo */
     padding-right: 10px;
     width: 200px;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import "./../css/InformacaoPessoal.css";
+import { data } from "autoprefixer";
 
 const InformacaoPessoal = () => {
     const [disable, setDisable] = useState(true);
@@ -38,6 +39,35 @@ const InformacaoPessoal = () => {
     const handleCancelarEdicao = () => {
         setDisable(true);
         setGerarBotao(false);
+    };
+
+    const buscarCEP = async (e) => {
+        e.preventDefault();
+        const cep = enderecoData.cep.replace(/\D/g,"");
+        if (cep.length >= 8){
+            try {
+                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = await response.json();
+
+                if (!data.erro){
+                   setEnderecoData({
+                        ...enderecoData,
+                        logradouro : data.logradouro,
+                        bairro: data.bairro,
+                        cidade: data.localidade,
+                        estado: data.uf,
+                   }); 
+                }
+                else {
+                    alert("CEP não encontrado.");
+                }
+            }
+            catch (error){
+                alert(`Erro ao buscar CEP. Tente novamente., ${error}`);
+            }
+        } else {
+            alert("CEP inválido.");
+        }
     };
 
     const handleSalvarAlteracoes = async () => {
@@ -246,6 +276,9 @@ const InformacaoPessoal = () => {
                                 onChange={(e) => setEnderecoData({ ...enderecoData, cep: e.target.value })}
                                 disabled={disable}
                             />
+                            <button type="button" onClick={buscarCEP} disabled={disable}>Buscar</button>
+                        </div>
+                        <div>
                             <input
                                 className="input-medio-grande"
                                 placeholder="Bairro"
@@ -254,6 +287,7 @@ const InformacaoPessoal = () => {
                                 onChange={(e) => setEnderecoData({ ...enderecoData, bairro: e.target.value })}
                                 disabled={disable}
                             />
+
                         </div>
                         <div>
                             <input
