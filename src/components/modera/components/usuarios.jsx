@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../components/css/Usuario.css';
 import Modal from "react-modal";
 
+
 const Usuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +38,11 @@ const Usuarios = () => {
   // Função para os botões
   const handleDelete = (usuario) => {
     console.log(`Excluir usuário: ${usuario.nome}`);
-    // Em breve implementar a função de usuarios da API
+    const express = require('express');
+    const router = express.Router();
+    const acoesModeracaoController = require('../controllers/acoesModeracaoController');
+    router.delete('/:id', acoesModeracaoController.deleteAcaoModeracao);
+
   };
 
   const handleAdvertir = (usuario) => {

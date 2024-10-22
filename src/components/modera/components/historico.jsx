@@ -4,4 +4,4 @@ const Historico = () => {
     return <div>pagina de historico</div>;
   };
   
-  export default Historico;
+  export default Historico; 
