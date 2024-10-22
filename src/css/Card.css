@@ -6,15 +6,16 @@
 }
 
 .card {
+    position: relative;
     margin: 10px;
     padding: 0px;
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 150px;
+    width: 80%;
+    height: 180px;
     border-radius: 15px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.20);
-    transition: height 0.2s ease-out;
+    transition: height 0.4s ease-out;
 }
 
 .card-capa {
@@ -40,6 +41,7 @@
     margin: 1em .9em 1em .9em;
     text-align: justify;
     font-family: "Inter", sans-serif;
+    padding: 5px;
 }
 
 .card-text-first, .card-text-second {
