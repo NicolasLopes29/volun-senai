@@ -15,13 +15,12 @@ const Card = ({ titulo, descricao, ongNome, dataInicio, imgUrl, vagaLimite }) =>
         cardDetails.style.justifyContent = "center";
     }
 
-    const truncateText = (text, maxLength) => {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength) + "...";
-        }
-        return text;
-    }
-
+    const truncateText = (text, limit) => {
+        if (!text) return "";
+        if (text.length <= limit) return text;
+        return text.substring(0, limit) + "...";
+      };
+      
     return (
         <div className="card">
             <div className="card-capa" style={{ backgroundImage: `url(${imgUrl})` }}>
