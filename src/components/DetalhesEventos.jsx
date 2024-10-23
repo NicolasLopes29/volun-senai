@@ -1,11 +1,11 @@
 import React from "react";
 import "./../css/DetalhesEventos.css";
-import Navbar from "./Navbar"
-import Footer from "./Footer";
 import calendario from "./../assets/images/calendario.svg";
 import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
+import praia from "./../assets/images/praia.svg";
+
 
 const DetalhesEventos = () => {
     return(
@@ -15,10 +15,10 @@ const DetalhesEventos = () => {
             <div className="parte-1">
                 <div className="titulo-evento">
                     <h1>{}Limpeza da praia</h1>
-                </div>
-                <div>
                     <p>Classificação de evento</p>
+                    <p>Meio ambiente</p>
                 </div>
+            
                 <div>
                     <button className="participar">Participar</button>
                     <button className="compartilhar">Compartilhar</button>
@@ -34,23 +34,31 @@ const DetalhesEventos = () => {
             </div>    
 
             <div className="parte-2">
-                <div className="imagem-evento"></div>
+                <div className="imagem-evento">
+                    <img src={praia} alt="" className="praia-img"></img>
+                </div>
                 <div className="barra-participantes">
                     <img src={pessoas} alt="" className="pessoas"></img>
                 </div>
 
-                <img src={calendario} alt="" className="calendario"></img>
-                <div>28 de agosto a 31 de agosto</div>
+                <div className="data-evento">
+                <img src={calendario} alt="" className="calendario-icon"></img>
+                    <p>28 de agosto a 31 de agosto</p>
+                </div>
 
-                <img src={relogio} alt="" className="relogio"></img>
-                <div>Horário: 10:30h - 18h</div>
+                <div className="horario-evento">
+                <img src={relogio} alt="" className="relogio-icon"></img>
+                    <p>Horário: 10:30h - 18h</p>
+                </div>
 
-                <img src={local} alt="" className="local"></img>
-                <div>Rua dos banzeiros, 32, São Paulo - SP</div>
+                <div className="local-eventos">
+                <img src={local} alt="" className="local-icon"></img>
+                    <p>Rua dos banzeiros, 32, São Paulo - SP</p>
+                </div>
 
                 <div className="especificacoes">
-                    <p>preferências: nenhuma</p>
-                    <p>Função: Auxiliar na limpeza da praia coletando residuos</p>
+                    <p className="preferencia-descricao">preferências: nenhuma</p>
+                    <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando residuos</p>
                 </div>
 
                 <div className="perfil-ong"></div>
