@@ -138,8 +138,8 @@
 
 .Eventos-resultado-pesquisa {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px; /* Ajuste o valor conforme necessário */
+  grid-template-columns: repeat(4, 2fr);
+  gap: 8px;
   justify-content: center;
   align-items: center;
   padding: 20px;
