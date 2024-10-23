@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import Modal from "react-modal";
 import Logo from "../assets/images/logo.svg";
-import "./../css/Navbar.css";
+import "../css/Navbar.css";
 import Login from "./Login";
 import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { app } from "../services/firebase-config";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import UsuarioMenu from "./UsuarioMenu";
-import { MdArrowDropDown } from "react-icons/md";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 import axios from "axios";
 
 const estiloModal = {
@@ -85,6 +85,19 @@ const Navbar = () => {
     navigate("/usuario"); 
   };
 
+  const handleUserLogOut = () => {
+    const auth = getAuth(); 
+    signOut(auth)
+        .then(() => {
+            console.log("Usuário deslogado com sucesso!");
+            navigate("/"); 
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.error("Erro ao deslogar: ", error);
+        });
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -135,9 +148,10 @@ const Navbar = () => {
               </div>
             )}
             <button
+              className="perfil-dropdown-button"
               onClick={handleDropdown}
             >
-              <MdArrowDropDown />
+              <MdOutlineArrowDropDown className="perfil-dropdown" />
             </button>
             { userMenu &&(
                 <UsuarioMenu/>
@@ -158,11 +172,26 @@ const Navbar = () => {
       </nav>
       {menuOpen && (
         <div className="sidebar">
+          <div className="sidebar-perfil-detalhes">
+              <div className="sidebar-perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+              </div>
+              <div className="sidebar-perfil-saudacao">
+                <p>Bem-Vindo</p>
+              <p>{userData.nome}</p>
+            </div>
+          </div>
           <ul>
             <li><a href="./../pages/Eventos.jsx">Eventos</a></li>
             <li><a href="./../pages/Sobre.jsx">Sobre Nós</a></li>
             <li><a href="./../pages/Organizacao.jsx">Sou uma organização</a></li>
           </ul>
+          <button
+              className="sidebar-button-loguou"
+              onClick={handleUserLogOut}
+          >
+            Deslogar
+          </button>
         </div>
       )}
       <Modal

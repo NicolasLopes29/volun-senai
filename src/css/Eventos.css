@@ -170,6 +170,9 @@
 
 .seta{
   cursor: pointer;
+  width: 25px;
+  height: 25px;
+  color: var(--cor-principal);
 }
 
 .seta-right {

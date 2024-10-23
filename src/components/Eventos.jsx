@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./../css/Eventos.css";
 import Card from "./Card";
-import seta from "./../assets/images/seta-page.svg";
+import { BiArrowToLeft, BiArrowToRight, BiSolidArrowToLeft, BiSolidArrowToRight } from "react-icons/bi";
 
 const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE",
@@ -85,7 +85,7 @@ const Eventos = () => {
                     </div>   
 
                     <div className="page-count">
-                        <img src={seta} alt="" className="seta"/>
+                        <BiSolidArrowToLeft alt="" className="seta"/>
                         <div className="Botao-page">
                             <button> Anterior</button>
                         </div>
@@ -102,7 +102,7 @@ const Eventos = () => {
                         <div className="Botao-page">
                             <button>Seguinte</button>
                         </div>
-                        <img src={seta} alt="" className="seta-right"/>
+                        <BiSolidArrowToRight alt="" className="seta"/>
                     </div>
                 </div>        
             </div>

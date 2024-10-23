@@ -1,11 +1,9 @@
 import React from "react";
 import "./../css/DetalhesEventos.css";
-import Navbar from "./Navbar"
-import Footer from "./Footer";
-import calendario from "./../assets/images/calendario.svg";
+/*import calendario from "./../assets/images/calendario.svg";
 import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
-import pessoas from "./../assets/images/icon-pessoas.svg";
+import pessoas from "./../assets/images/icon-pessoas.svg";*/
 
 const DetalhesEventos = () => {
     return(
