@@ -1,10 +1,12 @@
 @import url(./Global.css);
 
+
 /* Principais, que arruma tudo */
 .pega-tudo{
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-top: 10rem;
+    margin: 40px;
+    margin-top: 60px;
 }
 
 .parte-1{
@@ -15,23 +17,34 @@
 
 .parte-2{
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     flex-direction: column;
-    margin-right: 40px;
+    margin: 40px;
 }
 
-.Endereco-mapa{
-    
-}
+
 
 /* parte-1 estilos */
+
+.titulo-evento h1{
+    font-size: 40px;
+    color: #1F0171;
+    font-family: 'jacarta';
+}
+
+.titulo-evento p{
+    color: #1F0171;
+    font-family: 'jacarta';
+    font-size: 20px;
+}
 
 /* Botões */
 .participar{
     display: flex;
-    padding-left: 110px;
-    margin: 5px;
-    width: 20rem;
+    padding-left: 14rem;
+    margin: 4px;
+    margin-top: 10px;
+    width: 34rem;
     height: 2rem; 
     background-color: #1F0171;  
     color: white;
@@ -48,8 +61,9 @@
 }
 
 .compartilhar{
-    margin: 5px;
-    width: 20rem;
+    margin: 4px;
+    margin-top: 10px;
+    width: 34rem;
     height: 2rem;
     background-color: #FF5C00;
     color: white;
@@ -73,8 +87,91 @@
 }
 
 .descricao-evento{
+    color: #1F0171;
     font: 'sans-serif';
     text-align: justify;
     padding: 10px;
     margin-right: 1rem;
 }
+
+/* Parte 2 Estilos */
+
+.imagem-evento{
+}
+.praia-img{
+    width: 75%;
+    margin-left: 30px;
+}
+
+/*  estilos data */
+.data-evento{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.data-evento p{
+    margin-top: 13px;
+    color: #1F0171;
+}
+
+.calendario-icon{
+    width: 40px;
+    margin-right: 10px;
+
+}
+
+/* estilos horário */
+.horario-evento{
+    display: flex;
+}
+
+.horario-evento p{
+    color: #1F0171;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+
+.relogio-icon{
+    width: 40px;
+}
+
+/*  estilos local */
+.local-eventos{
+    display: flex;
+}
+
+.local-eventos p{
+    color: #1F0171;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.local-icon{
+    width: 30px;
+    margin-left: 5px;
+}
+
+.especificacoes{
+    width: 100%;
+    height: 15rem;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow:  0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.preferencia-descricao{
+    margin: 10px;
+    color: #1F0171;
+}
+
+.funcao-descricao{
+    color: #1F0171;
+    margin: 10px;
+    margin-top: 7rem;
+}
+
+
+
+
