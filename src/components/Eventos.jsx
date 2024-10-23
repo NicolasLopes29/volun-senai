@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./../css/Eventos.css";
 import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
-import Loader from "./Loader"; // Importa o componente Loader
+import Loader from "./Loader"; 
 
 const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE",
@@ -39,6 +39,7 @@ const Eventos = () => {
     if (loading) {
         return <Loader />; // Exibe o Loader enquanto está carregando
     }
+
 
     return (
         <div className="Pesquisa-Eventos">
