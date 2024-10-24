@@ -1,0 +1,80 @@
+@import url('./Global.css');
+
+.dados-container {
+    color: #f0f0f0;
+    background-image: url("../assets/wallpaper/orange-wallpaper.svg");
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    height:auto;
+    text-align: center;
+    font-family: var(--font-family);    
+}
+.dados-endereco-container {
+    border: solid 2px #f0f0f0;
+    border-radius: 32px;
+    padding: 20px;
+    margin: 110px auto;
+    width: 60%;
+    text-align: left;
+    background-color: var(--fundo-formulario);
+    display: block;
+    /* box-shadow: var(--botao-shadow); */
+}
+.dados-endereco-container h4 {
+    margin: 40px auto;
+}
+.dados-container label {
+    padding-right: 10px;
+}
+.dados-container input {
+    margin-bottom: 15px;
+    border: var(--input-border);
+    background-color: var(--input-background);
+    box-shadow: var(--input-shadow);
+    border-radius: 12px;
+    height: 30px;
+    text-align: center;
+    margin-right: 10px;
+}
+.dados-container select {
+    height: 30px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    box-shadow: var(--input-shadow);
+    border-radius: 16px;
+    text-align: center;
+}
+.endereco-estado-option {
+    width: 50px;
+}
+.dados-container button {
+    width: 160px;
+    height: 40px;
+    background-color: var(--botao-tela-branca);
+    border-radius: 16px;
+    /* box-shadow: var(--botao-shadow); */
+    color: var(--fonte-cor-branco);
+}
+.input-grande {
+    width: 320px;
+}
+.input-medio {
+    width: 200px;
+}
+.input-medio-grande {
+    width: 260px;
+}
+.input-pequeno{
+    width: 120px
+}
+.erro-mensagem {
+    color: red;
+    font-weight: bold;
+}
+.sucesso-mensagem {
+    color: green;
+    font-weight: bold;
+}

@@ -1,0 +1,63 @@
+@import url(./Global.css);
+
+.dados-iniciais-container {
+    text-align: center;
+    font-family: var(--font-family);
+}
+
+.dados-iniciais-formulario {
+    padding: 20px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dados-iniciais-botao-container {
+    margin-top: 20px;
+}
+
+.dados-iniciais-botao-container button {
+    background-color: #1F0171;
+    border-radius: 16px;
+    width: 150px;
+    height: 40px;
+    color: var(--fonte-cor-branco);
+    margin-bottom: 10px;
+}
+
+.input-field {
+    position: relative;
+    border-bottom: 2px solid #fff;
+    margin: 15px 0;
+  }
+  
+  .input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+  }
+  
+  .input-field input {
+    width: 100%;
+    min-width: 20rem;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+  }
+  

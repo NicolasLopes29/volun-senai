@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Cores das Páginas */
+    --cor-principal: #1F0171;
+    --cor-secundaria: #FF5C00;
+    --cor-terciaria: #280F58;
+    --cor-quarta: #4B7CC6;
+    --cor-fundo-gradiente: linear-gradient(to right, var(--cor-terciaria), var(--cor-quarta));
+    --fundo-principal: #FBFBFE;
+
+    /* Input */
+    --input-background: #E5E5E5;
+    --input-shadow: 0px 5px 5px 0px #c5c5c5;
+    --input-border: none;
+
+    /* Sidebar */
+    --sidebar: #1E3A8A;
+
+    /* Sombra */
+    --sombra: #C5C5C5;
+
+    /* Cores das Fontes */
+    --fonte-cor-branco: #FBFBFE;
+    --fonte-cor-preto: #000;
+    --fonte-cor-azul: #1F0171;
+
+    /* Positivo */
+    --positivo: #0F0;
+    --negativo: #F00;
+
+    /* Cores do Botão */
+    --botao-tela-branca: #1F0171;
+    --botao-tela-escura: #FCFCFE;
+    --botao-hover: #FF5C00;
+    --botao-shadow: 0px 5px 5px 0px #c5c5c5;
+
+    /* Fontes */
+    --font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Estilo para a camada de overlay */   

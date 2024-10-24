@@ -1,0 +1,88 @@
+@import url(./Global.css);
+
+.info-pessoal-container {
+    width: 90%;
+    padding: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.info-pessoal-container h1 {
+    font-size: 24px;
+    padding-top: 10px;
+}
+.info-pessoal-form-container {
+    background-color: var(--fundo-principal);
+    width: 80%;
+    text-align:left;
+    margin: auto;
+    padding: 20px 0;
+    justify-content: space-between;
+    display: flex;
+    align-items: start;
+}
+
+.info-pessoal-form-container h3{
+    text-align: justify;
+}
+
+.info-pessoal-form-container input {
+    margin: 10px 10px 10px 0px;
+    padding: 5px 0px 5px 20px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    border-radius: 16px;
+}
+.input-grande {
+    width: 320px;
+}
+.input-medio {
+    width: 240px;
+}
+.input-medio-grande {
+    width: 280px;
+}
+.input-medio-pequeno{
+    width: 160px;
+}
+.input-pequeno {
+    width: 80px;
+}
+.input-select {
+    width: 120px;
+    padding: 5px 0px;
+    background-color: var(--input-background);
+    border: var(--input-border);
+    border-radius: 16px;
+    margin-top: 10px;
+}
+.input-select option {
+    justify-content: center;
+    width: 100px;
+    text-align: center;
+}
+.input-pessoal-logradouro{
+    width: 40%;
+}
+.form-button-container {
+    padding: 20px ;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.form-button-container button {
+    margin: 10px;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 16px;
+}
+
+@media (max-width: 500px) {
+    .info-pessoal-form-container {
+        display: block;
+    }
+}

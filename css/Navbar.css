@@ -1,0 +1,201 @@
+@import url(./Global.css);
+
+.navbar-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.5rem 0rem; /* Reduzi o padding para diminuir a altura */
+  background-color: var(--cor-principal); /* Fundo semitransparente */
+  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
+  color: var(--fonte-cor-branco);
+  font-family: var(--font-family);
+  top: 0; /* Alinha a navbar ao topo */
+  width: 100%; /* Faz a navbar ocupar toda a largura da tela */
+  z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
+}
+
+.logo {
+  height: 30px; 
+}
+
+.navbar-menu-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-menu-container a {
+  color: var(--fonte-cor-branco);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 12px;
+}
+
+.navbar-menu-container a:hover {
+  color: var(--cor-secundaria); /* Laranja */
+}
+
+.search-navbar {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 40%; /* Aumenta a largura da barra de pesquisa */
+  position: relative; /* Necessário para posicionar o ícone */
+}
+
+.search-navbar input {
+  text-align: left; /* Alinha o texto à esquerda */
+  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  height: 30px; /* Aumenta a altura do input */
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem; /* Espaço para o ícone */
+  border: 2px solid transparent;
+  border-radius: 10px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+.search-navbar #search-icon {
+  position: absolute;
+  left: 10px; /* Alinha o ícone à esquerda */
+  width: 15px;
+  height: 15px;
+  opacity: 0.5; /* Diminui a opacidade do ícone */
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--fonte-cor-branco);
+  font-size: 28px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: var(--sidebar); /* Azul escuro */
+  color: var(--fonte-cor-branco);
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-family: var(--font-family);
+  display: none;
+  overflow: scroll;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.sidebar a {
+  color: var(--fonte-cor-branco);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.perfil-dropdown-button {
+  background-color: var(--cor-principal);
+  border: none;
+}
+.perfil-dropdown {
+  color: var(--fundo-principal);
+  width: 25px;
+  height: 25px;
+}
+.perfil-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.perfil-foto {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.foto-usuario {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: red; 
+}
+
+.navbar-entrar {
+  background-color: var(--cor-secundaria); /* Laranja */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  margin-top: 0px;
+}
+
+.perfil-detalhes {
+  display: flex;
+}
+.perfil-saudacao {
+  display: grid;
+  margin: auto 10px;
+}
+.perfil-saudacao p {
+  color: var(--fonte-cor-branco);
+  font-size: 16px;
+}
+.perfil-saudacao p:nth-child(2) {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-container {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+  }
+  .sidebar {
+    display: block;
+    font-size: 12px;
+  }
+  .sidebar ul li{
+    font-size: 12px;
+  }
+  .perfil-detalhes {
+    display: none;
+  }
+  .perfil-dropdown-button {
+    display: none;
+  }
+  .sidebar-perfil-foto img{
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+  }
+}
+

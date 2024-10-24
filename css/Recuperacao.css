@@ -1,0 +1,70 @@
+@import url(./Global.css);
+
+.recuperacao-container {
+    text-align: center;
+    font-family: var(--font-family);
+    width: 100%;
+    max-width: 600px; /* Define uma largura máxima para evitar excesso */
+    background-color: var(--fundo-principal);
+    display: block;
+    padding: 20px;
+    margin: 0 auto; /* Centraliza a modal horizontalmente */
+    box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura */
+}
+
+.recuperacao-container img {
+    width: 50%;
+    height: auto;
+    margin: 20px auto;
+}
+
+.recuperacao-main h3 {
+    padding: 20px 0px;
+}
+
+.recuperacao-main p {
+    padding: 10px 0px; 
+}
+
+.recuperacao-form {
+    align-items: center;
+    padding: 20px 0px;
+    display: block;
+}
+
+.recuperacao-form input {
+    width: 250px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: var(--input-background);
+    box-shadow: var(--input-shadow);
+    border: var(--input-border);
+    padding-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.recuperacao-form button {
+    width: 150px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    cursor: pointer;
+}
+.notificacao-sucesso {
+    margin-top: 20px;
+}
+.notificacao-sucesso p {
+    color: var(--sucesso-fonte-cor);
+    margin-bottom: 10px; /* Espaço entre o texto e o botão */
+}
+
+.notificacao-sucesso button {
+    width: 150px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    cursor: pointer;
+}
