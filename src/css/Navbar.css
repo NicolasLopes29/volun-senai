@@ -2,10 +2,10 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
-  padding: 0.5rem 0rem; /* Reduzi o padding para diminuir a altura */
+  padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 71, 0.785); /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
@@ -16,7 +16,7 @@
 }
 
 .logo {
-  height: 30px; 
+  height: 90%; 
 }
 
 .navbar-menu-container {
@@ -118,6 +118,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-right: 20px;
 }
 
 .perfil-foto {
@@ -179,6 +180,7 @@
   }
   .menu-button {
     display: block;
+    margin-right: 50px;
   }
   .sidebar {
     display: block;

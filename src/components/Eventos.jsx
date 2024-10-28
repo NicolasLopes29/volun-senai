@@ -12,32 +12,50 @@ const Eventos = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
 
-    // Função para buscar eventos com filtros, chamada quando o usuário clica em "Buscar"
     const buscarEventos = async (filtros) => {
         try {
             setLoading(true);
             const response = await fetch(`https://volun-api-eight.vercel.app/eventos/`);
             const data = await response.json();
-            setEventos(data);
+
+            const eventosComEnderecos = await Promise.all(
+                data.map(async (evento) => {
+                    try {
+                        // Faz a requisição para buscar o endereço pelo evento_id como string
+                        const enderecoResponse = await fetch(
+                            `https://volun-api-eight.vercel.app/endereco/evento/${evento._id}`
+                        );
+                        const enderecoData = await enderecoResponse.json();
+
+                        // Verifica se enderecoData é um array e tem dados
+                        const endereco = Array.isArray(enderecoData) && enderecoData.length > 0
+                            ? `${enderecoData[0].cidade}, ${enderecoData[0].estado}`
+                            : "endereço indefinido";
+
+                        return { ...evento, endereco };
+                    } catch {
+                        return { ...evento, endereco: "endereço indefinido" };
+                    }
+                })
+            );
+
+            setEventos(eventosComEnderecos);
         } catch (error) {
             console.error("Erro ao buscar eventos:", error);
         } finally {
             setLoading(false);
-            setCurrentPage(1);  // Redefine para a primeira página após nova busca
+            setCurrentPage(1);
         }
     };
 
-    // Chama a busca inicial sem filtros ao montar o componente
     useEffect(() => {
         buscarEventos({});
     }, []);
 
-    // Determina os eventos a serem exibidos com base na página atual
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentEventos = eventos.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Lógica de navegação entre páginas
     const totalPages = Math.ceil(eventos.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -68,13 +86,13 @@ const Eventos = () => {
                                 dataInicio={evento.data_inicio}
                                 imgUrl={evento.imagem}
                                 vagaLimite={evento.vaga_limite}
+                                endereco={evento.endereco}
                             />
                         ))}
                     </div>
                 </div>
             )}
             
-            {/* Controles de paginação */}
             {!loading && eventos.length > 0 && (
                 <div className="page-count">
                     <img src={seta} alt="" className="seta" onClick={() => handlePageChange(currentPage - 1)} />

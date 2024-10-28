@@ -51,7 +51,7 @@
 }
 
 .card-text-first, .card-text-second {
-    margin: .5em .40em;
+    margin: .5em .30em;
     display: flex;
     justify-content: space-between;
     padding: 0px 10px 0px 10px;
@@ -64,9 +64,14 @@
     font-weight: 700;
 }
 
+.card-text-ongname{
+    width: 50%;
+    font-size: 15px;
+}
+
 .date-container > span {
     font-style: normal;
-    font-size: small;
+    font-size: 12px;
 }
 
 .date-container > svg {

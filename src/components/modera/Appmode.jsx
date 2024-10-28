@@ -7,7 +7,6 @@ import Historico from './components/historico';
 import Denuncias from './components/denuncias';
 import Eventos from './components/eventos'; // Importando o componente Eventos
 
-
 const Appmod = () => {
     const [activeTab, setActiveTab] = useState('usuarios');
 
