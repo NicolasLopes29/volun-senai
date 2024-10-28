@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Logo from "../assets/images/logo.svg";
 import "./../css/Navbar.css";
@@ -9,6 +9,9 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import UsuarioMenu from "./UsuarioMenu";
+import { MdOutlineArrowDropDown } from "react-icons/md";
+import axios from "axios";
 
 const estiloModal = {
   overlay: {
@@ -40,43 +43,50 @@ Modal.setAppElement('#root');
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
   const [LoginAbrir, setLoginAbrir] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false); 
   const [fotoPerfilUrl, setFotoPerfilUrl] = useState(""); 
-  const [botaoEstilo, setBotaoEstilo] = useState({}); 
-  const navigate = useNavigate(); // Inicializando o useNavigate
+  const [userData, setUserData] = useState({
+    nome: "",
+  });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const auth = getAuth(app); 
+  const auth = getAuth(app);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUsuarioLogado(true); 
+  const handleDropdown = () => {
+    setUserMenu(!userMenu);
+  };
 
-        if (user.photoURL) {
-          setFotoPerfilUrl(user.photoURL);
-        } else {
-          setFotoPerfilUrl(""); 
-        }
-      } else {
-        setUsuarioLogado(false); 
-        setFotoPerfilUrl(""); 
-        setBotaoEstilo({}); 
-      }
-    });
+  const handleLogoClick = () => {
+    navigate("/");
+  };
 
-    return () => unsubscribe(); 
-  }, [auth]);
+  const handleGetUsername = async (uid) => {
+    setError(false);
 
-  const handleLogout = () => {
+    try {
+      const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
+      setUserData(response.data, userData.nome);
+    } catch (error) {
+      setError("Erro ao buscar dados do usuário.");
+    }
+  };
+
+  const handleProfileClick = () => {
+    navigate("/usuario");
+  };
+
+  const handleUserLogOut = () => {
     signOut(auth)
       .then(() => {
         console.log("Usuário deslogado com sucesso!");
-        navigate("/"); 
+        navigate("/");
         window.location.reload();
       })
       .catch((error) => {
@@ -84,15 +94,25 @@ const Navbar = () => {
       });
   };
 
-  // Retorna à página inicial
-  const handleLogoClick = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUsuarioLogado(true);
 
-  // Redireciona para a página de perfil ao clicar na imagem
-  const handleProfileClick = () => {
-    navigate("/usuario"); 
-  };
+        if (user.photoURL) {
+          handleGetUsername(user.uid);
+          setFotoPerfilUrl(user.photoURL);
+        } else {
+          setFotoPerfilUrl("");
+        }
+      } else {
+        setUsuarioLogado(false);
+        setFotoPerfilUrl("");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   return (
     <>
@@ -100,29 +120,33 @@ const Navbar = () => {
         <div onClick={handleLogoClick} style={{ cursor: "pointer" }}>
           <img src={Logo} alt="Logo" className="logo" />
         </div>
-        <div className="search-navbar">
-          <img id="search-icon" src="src/assets/images/lupa.png" alt="" />
-          <input type="text" placeholder="Busque aqui" />
-        </div>
         <div className="navbar-menu-container">
-            <Link to="/eventos">Eventos</Link>
-            <Link to="/">Sobre Nós</Link>
-            <Link to="/cardong">Sou uma organização</Link>
+          <Link to="/eventos">Eventos</Link>
+          <Link to="/">Sobre Nós</Link>
+          <Link to="/cardong">Sou uma organização</Link>
+          {/* <Link to="/ong">org page</Link> */}
+          {/* descomente a linha acima para acessar a pagina de perfil de Organização */}
         </div>
         {usuarioLogado ? (
-          <div className="perfil-logout-container">
+          <div className="perfil-dropdown-container">
             {fotoPerfilUrl && (
-              <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+              <div className="perfil-detalhes">
+                <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                  <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                </div>
+                <div className="perfil-saudacao">
+                  <p>Bem-Vindo</p>
+                  <p>{userData.nome}</p>
+                </div>
               </div>
             )}
             <button
-              type="button"
-              onClick={handleLogout}
-              className="logout-button"
+              className="perfil-dropdown-button"
+              onClick={handleDropdown}
             >
-              Deslogar
+              <MdOutlineArrowDropDown className="perfil-dropdown" />
             </button>
+            {userMenu && <UsuarioMenu />}
           </div>
         ) : (
           <button
@@ -140,10 +164,16 @@ const Navbar = () => {
       {menuOpen && (
         <div className="sidebar">
           <ul>
-            <li><a href="./../pages/Eventos.jsx">Eventos</a></li>
-            <li><a href="./../pages/Sobre.jsx">Sobre Nós</a></li>
-            <li><a href="./../pages/Organizacao.jsx">Sou uma organização</a></li>
+            <li><Link to="/eventos">Eventos</Link></li>
+            <li><Link to="/">Sobre Nós</Link></li>
+            <li><Link to="/cardong">Sou uma organização</Link></li>
           </ul>
+          <button
+            className="sidebar-button-logout"
+            onClick={handleUserLogOut}
+          >
+            Deslogar
+          </button>
         </div>
       )}
       <Modal
@@ -158,5 +188,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

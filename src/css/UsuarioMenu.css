@@ -1,0 +1,54 @@
+@import url("./Global.css");
+
+.usuario-menu-container {
+    position: absolute;
+    background-color: var(--fundo-principal) ;
+    text-align: left;
+    font-size: 10px;
+    top: 50%; /* Faz o dropdown aparecer logo abaixo do botão */
+    right: 0; /* Alinha o dropdown à esquerda do botão */
+    left: 78%;
+    z-index: 1000; /* Garante que o dropdown fique acima do conteúdo */
+    padding-right: 10px;
+    width: 200px;
+    justify-content: center;
+    box-shadow: var(--sombra);
+    margin: 20px 50px;
+    font-family: var(--font-family);
+    border-radius: 16px;
+}
+.usuario-menu-info {
+    text-align: center;
+    display: grid;
+    padding: 10px 0px;
+}
+.usuario-menu-info img {
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    border-radius: 50%;
+    justify-content: left;
+}
+.usuario-menu-info p {
+    color: var(--fonte-cor-preto);
+}
+.usuario-menu-link {
+    display: grid;
+    padding: 20px 0px;
+    margin-left: 10px;
+    justify-content: left;
+}
+.usuario-menu-link a {
+    text-align: left;
+    text-decoration: none;
+    color: var(--fonte-cor-preto);
+}
+.usuario-menu-link button {
+    margin-top: 10px;
+    padding: 5px 25px;
+    text-align: center;
+    background-color: var(--botao-tela-branca);
+    color: var(--fonte-cor-branco);
+    border: none;
+    border-radius: 16px;
+}

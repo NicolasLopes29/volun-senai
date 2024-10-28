@@ -2,15 +2,15 @@
 
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 0.5rem; /* Reduzi o padding para diminuir a altura */
-  background-color: #050c20ba; /* Fundo semitransparente */
+  position: fixed;
+  padding: 0.5rem 0rem; /* Reduzi o padding para diminuir a altura */
+  background-color: rgba(0, 0, 71, 0.785); /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
-  position: fixed; /* Fixa a navbar no topo */
-  top: 0;
+  top: 0; /* Alinha a navbar ao topo */
   width: 100%; /* Faz a navbar ocupar toda a largura da tela */
   z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
 }
@@ -39,7 +39,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  width: 50%; /* Aumenta a largura da barra de pesquisa */
+  width: 40%; /* Aumenta a largura da barra de pesquisa */
   position: relative; /* Necessário para posicionar o ícone */
 }
 
@@ -51,7 +51,7 @@
   padding: 0 1rem;
   padding-left: 2.5rem; /* Espaço para o ícone */
   border: 2px solid transparent;
-  border-radius: 30px;
+  border-radius: 10px;
   outline: none;
   background-color: #f3f3f4;
   color: #0d0c22;
@@ -80,13 +80,14 @@
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: #09122be4; /* Fundo semitransparente */
-  backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
+  background-color: var(--sidebar); /* Azul escuro */
   color: var(--fonte-cor-branco);
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   font-family: var(--font-family);
+  display: none;
+  overflow: scroll;
 }
 
 .sidebar ul {
@@ -104,17 +105,16 @@
   font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
-  .navbar-menu-container {
-    display: none;
-  }
-
-  .menu-button {
-    display: block;
-  }
+.perfil-dropdown-button {
+  background-color: var(--cor-principal);
+  border: none;
 }
-
-.perfil-logout-container {
+.perfil-dropdown {
+  color: var(--fundo-principal);
+  width: 25px;
+  height: 25px;
+}
+.perfil-dropdown-container {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -157,3 +157,46 @@
   font-family: "Poppins", sans-serif;
   margin-top: 0px;
 }
+
+.perfil-detalhes {
+  display: flex;
+}
+.perfil-saudacao {
+  display: grid;
+  margin: auto 10px;
+}
+.perfil-saudacao p {
+  color: var(--fonte-cor-branco);
+  font-size: 16px;
+}
+.perfil-saudacao p:nth-child(2) {
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-container {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+  }
+  .sidebar {
+    display: block;
+    font-size: 12px;
+  }
+  .sidebar ul li{
+    font-size: 12px;
+  }
+  .perfil-detalhes {
+    display: none;
+  }
+  .perfil-dropdown-button {
+    display: none;
+  }
+  .sidebar-perfil-foto img{
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+  }
+}
+

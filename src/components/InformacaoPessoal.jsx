@@ -91,6 +91,35 @@ const InformacaoPessoal = () => {
             setLoading(false);
         }
     };
+
+    const buscarCEP = async (e) => {
+        e.preventDefault();
+        const cep = enderecoData.cep.replace(/\D/g,"");
+        if (cep.length >= 8){
+            try {
+                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                const data = await response.json();
+
+                if (!data.erro){
+                   setEnderecoData({
+                        ...enderecoData,
+                        logradouro : data.logradouro,
+                        bairro: data.bairro,
+                        cidade: data.localidade,
+                        estado: data.uf,
+                   }); 
+                }
+                else {
+                    alert("CEP não encontrado.");
+                }
+            }
+            catch (error){
+                alert(`Erro ao buscar CEP. Tente novamente., ${error}`);
+            }
+        } else {
+            alert("CEP inválido.");
+        }
+    };
     
 
     const handleFormUser = async () => {
@@ -151,7 +180,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Nome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.nome}
                                 onChange={(e) => setUserData({ ...userData, nome: e.target.value })}
@@ -159,7 +188,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Sobrenome"
-                                className="input-pessoal-nome"
+                                className="input-medio-grande"
                                 type="text"
                                 value={userData.sobrenome}
                                 onChange={(e) => setUserData({ ...userData, sobrenome: e.target.value })}
@@ -168,6 +197,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CPF"
                                 type="text"
                                 value={userData.cpf}
@@ -177,6 +207,7 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Data de Nascimento"
                                 type="date"
                                 value={userData.data_nascimento}
@@ -187,13 +218,14 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="DDD"
-                                className="input-pessoal-ddd"
+                                className="input-pequeno"
                                 type="text"
                                 value={userData.ddd}
                                 onChange={(e) => setUserData({ ...userData, ddd: e.target.value })}
                                 disabled={disable}
                             />
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="Telefone"
                                 type="text"
                                 value={userData.telefone}
@@ -204,7 +236,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Email"
-                                className="input-pessoal-email"
+                                className="input-medio-grande"
                                 type="email"
                                 value={userData.email}
                                 onChange={(e) => setUserData({ ...userData, email: e.target.value })}
@@ -218,7 +250,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Endereço"
-                                className="info-local-endereco"
+                                className="input-grande"
                                 type="text"
                                 value={enderecoData.logradouro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, logradouro: e.target.value })}
@@ -226,7 +258,7 @@ const InformacaoPessoal = () => {
                             />
                             <input
                                 placeholder="Número"
-                                className="info-local-numero"
+                                className="input-pequeno"
                                 type="text"
                                 value={enderecoData.numero}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, numero: e.target.value })}
@@ -235,22 +267,29 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
+                                className="input-medio-pequeno"
                                 placeholder="CEP"
                                 type="text"
                                 value={enderecoData.cep}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, cep: e.target.value })}
                                 disabled={disable}
                             />
+                            <button type="button" onClick={buscarCEP} disabled={disable}>Buscar</button>
+                        </div>
+                        <div>
                             <input
+                                className="input-medio-grande"
                                 placeholder="Bairro"
                                 type="text"
                                 value={enderecoData.bairro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, bairro: e.target.value })}
                                 disabled={disable}
                             />
+
                         </div>
                         <div>
                             <input
+                                className="input-medio-grande"
                                 placeholder="Cidade"
                                 type="text"
                                 value={enderecoData.cidade}
@@ -258,6 +297,7 @@ const InformacaoPessoal = () => {
                                 disabled={disable}
                             />
                             <select
+                                className="input-select"
                                 value={enderecoData.estado}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, estado: e.target.value })}
                                 disabled={disable}
