@@ -1,7 +1,7 @@
 .eventos-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Três colunas */
-    gap: 30px; /* Espaçamento entre os cards */
+    gap: 40px; /* Espaçamento entre os cards */
     padding: 20px;
 }
 

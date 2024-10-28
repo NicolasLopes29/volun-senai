@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../components/css/Usuario.css';
-import Modal from "react-modal";
-
 
 const Usuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -35,19 +33,21 @@ const Usuarios = () => {
     return <div>Erro: {error}</div>;
   }
 
-  // Função para os botões
+  //  localStorage para registrar as ações
+  const registrarAcao = (acao) => {
+    const historico = JSON.parse(localStorage.getItem('historico')) || [];
+    historico.push(acao);
+    localStorage.setItem('historico', JSON.stringify(historico));
+  };
+
   const handleDelete = (usuario) => {
     console.log(`Excluir usuário: ${usuario.nome}`);
-    const express = require('express');
-    const router = express.Router();
-    const acoesModeracaoController = require('../controllers/acoesModeracaoController');
-    router.delete('/:id', acoesModeracaoController.deleteAcaoModeracao);
-
+    registrarAcao(`Moderador suspendeu ${usuario.nome}`);
   };
 
   const handleAdvertir = (usuario) => {
     console.log(`Advertir usuário: ${usuario.nome}`);
-    // Em breve implemetar a função de Adverter o usuario
+    registrarAcao(`Moderador advertiu ${usuario.nome}`);
   };
 
   return (
@@ -104,5 +104,3 @@ const Usuarios = () => {
 };
 
 export default Usuarios;
-
-
