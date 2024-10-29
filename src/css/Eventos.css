@@ -9,7 +9,6 @@
   }
 
 .arrumar-tudo{
-  padding-left: 70px;
   padding-top: 5px;
 }
 
@@ -17,6 +16,20 @@
   font-size: 30px;
   color: #1F0171;
   margin-left: 15px;
+}
+
+.Eventos-barra-pesquisa{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.Eventos-input-pesquisa{
+  padding: 5px;
+  width: 80%;
+  text-align: justify;
+  border-radius: 0.3rem;
 }
 
 /* input tirado do uiverso  */
@@ -61,18 +74,36 @@
     color: #2196f3;
    }
 
+.Eventos-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
   /* From Uiverse.io by adamgiebl */ 
 .Eventos-button-buscar {
   background: #1F0171;
-  padding: 10px 15px ;
-  font-weight: 900;
-  font-size: 18px;
-  border: 3px solid black;
+  padding: 5px;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid black;
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
   cursor: pointer;
   color: #FBFBFE;
-  width: 15rem;
+  width: 10rem;
+}
+
+.Eventos-toggle-filtros{
+  background: none; /* Remove o fundo */
+  border: none; /* Remove a borda */
+  padding: 5px;
+  border-bottom: 3px solid #1F0171 ;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 20px 10px;
 }
 
 .Eventos-button-buscar:hover {
@@ -136,16 +167,13 @@
 
 .Eventos-resultado-pesquisa {
   display: grid;
-  grid-template-columns: repeat(3, 2fr);
+  grid-template-columns: repeat(3, 400px);
   gap: 8px;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
-/* Page count */
 .page-count{
   align-items: center;
   text-align: center;
