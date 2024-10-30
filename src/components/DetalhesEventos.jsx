@@ -7,6 +7,12 @@ import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
 
 
+// useEffect(() => {
+//     const fetchEventos = async () => {
+    
+    
+// }, []);
+
 const DetalhesEventos = () => {
     return(
         <>
@@ -16,7 +22,7 @@ const DetalhesEventos = () => {
                 <div className="titulo-evento">
                     <h1>{}Limpeza da praia</h1>
                     <p>Classificação de evento</p>
-                    <p>Meio ambiente</p>
+                    <p className="tags-evento">{}Meio ambiente</p>
                 </div>
             
                 <div>
@@ -24,18 +30,30 @@ const DetalhesEventos = () => {
                     <button className="compartilhar">Compartilhar</button>
                 </div>
                 <div className="background-descricao">
-                    <p className="descricao-evento">Lorem Ipsum is simply dummy text of the printing
+                    <p className="descricao-evento">{}Lorem Ipsum is simply dummy text of the printing
                         and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
                         since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
                         type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                         remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-                        comes from a line in section 1.10.32.</p>
+                        comes from a line f
+                        eqwrggnerhzrwsgsfhdrghngdf
+                        yrtherfgwefdngtherznxfmxrhtnjfymrtehrtmfgfte
+                        hrtndgfhnggwwgnthenfmrthe
+                        fhgtdrbhrgndgergsbgdnthrghtdgnfthrghgnfhin section 1.10.32.</p>
                 </div>
+                <div className="backgound-especificacoes">
+                        <p className="preferencia-descricao">preferências: nenhuma</p>
+                        <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando residuos</p>
+                    
+                </div>
+
             </div>    
 
+            {/* Aqui vai a a parte 2 */}
             <div className="parte-2">
                 <div className="imagem-evento">
                     <img src={praia} alt="" className="praia-img"></img>
+                    <div ></div>
                 </div>
                 <div className="barra-participantes">
                     <img src={pessoas} alt="" className="pessoas"></img>
@@ -56,12 +74,14 @@ const DetalhesEventos = () => {
                     <p>Rua dos banzeiros, 32, São Paulo - SP</p>
                 </div>
 
-                <div className="especificacoes">
-                    <p className="preferencia-descricao">preferências: nenhuma</p>
-                    <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando residuos</p>
-                </div>
+                <div className="informacoes-ong">
+                    <div className="perfil-ong">
+                        <p className="link-ong">visite o perfil da ONG:{}</p>
+                        <img></img>
+                        <p className="link-ong">ong focada no meio ambiente</p>
 
-                <div className="perfil-ong"></div>
+                    </div>
+                </div>
 
             </div>
 
@@ -70,6 +90,39 @@ const DetalhesEventos = () => {
             <div className="endereco-mapa">
                 <h2>Endereço: Rua dos Banzeiros Senai 32</h2>
             </div>
+
+        <div className="comentarios">
+            <div className="usuario">
+                <div className="usuario-foto">
+                            <p>eu</p>
+                        </div>
+
+                    </div>
+                <div className="publicar-comentario">
+                    <div className="comentar">
+                        <p>Comentário...</p>
+                    </div>
+                </div>
+        </div>
+        {/*Barra de visualização de comentário */}
+        <button className="button-publicar">Publicar</button>
+        <button className="button-visualizar">Ver comentários</button>
+
+        <div className="comentarios">
+            <div className="usuario">
+                <div className="usuario-foto"></div>
+            </div>
+
+            <div className="publicar-comentario-2">
+                <p>Coisas muitas coisas nossa quantas coisas remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                        comes from a line f
+                        eqwrggnerhzrwsgsfhdrghngdf
+                        yrtherfgwefdngtherznxfmxrhtnjfymrtehrtmfgfte
+                        hrtndgfhnggwwgnthenfmrthe</p>
+                
+            </div>
+
+        </div>
         </>
     );
 };
