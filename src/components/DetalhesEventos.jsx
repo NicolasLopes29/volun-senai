@@ -7,6 +7,8 @@ import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
 
 
+
+
 // useEffect(() => {
 //     const fetchEventos = async () => {
     
@@ -14,6 +16,17 @@ import praia from "./../assets/images/img-praia.svg";
 // }, []);
 
 const DetalhesEventos = () => {
+    const mostrarEsconderDiv = () => {
+        const div = document.getElementsByClassName('comentarios-2');
+    
+        // Verifica o estado atual da div e alterna o display
+        if (div.style.display === 'none' || div.style.display === '') {
+          div.style.display = 'block'; // Mostra a div
+        } else {
+          div.style.display = 'none'; // Esconde a div
+        }
+    }
+
     return(
         <>
        
@@ -89,6 +102,7 @@ const DetalhesEventos = () => {
         </div>
             <div className="endereco-mapa">
                 <h2>Endereço: Rua dos Banzeiros Senai 32</h2>
+                <div className="mapa-lugar">mapa irado</div>
             </div>
 
         <div className="comentarios">
@@ -99,16 +113,14 @@ const DetalhesEventos = () => {
 
                     </div>
                 <div className="publicar-comentario">
-                    <div className="comentar">
-                        <p>Comentário...</p>
-                    </div>
+                        <input className="comentar" placeholder="Comente aqui..."></input>
                 </div>
         </div>
         {/*Barra de visualização de comentário */}
         <button className="button-publicar">Publicar</button>
-        <button className="button-visualizar">Ver comentários</button>
+        <button className="button-visualizar" onClick={mostrarEsconderDiv}>Ver comentários</button>
 
-        <div className="comentarios">
+        <div className="comentarios-2">
             <div className="usuario">
                 <div className="usuario-foto"></div>
             </div>
@@ -119,9 +131,7 @@ const DetalhesEventos = () => {
                         eqwrggnerhzrwsgsfhdrghngdf
                         yrtherfgwefdngtherznxfmxrhtnjfymrtehrtmfgfte
                         hrtndgfhnggwwgnthenfmrthe</p>
-                
             </div>
-
         </div>
         </>
     );
