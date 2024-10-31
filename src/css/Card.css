@@ -6,14 +6,14 @@
 }
 
 .card {
-    margin: 10em;
     display: flex;
     flex-direction: column;
     width: 25em;
-    height: 17em;
+    height: 20em;
     border-radius: 15px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.20);
     transition: height 0.2s ease-out;
+    background-color: white;
 }
 
 .card-capa {
@@ -28,10 +28,11 @@
     display: inline-block;
     background-color: #1F0171;
     color: white;
-    padding: .2em 2.5em .2em .9em;
+    padding: .2em .5em .2em .7em;
     border-radius: 15px 0 15px 0;
     font-weight: 600;
     font-family: "Inter", sans-serif;
+    max-width: 65%;
 }
 
 .card-description {
@@ -58,7 +59,7 @@
     font-style: normal;
 }
 
-.date-container > svg{
+.date-container > img {
     margin-right: .325em;
 }
 
@@ -67,7 +68,7 @@
     align-items: center;
 }
 
-.members-container > svg {
+.members-container > img {
     width: 1.3em;
     margin-right: .2em;
 }
@@ -92,17 +93,18 @@
     cursor: pointer;
 }
 
-.card-details > p {
+#card-link {
+    text-decoration: none;
     font-family: "Inter", sans-serif;
     color: white;
     font-weight: 700;
 }
 
-.card-details > svg {
+.card-details > img {
     width: 2.4em;
 }
 
-/* .card:hover {
+.card:hover {
 
     height: 28em;
 
@@ -116,4 +118,4 @@
         justify-content: center;
     }
     
-} */
+}
