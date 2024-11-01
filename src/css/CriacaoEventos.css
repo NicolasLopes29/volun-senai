@@ -1,0 +1,27 @@
+@import url(./Global.css);
+
+.titulo-criacao{
+    margin-top: 100px;
+    margin-left: 36.5rem;
+}
+
+.toda-pagina{
+    margin: 50px;
+}
+
+    /* Aqui va a primeira parte de estilização */
+.primeira-parte{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.segunda-parte{
+ color: cyan;
+}
+
+/* aqui vai a estilização dos botões */
+
+.botões-evento{
+    margin: 40px;
+}
