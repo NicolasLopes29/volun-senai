@@ -1,10 +1,12 @@
-// src/components/Eventos.js
 import React, { useEffect, useState } from "react";
 import "./../css/Eventos.css";
 import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
-import Loader from "./Loader"; 
+import Loader from "./Loader";
 import Search from "./Search";
+import algoliaClient from "./../services/algoliaConfig"; // Importa a configuração do Algolia
+
+const index = algoliaClient.initIndex("eventos");
 
 const Eventos = () => {
     const [eventos, setEventos] = useState([]);
@@ -15,26 +17,37 @@ const Eventos = () => {
     const buscarEventos = async (filtros) => {
         try {
             setLoading(true);
-            const response = await fetch(`https://volun-api-eight.vercel.app/eventos/`);
-            const data = await response.json();
+            const { estadoSelecionado, categoria, cidade, searchQuery } = filtros;
 
+            // Realiza a busca no Algolia com os filtros aplicados
+            const algoliaResponse = await index.search(searchQuery, {
+                filters: [
+                    estadoSelecionado ? `estado:${estadoSelecionado}` : "",
+                    cidade ? `cidade:${cidade}` : "",
+                    categoria ? `tags:${categoria}` : "",
+                ].filter(Boolean).join(" AND "),
+            });
+
+            // Processa os resultados do Algolia
+            const eventosAlgolia = algoliaResponse.hits.map(hit => ({
+                ...hit,
+                endereco: "Carregando..."  // Endereço será buscado posteriormente
+            }));
+
+            // Para cada evento retornado, busca o endereço no MongoDB
             const eventosComEnderecos = await Promise.all(
-                data.map(async (evento) => {
+                eventosAlgolia.map(async (evento) => {
                     try {
-                        // Faz a requisição para buscar o endereço pelo evento_id como string
-                        const enderecoResponse = await fetch(
-                            `https://volun-api-eight.vercel.app/endereco/evento/${evento._id}`
-                        );
+                        const enderecoResponse = await fetch("https://volun-api-eight.vercel.app/endereco/evento/" + evento.objectID);
                         const enderecoData = await enderecoResponse.json();
 
-                        // Verifica se enderecoData é um array e tem dados
                         const endereco = Array.isArray(enderecoData) && enderecoData.length > 0
                             ? `${enderecoData[0].cidade}, ${enderecoData[0].estado}`
-                            : "endereço indefinido";
+                            : "Endereço indefinido";
 
                         return { ...evento, endereco };
                     } catch {
-                        return { ...evento, endereco: "endereço indefinido" };
+                        return { ...evento, endereco: "Endereço indefinido" };
                     }
                 })
             );
