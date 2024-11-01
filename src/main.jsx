@@ -25,7 +25,7 @@ root.render (
         <Route path='/usuario'          element= {<><NavBar/> <Usuario />         <Footer/></>}/>
         <Route path='/ong'              element= {<><NavBar/> <Ongpage />         <Footer/></>}/>
         <Route path='/eventos'          element= {<><NavBar/> <Eventos />         <Footer/></>}/>
-        <Route path='/detalhes_eventos' element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
+        <Route path='/detalhes_eventos/:id' element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
 
         <Route path='/cadastrar'        element= {<Cadastrar />}/>
         <Route path='/dados_pessoal'    element= {<DadosPessoal /> }/>

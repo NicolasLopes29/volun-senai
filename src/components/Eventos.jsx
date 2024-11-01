@@ -80,6 +80,7 @@ const Eventos = () => {
                         {currentEventos.map((evento, index) => (
                             <Card 
                                 key={index}
+                                id={evento._id}
                                 titulo={evento.titulo}
                                 descricao={evento.descricao}
                                 ongNome={evento.ong_id?.nome}

@@ -38,6 +38,25 @@
     font-size: 20px;
 }
 
+.tags-container {
+    display: flex;
+    align-items: center;
+    justify-content: first baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.tag-item {
+    background-color: #278cff; /* cor do bloco */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
 /* Botões */
 .participar{
     display: flex;
@@ -79,23 +98,23 @@
 }
 
 .background-descricao{
-    width: 107%;
-    height: auto;
+    width: 100%;
+    height: 30%;
     background-color: white;
     border-radius: 20px;
     margin-top: 20px;
     box-shadow:  0px 4px 6px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 20px;
 }
 
 .backgound-especificacoes{
-    width: 107%;
+    width: 100%;
     height: auto;
     background-color: white;
     border-radius: 20px;
     margin-top: 20px;
     box-shadow:  0px 4px 6px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 20px;
 
 }
 
@@ -111,17 +130,28 @@
 
 .imagem-evento{
     align-items: center;
-
 }
 
 .praia-img{
-    width: 80%;
+    width: 420px;
+    height: 250px;
     margin-left: 30px;
+    border-radius: 25px;
+    margin-bottom: 10px;
     
 }
 
 .barra-participantes{
     margin-left: 30px;
+    display: inline-flex;
+    text-align: justify;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.barra-participantes p{
+    font-size: 20px;
 }
 
 /*  estilos data */
@@ -180,7 +210,8 @@
 }
 
 .informacoes-ong{
-    width: 90%;
+    padding: 10px;
+    width: 80%;
     height: 15rem;
     background-color: white;
     border-radius: 20px;
