@@ -67,7 +67,7 @@
     background-color: white;
   }
   
-  /* Adjust the app-section-container to accommodate the slider */
+
   .app-section-container {
     display: flex;
     flex-direction: column;
@@ -110,16 +110,6 @@
   /* ... (rest of your existing styles) ... */
 
   
-
-.app-section-container {
-    display: inline-flex;
-    background: var(--cor-fundo-gradiente);
-    width: 100%;
-    justify-content: space-evenly;
-    height: 400px;
-    align-items: center;
-}
-
 .app-section-right button:hover {
     background-color: var(--cor-principal);
     color: var(--fonte-cor-branco);
@@ -131,6 +121,7 @@
     align-items: center;
     flex-direction: column;
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .article-number-one, .article-number-two {
@@ -146,13 +137,13 @@
 }
 
 .article-number-one img, .article-number-two img {
-    width: 270px;
-    height: 160px;
+    width: 380px;
+    height: 210px;
     border-radius: 10px;
 }
 
 .article-number-one p, .article-number-two p {
-    width: 280px;
+    width: 30%;
     text-align: justify;
     text-justify: inter-word;
 }

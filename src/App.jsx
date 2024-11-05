@@ -76,14 +76,14 @@ function App() {
         </section>
         <div className="app-articles-container">
           <div className="article-number-one">
-            <img src="https://www.infomoney.com.br/wp-content/uploads/2024/09/TVCultura1.png?fit=1280%2C624&quality=50&strip=all" alt="Article 1" />
+            <img src="https://img.freepik.com/free-photo/top-view-young-people-putting-their-hands-together_1139-1008.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 1" />
             <p>Você busca uma forma de fazer a diferença e deixar o mundo um pouco mais justo? O VOLUN é a plataforma perfeita para você!
                 Com o VOLUN, você tem acesso a uma variedade de eventos com causas sociais,
                  desde campanhas de doação de sangue até mutirões de limpeza em praças e parques. Além disso, você pode</p>
           </div>
  
           <div className="article-number-two">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRePztwuq9PA9DT9Ibg8thR61licdZ5H8wifw&s" alt="Article 2" />
+            <img src="https://img.freepik.com/free-photo/full-shot-woman-jumping-outdoors_23-2149913414.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 2" />
             <p>Criar sua própria campanha: Se você tem uma ideia para um evento social, utilize o VOLUN para divulgá-la
             e encontrar parceiros para realizá-la. Acompanhar o impacto: Veja de perto os resultados dos eventos que você
             participa e saiba como suas ações estão contribuindo para um futuro melhor. Inspirar outras pessoas:

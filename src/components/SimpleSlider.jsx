@@ -1,27 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import "./../css/SimpleSlider.css";
-import Card from "./Card"; // Import the Card component
+import Card from "./Card";
+import Loader from "./Loader";
 
 export default function SimpleSlider() {
-  var settings = {
-    overflow: false,
+  const [eventos, setEventos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const settings = {
     dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true
         }
       },
       {
@@ -29,38 +29,79 @@ export default function SimpleSlider() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
         }
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
         }
       }
     ]
   };
 
-  const events = [
-    { id: 1, name: "Event 1", place: "São Paulo - SP", image: "path/to/image1.jpg" },
-    { id: 2, name: "Event 2", place: "Rio de Janeiro - RJ", image: "path/to/image2.jpg" },
-    { id: 3, name: "Event 3", place: "Porto Alegre - RS", image: "path/to/image3.jpg" },
-    { id: 4, name: "Event 4", place: "Belo Horizonte - MG", image: "path/to/image4.jpg" },
-    { id: 5, name: "Event 5", place: "Florianópolis - SC", image: "path/to/image5.jpg" },
-    { id: 6, name: "Event 6", place: "Curitiba - PR", image: "path/to/image6.jpg" },
-    { id: 7, name: "Event 7", place: "Manaus - AM", image: "path/to/image7.jpg" },
-    { id: 8, name: "Event 8", place: "Goiânia - GO", image: "path/to/image8.jpg" },
-    { id: 9, name: "Event 9", place: "Palmas - TO", image: "path/to/image9.jpg" }
-  ];
+  const fetchEventos = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("https://volun-api-eight.vercel.app/eventos");
+      if (!response.ok) throw new Error("Erro ao buscar eventos");
+
+      const data = await response.json();
+      const eventosLimitados = data.slice(0, 9); // Limita a 9 eventos
+
+      // Para cada evento, busca o endereço no MongoDB
+      const eventosComEnderecos = await Promise.all(
+        eventosLimitados.map(async (evento) => {
+          try {
+            const enderecoResponse = await fetch(`https://volun-api-eight.vercel.app/endereco/evento/${evento._id}`);
+            const enderecoData = await enderecoResponse.json();
+
+            const endereco = Array.isArray(enderecoData) && enderecoData.length > 0
+              ? `${enderecoData[0].logradouro}, ${enderecoData[0].numero}, ${enderecoData[0].cidade}, ${enderecoData[0].estado}`
+              : "Endereço indefinido";
+
+            return { ...evento, endereco };
+          } catch {
+            return { ...evento, endereco: "Endereço indefinido" };
+          }
+        })
+      );
+
+      setEventos(eventosComEnderecos);
+    } catch (error) {
+      console.error("Erro ao buscar dados dos eventos:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEventos();
+  }, []);
 
   return (
     <div className="slider-container">
-      <Slider {...settings}>
-        {events.map(event => (
-          <Card key={event.id} event={event} /> // Use the Card component
-        ))}
-      </Slider>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Slider {...settings}>
+          {eventos.map((evento) => (
+            <Card 
+              key={evento._id}
+              id={evento._id}
+              titulo={evento.titulo}
+              descricao={evento.descricao}
+              ongNome={evento.ong_id?.nome}
+              dataInicio={evento.data_inicio}
+              imgUrl={evento.imagem}
+              vagaLimite={evento.vaga_limite}
+              endereco={evento.endereco}
+            />
+          ))}
+        </Slider>
+      )}
     </div>
   );
 }
+
