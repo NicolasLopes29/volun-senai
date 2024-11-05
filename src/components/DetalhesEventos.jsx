@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
+import { getAuth } from "firebase/auth";
 import "./../css/DetalhesEventos.css";
 import Loader from "./Loader";
 import calendario from "./../assets/images/calendario.svg";
@@ -13,12 +14,68 @@ const DetalhesEventos = () => {
     const { id } = useParams(); // Obtém o id do evento da rota
     const [evento, setEvento] = useState({}); // Armazena todos os dados do evento
     const [endereco, setEndereco] = useState(null);
-    const [showDiv, setShowDiv] = useState(true);
+    const [comentarios, setComentarios] = useState([]);
+    const [novoComentario, setNovoComentario] = useState("");
+    const [showComentarios, setShowComentarios] = useState(false);
+    const auth = getAuth();
     const [isLoading, setIsLoading] = useState(true);
 
-    const mostrarEsconderDiv = () => {
-        setShowDiv(prev => !prev);
+    const toggleComentarios = () => {
+        setShowComentarios(prev => !prev);
     };
+
+
+    const fetchComentarios = async () => {
+        try {
+            const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/${id}`);
+            if (!response.ok) throw new Error("Erro ao buscar comentários");
+            const data = await response.json();
+            setComentarios(data);
+        } catch (error) {
+            console.error("Erro ao buscar comentários:", error);
+        }
+    };
+
+    const handlePublicarComentario = async () => {
+        const userId = auth.currentUser?.uid; // Obtém o ID do usuário logado
+        if (!userId) return console.error("Usuário não está logado");
+
+        const comentarioData = {
+            evento_id: id,
+            usuario_id: userId,
+            conteudo: novoComentario,
+        };
+
+        try {
+            const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(comentarioData),
+            });
+            if (!response.ok) throw new Error("Erro ao publicar comentário");
+
+            const novoComentarioResposta = await response.json();
+            setComentarios(prevComentarios => [...prevComentarios, novoComentarioResposta]); // Adiciona o novo comentário
+            setNovoComentario(""); // Limpa o campo de entrada
+        } catch (error) {
+            console.error("Erro ao publicar comentário:", error);
+        }
+    };
+
+    useEffect(() => {
+        const getEventoEEnderecoEComentarios = async () => {
+            const dadosEvento = await fetchEvento(id);
+            if (dadosEvento) {
+                setEvento(dadosEvento);
+                const dadosEndereco = await fetchEndereco(dadosEvento._id);
+                if (dadosEndereco) setEndereco(dadosEndereco);
+                await fetchComentarios(); // Carrega os comentários do evento
+            }
+            setIsLoading(false);
+        };
+
+        getEventoEEnderecoEComentarios();
+    }, [id]);
 
     const fetchEvento = async (id) => {
         try {
@@ -131,10 +188,14 @@ const DetalhesEventos = () => {
                     </div>
 
                     <div className="informacoes-ong">
-                        <div className="perfil-ong">
+                        <div className="perfil-ong-container">
                             <p className="link-ong">Visite o perfil da ONG:</p>
-                            <img alt="" />
-                            <p className="link-ong">{evento.ong_id?.nome}</p>
+                            <div className="logo-and-name-ong">
+                                <div className="logo-img-container">
+                                    <img  className="logo-img-ong" alt="logo Ong" src={evento.ong_id?.img_logo}/>
+                                </div>
+                                <h2 className="link-ong-name">{evento.ong_id?.nome}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,6 +206,7 @@ const DetalhesEventos = () => {
                 <div className="mapa-lugar">Mapa irado</div>
             </div>
 
+
             <div className="comentarios">
                 <div className="usuario">
                     <div className="usuario-foto">
@@ -152,21 +214,37 @@ const DetalhesEventos = () => {
                     </div>
                 </div>
                 <div className="publicar-comentario">
-                    <input className="comentar" placeholder="Comente aqui..." />
+                    <input 
+                        className="comentar" 
+                        placeholder="Comente aqui..." 
+                        value={novoComentario} 
+                        onChange={(e) => setNovoComentario(e.target.value)} 
+                    />
                 </div>
             </div>
 
-            <button className="button-publicar">Publicar</button>
-            <button className="button-visualizar" onClick={mostrarEsconderDiv}>Ver comentários</button>
+            <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
+            <button className="button-visualizar" onClick={toggleComentarios}>
+                {showComentarios ? "Ocultar comentários" : "Ver comentários"}
+            </button>
 
-            <div className="comentarios-2">
-                <div className="usuario">
-                    <div className="usuario-foto"></div>
+            {/* Lista de Comentários */}
+            {showComentarios && (
+                <div className="comentarios-2">
+                    {comentarios.map((comentario, index) => (
+                        <div key={index} className="comentario-item">
+                            <div className="usuario">
+                                <div className="usuario-foto">
+                                    <p>{comentario.usuario_id}</p>
+                                </div>
+                            </div>
+                            <div className="publicar-comentario-2">
+                                <p>{comentario.conteudo}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className="publicar-comentario-2">
-                    <p>Coisas muitas coisas nossa quantas coisas...</p>
-                </div>
-            </div>
+            )}
         </>
     );
 };
