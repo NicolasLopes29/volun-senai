@@ -42,7 +42,7 @@
     width: 240px;
 }
 .input-medio-grande {
-    width: 200px;
+    width: 280px;
 }
 .input-medio-pequeno{
     width: 160px;
@@ -79,6 +79,12 @@
     padding: 10px 30px;
     border: none;
     border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+    .info-pessoal-container {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 500px) {

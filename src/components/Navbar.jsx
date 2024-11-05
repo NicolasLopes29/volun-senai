@@ -121,59 +121,68 @@ const Navbar = () => {
           <img src={Logo} alt="Logo" className="logo" />
         </div>
         <div className="navbar-menu-container">
-          <Link to="/eventos">Eventos</Link>
-          <Link to="/">Sobre Nós</Link>
-          <Link to="/cardong">Sou uma organização</Link>
+          <Link to="/eventos" id="navbar-eventos" >Eventos</Link>
+          <Link to="/" id="navbar-sobre" >Sobre Nós</Link>
+          <Link to="/cardong" id="navbar-org" >Sou uma organização</Link>
           {/* <Link to="/ong">org page</Link> */}
           {/* descomente a linha acima para acessar a pagina de perfil de Organização */}
-        </div>
-        {usuarioLogado ? (
-          <div className="perfil-dropdown-container">
-            {fotoPerfilUrl && (
-              <div className="perfil-detalhes">
-                <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                  <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+          {usuarioLogado ? (
+            <div className="perfil-dropdown-container">
+              {fotoPerfilUrl && (
+                <div className="perfil-detalhes">
+                  <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                    <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                  </div>
+                  <div className="perfil-saudacao">
+                    <p>Bem-Vindo</p>
+                    <p>{userData.nome}</p>
+                  </div>
                 </div>
-                <div className="perfil-saudacao">
-                  <p>Bem-Vindo</p>
-                  <p>{userData.nome}</p>
-                </div>
-              </div>
-            )}
+              )}
+              <button
+                className="perfil-dropdown-button"
+                onClick={handleDropdown}
+              >
+                <MdOutlineArrowDropDown className="perfil-dropdown" />
+              </button>
+              {userMenu && <UsuarioMenu />}
+            </div>
+          ) : (
             <button
-              className="perfil-dropdown-button"
-              onClick={handleDropdown}
+              className="navbar-entrar"
+              type="button"
+              onClick={() => setLoginAbrir(true)}
             >
-              <MdOutlineArrowDropDown className="perfil-dropdown" />
+              Entrar / Registre-se
             </button>
-            {userMenu && <UsuarioMenu />}
-          </div>
-        ) : (
-          <button
-            className="navbar-entrar"
-            type="button"
-            onClick={() => setLoginAbrir(true)}
-          >
-            Entrar / Registre-se
+          )}
+          <button className="navbar-menu-button" onClick={toggleMenu}>
+            {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
           </button>
-        )}
-        <button className="menu-button" onClick={toggleMenu}>
-          {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
-        </button>
+        </div>
       </nav>
       {menuOpen && (
         <div className="sidebar">
-          <ul>
-            <li><Link to="/eventos">Eventos</Link></li>
-            <li><Link to="/">Sobre Nós</Link></li>
-            <li><Link to="/cardong">Sou uma organização</Link></li>
-          </ul>
-          <button
-            className="sidebar-button-logout"
-            onClick={handleUserLogOut}
-          >
-            Deslogar
-          </button>
+        <div className="perfil-detalhes">
+            <div className="sidebar-perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+              <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+            </div>
+            <div className="perfil-saudacao">
+              <p>Bem-Vindo</p>
+              <p>{userData.nome}</p>
+            </div>
+          </div>
+          <div className="perfil-navegacao">
+            <Link to="/eventos">Eventos</Link>
+            <Link to="/">Sobre Nós</Link>
+            <Link to="/cardong">Sou uma organização</Link>
+            <button
+              className="sidebar-button-logout"
+              onClick={handleUserLogOut}
+            >
+              Deslogar
+            </button>
+          </div>
         </div>
       )}
       <Modal

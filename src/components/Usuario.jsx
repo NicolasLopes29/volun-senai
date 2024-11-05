@@ -131,14 +131,14 @@ const Usuario = () => {
                             </label>
                         </div>
                         <div className="usuario-dados">
-                            <h3>Nome: {userData.nome} {userData.sobrenome}</h3>
-                            <p>Email: {user?.email}</p>
-                            <p>Telefone: ({userData.ddd})-{userData.telefone}</p>
+                            <h3>{userData.nome} {userData.sobrenome}</h3>
+                            <p>{user?.email}</p>
+                            <p>({userData.ddd})-{userData.telefone}</p>
                         </div>
                     </div>
                     <div className="usuario-nav">
-                        <Link to={"#"} onClick={() => setActiveComponent("Historico")}>Histórico</Link>
-                        <Link to={"#"} onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
+                        <Link to={'#'} onClick={() => setActiveComponent("Historico")}>Histórico</Link>
+                        <Link to={'#'} onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
                     </div>
                 </section>
                 <article className="usuario-article">

@@ -70,12 +70,12 @@ const Cardong = () => {
         telefone: ''
       });
 
-      alert("Organização cadastrada com sucesso! ;)")
+      alert("Organização cadastrada com sucesso!")
     } catch (err) {
       if (err.response) {
         setMessage(err.response.data.mensagem);
       } else {
-        alert("O cadastro não ocorreu como o esperado, tente novamente mais tarde :/");
+        alert("O cadastro não ocorreu como o esperado, tente novamente mais tarde");
       }
     }
   }

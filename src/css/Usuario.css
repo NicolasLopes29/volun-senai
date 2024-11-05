@@ -65,5 +65,18 @@
 }
 .usuario-nav :link {
     text-decoration: none;
-    padding-right: 20px;
+    padding: 7px 30px;
+    background-color: var(--cor-secundaria);
+    font-size: 16px;
+    color: var(--fonte-cor-preto);
+    margin-right: 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: var(--botao-shadow);
+}
+
+@media (max-width: 500px) {
+    .usuario-picture {
+        margin-right: 10px;
+    }
 }

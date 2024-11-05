@@ -1,3 +1,4 @@
+// src/components/Search.js
 import React, { useState } from "react";
 import "./../css/Eventos.css";
 
@@ -9,6 +10,7 @@ const estados = [
 
 const Search = ({ onBuscar }) => {
   const [estadoSelecionado, setEstadoSelecionado] = useState("");
+  const [areaAtuacao, setAreaAtuacao] = useState("");
   const [categoria, setCategoria] = useState("");
   const [cidade, setCidade] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -16,7 +18,7 @@ const Search = ({ onBuscar }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onBuscar({ estadoSelecionado, categoria, cidade, searchQuery });
+    onBuscar({ estadoSelecionado, areaAtuacao, categoria, cidade, searchQuery });
   };
 
   const toggleFilters = () => {
@@ -26,6 +28,7 @@ const Search = ({ onBuscar }) => {
   return (
     <section className="arrumar-tudo">
       <h1 className="Eventos-h1">Pesquise aqui</h1>
+
       <form onSubmit={handleSubmit} className="Eventos-form">
         <div className="Eventos-barra-pesquisa">
           <input
@@ -39,11 +42,25 @@ const Search = ({ onBuscar }) => {
             Buscar
           </button>
         </div>
+
         <button type="button" onClick={toggleFilters} className="Eventos-toggle-filtros">
           {showFilters ? "Ocultar Filtros ▲" : "Exibir Filtros ▼"}
         </button>
+
         {showFilters && (
           <div className="Eventos-filtros">
+            <div className="Eventos-input-filtro">
+              <input
+                required
+                type="text"
+                name="area"
+                className="Eventos-input"
+                value={areaAtuacao}
+                onChange={(e) => setAreaAtuacao(e.target.value)}
+              />
+              <label className="Eventos-user-label">Área de atuação</label>
+            </div>
+
             <div className="Eventos-input-filtro">
               <input
                 required
@@ -56,6 +73,7 @@ const Search = ({ onBuscar }) => {
               />
               <label className="Eventos-user-label">Categoria</label>
             </div>
+
             <div className="Eventos-input-filtro">
               <input
                 required
@@ -68,6 +86,7 @@ const Search = ({ onBuscar }) => {
               />
               <label className="Eventos-user-label">Cidade</label>
             </div>
+
             <div className="Eventos-select">
               <select
                 className="Eventos-estado-busca"
@@ -80,6 +99,12 @@ const Search = ({ onBuscar }) => {
                     {estado}
                   </option>
                 ))}
+              </select>
+              <select className="Eventos-tipo">
+                <option>Tipo de evento</option>
+                <option>Tetra campeão</option>
+                <option>One Piece o Melhor anime</option>
+                <option>coordenadas -64</option>
               </select>
             </div>
           </div>
