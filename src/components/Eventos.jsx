@@ -96,7 +96,7 @@ const Eventos = () => {
                                 id={evento._id}
                                 titulo={evento.titulo}
                                 descricao={evento.descricao}
-                                ongNome={evento.ong_id?.nome}
+                                ongNome={evento.organização?.nome}
                                 dataInicio={evento.data_inicio}
                                 imgUrl={evento.imagem}
                                 vagaLimite={evento.vaga_limite}
