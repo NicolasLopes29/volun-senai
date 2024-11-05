@@ -1,6 +1,5 @@
 @import url(./Global.css);
 
-
 /* Principais, que arruma tudo */
 .pega-tudo{
     display: grid;
@@ -210,9 +209,12 @@
 }
 
 .informacoes-ong{
+    height: 120px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding: 10px;
-    width: 80%;
-    height: 15rem;
+    width: 70%;
     background-color: white;
     border-radius: 20px;
     margin-top: 20px;
@@ -231,12 +233,31 @@
     margin-top: 7rem;
 }
 
-.perfil-ong{
-    margin: 10px;
+.perfil-ong-container{
+    margin: 30px;
+}
+
+.logo-and-name-ong{
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
 
 }
 
-.link-ong{
+.logo-img-ong{
+    border-radius: 50%;
+    height: 100%;
+    max-height: 70px;
+    margin-right: 20px;
+}
+
+.link-ong {
+    color: #1F0171;
+    font-weight: 400;
+}
+
+.link-ong-name{
+    font-size: 24px;
     color: #1F0171;
 }
 
@@ -324,18 +345,17 @@
     font-size: 20px;
 }
 
-.comentarios-2{
-width: 83.8%;
-height: auto;
-background-color: #1F0171;
-border-radius: 10px;
-margin: 20px;
-margin-left: 80px;
-padding: 10px;
-align-items: center;
-justify-content: center;
-display: none;
+.comentarios-2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #1F0171;
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: 80px;
+    padding: 10px;
+    align-items: flex-start;
 }
+
 
 .comentar{
     width: 65.3rem;
