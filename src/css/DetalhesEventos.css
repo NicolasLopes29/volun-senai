@@ -289,15 +289,21 @@
     padding: 10px 10px 10px 20px;    
 }
 
-.usuario{
-    background-color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
+.usuario-info-coment{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;
 }
-.usuario p{
-    padding: 10px;
-    padding-top: 40px;
+.usuario-foto-coment{
+    height: 70px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.usuario-info-coment p{
+    text-align: center;
     color: white;
 }
 
