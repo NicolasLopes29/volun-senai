@@ -1,5 +1,6 @@
 @import url(./Global.css);
 
+/* Aqui vai a estilização da página em geral */
 .titulo-criacao{
     margin-top: 100px;
     margin-left: 36.5rem;
@@ -7,21 +8,86 @@
 
 .toda-pagina{
     margin: 50px;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
-    /* Aqui va a primeira parte de estilização */
+   
 .primeira-parte{
     display: flex;
     flex-direction: column;
-
+    align-items: flex-start;
+    margin: 30px 40px 40px 40px;
 }
 
+
+/* primeira parte  */
+.nome-evento{
+    width: 20rem;
+    border: none;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.tags-evento{
+    width: 130px;
+    height: 30px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.descricao-novo{
+    width: 20rem;
+    border: none;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px; 
+}
+
+/* segunda parte aqui */
+
 .segunda-parte{
- color: cyan;
+    margin: 30px 40px 40px 40px;
+}
+
+.definir-vagas{
+    margin: 20px;
+}
+
+.data-dia-evento{
+    margin: 20px;
 }
 
 /* aqui vai a estilização dos botões */
 
 .botões-evento{
     margin: 40px;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.cancelar-evento{
+    width: 15rem;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 30px;
+    border: none;
+    background-color: white;
+    font: bold;
+    cursor: pointer;
+
+}
+
+.adicionar-evento{
+    width: 15rem;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 30px;
+    border: none;
+    background-color: white;
+    font: bolder;
+    cursor: pointer;
 }

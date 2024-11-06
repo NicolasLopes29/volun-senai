@@ -154,7 +154,7 @@ const Navbar = () => {
             type="button"
             onClick={() => setLoginAbrir(true)}
           >
-            Entrar / Registre-se
+            👤 Entrar
           </button>
         )}
         <button className="menu-button" onClick={toggleMenu}>

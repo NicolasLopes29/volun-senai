@@ -14,28 +14,27 @@ const CriacaoEventos = () =>{
 
         <div className="toda-pagina">
             {/* Primeira parte vai aqui */}
-            <div className="primera-parte"></div>
-                <div className="nome">
-                    <input placeholder="Nome do evento"></input>
-                    <select>Classificação de eventos
+            <div className="primera-parte">
+                    <input placeholder="Nome do evento" className="nome-evento"></input>
+                    <select className="tags-evento">Classificação de eventos
                         <option>termas</option>
                         <option>do vale</option>
                     </select>
                     <div className="descricao-fundo">
-                        <input placeholder="descrição do evento aqui..."></input>
+                        <input placeholder="descrição do evento aqui..." className="descricao-novo"></input>
                     </div>
-                </div>
+            </div>    
 
             {/* Segunda parte vai aqui */}
-            <div className="segunda-parte"></div>
+            <div className="segunda-parte">
                 <div className="background-colar-img"></div>
                 <div className="definir-vagas">
-                    <input></input>
+                    <input className="numero-vagas"></input>
                 </div>
                 <div className="definir-dia">
-                    <input></input>
+                    <input className="data-dia-evento"></input>
                 </div>
-
+            </div>
         </div>
         <div className="Endereço-mapa"></div>
 
