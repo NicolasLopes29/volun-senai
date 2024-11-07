@@ -64,7 +64,7 @@ const UsuarioMenu = () => {
                 </div>
             </div>
             <div className="usuario-menu-link">
-                <a href="./usuario">Minha Página</a>
+                <Link to="/usuario">Minha Página</Link>
                 <button onClick={handleUserLogOut}>Deslogar</button>
             </div>
         </div>
