@@ -28,13 +28,24 @@ const DetalhesEventos = () => {
         try {
             const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/evento/${id}`);
             if (!response.ok) throw new Error("Erro ao buscar comentários");
-
+    
             const comentariosData = await response.json();
-            setComentarios(comentariosData);
+    
+            // Realiza a segunda requisição para buscar os dados do usuário
+            const comentariosComUsuarios = await Promise.all(
+                comentariosData.map(async (comentario) => {
+                    const usuarioResponse = await fetch(`https://volun-api-eight.vercel.app/usuarios/${comentario.usuario_id}`);
+                    const usuarioData = await usuarioResponse.json();
+                    return { ...comentario, usuario: usuarioData };
+                })
+            );
+            setComentarios(comentariosComUsuarios);
         } catch (error) {
             console.error("Erro ao buscar comentários:", error);
         }
     };
+    
+    
 
     const toggleshowComentarios = () => {
         if (!showComentarios) {
@@ -64,27 +75,43 @@ const DetalhesEventos = () => {
     
             if (!response.ok) throw new Error("Erro ao publicar comentário");
     
-            const novoComentarioResposta = JSON.parse(textResponse);
-            setComentarios(prevComentarios => [...prevComentarios, novoComentarioResposta]);
             setNovoComentario(""); 
+            handleBuscarComentarios(); // Atualiza os comentários automaticamente após publicar
         } catch (error) {
             console.error("Erro ao publicar comentário:", error);
         }
     };
 
-    useEffect(() => {
-        const getEventoEEndereco = async () => {
+    // Efeito para buscar comentários assim que a página é carregada
+useEffect(() => {
+    handleBuscarComentarios(); // Carrega os comentários na primeira renderização
+}, [id]); // Recarrega os comentários quando o ID do evento muda
+
+useEffect(() => {
+    const getEventoEEndereco = async () => {
+        setIsLoading(true); // Ativa o carregamento
+        try {
+            // Aguarda a resposta das duas requisições
             const dadosEvento = await fetchEvento(id);
             if (dadosEvento) {
                 setEvento(dadosEvento);
                 const dadosEndereco = await fetchEndereco(dadosEvento._id);
                 if (dadosEndereco) setEndereco(dadosEndereco);
             }
-            setIsLoading(false);
-        };
 
-        getEventoEEndereco();
-    }, [id]);
+            // Após buscar os dados do evento, busca os comentários
+            await handleBuscarComentarios();
+
+        } catch (error) {
+            console.error("Erro ao carregar evento e/ou comentários:", error);
+        } finally {
+            setIsLoading(false); // Desativa o carregamento quando as duas requisições terminarem
+        }
+    };
+
+    getEventoEEndereco();
+}, [id]);
+
 
     const fetchEvento = async (id) => {
         try {
@@ -215,21 +242,27 @@ const DetalhesEventos = () => {
                     />
                 </div>
             </div>
-    
-            <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
-            <button className="button-visualizar" onClick={toggleshowComentarios}>
-                {showComentarios ? "Ocultar comentários" : "Ver comentários"}
-            </button>
+            <div className="buttons-comentarios">
+                <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
+                <button className="button-visualizar" onClick={toggleshowComentarios} >
+                    {showComentarios ? "Ocultar comentários" : `Exibir comentários (${comentarios.length})`}
+                </button>
+            </div>
+            
     
             {/* Seção de exibição dos comentários */}
             {showComentarios && (
                 <div className="lista-comentarios">
                     {comentarios.length > 0 ? (
                         comentarios.map((comentario) => (
-                            <div key={comentario._id} style={{ borderBottom: "1px solid #ccc", padding: "10px" }}>
-                                <p><strong>Usuário ID:</strong> {comentario.usuario_id}</p>
-                                <p><strong>Comentário:</strong> {comentario.conteudo}</p>
-                                <p><strong>Data:</strong> {new Date(comentario.createdAt).toLocaleDateString()}</p>
+                            <div key={comentario._id} className="comentarios">
+                                <div className="comentario-usuario-info">
+                                    <img src={comentario.usuario?.photoUrl} alt="Foto do usuário" className="usuario-foto-coment" />                
+                                    <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
+                                </div>
+                                <div className="comentario-conteudo">
+                                    <p>{comentario.conteudo}</p>
+                                </div>
                             </div>
                         ))
                     ) : (

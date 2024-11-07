@@ -43,7 +43,6 @@ const Login = ({ fecharLogin }) => {
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
 
-  // Função para logar com email e senha
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -53,14 +52,25 @@ const Login = ({ fecharLogin }) => {
 
       // Verifica se existe o usuário no MongoDB
       const response = await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`);
+      const userData = await response.json();
 
-      if (!response.ok || response.status === 404) {
+      if (!response.ok || !userData) {
         throw new Error("Usuário não encontrado no MongoDB");
       }
 
-      const userData = await response.json();
+      // Se o campo photoUrl estiver ausente ou nulo, atualiza com a foto do Firebase
+      if (!userData.photoUrl) {
+        await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ photoUrl: user.photoURL }),
+        });
+      }
 
-      if (!userData || !userData._id) {
+      // Redirecionamento conforme o estado do usuário
+      if (!userData._id) {
         navigate("/dados_pessoal");
       } else {
         fecharLogin();
@@ -78,16 +88,25 @@ const Login = ({ fecharLogin }) => {
       const user = result.user;
 
       await updateProfile(user, { photoURL: user.photoURL });
-
       const response = await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`);
+      const userData = await response.json();
 
-      if (!response.ok || response.status === 404) {
+      if (!response.ok || !userData) {
         throw new Error("Usuário não encontrado no MongoDB");
       }
 
-      const userData = await response.json();
+      // Se o campo photoUrl estiver ausente ou nulo, atualiza com a foto do Firebase
+      if (!userData.photoUrl) {
+        await fetch(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ photoUrl: user.photoURL }),
+        });
+      }
 
-      if (!userData || !userData._id) {
+      if (!userData._id) {
         navigate("/dados_pessoal");
       } else {
         fecharLogin();
@@ -98,6 +117,7 @@ const Login = ({ fecharLogin }) => {
       navigate("/dados_pessoal");
     }
   };
+
 
   const CadastrarRedir = () => {
     window.open("/cadastrar", "_blank");
