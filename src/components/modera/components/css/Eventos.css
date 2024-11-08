@@ -1,20 +1,23 @@
 .eventos-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Três colunas */
-    gap: 30px; /* Espaçamento entre os cards */
+    gap: 30px; 
     padding: 20px;
 }
 
 .card {
-    margin: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* Isso distribui o conteúdo do card */
     width: 300px;
-    height: 150px;
+    height: 350px; /* Ajuste para dar mais altura ao card */
     border-radius: 15px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.20);
     transition: height 0.2s ease-out;
+    padding: 15px;
+    background-color: #fff; /* Fundo branco para o card */
 }
+
 .card h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
@@ -23,10 +26,22 @@
     white-space: nowrap; 
 }
 
-.card p {
+.card-description {
     font-size: 1em;
-    margin: 5px 0;
-    flex-grow: 1; 
+    margin: 10px 0;
+    flex-grow: 1;
+}
+
+.card-text-first, .card-text-second {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.card-actions {
+    margin-top: auto; /* Para os botões ficarem na parte inferior */
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
 }
 
 .card button {
@@ -37,6 +52,7 @@
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 45%; /* Ajuste o tamanho dos botões */
 }
 
 .card button:hover {
