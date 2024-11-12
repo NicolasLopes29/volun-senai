@@ -33,7 +33,7 @@ const Eventos = () => {
             // Processa os resultados do Algolia e configura o endereço e o nome da organização
             const eventosAlgolia = algoliaResponse.hits.map(hit => ({
                 ...hit,
-                endereco: hit.endereco ? `${hit.endereco.cidade}, ${hit.endereco.estado} - ${hit.endereco.bairro}` : "Endereço indefinido",
+                endereco: hit.endereco ? `${hit.endereco.bairro}, ${hit.endereco.cidade} - ${hit.endereco.estado}` : "Endereço indefinido",
                 organizacaoNome: hit.organizacao?.nome || "Organização indefinida", // Adicionando nome da organização
             }));
 

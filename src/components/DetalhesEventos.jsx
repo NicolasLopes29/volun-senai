@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
+import algoliasearch from "algoliasearch";
+import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
 import "./../css/DetalhesEventos.css";
 import Loader from "./Loader";
-// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-// import "leaflet/dist/leaflet.css";
 import calendario from "./../assets/images/calendario.svg";
 import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
 
+// Inicializando o índice de eventos
+const indexEventos = algoliaClient.initIndex("eventos");
+
 const DetalhesEventos = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [evento, setEvento] = useState({});
-    const [endereco, setEndereco] = useState(null);
     const [novoComentario, setNovoComentario] = useState("");
     const [showComentarios, setShowComentarios] = useState(false);
     const [comentarios, setComentarios] = useState([]);
@@ -45,8 +47,6 @@ const DetalhesEventos = () => {
         }
     };
     
-    
-
     const toggleshowComentarios = () => {
         if (!showComentarios) {
             handleBuscarComentarios();
@@ -83,65 +83,37 @@ const DetalhesEventos = () => {
     };
 
     // Efeito para buscar comentários assim que a página é carregada
-useEffect(() => {
-    handleBuscarComentarios(); // Carrega os comentários na primeira renderização
-}, [id]); // Recarrega os comentários quando o ID do evento muda
+    useEffect(() => {
+        handleBuscarComentarios(); // Carrega os comentários na primeira renderização
+    }, [id]); // Recarrega os comentários quando o ID do evento muda
 
-useEffect(() => {
-    const getEventoEEndereco = async () => {
-        setIsLoading(true); // Ativa o carregamento
-        try {
-            // Aguarda a resposta das duas requisições
-            const dadosEvento = await fetchEvento(id);
-            if (dadosEvento) {
-                setEvento(dadosEvento);
-                const dadosEndereco = await fetchEndereco(dadosEvento._id);
-                if (dadosEndereco) setEndereco(dadosEndereco);
+    useEffect(() => {
+        const getEventoEEndereco = async () => {
+            setIsLoading(true); // Ativa o carregamento
+            try {
+                const dadosEvento = await fetchEvento(id);
+                if (dadosEvento) {
+                    setEvento(dadosEvento);
+                }
+            } catch (error) {
+                console.error("Erro ao carregar evento:", error);
+            } finally {
+                setIsLoading(false); // Desativa o carregamento quando as requisições terminarem
             }
+        };
 
-            // Após buscar os dados do evento, busca os comentários
-            await handleBuscarComentarios();
-
-        } catch (error) {
-            console.error("Erro ao carregar evento e/ou comentários:", error);
-        } finally {
-            setIsLoading(false); // Desativa o carregamento quando as duas requisições terminarem
-        }
-    };
-
-    getEventoEEndereco();
-}, [id]);
-
+        getEventoEEndereco();
+    }, [id]);
 
     const fetchEvento = async (id) => {
         try {
-            const response = await fetch(`https://volun-api-eight.vercel.app/eventos/${id}`);
-            if (!response.ok) throw new Error("Erro ao buscar evento");
-
-            const data = await response.json();
-            console.log("Dados do evento:", data);
-            return data;
+            const response = await indexEventos.getObject(id); // Busca o evento pelo ID no Algolia
+            console.log("Dados do evento:", response);
+            return response;
         } catch (error) {
             console.error("Erro ao buscar dados do evento:", error);
         }
     };
-
-    const fetchEndereco = async (eventoId) => {
-        try {
-            const response = await fetch(`https://volun-api-eight.vercel.app/endereco/evento/${eventoId}`);
-            if (!response.ok) throw new Error("Endereço não encontrado");
-
-            const data = await response.json();
-            console.log("Dados do endereço:", data);
-            return Array.isArray(data) && data.length > 0 ? data[0] : null;
-        } catch (error) {
-            console.error("Erro ao buscar dados do endereço:", error);
-        }
-    };
-
-    if (isLoading) {
-        return <Loader />;
-    }
 
     const formatarData = (data) => {
         return format(new Date(data), "dd/MM/yyyy");
@@ -151,78 +123,75 @@ useEffect(() => {
         return format(new Date(data), "HH:mm");
     };
 
-    // const latitude = endereco?.latitude || -23.55052; // Coordenadas fictícias ou padrão
-    // const longitude = endereco?.longitude || -46.633308;
-
-    const dataInicio = evento.data_inicio ? formatarData(evento.data_inicio) : "Data indefinida";
-    const dataFim = evento.data_fim ? formatarData(evento.data_fim) : "Data indefinida";
-
-    const horaInicio = evento.data_inicio ? formatarHora(evento.data_inicio) : "Data indefinida";
-    const horaFim = evento.data_fim ? formatarHora(evento.data_fim) : "Data indefinida";
+    const dataInicio = evento.dataInicio ? formatarData(evento.dataInicio) : "Data indefinida";
+    const dataFim = evento.dataFim ? formatarData(evento.dataFim) : "Data indefinida";
+    const horaInicio = evento.dataInicio ? formatarHora(evento.dataInicio) : "Data indefinida";
+    const horaFim = evento.dataFim ? formatarHora(evento.dataFim) : "Data indefinida";
 
     return (
         <>
-            <div className="pega-tudo">
-                <div className="parte-1">
-                    <div className="titulo-evento">
-                        <h1>{evento.titulo || "Carregando..."}</h1>
-                        <div className="tags-container">
-                            {evento.tags && evento.tags.map((tag, index) => (
-                                <span key={index} className="tag-item">{tag}</span>
-                            ))}
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <div className="pega-tudo">
+                    <div className="parte-1">
+                        <div className="titulo-evento">
+                            <h1>{evento.titulo || "Carregando..."}</h1>
+                            <div className="tags-container">
+                                {evento.tags && evento.tags.map((tag, index) => (
+                                    <span key={index} className="tag-item">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div>
+                            <button className="participar">Participar</button>
+                            <button className="compartilhar">Compartilhar</button>
+                        </div>
+                        <div className="background-descricao">
+                            <p className="descricao-evento">{evento.descricao || "Descrição indisponível..."}</p>
+                        </div>
+                        <div className="backgound-especificacoes">
+                            <p className="preferencia-descricao">Preferências: nenhuma</p>
+                            <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando resíduos</p>
                         </div>
                     </div>
-                    <div>
-                        <button className="participar">Participar</button>
-                        <button className="compartilhar">Compartilhar</button>
-                    </div>
-                    <div className="background-descricao">
-                        <p className="descricao-evento">{evento.descricao || "Descrição indisponível..."}</p>
-                    </div>
-                    <div className="backgound-especificacoes">
-                        <p className="preferencia-descricao">Preferências: nenhuma</p>
-                        <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando resíduos</p>
-                    </div>
-                </div>
-    
-                <div className="parte-2">
-                    <div className="imagem-evento">
-                        <img src={evento.imagem || praia} alt={evento.titulo} className="praia-img" />
-                    </div>
-                    <div className="barra-participantes">
-                        <img src={pessoas} alt="ícone pessoas" className="pessoas" />
-                        <p>{evento.vaga_limite} vagas</p>
-                    </div>
-                    <div className="data-evento">
-                        <img src={calendario} alt="ícone calendário" className="calendario-icon" />
-                        <p>{dataInicio} à {dataFim}</p>
-                    </div>
-                    <div className="horario-evento">
-                        <img src={relogio} alt="ícone relógio" className="relogio-icon" />
-                        <p>Horário: {horaInicio} à {horaFim}</p>
-                    </div>
-                    <div className="local-eventos">
-                        <img src={local} alt="ícone local" className="local-icon" />
-                        <p>{endereco ? `${endereco.logradouro}, ${endereco.numero}, ${endereco.cidade} - ${endereco.estado}` : "Endereço indisponível"}</p>
-                    </div>
-                    <div className="informacoes-ong">
-                        <div className="perfil-ong-container">
-                            <p className="link-ong">Visite o perfil da ONG:</p>
-                            <div className="logo-and-name-ong">
-                                <div className="logo-img-container">
-                                    <img className="logo-img-ong" alt="logo ONG" src={evento.ong_id?.img_logo} />
+        
+                    <div className="parte-2">
+                        <div className="imagem-evento">
+                            <img src={evento.imagem || praia} alt={evento.titulo} className="praia-img" />
+                        </div>
+                        <div className="barra-participantes">
+                            <img src={pessoas} alt="ícone pessoas" className="pessoas" />
+                            <p>{evento.vagaLimite} vagas</p>
+                        </div>
+                        <div className="data-evento">
+                            <img src={calendario} alt="ícone calendário" className="calendario-icon" />
+                            <p>{dataInicio} à {dataFim}</p>
+                        </div>
+                        <div className="horario-evento">
+                            <img src={relogio} alt="ícone relógio" className="relogio-icon" />
+                            <p>Horário: {horaInicio} à {horaFim}</p>
+                        </div>
+                        <div className="local-eventos">
+                            <img src={local} alt="ícone local" className="local-icon" />
+                            <p>
+                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero} - ${evento.endereco.bairro}, ${evento.endereco.cidade} - ${evento.endereco.estado}, ${evento.endereco.cep}` : "Endereço indisponível"}
+                            </p>
+                        </div>
+                        <div className="informacoes-ong">
+                            <div className="perfil-ong-container">
+                                <p className="link-ong">Visite o perfil da ONG:</p>
+                                <div className="logo-and-name-ong">
+                                    <div className="logo-img-container">
+                                        <img className="logo-img-ong" alt="logo ONG" src={evento.organizacao?.imgLogo} />
+                                    </div>
+                                    <h2 className="link-ong-name">{evento.organizacao?.nome}</h2>
                                 </div>
-                                <h2 className="link-ong-name">{evento.ong_id?.nome}</h2>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-            <div className="endereco-mapa">
-                <h2>Endereço: Rua dos Banzeiros Senai 32</h2>
-                <div className="mapa-lugar">Mapa irado</div>
-            </div>
+            )}
     
             <div className="comentarios">
                 <div className="usuario-info-coment">
@@ -244,33 +213,30 @@ useEffect(() => {
             </div>
             <div className="buttons-comentarios">
                 <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
-                <button className="button-visualizar" onClick={toggleshowComentarios} >
-                    {showComentarios ? "Ocultar comentários" : `Exibir comentários (${comentarios.length})`}
+                <button className="button-visualizar" onClick={toggleshowComentarios}>
+                    {showComentarios ? "Ocultar comentários" : "Visualizar comentários"}
                 </button>
             </div>
-            
     
-            {/* Seção de exibição dos comentários */}
             {showComentarios && (
-                <div className="lista-comentarios">
-                    {comentarios.length > 0 ? (
-                        comentarios.map((comentario) => (
-                            <div key={comentario._id} className="comentarios">
-                                <div className="comentario-usuario-info">
-                                    <img src={comentario.usuario?.photoUrl} alt="Foto do usuário" className="usuario-foto-coment" />                
-                                    <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
-                                </div>
-                                <div className="comentario-conteudo">
-                                    <p>{comentario.conteudo}</p>
-                                </div>
+                <div className="comentarios-lista">
+                    {comentarios.map((comentario) => (
+                        <div className="comentario" key={comentario._id}>
+                            <img 
+                                src={comentario.usuario.foto || "https://miro.medium.com/v2/resize:fit:1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg"} 
+                                alt="foto do usuário" 
+                                className="usuario-foto-coment" 
+                            />
+                            <div className="comentario-content">
+                                <p className="usuario-nome-coment">{comentario.usuario.nome}</p>
+                                <p>{comentario.conteudo}</p>
                             </div>
-                        ))
-                    ) : (
-                        <p>Nenhum comentário encontrado para este evento.</p>
-                    )}
+                        </div>
+                    ))}
                 </div>
             )}
         </>
     );
-}
+};
+
 export default DetalhesEventos;
