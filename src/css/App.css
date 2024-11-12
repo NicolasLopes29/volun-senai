@@ -149,7 +149,12 @@ body {
 }
 
 .article-number-one,
-.article-number-two {
+.article-number-two { 
+  background-color: var(--card-background);
+  padding: 3rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 4rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
