@@ -1,6 +1,5 @@
 @import url(./Global.css);
 
-
 /* Principais, que arruma tudo */
 .pega-tudo{
     display: grid;
@@ -210,9 +209,12 @@
 }
 
 .informacoes-ong{
+    height: 120px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding: 10px;
-    width: 80%;
-    height: 15rem;
+    width: 70%;
     background-color: white;
     border-radius: 20px;
     margin-top: 20px;
@@ -231,12 +233,31 @@
     margin-top: 7rem;
 }
 
-.perfil-ong{
-    margin: 10px;
+.perfil-ong-container{
+    margin: 30px;
+}
+
+.logo-and-name-ong{
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
 
 }
 
-.link-ong{
+.logo-img-ong{
+    border-radius: 50%;
+    height: 100%;
+    max-height: 70px;
+    margin-right: 20px;
+}
+
+.link-ong {
+    color: #1F0171;
+    font-weight: 400;
+}
+
+.link-ong-name{
+    font-size: 24px;
     color: #1F0171;
 }
 
@@ -248,10 +269,17 @@
     border-radius: 10px;
     margin: 20px;
     margin-left: 80px;
-    padding: 10px;
+    padding: 20px;
     align-items: center;
     justify-content: center;
+}
 
+.comentario-conteudo{
+    background-color: white;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: justify;
 }
 
 .publicar-comentario{
@@ -268,16 +296,23 @@
     padding: 10px 10px 10px 20px;    
 }
 
-.usuario{
-    background-color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 30px;
-}
-.usuario p{
-    padding: 10px;
-    padding-top: 40px;
+.comentario-usuario-info{
     color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.usuario-foto-coment{
+    height: 70px;
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.comentarios p{
+    text-align: justify;
+    color: rgb(0, 0, 0);
 }
 
 /* Aqui vai o mapa */
@@ -305,18 +340,31 @@
     height: 3rem;
     border-radius: 10px;
     border: none;
-    margin: 0px 10px 20px 80px;
     cursor: pointer;
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.4);
     font-size: 20px;
     
 }
 
+.buttons-comentarios{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px;
+}
+
+.button-visualizar.button-desativado {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+
 .button-visualizar{
     background-color: #FF5C00;
     width: 14rem;
     height: 3rem;
-    margin: 0px 10px 20px 38rem;
+    
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -324,18 +372,17 @@
     font-size: 20px;
 }
 
-.comentarios-2{
-width: 83.8%;
-height: auto;
-background-color: #1F0171;
-border-radius: 10px;
-margin: 20px;
-margin-left: 80px;
-padding: 10px;
-align-items: center;
-justify-content: center;
-display: none;
+.comentarios-2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #1F0171;
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: 80px;
+    padding: 10px;
+    align-items: flex-start;
 }
+
 
 .comentar{
     width: 65.3rem;

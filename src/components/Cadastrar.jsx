@@ -16,7 +16,7 @@ const Cadastrar = () => {
             const verificarEmail = async () => {
                 try {
                     const user = auth.currentUser;
-                    await user.reload(); // Atualiza os dados do usuário
+                    await user.reload();
 
                     if (user.emailVerified) {
                         setEmailVerificado(true);

@@ -7,7 +7,7 @@
     font-size: 10px;
     top: 50%; /* Faz o dropdown aparecer logo abaixo do botão */
     right: 0; /* Alinha o dropdown à esquerda do botão */
-    left: 77%;
+    left: 78%;
     z-index: 1000; /* Garante que o dropdown fique acima do conteúdo */
     padding-right: 10px;
     width: 200px;
@@ -35,21 +35,18 @@
 .usuario-menu-link {
     display: grid;
     padding: 20px 0px;
-    justify-content: center;
+    margin-left: 10px;
+    justify-content: left;
 }
-#usuario-link {
+.usuario-menu-link a {
     text-align: left;
     text-decoration: none;
-    margin-left: -25px;
-    margin-bottom: 20px;
-    color: var(--fonte-cor-preto);
-}
-.usuario-menu-link :link::after {
     color: var(--fonte-cor-preto);
 }
 .usuario-menu-link button {
     margin-top: 10px;
     padding: 5px 25px;
+    text-align: center;
     background-color: var(--botao-tela-branca);
     color: var(--fonte-cor-branco);
     border: none;

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../services/firebase-config"; // Import Firebase auth
 import "./../css/DadosPessoal.css";
+import defaultProfileImage from "../assets/images/photo-perfil.png"; // Imagem de perfil padrão
 
 const DadosPessoal = () => {
     const [userDados, setUserDados] = useState({
@@ -85,6 +86,8 @@ const DadosPessoal = () => {
             return;
         }
 
+        const photoUrl = auth.currentUser?.photoURL || defaultProfileImage ;
+
         try {
             // Tenta enviar os dados para a API
             const response = await axios.post(`https://volun-api-eight.vercel.app/usuarios/${uid}/info`, {
@@ -93,7 +96,8 @@ const DadosPessoal = () => {
                 cpf,
                 data_nascimento: dataNasc,
                 ddd,
-                telefone
+                telefone,
+                photoUrl
             });
 
             if (response.status === 201) {

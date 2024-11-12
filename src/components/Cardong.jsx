@@ -7,7 +7,6 @@ const Cardong = () => {
   const [data, setData] = useState({
     nomeOrg: '',
     razaoSocial: '',
-    endereco: '',
     cnpj: '',
     ddd: '',
     telefone: ''
@@ -64,18 +63,17 @@ const Cardong = () => {
       setData({
         nomeOrg: '',
         razaoSocial: '',
-        endereco: '',
         cnpj: '',
         ddd: '',
         telefone: ''
       });
 
-      alert("Organização cadastrada com sucesso!")
+      alert("Organização cadastrada com sucesso! ;)")
     } catch (err) {
       if (err.response) {
         setMessage(err.response.data.mensagem);
       } else {
-        alert("O cadastro não ocorreu como o esperado, tente novamente mais tarde");
+        alert("O cadastro não ocorreu como o esperado, tente novamente mais tarde :/");
       }
     }
   }
@@ -89,7 +87,6 @@ const Cardong = () => {
             <p>Crie já um perfil para a sua organização e anuncie seus projetos na Volun</p>
             <input type="text" name="nomeOrg" placeholder="Nome da ONG" onChange={valueInput} value={data.nomeOrg} />
             <input type="text" name="razaoSocial" placeholder="Razão social" onChange={valueInput} value={data.razaoSocial} />
-            <input type="text" name="endereco" placeholder="Endereço" onChange={valueInput} value={data.endereco} />
             <input type="text" name="cnpj" placeholder="CNPJ" onChange={valueInput} value={data.cnpj} />
             <div className="telefone-container">
               <input type="text" id="ddd-ong" name="ddd" placeholder="DDD" onChange={valueInput} value={data.ddd} />

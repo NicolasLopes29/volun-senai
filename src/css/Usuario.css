@@ -4,7 +4,6 @@
     background-color: var(--fundo-principal);
     width: 100%;
     display: block;
-    margin-top: 3rem
 }
 .usuario-section {
     background-color: var(--cor-quarta);
@@ -65,18 +64,5 @@
 }
 .usuario-nav :link {
     text-decoration: none;
-    padding: 7px 30px;
-    background-color: var(--cor-secundaria);
-    font-size: 16px;
-    color: var(--fonte-cor-preto);
-    margin-right: 10px;
-    border-radius: 15px;
-    font-weight: bold;
-    box-shadow: var(--botao-shadow);
-}
-
-@media (max-width: 500px) {
-    .usuario-picture {
-        margin-right: 10px;
-    }
+    padding-right: 20px;
 }
