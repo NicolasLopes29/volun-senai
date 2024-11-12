@@ -179,7 +179,7 @@ const DetalhesEventos = () => {
                         <div className="local-eventos">
                             <img src={local} alt="ícone local" className="local-icon" />
                             <p>
-                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero}, ${evento.endereco.cidade} - ${evento.endereco.estado}, CEP: ${formatarCEP(evento.endereco.cep)}` : "Endereço indisponível"}
+                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero}, ${evento.endereco.cidade} - ${evento.endereco.estado}, ${formatarCEP(evento.endereco.cep)}` : "Endereço indisponível"}
                             </p>
                         </div>
                         <div className="informacoes-ong">
