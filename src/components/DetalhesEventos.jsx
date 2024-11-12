@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
-import algoliasearch from "algoliasearch";
 import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
 import "./../css/DetalhesEventos.css";
 import Loader from "./Loader";
@@ -14,6 +13,11 @@ import praia from "./../assets/images/img-praia.svg";
 
 // Inicializando o índice de eventos
 const indexEventos = algoliaClient.initIndex("eventos");
+
+const formatarCEP = (cep) => {
+    if (!cep) return '';
+    return cep.replace(/(\d{5})(\d{3})/, '$1-$2'); // Adiciona o "-" após os 5 primeiros dígitos
+};
 
 const DetalhesEventos = () => {
     const { id } = useParams();
@@ -175,7 +179,7 @@ const DetalhesEventos = () => {
                         <div className="local-eventos">
                             <img src={local} alt="ícone local" className="local-icon" />
                             <p>
-                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero} - ${evento.endereco.bairro}, ${evento.endereco.cidade} - ${evento.endereco.estado}, ${evento.endereco.cep}` : "Endereço indisponível"}
+                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero}, ${evento.endereco.cidade} - ${evento.endereco.estado}, CEP: ${formatarCEP(evento.endereco.cep)}` : "Endereço indisponível"}
                             </p>
                         </div>
                         <div className="informacoes-ong">
@@ -214,7 +218,7 @@ const DetalhesEventos = () => {
             <div className="buttons-comentarios">
                 <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
                 <button className="button-visualizar" onClick={toggleshowComentarios}>
-                    {showComentarios ? "Ocultar comentários" : "Visualizar comentários"}
+                    {showComentarios ? "Ocultar comentários" : "Exibir comentários"}
                 </button>
             </div>
     
