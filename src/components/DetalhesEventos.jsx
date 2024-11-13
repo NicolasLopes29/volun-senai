@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { getAuth } from "firebase/auth";
 import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import "./../css/DetalhesEventos.css";
 import Loader from "./Loader";
 import calendario from "./../assets/images/calendario.svg";
@@ -27,8 +30,18 @@ const DetalhesEventos = () => {
     const [comentarios, setComentarios] = useState([]);
     const auth = getAuth();
     const [isLoading, setIsLoading] = useState(true);
+    const [coordinates, setCoordinates] = useState(null);
 
     const userPhoto = auth.currentUser?.photoURL;
+
+    const markerIcon = new L.Icon({
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+        shadowSize: [41, 41]
+    });
 
     const handleBuscarComentarios = async () => {
         try {
@@ -93,16 +106,17 @@ const DetalhesEventos = () => {
 
     useEffect(() => {
         const getEventoEEndereco = async () => {
-            setIsLoading(true); // Ativa o carregamento
+            setIsLoading(true);
             try {
                 const dadosEvento = await fetchEvento(id);
                 if (dadosEvento) {
                     setEvento(dadosEvento);
+                    await fetchCoordinates(dadosEvento.endereco);
                 }
             } catch (error) {
                 console.error("Erro ao carregar evento:", error);
             } finally {
-                setIsLoading(false); // Desativa o carregamento quando as requisições terminarem
+                setIsLoading(false);
             }
         };
 
@@ -116,6 +130,28 @@ const DetalhesEventos = () => {
             return response;
         } catch (error) {
             console.error("Erro ao buscar dados do evento:", error);
+        }
+    };
+
+    const fetchCoordinates = async (endereco) => {
+        if (!endereco) return;
+
+        const { logradouro, numero, cidade, estado, cep } = endereco;
+        const enderecoCompleto = `${logradouro}, ${numero}, ${cidade}, ${estado}, ${cep}`;
+
+        try {
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(enderecoCompleto)}`
+            );
+            const data = await response.json();
+            if (data && data.length > 0) {
+                const location = data[0];
+                setCoordinates({ lat: parseFloat(location.lat), lng: parseFloat(location.lon) });
+            } else {
+                console.warn("Nenhuma coordenada encontrada para o endereço fornecido.");
+            }
+        } catch (error) {
+            console.error("Erro ao buscar coordenadas:", error);
         }
     };
 
@@ -196,6 +232,29 @@ const DetalhesEventos = () => {
                     </div>
                 </div>
             )}
+
+            <div className="endereco-mapa">
+                <h2>Endereço: {evento.endereco?.logradouro}, {evento.endereco?.numero}</h2>
+                <div className="mapa-lugar">
+                    {coordinates ? (
+                        <MapContainer
+                            center={coordinates}
+                            zoom={15}
+                            style={{ width: "100%", height: "300px" }}
+                        >
+                            <TileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            />
+                            <Marker position={coordinates} icon={markerIcon}>
+                                <Popup>{evento.titulo}</Popup>
+                            </Marker>
+                        </MapContainer>
+                    ) : (
+                        <p>Carregando mapa...</p>
+                    )}
+                </div>
+            </div>
     
             <div className="comentarios">
                 <div className="usuario-info-coment">
@@ -217,26 +276,30 @@ const DetalhesEventos = () => {
             </div>
             <div className="buttons-comentarios">
                 <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
-                <button className="button-visualizar" onClick={toggleshowComentarios}>
-                    {showComentarios ? "Ocultar comentários" : "Exibir comentários"}
+                <button className="button-visualizar" onClick={toggleshowComentarios} >
+                    {showComentarios ? "Ocultar comentários" : `Exibir comentários (${comentarios.length})`}
                 </button>
             </div>
+            
     
+            {/* Seção de exibição dos comentários */}
             {showComentarios && (
-                <div className="comentarios-lista">
-                    {comentarios.map((comentario) => (
-                        <div className="comentario" key={comentario._id}>
-                            <img 
-                                src={comentario.usuario.foto || "https://miro.medium.com/v2/resize:fit:1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg"} 
-                                alt="foto do usuário" 
-                                className="usuario-foto-coment" 
-                            />
-                            <div className="comentario-content">
-                                <p className="usuario-nome-coment">{comentario.usuario.nome}</p>
-                                <p>{comentario.conteudo}</p>
+                <div className="lista-comentarios">
+                    {comentarios.length > 0 ? (
+                        comentarios.map((comentario) => (
+                            <div key={comentario._id} className="comentarios">
+                                <div className="comentario-usuario-info">
+                                    <img src={comentario.usuario?.photoUrl} alt="Foto do usuário" className="usuario-foto-coment" />                
+                                    <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
+                                </div>
+                                <div className="comentario-conteudo">
+                                    <p>{comentario.conteudo}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>Nenhum comentário encontrado para este evento.</p>
+                    )}
                 </div>
             )}
         </>
