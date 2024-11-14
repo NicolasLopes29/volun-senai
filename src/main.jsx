@@ -29,12 +29,12 @@ root.render (
         <Route path='/eventos'              element= {<><NavBar/> <Eventos />         <Footer/></>}/>
         <Route path='/detalhes_eventos/:id' element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
         <Route path='/criacao_eventos'      element= {<><NavBar/> <CriacaoEventos />  <Footer/></>}/>
+        <Route path='/sobre'                element= {<><NavBar/> <Sobre />          <Footer/></>}/>
         <Route path='/cadastrar'            element= {<Cadastrar />}/>
         <Route path='/dados_pessoal'        element= {<DadosPessoal /> }/>
         <Route path='/dados_endereco'       element= {<DadosEndereco />}/>
         <Route path='/modera'               element= {<Appmod/>}/>
         <Route path='/cardong'              element= {<Cardong/>}/>
-        <Route path='/sobre'              element= {<Sobre/>}/>
         
 
       </Routes>
