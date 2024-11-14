@@ -15,6 +15,7 @@ import Cardong from './components/Cardong.jsx'
 import Footer from './components/Footer.jsx'
 import NavBar from './components/Navbar.jsx'
 import Ongpage from './components/Ongpage.jsx'
+import Sobre from './components/Sobre.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
@@ -33,7 +34,9 @@ root.render (
         <Route path='/dados_endereco'       element= {<DadosEndereco />}/>
         <Route path='/modera'               element= {<Appmod/>}/>
         <Route path='/cardong'              element= {<Cardong/>}/>
+        <Route path='/sobre'              element= {<Sobre/>}/>
         
+
       </Routes>
     </Router>
   </React.StrictMode>
