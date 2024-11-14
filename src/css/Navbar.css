@@ -4,9 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 71, 0.785); /* Fundo semitransparente */
+  padding: 0.5rem 0rem;
+  background-color: var(--cor-principal); /* Fundo semitransparente */
   backdrop-filter: blur(10px); /* Efeito de desfoque para textura de acrílico */
   color: var(--fonte-cor-branco);
   font-family: var(--font-family);
@@ -16,22 +15,28 @@
 }
 
 .logo {
-  height: 90%; 
+  height: 100%;
+  width: 100%;
+  margin: 0rem 2rem; 
 }
 
 .navbar-menu-container {
   display: flex;
   gap: 1rem;
+  justify-content: baseline;
 }
 
-.navbar-menu-container a {
+.navbar-menu-container :link {
+  align-content: center;
   color: var(--fonte-cor-branco);
   text-decoration: none;
   transition: color 0.3s ease;
-  font-size: 12px;
+  font-size: 16px;
 }
-
-.navbar-menu-container a:hover {
+#navbar-eventos, #navbar-sobre, #navbar-org, #perfil-link {
+  color: var(--fonte-cor-branco);
+}
+#navbar-eventos:hover, #navbar-sobre:hover, #navbar-org:hover, #perfil-link:hover {
   color: var(--cor-secundaria); /* Laranja */
 }
 
@@ -99,7 +104,7 @@
   margin: 1rem 0;
 }
 
-.sidebar a {
+.sidebar :link {
   color: var(--fonte-cor-branco);
   text-decoration: none;
   font-size: 1.2rem;
@@ -155,7 +160,6 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: "Poppins", sans-serif;
   margin-right: 30px;
 }
 
