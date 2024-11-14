@@ -1,69 +1,151 @@
 @import url(./Global.css);
 
+/* estilização responsavel pelo Heitor */
 /* Aqui vai a estilização da página em geral */
+
+.pega-tudo2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .titulo-criacao{
-    margin-top: 100px;
-    margin-left: 36.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-criacao h1{
+   color: #1F0171;
+   font-size: 50px;
+   padding: 80px 0px 0px 0px ;
 }
 
 .toda-pagina{
-    margin: 50px;
-    display: grid;
-    grid-template-columns: 50% 50%;
+    display: flex;
+    /* grid-template-columns: 50% 50%; */
+    align-items: center;
+    justify-content: space-evenly;
+    /* gap: 10px; */
 }
 
-   
+
 .primeira-parte{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 30px 40px 40px 40px;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
 }
 
+.segunda-parte{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+}
 
 /* primeira parte  */
 .nome-evento{
     width: 20rem;
     border: none;
-    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 10px;
+    
+    /* box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5); */
 }
 
 .tags-evento{
-    width: 130px;
-    height: 30px;
-    margin: 20px;
-    padding: 20px;
+    margin-top: 20px;
+    width: 22.6rem;
+    height: 70px;
+    padding: 10px;
     border-radius: 10px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    border: none;
+    outline: none;
 }
 
 .descricao-novo{
     width: 20rem;
     border: none;
-    margin: 20px;
+    height: 23rem;
+    outline: none;
     padding: 20px;
     border-radius: 10px; 
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    resize: none;
+    
+}
+
+.descricao-fundo p{
+    color: #1F0171;
+    /* margin-left: 10rem; */
+    font-size: 30px;
+    font: bold;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 /* segunda parte aqui */
 
-.segunda-parte{
-    margin: 30px 40px 40px 40px;
+.background-colar-img{
+    background-color: white;
+    border-radius: 20px;
+    width: 25rem;
+    height: 15rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    /* margin-right: 10rem; */
 }
 
-.definir-vagas{
-    margin: 20px;
+.definir-vagas p{
+    color:#1F0171;
+    font: bolder;
 }
 
-.data-dia-evento{
-    margin: 20px;
+.definir-vagas input{
+    /* margin: 20px; */
+    width: 25rem;
+    height: 30px;
+    border-radius: 15px;
+    outline-color: none;
+}
+
+.definir-dia p{
+    color: #1F0171;
+    font: bolder;
+}
+
+.data-dia-evento {
+    width: 25rem;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.preferencias2{
+    width: 22rem;
+    border: none;
+    height: 200px;
+    /* margin: 20px 40px 20px 10rem; */
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    outline: none;
+    resize: none;
 }
 
 /* aqui vai a estilização dos botões */
 
 .botões-evento{
-    margin: 40px;
+    display: flex;
     align-items: center;
     justify-content: center;
     
@@ -72,22 +154,24 @@
 .cancelar-evento{
     width: 15rem;
     padding: 15px;
-    margin: 10px;
+    /* margin: 20px; */
     border-radius: 30px;
     border: none;
     background-color: white;
     font: bold;
     cursor: pointer;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
 
 }
 
 .adicionar-evento{
     width: 15rem;
     padding: 15px;
-    margin: 10px;
+    margin: 60px;
     border-radius: 30px;
     border: none;
     background-color: white;
     font: bolder;
     cursor: pointer;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
 }
