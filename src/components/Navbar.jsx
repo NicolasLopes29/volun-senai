@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
-import Logo from "../assets/images/logo.svg";
-import "./../css/Navbar.css";
-import Login from "./Login";
-import { IoMdMenu } from "react-icons/io";
-import { IoCloseSharp } from "react-icons/io5";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { app } from "../services/firebase-config";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import UsuarioMenu from "./UsuarioMenu";
-import { MdOutlineArrowDropDown } from "react-icons/md";
 import axios from "axios";
+
+import { IoMdMenu } from "react-icons/io";
+import { IoCloseSharp } from "react-icons/io5";
+import { MdOutlineArrowDropDown } from "react-icons/md";
+
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { app } from "../services/firebase-config";
+
+import Login from "./Login";
+import UsuarioMenu from "./UsuarioMenu";
+import Modal from "react-modal";
+
+import "./../css/Navbar.css";
+import Logo from "../assets/images/logo.svg";
+
 
 const estiloModal = {
   overlay: {
@@ -94,6 +99,10 @@ const Navbar = () => {
       });
   };
 
+  const OpenModal = () => {
+    setLoginAbrir(true);
+    setMenuOpen(false);
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -121,59 +130,84 @@ const Navbar = () => {
           <img src={Logo} alt="Logo" className="logo" />
         </div>
         <div className="navbar-menu-container">
-          <Link to="/eventos">Eventos</Link>
-          <Link to="/">Sobre Nós</Link>
-          <Link to="/cardong">Sou uma organização</Link>
+          <Link to="/eventos" id="navbar-eventos">Eventos</Link>
+          <Link to="/sobre" id="navbar-sobre">Sobre Nós</Link>
+          <Link to="/cardong" id="navbar-org">Sou uma organização</Link>
           {/* <Link to="/ong">org page</Link> */}
           {/* descomente a linha acima para acessar a pagina de perfil de Organização */}
-        </div>
-        {usuarioLogado ? (
-          <div className="perfil-dropdown-container">
-            {fotoPerfilUrl && (
-              <div className="perfil-detalhes">
-                <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                  <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+        
+          {usuarioLogado ? (
+            <div className="perfil-dropdown-container">
+              {fotoPerfilUrl && (
+                <div className="perfil-detalhes">
+                  <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                    <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                  </div>
+                  <div className="perfil-saudacao">
+                    <p>Bem-Vindo</p>
+                    <p>{userData.nome}</p>
+                  </div>
                 </div>
-                <div className="perfil-saudacao">
-                  <p>Bem-Vindo</p>
-                  <p>{userData.nome}</p>
-                </div>
-              </div>
-            )}
+              )}
+              <button
+                className="perfil-dropdown-button"
+                onClick={handleDropdown}
+              >
+                <MdOutlineArrowDropDown className="perfil-dropdown" />
+              </button>
+              {userMenu && <UsuarioMenu />}
+            </div>
+          ) : (
             <button
-              className="perfil-dropdown-button"
-              onClick={handleDropdown}
+              className="navbar-entrar"
+              type="button"
+              onClick={() => setLoginAbrir(true)}
             >
-              <MdOutlineArrowDropDown className="perfil-dropdown" />
+              👤 Entrar
             </button>
-            {userMenu && <UsuarioMenu />}
-          </div>
-        ) : (
-          <button
-            className="navbar-entrar"
-            type="button"
-            onClick={() => setLoginAbrir(true)}
-          >
-            👤 Entrar
-          </button>
-        )}
+          )}
+        </div>
         <button className="menu-button" onClick={toggleMenu}>
           {menuOpen ? <IoCloseSharp /> : <IoMdMenu />}
         </button>
       </nav>
       {menuOpen && (
         <div className="sidebar">
+          {usuarioLogado ? (
+            <div className="perfil-dropdown-container">
+              {fotoPerfilUrl && (
+                <div className="perfil-detalhes">
+                  <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
+                    <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                  </div>
+                  <div className="perfil-saudacao">
+                    <p>Bem-Vindo</p>
+                    <p>{userData.nome}</p>
+                  </div>
+                </div>
+              )}
+              <button
+                className="perfil-dropdown-button"
+                onClick={handleDropdown}
+              >
+                <MdOutlineArrowDropDown className="perfil-dropdown" />
+              </button>
+              {userMenu && <UsuarioMenu />}
+            </div>
+          ) : (
+            <button
+              className="navbar-entrar"
+              type="button"
+              onClick={OpenModal}
+            >
+              👤 Entrar
+            </button>
+          )}
           <ul>
-            <li><Link to="/eventos">Eventos</Link></li>
-            <li><Link to="/">Sobre Nós</Link></li>
-            <li><Link to="/cardong">Sou uma organização</Link></li>
+            <li><Link to="/eventos" id="navbar-eventos">Eventos</Link></li>
+            <li><Link to="/sobre" id="navbar-sobre">Sobre Nós</Link></li>
+            <li><Link to="/cardong" id="navbar-org">Sou uma organização</Link></li>
           </ul>
-          <button
-            className="sidebar-button-logout"
-            onClick={handleUserLogOut}
-          >
-            Deslogar
-          </button>
         </div>
       )}
       <Modal
