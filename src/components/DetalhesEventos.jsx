@@ -13,6 +13,7 @@ import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
+import axios from "axios";
 
 // Inicializando o índice de eventos
 const indexEventos = algoliaClient.initIndex("eventos");
@@ -31,6 +32,9 @@ const DetalhesEventos = () => {
     const auth = getAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [coordinates, setCoordinates] = useState(null);
+    const [isParticipating, setIsParticipating] = useState(false); // Novo estado para controlar o botão
+    const [isProcessing, setIsProcessing] = useState(false);
+
 
     const userPhoto = auth.currentUser?.photoURL;
 
@@ -98,6 +102,63 @@ const DetalhesEventos = () => {
             console.error("Erro ao publicar comentário:", error);
         }
     };
+
+    const verificarParticipacao = async () => {
+        const userId = auth.currentUser?.uid;
+        if (!userId) return; // Verifica se o usuário está logado
+    
+        try {
+            const response = await fetch(
+                `https://volun-api-eight.vercel.app/participacao/usuario/${userId}/evento/${id}`
+            );
+            if (response.ok) {
+                const data = await response.json();
+                if (data) {
+                    setIsParticipating(true); // Usuário já participa
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao verificar participação:", error);
+        }
+    };
+
+    const handleParticipar = async () => {
+        setIsProcessing(true);
+        const userId = auth.currentUser?.uid;
+        if (!userId) return console.error("Usuário não está logado");
+    
+        const participacaoData = {
+            evento_id: id,
+            usuario_id: userId,
+        };
+    
+        try {
+            const response = await fetch("https://volun-api-eight.vercel.app/participacao", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(participacaoData),
+            });
+    
+            if (response.ok) {
+                setIsParticipating(true); // Marca como participante
+                alert("Confirmado");
+            } else {
+                throw new Error("Erro ao confirmar participação");
+            }
+        } catch (error) {
+            console.error("Erro ao participar:", error);
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
+    useEffect(() => {
+        verificarParticipacao(); // Chama a verificação ao carregar a página
+    }, [id]); // Reexecuta a verificação se o ID do evento mudar
+    
+    
+    
+    
 
     // Efeito para buscar comentários assim que a página é carregada
     useEffect(() => {
@@ -184,8 +245,18 @@ const DetalhesEventos = () => {
                             </div>
                         </div>
                         <div>
-                            <button className="participar">Participar</button>
+                            <button
+                                className="participar"
+                                onClick={handleParticipar}
+                                disabled={isParticipating || isProcessing} // Desabilita se já confirmado
+                                style={{ backgroundColor: isParticipating ? "gray" : "" }}
+                            >
+                                {isParticipating ? "Confirmado" : "Participar"}
+                            </button>
+
+
                             <button className="compartilhar">Compartilhar</button>
+
                         </div>
                         <div className="background-descricao">
                             <p className="descricao-evento">{evento.descricao || "Descrição indisponível..."}</p>
