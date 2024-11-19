@@ -6,7 +6,6 @@ import './index.css'
 import Cadastrar from './components/Cadastrar.jsx'
 import DadosPessoal from './components/DadosPessoal.jsx'
 import DadosEndereco from './components/DadosEndereco.jsx'
-import Appmod from './components/modera/Appmode.jsx' 
 import Usuario from './components/Usuario.jsx'
 import Eventos from './components/Eventos.jsx'
 import DetalhesEventos from './components/DetalhesEventos.jsx'
@@ -33,7 +32,6 @@ root.render (
         <Route path='/cadastrar'            element= {<Cadastrar />}/>
         <Route path='/dados_pessoal'        element= {<DadosPessoal /> }/>
         <Route path='/dados_endereco'       element= {<DadosEndereco />}/>
-        <Route path='/modera'               element= {<Appmod/>}/>
         <Route path='/cardong'              element= {<Cardong/>}/>
         
 

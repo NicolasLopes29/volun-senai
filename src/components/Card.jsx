@@ -26,12 +26,12 @@ const Card = ({ id, titulo, descricao, ongNome, dataInicio, imgUrl, vagaLimite, 
     const formattedDate = dataInicio ? format(new Date(dataInicio), 'dd/MM/yyyy HH:mm') : "data indefinida";
       
     return (
-        <div className="card">
-            <div className="card-capa" style={{ backgroundImage: `url(${imgUrl})` }}>
+        <div className="card-x">
+            <div className="card-capa-img" style={{ backgroundImage: `url(${imgUrl})` }}>
                 <p><span className="card-title">{titulo}</span></p>
             </div>
             <div className="card-text">
-                <p className="card-description">{truncateText(descricao, 100)}</p>
+                <p className="card-description-x">{truncateText(descricao, 100)}</p>
                 <div className="card-text-first">
                     <strong className="card-text-ongname">De: {ongNome}</strong>
                     <strong className="date-container">

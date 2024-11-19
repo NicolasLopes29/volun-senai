@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-import { getAuth } from "firebase/auth";
 import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -13,7 +12,7 @@ import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
-import axios from "axios";
+import Coment from "./Coment"
 
 // Inicializando o índice de eventos
 const indexEventos = algoliaClient.initIndex("eventos");
@@ -26,17 +25,10 @@ const formatarCEP = (cep) => {
 const DetalhesEventos = () => {
     const { id } = useParams();
     const [evento, setEvento] = useState({});
-    const [novoComentario, setNovoComentario] = useState("");
-    const [showComentarios, setShowComentarios] = useState(false);
-    const [comentarios, setComentarios] = useState([]);
-    const auth = getAuth();
     const [isLoading, setIsLoading] = useState(true);
     const [coordinates, setCoordinates] = useState(null);
     const [isParticipating, setIsParticipating] = useState(false); // Novo estado para controlar o botão
     const [isProcessing, setIsProcessing] = useState(false);
-
-
-    const userPhoto = auth.currentUser?.photoURL;
 
     const markerIcon = new L.Icon({
         iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
@@ -46,62 +38,6 @@ const DetalhesEventos = () => {
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
         shadowSize: [41, 41]
     });
-
-    const handleBuscarComentarios = async () => {
-        try {
-            const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/evento/${id}`);
-            if (!response.ok) throw new Error("Erro ao buscar comentários");
-    
-            const comentariosData = await response.json();
-    
-            // Realiza a segunda requisição para buscar os dados do usuário
-            const comentariosComUsuarios = await Promise.all(
-                comentariosData.map(async (comentario) => {
-                    const usuarioResponse = await fetch(`https://volun-api-eight.vercel.app/usuarios/${comentario.usuario_id}`);
-                    const usuarioData = await usuarioResponse.json();
-                    return { ...comentario, usuario: usuarioData };
-                })
-            );
-            setComentarios(comentariosComUsuarios);
-        } catch (error) {
-            console.error("Erro ao buscar comentários:", error);
-        }
-    };
-    
-    const toggleshowComentarios = () => {
-        if (!showComentarios) {
-            handleBuscarComentarios();
-        }
-        setShowComentarios(!showComentarios);
-    };
-
-    const handlePublicarComentario = async () => {
-        const userId = auth.currentUser?.uid;
-        if (!userId) return console.error("Usuário não está logado");
-    
-        const comentarioData = {
-            evento_id: id,
-            usuario_id: userId,
-            conteudo: novoComentario,
-        };
-    
-        try {
-            const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(comentarioData),
-            });
-            const textResponse = await response.text();
-            console.log("Resposta do servidor:", textResponse);
-    
-            if (!response.ok) throw new Error("Erro ao publicar comentário");
-    
-            setNovoComentario(""); 
-            handleBuscarComentarios(); // Atualiza os comentários automaticamente após publicar
-        } catch (error) {
-            console.error("Erro ao publicar comentário:", error);
-        }
-    };
 
     const verificarParticipacao = async () => {
         const userId = auth.currentUser?.uid;
@@ -156,15 +92,6 @@ const DetalhesEventos = () => {
         verificarParticipacao(); // Chama a verificação ao carregar a página
     }, [id]); // Reexecuta a verificação se o ID do evento mudar
     
-    
-    
-    
-
-    // Efeito para buscar comentários assim que a página é carregada
-    useEffect(() => {
-        handleBuscarComentarios(); // Carrega os comentários na primeira renderização
-    }, [id]); // Recarrega os comentários quando o ID do evento muda
-
     useEffect(() => {
         const getEventoEEndereco = async () => {
             setIsLoading(true);
@@ -219,7 +146,6 @@ const DetalhesEventos = () => {
     const formatarData = (data) => {
         return format(new Date(data), "dd/MM/yyyy");
     };
-
     const formatarHora = (data) => {
         return format(new Date(data), "HH:mm");
     };
@@ -244,16 +170,10 @@ const DetalhesEventos = () => {
                                 ))}
                             </div>
                         </div>
-                        <div>
-                            <button
-                                className="participar"
-                                onClick={handleParticipar}
-                                disabled={isParticipating || isProcessing} // Desabilita se já confirmado
-                                style={{ backgroundColor: isParticipating ? "gray" : "" }}
-                            >
+                        <div className="buttons-detalhes-evento">
+                            <button className="participar" onClick={handleParticipar} disabled={isParticipating || isProcessing} style={{ backgroundColor: isParticipating ? "gray" : "" }}>
                                 {isParticipating ? "Confirmado" : "Participar"}
                             </button>
-
 
                             <button className="compartilhar">Compartilhar</button>
 
@@ -326,53 +246,7 @@ const DetalhesEventos = () => {
                     )}
                 </div>
             </div>
-    
-            <div className="comentarios">
-                <div className="usuario-info-coment">
-                    <img 
-                        src={userPhoto || "https://miro.medium.com/v2/resize:fit:1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg"} 
-                        className="usuario-foto-coment" 
-                        alt="foto do usuário" 
-                    />
-                    <p>eu</p>
-                </div>
-                <div className="publicar-comentario">
-                    <input 
-                        className="comentar" 
-                        placeholder="Comente aqui..." 
-                        value={novoComentario} 
-                        onChange={(e) => setNovoComentario(e.target.value)} 
-                    />
-                </div>
-            </div>
-            <div className="buttons-comentarios">
-                <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
-                <button className="button-visualizar" onClick={toggleshowComentarios} >
-                    {showComentarios ? "Ocultar comentários" : `Exibir comentários (${comentarios.length})`}
-                </button>
-            </div>
-            
-    
-            {/* Seção de exibição dos comentários */}
-            {showComentarios && (
-                <div className="lista-comentarios">
-                    {comentarios.length > 0 ? (
-                        comentarios.map((comentario) => (
-                            <div key={comentario._id} className="comentarios">
-                                <div className="comentario-usuario-info">
-                                    <img src={comentario.usuario?.photoUrl} alt="Foto do usuário" className="usuario-foto-coment" />                
-                                    <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
-                                </div>
-                                <div className="comentario-conteudo">
-                                    <p>{comentario.conteudo}</p>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Nenhum comentário encontrado para este evento.</p>
-                    )}
-                </div>
-            )}
+            <Coment eventoId={id}/>
         </>
     );
 };
