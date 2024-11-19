@@ -21,7 +21,7 @@
    padding: 80px 0px 0px 0px ;
 }
 
-.toda-pagina{
+.toda-pagina2{
     display: flex;
     /* grid-template-columns: 50% 50%; */
     align-items: center;
@@ -56,16 +56,31 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 10px;
-    
     /* box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5); */
 }
 
+.nome-bonito{
+    color: #1F0171;
+    font:bolder;
+    font-size: 25px;
+}
+
+.titulo-tags{
+    color: #1F0171;
+    display: flex;
+    align-items: flex-end;
+    font: bolder;
+    font-size: 25px;
+}
+
 .tags-evento{
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     width: 22.6rem;
     height: 70px;
     padding: 10px;
     border-radius: 10px;
+
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
     border: none;
     outline: none;
@@ -102,38 +117,44 @@
     justify-content: center;
     align-items: center;
     display: flex;
-
-    /* margin-right: 10rem; */
 }
 
 .definir-vagas p{
     color:#1F0171;
-    font: bolder;
+    font-weight: 900;
 }
 
 .definir-vagas input{
-    /* margin: 20px; */
-    width: 25rem;
+    width: 22rem;
     height: 30px;
+    padding-left: 10px;
+    margin-left: 5px;
     border-radius: 15px;
     outline-color: none;
 }
 
+.icon-pessoas2{
+margin-top: 10px;
+}
+
 .definir-dia p{
     color: #1F0171;
-    font: bolder;
+    font-weight: 900;
 }
 
 .data-dia-evento {
-    width: 25rem;
+    width: 22rem;
     height: 30px;
     border-radius: 15px;
+    margin-left: 5px;
+    padding-left: 10px;
 }
 
 .preferencias2{
     width: 22rem;
     border: none;
     height: 200px;
+    margin-top: 15px;
     /* margin: 20px 40px 20px 10rem; */
     padding: 20px;
     border-radius: 10px; 
@@ -142,36 +163,85 @@
     resize: none;
 }
 
+/* Aqui vai o Mapa */
+.endereco-mapa2{
+    background-color: white; 
+    width: 64.7rem;
+    height: 20rem;
+    padding: 20px;
+    margin: 30px 10px 10px 80px;  
+    border-radius: 40px; 
+}
+
 /* aqui vai a estilização dos botões */
 
 .botões-evento{
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;  
+    inset: 0;
+    width: 100%;
+    gap: 100px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .cancelar-evento{
-    width: 15rem;
-    padding: 15px;
-    /* margin: 20px; */
+    width: 24%;
+    /* width: 20rem;
+    height: 60px; */
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #FF0000;
     border-radius: 30px;
     border: none;
     background-color: white;
-    font: bold;
+    font-weight: 900;
     cursor: pointer;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
 
 }
+.cancelar-evento:hover{
+    transform: scale(1.05); /* Dá uma sensação de expansão */
+    transition: all 0.3s ease;
+}
+
+.cancelar-evento p, .adicionar-evento p{
+    text-align: center;
+    justify-content: center;
+}
+
+
+.cancelar-evento-img{
+   width: 40px;
+   margin-right: 20px;
+}
 
 .adicionar-evento{
-    width: 15rem;
-    padding: 15px;
-    margin: 60px;
+    display: flex;
+    width: 24%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
     border-radius: 30px;
     border: none;
+    color: #4BAE4F ;
     background-color: white;
-    font: bolder;
+    font-weight: 900;
     cursor: pointer;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+}
+
+.adicionar-evento:hover{
+    transform: scale(1.05); /* Dá uma sensação de expansão */
+    transition: all 0.3s ease;
+}
+
+.confirmar-evento-img{
+    width: 40px;
+    margin-right: 20px;
 }
