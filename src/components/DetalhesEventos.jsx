@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "./../css/DetalhesEventos.css";
 import Loader from "./Loader";
+import { getAuth } from "firebase/auth";
 import calendario from "./../assets/images/calendario.svg";
 import relogio from "./../assets/images/icon-relogio.svg";
 import local from "./../assets/images/icon-local.svg";
@@ -29,6 +30,7 @@ const DetalhesEventos = () => {
     const [coordinates, setCoordinates] = useState(null);
     const [isParticipating, setIsParticipating] = useState(false); // Novo estado para controlar o botão
     const [isProcessing, setIsProcessing] = useState(false);
+    const auth = getAuth();
 
     const markerIcon = new L.Icon({
         iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
@@ -114,7 +116,6 @@ const DetalhesEventos = () => {
     const fetchEvento = async (id) => {
         try {
             const response = await indexEventos.getObject(id); // Busca o evento pelo ID no Algolia
-            console.log("Dados do evento:", response);
             return response;
         } catch (error) {
             console.error("Erro ao buscar dados do evento:", error);
@@ -163,7 +164,7 @@ const DetalhesEventos = () => {
                 <div className="pega-tudo">
                     <div className="parte-1">
                         <div className="titulo-evento">
-                            <h1>{evento.titulo || "Carregando..."}</h1>
+                            <h1>{evento.titulo || "Evento não encontrado"}</h1>
                             <div className="tags-container">
                                 {evento.tags && evento.tags.map((tag, index) => (
                                     <span key={index} className="tag-item">{tag}</span>

@@ -5,9 +5,6 @@ import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
 
 const Footer = () => {
-  const openModera = () => {
-    window.open("/modera", "_blank"); // Abre a moderação
-  }
   
   return (
     <footer className="footer-container">
@@ -18,8 +15,7 @@ const Footer = () => {
         <div className="footer-links">
           <a href="/">Home</a>
           <a href="/">Eventos</a>
-          <a href="/">Sobre Nós</a>
-          <a href="/" onClick={openModera}>Sou um moderador</a>
+          {/* <a href="/">Sobre Nós</a> */}
         </div>
         <div className="footer-links">
           <a href="/">Contato</a>
