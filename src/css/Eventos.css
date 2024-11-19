@@ -168,7 +168,7 @@
 .Eventos-resultado-pesquisa {
   display: grid;
   grid-template-columns: repeat(3, 400px);
-  gap: 8px;
+  gap: 16px;
   justify-content: center;
   align-items: center;
   padding: 20px;
