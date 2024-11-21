@@ -11,7 +11,7 @@ Este projeto é o Trabalho de Conclusão de Curso (TCC) do curso de Desenvolvime
 
 ## Tecnologias Utilizadas
 - **Frontend:** React
-- **Banco de Dados:** Firebase
+- **Banco de Dados:** Firebase e MongoDB
 - **Hospedagem:** Vercel
 
 
