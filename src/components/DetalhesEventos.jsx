@@ -30,6 +30,8 @@ const DetalhesEventos = () => {
     const [coordinates, setCoordinates] = useState(null);
     const [isParticipating, setIsParticipating] = useState(false); // Novo estado para controlar o botão
     const [isProcessing, setIsProcessing] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [participacaoId, setParticipacaoId] = useState(null);
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -60,18 +62,20 @@ const DetalhesEventos = () => {
         }
     };
     
+    // Verifica a participação do usuário no evento
     const verificarParticipacao = async () => {
         const userId = auth.currentUser?.uid;
-        if (!userId) return; // Verifica se o usuário está logado
-    
+        if (!userId) return;
+
         try {
             const response = await fetch(
                 `https://volun-api-eight.vercel.app/participacao/usuario/${userId}/evento/${id}`
             );
+
             if (response.ok) {
                 const data = await response.json();
-                if (data) {
-                    setIsParticipating(true); // Usuário já participa
+                if (data && data._id) {
+                    setParticipacaoId(data._id); // Salva o ID próprio do documento
                 }
             }
         } catch (error) {
@@ -79,7 +83,57 @@ const DetalhesEventos = () => {
         }
     };
 
+    // Cancela a participação do usuário no evento
+    const handleCancelarParticipacao = async () => {
+        if (!participacaoId) return;
+
+        try {
+            const response = await fetch(
+                `https://volun-api-eight.vercel.app/participacao/${participacaoId}`,
+                { method: "DELETE" }
+            );
+
+            if (response.ok) {
+                alert("Participação cancelada com sucesso!");
+                window.location.reload(); // Recarrega a página
+            } else {
+                throw new Error("Erro ao cancelar participação");
+            }
+        } catch (error) {
+            console.error("Erro ao cancelar participação:", error);
+        }
+    };
+
+    const handleCancelar = async () => {
+        if (!participacaoId) return console.error("ID de participação não encontrado");
+    
+        try {
+            const response = await fetch(`https://volun-api-eight.vercel.app/participacao/${participacaoId}`, {
+                method: "DELETE",
+            });
+    
+            if (response.ok) {
+                setIsParticipating(false); // Atualiza estado para não participante
+                setParticipacaoId(null); // Remove o ID da participação
+                alert("Participação cancelada com sucesso.");
+            } else {
+                throw new Error("Erro ao cancelar participação");
+            }
+        } catch (error) {
+            console.error("Erro ao cancelar participação:", error);
+        } finally {
+            setShowModal(false); // Fecha o modal
+        }
+    };
+
     const handleParticipar = async () => {
+        if (isParticipating) {
+            // Se já estiver participando, exibe o modal de confirmação
+            setShowModal(true);
+            return;
+        }
+    
+        // Lógica para confirmar participação
         setIsProcessing(true);
         const userId = auth.currentUser?.uid;
         if (!userId) return console.error("Usuário não está logado");
@@ -97,7 +151,9 @@ const DetalhesEventos = () => {
             });
     
             if (response.ok) {
+                const data = await response.json();
                 setIsParticipating(true); // Marca como participante
+                setParticipacaoId(data._id); // Salva o ID do documento
                 alert("Confirmado");
             } else {
                 throw new Error("Erro ao confirmar participação");
@@ -191,9 +247,21 @@ const DetalhesEventos = () => {
                             </div>
                         </div>
                         <div className="buttons-detalhes-evento">
-                            <button className="participar" onClick={handleParticipar} disabled={isParticipating || isProcessing} style={{ backgroundColor: isParticipating ? "gray" : "" }}>
-                                {isParticipating ? "Confirmado" : "Participar"}
-                            </button>
+                        {participacaoId ? (
+                                <button
+                                    className="cancelar-participar"
+                                    onClick={() => setShowModal(true)}
+                                >
+                                    Cancelar Participação
+                                </button>
+                            ) : (
+                                <button
+                                    className="participar"
+                                    onClick={handleParticipar}
+                                >
+                                    Participar
+                                </button>
+                            )}
 
                             <button className="compartilhar" onClick={handleCompartilhar}>Compartilhar</button>
 
@@ -265,8 +333,21 @@ const DetalhesEventos = () => {
                         <p>mapa não encontrado</p>
                     )}
                 </div>
+                {/* Modal de confirmação */}
+                    {showModal && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <h3>Tem certeza que deseja cancelar sua participação?</h3>
+                                <div className="modal-actions">
+                                    <button onClick={handleCancelarParticipacao}>Sim</button>
+                                    <button onClick={() => setShowModal(false)}>Não</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
             </div>
             <Coment eventoId={id}/>
+
         </>
     );
 };

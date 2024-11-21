@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import "./../css/DetalhesEventos.css";
-import userPhoto from "../assets/images/userphoto.jpg";
+import user_non_Photo from "../assets/images/userphoto.jpg";
 
 const Coment = ({ eventoId }) => {
     const [novoComentario, setNovoComentario] = useState("");
@@ -109,7 +109,7 @@ const Coment = ({ eventoId }) => {
                         comentarios.map((comentario) => (
                             <div key={comentario._id} className="comentarios">
                                 <div className="comentario-usuario-info">
-                                    <img src={comentario.usuario?.photoUrl || userPhoto} alt="Foto do usuário" className="usuario-foto-coment"/>           
+                                    <img src={comentario.usuario?.photoUrl || user_non_Photo} alt="Foto do usuário" className="usuario-foto-coment"/>           
                                     <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
                                 </div>
                                 <div className="comentario-conteudo">
