@@ -1,4 +1,27 @@
-.historico-container{
-    height: 50vh;
+
+
+.historico-container {
+    padding: 20px;
+  }
+  
+  .historico-container h3 {
     text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .historico-eventos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 20px; /* Espaçamento entre os cards */
+    justify-items: center; /* Alinha os cards ao centro */
+  }
+  
+  .historico-vazio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    font-size: 18px;
+    color: #666;
 }

@@ -14,7 +14,7 @@ export default function SimpleSlider() {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 3,
     responsive: [
       {

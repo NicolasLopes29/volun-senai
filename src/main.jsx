@@ -6,7 +6,6 @@ import './index.css'
 import Cadastrar from './components/Cadastrar.jsx'
 import DadosPessoal from './components/DadosPessoal.jsx'
 import DadosEndereco from './components/DadosEndereco.jsx'
-import Appmod from './components/modera/Appmode.jsx' 
 import Usuario from './components/Usuario.jsx'
 import Eventos from './components/Eventos.jsx'
 import DetalhesEventos from './components/DetalhesEventos.jsx'
@@ -15,7 +14,7 @@ import Cardong from './components/Cardong.jsx'
 import Footer from './components/Footer.jsx'
 import NavBar from './components/Navbar.jsx'
 import Ongpage from './components/Ongpage.jsx'
-import Sobre from "./components/Sobre.jsx"
+import Sobre from './components/Sobre.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
@@ -29,13 +28,13 @@ root.render (
         <Route path='/eventos'              element= {<><NavBar/> <Eventos />         <Footer/></>}/>
         <Route path='/detalhes_eventos/:id' element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
         <Route path='/criacao_eventos'      element= {<><NavBar/> <CriacaoEventos />  <Footer/></>}/>
-        <Route path='/sobre'                element= {<><NavBar/> <Sobre />           <Footer/></>}/>
+        <Route path='/sobre'                element= {<><NavBar/> <Sobre />          <Footer/></>}/>
         <Route path='/cadastrar'            element= {<Cadastrar />}/>
         <Route path='/dados_pessoal'        element= {<DadosPessoal /> }/>
         <Route path='/dados_endereco'       element= {<DadosEndereco />}/>
-        <Route path='/modera'               element= {<Appmod/>}/>
         <Route path='/cardong'              element= {<Cardong/>}/>
         
+
       </Routes>
     </Router>
   </React.StrictMode>

@@ -131,9 +131,9 @@ const Navbar = () => {
         </div>
         <div className="navbar-menu-container">
           <Link to="/eventos" id="navbar-eventos">Eventos</Link>
-          <Link to="/sobre" id="navbar-sobre">Sobre Nós</Link>
           <Link to="/cardong" id="navbar-org">Sou uma organização</Link>
           {/* <Link to="/ong">org page</Link> */}
+          {/* <Link to="/sobre" id="navbar-sobre">Sobre Nós</Link> */}
           {/* descomente a linha acima para acessar a pagina de perfil de Organização */}
         
           {usuarioLogado ? (

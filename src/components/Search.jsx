@@ -46,11 +46,10 @@ const Search = ({ onBuscar }) => {
           <div className="Eventos-filtros">
             <div className="Eventos-input-filtro">
               <input
-                required
                 type="text"
                 name="categoria"
                 autoComplete="off"
-                className="Eventos-input"
+                className={`Eventos-input ${categoria ? "filled" : ""}`}
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
               />
@@ -58,11 +57,10 @@ const Search = ({ onBuscar }) => {
             </div>
             <div className="Eventos-input-filtro">
               <input
-                required
                 type="text"
                 name="cidade"
                 autoComplete="off"
-                className="Eventos-input"
+                className={`Eventos-input ${cidade ? "filled" : ""}`}
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
               />

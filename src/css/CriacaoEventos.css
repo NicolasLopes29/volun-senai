@@ -1,93 +1,275 @@
 @import url(./Global.css);
 
+/* estilização responsavel pelo Heitor */
 /* Aqui vai a estilização da página em geral */
+
+.pega-tudo2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
 .titulo-criacao{
-    margin-top: 100px;
-    margin-left: 36.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.toda-pagina{
-    margin: 50px;
-    display: grid;
-    grid-template-columns: 50% 50%;
+.titulo-criacao h1{
+   color: #1F0171;
+   font-size: 50px;
+   padding: 80px 0px 0px 0px ;
 }
 
-   
+.toda-pagina2{
+    display: flex;
+    /* grid-template-columns: 50% 50%; */
+    align-items: center;
+    justify-content: space-evenly;
+    /* gap: 10px; */
+}
+
+
 .primeira-parte{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 30px 40px 40px 40px;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
 }
 
+.segunda-parte{
+    display: flex-start;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+}
 
 /* primeira parte  */
 .nome-evento{
-    width: 20rem;
+    width: 89%;
     border: none;
-    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 10px;
+    /* box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5); */
+}
+
+.nome-bonito{
+    color: #1F0171;
+    font:bolder;
+    font-size: 25px;
+}
+
+.titulo-tags{
+    color: #1F0171;
+    display: flex;
+    align-items: flex-end;
+    font: bolder;
+    font-size: 25px;
 }
 
 .tags-evento{
-    width: 130px;
-    height: 30px;
-    margin: 20px;
-    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 70px;
+    padding: 10px;
     border-radius: 10px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    border: none;
+    outline: none;
+}
+
+.descricao-fundo{
+    min-width: 150px; 
+    inset: 0;
 }
 
 .descricao-novo{
-    width: 20rem;
+    width: 100%;
     border: none;
-    margin: 20px;
-    padding: 20px;
+    height: 24rem;
+    outline: none;
+    padding: 10px;
     border-radius: 10px; 
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    resize: none;
+    
+}
+
+.descricao-fundo p{
+    color: #1F0171;
+    /* margin-left: 10rem; */
+    font-size: 30px;
+    font: bold;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 /* segunda parte aqui */
 
-.segunda-parte{
-    margin: 30px 40px 40px 40px;
+.background-colar-img{
+    background-color: white;
+    border-radius: 20px;
+    width: 100%;
+    /* min-width: 25rem; */
+    height: 15rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .definir-vagas{
-    margin: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.data-dia-evento{
-    margin: 20px;
+.definir-vagas p{
+    color:#1F0171;
+    font-weight: 900;
+}
+
+.definir-vagas input{
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    margin-left: 5px;
+    border-radius: 15px;
+    outline-color: none;
+}
+
+.definir-vagas, .definir-dia, .background-colar-img, .preferencias2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon-pessoas2{
+
+}
+
+.segunda-parte p{
+    color: #1F0171;
+    font-weight: 900;
+    text-align: justify;
+}
+
+.definir-dia{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.data-dia-evento {
+    width: 90%;
+    height: 30px;
+    border-radius: 15px;
+    margin-left: 5px;
+    padding-left: 10px;
+}
+
+.preferencias2{
+    width: 90%;
+    border: none;
+    height: 200px;
+    /* margin: 20px 40px 20px 10rem; */
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+    outline: none;
+    resize: none;
+}
+
+/* Aqui vai o Mapa */
+.endereco-mapa2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white; 
+    width: 73.5%;
+    height: 20rem; 
+    margin-left: 10rem;
+    margin-top: 70px;
+    border-radius: 40px; 
 }
 
 /* aqui vai a estilização dos botões */
 
 .botões-evento{
-    margin: 40px;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center;  
+    inset: 0;
+    width: 100%;
+    gap: 100px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .cancelar-evento{
-    width: 15rem;
-    padding: 15px;
-    margin: 10px;
+    width: 24%;
+    /* width: 20rem;
+    height: 60px; */
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #FF0000;
     border-radius: 30px;
     border: none;
     background-color: white;
-    font: bold;
+    font-weight: 900;
     cursor: pointer;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
 
+}
+.cancelar-evento:hover{
+    transform: scale(1.05); /* Dá uma sensação de expansão */
+    transition: all 0.3s ease;
+}
+
+.cancelar-evento p, .adicionar-evento p{
+    text-align: center;
+    justify-content: center;
+}
+
+
+.cancelar-evento-img{
+   width: 40px;
+   margin-right: 20px;
 }
 
 .adicionar-evento{
-    width: 15rem;
-    padding: 15px;
-    margin: 10px;
+    display: flex;
+    width: 24%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
     border-radius: 30px;
     border: none;
+    color: #4BAE4F ;
     background-color: white;
-    font: bolder;
+    font-weight: 900;
     cursor: pointer;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0.5 , 0.5);
+}
+
+.adicionar-evento:hover{
+    transform: scale(1.05); /* Dá uma sensação de expansão */
+    transition: all 0.3s ease;
+}
+
+.confirmar-evento-img{
+    width: 40px;
+    margin-right: 20px;
 }

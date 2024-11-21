@@ -5,7 +5,7 @@ import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
 import Loader from "./Loader";
 import Search from "./Search";
-import algoliaClient from "../services/algoliaConfig"
+import algoliaClient from "../services/algoliaConfig";
 
 // Configuração do cliente Algolia
 const index = algoliaClient.initIndex("eventos");
@@ -24,41 +24,20 @@ const Eventos = () => {
             // Realiza a busca no Algolia aplicando apenas os filtros preenchidos
             const algoliaResponse = await index.search(searchQuery || "", {
                 filters: [
-                    estadoSelecionado ? `estado:${estadoSelecionado}` : "",
-                    cidade ? `cidade:${cidade}` : "",
+                    estadoSelecionado ? `endereco.estado:${estadoSelecionado}` : "",
+                    cidade ? `endereco.cidade:${cidade}` : "",
                     categoria ? `tags:${categoria}` : "",
                 ].filter(Boolean).join(" AND "),
             });
 
-            // Processa os resultados do Algolia
+            // Processa os resultados do Algolia e configura o endereço e o nome da organização
             const eventosAlgolia = algoliaResponse.hits.map(hit => ({
                 ...hit,
-                endereco: "Carregando..." // Endereço será buscado depois
+                endereco: hit.endereco ? `${hit.endereco.bairro}, ${hit.endereco.cidade} - ${hit.endereco.estado}` : "Endereço indefinido",
+                organizacaoNome: hit.organizacao?.nome || "Organização indefinida", // Adicionando nome da organização
             }));
 
-            // Para cada evento com objectID válido, busca o endereço no MongoDB
-            const eventosComEnderecos = await Promise.all(
-                eventosAlgolia.map(async (evento) => {
-                    if (!evento.objectID) return evento; // Ignora se objectID estiver indefinido
-
-                    try {
-                        const enderecoResponse = await fetch(
-                            `https://volun-api-eight.vercel.app/endereco/evento/${evento.objectID}`
-                        );
-                        const enderecoData = await enderecoResponse.json();
-
-                        const endereco = Array.isArray(enderecoData) && enderecoData.length > 0
-                            ? `${enderecoData[0].cidade}, ${enderecoData[0].estado}`
-                            : "Endereço indefinido";
-
-                        return { ...evento, endereco };
-                    } catch {
-                        return { ...evento, endereco: "Endereço indefinido" };
-                    }
-                })
-            );
-
-            setEventos(eventosComEnderecos);
+            setEventos(eventosAlgolia);
         } catch (error) {
             console.error("Erro ao buscar eventos:", error);
         } finally {
@@ -96,20 +75,20 @@ const Eventos = () => {
                         <h3>Foram achados {eventos.length} resultados referentes a sua busca</h3>
                     </div>
                     <div className="Eventos-resultado-pesquisa">
-    {currentEventos.map((evento, index) => (
-        <Card 
-            key={index}
-            id={evento.objectID}
-            titulo={evento.titulo}
-            descricao={evento.descricao}
-            ongNome={evento.organização?.nome} // Atualizado para acessar organização.nome
-            dataInicio={evento.dataInicio}
-            imgUrl={evento.imagem}
-            vagaLimite={evento.vagaLimite}
-            endereco={evento.endereco}
-        />
-    ))}
-</div>
+                        {currentEventos.map((evento, index) => (
+                            <Card 
+                                key={index}
+                                id={evento.objectID}
+                                titulo={evento.titulo}
+                                descricao={evento.descricao}
+                                ongNome={evento.organizacaoNome} // Passando o nome da organização
+                                dataInicio={evento.dataInicio}
+                                imgUrl={evento.imagem}
+                                vagaLimite={evento.vagaLimite}
+                                endereco={evento.endereco}
+                            />
+                        ))}
+                    </div>
                 </div>
             )}
             
