@@ -1,9 +1,9 @@
 import React from "react";
 import "./../css/CriacaoEventos.css";
 import calendario from "./../assets/images/calendario.svg";
-// import pessoas from "./../assets/images/icon-pessoas.svg";
-// import correto from "./../assets/images/icon-correto.svg";
-// import cancela from "./../assets/images/icon-cancela.svg";
+import pessoas from "./../assets/images/icon-pessoas.svg";
+import correto from "./../assets/images/icon-correto.svg";
+import cancela from "./../assets/images/icon-cancela.svg";
 
 
 const CriacaoEventos = () =>{
@@ -35,14 +35,15 @@ const CriacaoEventos = () =>{
             {/* Segunda parte vai aqui */}
             <div className="segunda-parte">
                 <div className="background-colar-img">{}cole a imagem aqui +</div>
-                <div className="definir-vagas">
-                    <p>Defina a quantidade de pessoas</p>
+                <p>Defina a quantidade de pessoas</p>
+                <div className="definir-vagas"> 
                     <img src= {pessoas} alt="quantidade de pessoas" className="icon-pessoas2"></img>
                     <input className="numero-vagas"></input>
                 </div>
+                    <p>Defina os dias de ínicio e término do evento</p>
                 <div className="definir-dia">
-                    <p>Defina os dias do evento</p>
                     <img src={calendario} alt="dia do evento" className="icon-calendario2"></img>
+                    <input className="data-dia-evento"></input>
                     <input className="data-dia-evento"></input>
                 </div>
                 <div>
