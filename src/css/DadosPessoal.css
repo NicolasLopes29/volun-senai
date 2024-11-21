@@ -5,14 +5,14 @@
     background-image: url("../assets/wallpaper/orange-wallpaper.svg");
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-size: cover;
-    height: 120vh;
-    text-align: center;
     font-family: var(--font-family);    
     border-radius: 12px;
-    
+    width: 100%;
+    min-height: 120vh;
 }
 .dados-pessoal-container {
     background-color: var(--fundo-principal);
@@ -40,9 +40,9 @@
 }
 .dados-container input {
     margin-bottom: 15px;
-    border: var(--input-border);
-    background-color: var(--input-background);
-    box-shadow: var(--input-shadow);
+    /* border: var(--input-border); */
+    /* background-color: var(--input-background); */
+    /* box-shadow: var(--input-shadow); */
     border-radius: 12px;
     height: 30px;
     text-align: center;
@@ -77,12 +77,6 @@
     width: 320px;
 }
 
-
-.dados-container {
-    background-color: var(--fundo-principal);
-    text-align: center;
-    padding: 50px;
-}
 
 .dados-pessoal-container {
     border: solid 2px #f0f0f0;

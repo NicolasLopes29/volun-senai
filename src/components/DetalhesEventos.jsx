@@ -41,6 +41,25 @@ const DetalhesEventos = () => {
         shadowSize: [41, 41]
     });
 
+
+    const handleCompartilhar = () => {
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: evento.titulo || "Confira este evento!",
+                    text: `Veja mais sobre o evento ${evento.titulo || "no nosso site"}!`,
+                    url: window.location.href,
+                })
+                .then(() => console.log("Compartilhamento realizado com sucesso!"))
+                .catch((error) => console.error("Erro ao compartilhar:", error));
+        } else {
+            // Fallback: copiar link
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("Link copiado para a área de transferência!");
+            });
+        }
+    };
+    
     const verificarParticipacao = async () => {
         const userId = auth.currentUser?.uid;
         if (!userId) return; // Verifica se o usuário está logado
@@ -176,7 +195,7 @@ const DetalhesEventos = () => {
                                 {isParticipating ? "Confirmado" : "Participar"}
                             </button>
 
-                            <button className="compartilhar">Compartilhar</button>
+                            <button className="compartilhar" onClick={handleCompartilhar}>Compartilhar</button>
 
                         </div>
                         <div className="background-descricao">
@@ -243,7 +262,7 @@ const DetalhesEventos = () => {
                             </Marker>
                         </MapContainer>
                     ) : (
-                        <p>Carregando mapa...</p>
+                        <p>mapa não encontrado</p>
                     )}
                 </div>
             </div>

@@ -32,7 +32,7 @@
 .dados-container input {
     margin-bottom: 15px;
     border: var(--input-border);
-    background-color: var(--input-background);
+    /* background-color: var(--input-background); */
     box-shadow: var(--input-shadow);
     border-radius: 12px;
     height: 30px;

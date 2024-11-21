@@ -15,12 +15,9 @@ const Footer = () => {
         <div className="footer-links">
           <a href="/">Home</a>
           <a href="/">Eventos</a>
-          {/* <a href="/">Sobre Nós</a> */}
         </div>
         <div className="footer-links">
-          <a href="/">Contato</a>
           <a href="/">Sou uma organização</a>
-          <a href="/">Enviar Feedback</a>
         </div>
         <div className="footer-social-icons">
           <div className="footer-icons"><IoLogoFacebook /></div>

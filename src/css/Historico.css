@@ -17,3 +17,11 @@
     justify-items: center; /* Alinha os cards ao centro */
   }
   
+  .historico-vazio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    font-size: 18px;
+    color: #666;
+}

@@ -24,7 +24,7 @@ const AutoSlider = () => {
     {
       text: "Está esperando o quê? Junte-se ao VOLUN agora!",
       background: "linear-gradient(315deg, #A53FFF, #0B01AB)",
-      button: true, // Indica que este slide terá o botão
+      button: false, // Indica que este slide terá o botão
     },
     {
       text: "Explore causas que realmente importam e ajude a construir um futuro melhor.",

@@ -69,9 +69,9 @@
    
    .input:focus ~ label, input:valid ~ label {
     transform: translateY(-50%) scale(0.8);
-    background-color: #FBFBFE;
+    /* background-color: #FBFBFE; */
     padding:  0.2em;
-    color: #2196f3;
+    /* color: #2196f3; */
    }
 
 .Eventos-form{

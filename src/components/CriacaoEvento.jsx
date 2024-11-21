@@ -1,9 +1,9 @@
 import React from "react";
 import "./../css/CriacaoEventos.css";
 import calendario from "./../assets/images/calendario.svg";
-import pessoas from "./../assets/images/icon-pessoas.svg";
-import correto from "./../assets/images/icon-correto.svg";
-import cancela from "./../assets/images/icon-cancela.svg";
+// import pessoas from "./../assets/images/icon-pessoas.svg";
+// import correto from "./../assets/images/icon-correto.svg";
+// import cancela from "./../assets/images/icon-cancela.svg";
 
 
 const CriacaoEventos = () =>{

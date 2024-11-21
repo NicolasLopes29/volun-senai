@@ -83,28 +83,30 @@ const Historico = () => {
   }
 
   return (
-    <div className="historico-container">
-      <h3>Histórico</h3>
-      <div className="historico-eventos">
-        {eventos.length > 0 ? (
-          eventos.map((evento) => (
-            <Card
-              key={evento.id}
-              id={evento.id}
-              titulo={evento.titulo}
-              descricao={evento.descricao}
-              ongNome={evento.ongNome}
-              dataInicio={evento.dataInicio}
-              imgUrl={evento.imgUrl}
-              vagaLimite={evento.vagaLimite}
-              endereco={evento.endereco}
-            />
-          ))
-        ) : (
-          <p>Você ainda não participou de nenhum evento.</p>
-        )}
+    eventos.length > 0 ? (
+      <div className="historico-container">
+          <h3>Histórico</h3>
+          <div className="historico-eventos">
+              {eventos.map((evento) => (
+                  <Card
+                      key={evento.id}
+                      id={evento.id}
+                      titulo={evento.titulo}
+                      descricao={evento.descricao}
+                      ongNome={evento.ongNome}
+                      dataInicio={evento.dataInicio}
+                      imgUrl={evento.imgUrl}
+                      vagaLimite={evento.vagaLimite}
+                      endereco={evento.endereco}
+                  />
+              ))}
+          </div>
       </div>
-    </div>
+  ) : (
+      <div className="historico-vazio">
+          <p>Você ainda não participou de nenhum evento.</p>
+      </div>
+  )
   );
 };
 
