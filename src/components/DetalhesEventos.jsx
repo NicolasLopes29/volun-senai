@@ -322,7 +322,6 @@ const DetalhesEventos = () => {
                         </div>
                     </div>
                 </div>
-                <Coment eventoId={id}/>
             )}
     
             {/* Mapa e endereço */}
@@ -350,6 +349,7 @@ const DetalhesEventos = () => {
                     )}
                 </div>
             </div>
+            <Coment eventoId={id}/>
     
             {/* Modal de confirmação */}
             {showModal && (
