@@ -322,6 +322,7 @@ const DetalhesEventos = () => {
                         </div>
                     </div>
                 </div>
+                <Coment eventoId={id}/>
             )}
     
             {/* Mapa e endereço */}
