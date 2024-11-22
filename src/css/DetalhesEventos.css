@@ -392,26 +392,31 @@
     color: #1F0171;
 }
 
-.modal-confirmacao {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
     background: white;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 8px;
     text-align: center;
 }
 
-.modal-content button {
-    margin: 5px;
-    padding: 10px 15px;
+.modal-buttons button {
+    margin: 10px;
+    padding: 10px;
+    background-color: white;
+    border: #1F0171 4px solid;
+    border-radius: 10px;
 }
+
