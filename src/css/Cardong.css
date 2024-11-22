@@ -57,12 +57,14 @@ html, body {
     border: none;
     margin-top: 1em;
     padding-left: .7em;
+    resize: none;
 }
 
 .cardong-form > textarea {
     font-family: var(--font-family);
     padding-top: .4em;
     height: 6em;
+    resize: none;
 }
 
 .telefone-container {
