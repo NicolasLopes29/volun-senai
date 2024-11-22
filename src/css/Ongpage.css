@@ -25,6 +25,8 @@ body {
 
 #ong-pfp {
     width: 17.5em;
+    border-radius: 50%;
+    border: solid 4px rgb(255, 128, 0);
 }
 
 #ong-name {
@@ -112,3 +114,36 @@ body {
     font-weight: 400;
     text-align: justify;
 }
+
+.ong-events {
+    background-color: white;
+    margin: 1.3em;
+    padding: 1.5em;
+    border-radius: 1em;
+}
+
+.ong-events-title {
+    font-weight: 600;
+}
+
+.ong-cards {
+    display: grid; /* Usamos grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Garante 3 colunas quando possível */
+    gap: 20px; /* Espaçamento entre os cards */
+    padding: 20px; /* Espaçamento interno */
+    justify-content: center; /* Centraliza os itens */
+  }
+  
+  @media (max-width: 1024px) {
+    .ong-cards {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta para 2 ou 1 colunas em telas menores */
+      gap: 15px; /* Reduz o espaçamento em telas pequenas */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .ong-cards {
+      grid-template-columns: 1fr; /* Apenas uma coluna em telas muito pequenas */
+    }
+  }
+  

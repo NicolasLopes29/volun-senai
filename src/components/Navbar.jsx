@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { app } from "../services/firebase-config";
-
 import Login from "./Login";
 import UsuarioMenu from "./UsuarioMenu";
 import Modal from "react-modal";
@@ -57,7 +54,6 @@ const Navbar = () => {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
   const auth = getAuth(app);
 
   const toggleMenu = () => {
@@ -123,6 +119,33 @@ const Navbar = () => {
     return () => unsubscribe();
   }, [auth]);
 
+  const handleOrgPageRedirect = async () => {
+    const user = auth.currentUser;
+    
+    if (!user) {
+      // Se o usuário não estiver logado, exibe um alerta e retorna
+      alert("Você precisa estar logado para acessar esta página.");
+      return;
+    }
+
+    try {
+      // Requisição para verificar as ONGs do usuário
+      const response = await axios.get(`https://volun-api-eight.vercel.app/organizacao/criador/${user.uid}`);
+
+      if (response.data && response.data.length > 0) {
+        // Se o usuário tiver uma ou mais ONGs criadas, navega para a página /ong
+        navigate(`/ong`);
+      } else {
+        // Caso contrário, navega para a página /cardong
+        navigate("/cardong");
+      }
+    } catch (error) {
+      console.error("Erro ao verificar organizações do usuário:", error);
+      // Exibir um alerta em caso de erro na requisição
+      alert("Ocorreu um erro ao tentar verificar suas organizações.");
+    }
+  };
+
   return (
     <>
       <nav className="navbar-container">
@@ -131,7 +154,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-menu-container">
           <Link to="/eventos" id="navbar-eventos">Eventos</Link>
-          <Link to="/cardong" id="navbar-org">Sou uma organização</Link>
+          <button onClick={handleOrgPageRedirect} id="navbar-org" >Sou uma organização</button>
           {/* <Link to="/ong">org page</Link> */}
           {/* <Link to="/sobre" id="navbar-sobre">Sobre Nós</Link> */}
           {/* descomente a linha acima para acessar a pagina de perfil de Organização */}

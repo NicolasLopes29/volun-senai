@@ -10,7 +10,7 @@ html, body {
 }
 
 .cardong-left, .cardong-rigth {
-    height: 100vh;
+    height: 105vh;
 }
 
 .cardong-left {
@@ -48,7 +48,7 @@ html, body {
     padding: 1em 0 .7em 2em
 }
 
-.cardong-form > input {
+.cardong-form > input, textarea {
     display: block;
     margin: auto;
     width: 65%;
@@ -57,6 +57,12 @@ html, body {
     border: none;
     margin-top: 1em;
     padding-left: .7em;
+}
+
+.cardong-form > textarea {
+    font-family: var(--font-family);
+    padding-top: .4em;
+    height: 6em;
 }
 
 .telefone-container {
