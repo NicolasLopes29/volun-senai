@@ -3,6 +3,7 @@ import Logo from "../assets/logos/logo.svg";
 import { IoLogoFacebook } from "react-icons/io";
 import { FaYoutube, FaTwitter, FaPinterest, FaInstagram } from "react-icons/fa";
 import "./../css/Footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   
@@ -13,11 +14,11 @@ const Footer = () => {
           <img src={Logo} alt="Logo" />
         </div>
         <div className="footer-links">
-          <a href="/">Home</a>
-          <a href="/">Eventos</a>
+          <Link to="/">Home/</Link>
+          <Link to="/eventos" id="navbar-eventos">Eventos/</Link>
         </div>
         <div className="footer-links">
-          <a href="/">Sou uma organização</a>
+          <Link to="/">Sou uma organização</Link>
         </div>
         <div className="footer-social-icons">
           <div className="footer-icons"><IoLogoFacebook /></div>
