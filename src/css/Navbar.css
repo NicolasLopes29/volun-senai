@@ -35,6 +35,8 @@
 }
 #navbar-eventos, #navbar-sobre, #navbar-org, #perfil-link {
   color: var(--fonte-cor-branco);
+  background: none;
+  border: none;
 }
 #navbar-eventos:hover, #navbar-sobre:hover, #navbar-org:hover, #perfil-link:hover {
   color: var(--cor-secundaria); /* Laranja */

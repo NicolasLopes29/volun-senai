@@ -15,7 +15,7 @@
 .dados-endereco-container {
     border: solid 2px #f0f0f0;
     border-radius: 32px;
-    padding: 20px;
+    padding: 30px 100px;
     margin: 110px auto;
     width: 60%;
     text-align: left;
@@ -23,6 +23,15 @@
     display: block;
     /* box-shadow: var(--botao-shadow); */
 }
+.dados-endereco-container button, .dados-endereco-container input, .dados-endereco-container select {
+    margin-bottom: 10px;  
+}
+.dados-endereco-container label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    text-align: left;
+}
+
 .dados-endereco-container h4 {
     margin: 40px auto;
 }
@@ -77,4 +86,32 @@
 .sucesso-mensagem {
     color: green;
     font-weight: bold;
+}
+.endereco-cadastrar-button {
+    margin: 40px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .dados-endereco-container{
+        padding: 30px 50px;
+        margin: 55px auto;
+    }
+    
+}
+@media (max-width: 500px) {
+    .dados-endereco-container{
+        padding: 30px 50px;
+        display: block;
+    }
+    .dados-endereco-container label {
+        display: grid;
+        margin: 5px;
+        font-size: 16px;
+    }
+    .dados-endereco-container input, .dados-endereco-container select {
+        display: flex;
+        text-align: left;
+        padding-left: 20px;
+    }
 }

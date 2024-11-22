@@ -135,3 +135,14 @@
 .login-paragraph button {
     cursor: pointer;
 }
+
+@media (max-width: 768px){
+    .login-body-container{
+        width: 80%;
+        position: relative;
+        margin: auto;
+        top: 20px;
+        left: auto;
+        right: auto;
+    }
+}

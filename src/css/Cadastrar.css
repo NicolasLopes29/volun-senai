@@ -34,8 +34,6 @@
     color: var(--fonte-cor-branco);
     margin: 0 10px;
 }
-
-
 .verificacao-container {
     text-align: center;
     padding: 50px;
@@ -54,4 +52,16 @@
 .verificacao-container p {
     font-size: 18px;
     margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .cadastrar-section {
+        padding: 50px;
+    }
+}
+@media (max-width: 500px) {
+    .cadastrar-section {
+        backdrop-filter: none;
+        border: none;
+    }
 }

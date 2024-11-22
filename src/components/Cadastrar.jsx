@@ -16,7 +16,6 @@ const Cadastrar = () => {
             const verificarEmail = async () => {
                 try {
                     const user = auth.currentUser;
-                    await user.reload();
 
                     if (user.emailVerified) {
                         setEmailVerificado(true);

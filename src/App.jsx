@@ -109,8 +109,6 @@ function App() {
           <AutoSlider />
         </section>
         
-
-        
         <div className="app-articles-container">
           <div className="article-number-one">
             <img src="https://img.freepik.com/free-photo/top-view-young-people-putting-their-hands-together_1139-1008.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 1" />

@@ -62,7 +62,21 @@
     display: flex;
     padding-top: 20px;
 }
+#historico-link, #informacao-link {
+    color: var(--fonte-cor-preto);
+}
 .usuario-nav :link {
     text-decoration: none;
-    padding-right: 20px;
+    padding: 5px 20px;
+    margin-right: 10px;
+    background-color: var(--cor-secundaria);
+    font-size: 18px;
+    border-radius: 16px;
+}
+
+@media (max-width: 500px) {
+    .usuario-picture {
+        margin-right: 0px;
+    }
+    
 }
