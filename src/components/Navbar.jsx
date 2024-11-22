@@ -121,17 +121,19 @@ const Navbar = () => {
 
   const handleOrgPageRedirect = async () => {
     const user = auth.currentUser;
-    
+  
     if (!user) {
       // Se o usuário não estiver logado, exibe um alerta e retorna
       alert("Você precisa estar logado para acessar esta página.");
       return;
     }
-
+  
     try {
       // Requisição para verificar as ONGs do usuário
-      const response = await axios.get(`https://volun-api-eight.vercel.app/organizacao/criador/${user.uid}`);
-
+      const response = await axios.get(
+        `https://volun-api-eight.vercel.app/organizacao/criador/${user.uid}`
+      );
+  
       if (response.data && response.data.length > 0) {
         // Se o usuário tiver uma ou mais ONGs criadas, navega para a página /ong
         navigate(`/ong`);
@@ -140,11 +142,18 @@ const Navbar = () => {
         navigate("/cardong");
       }
     } catch (error) {
-      console.error("Erro ao verificar organizações do usuário:", error);
-      // Exibir um alerta em caso de erro na requisição
-      alert("Ocorreu um erro ao tentar verificar suas organizações.");
+      if (error.response && error.response.status === 404) {
+        // Tratar 404 como ausência de organizações
+        console.warn("Nenhuma organização encontrada para o usuário.");
+        navigate("/cardong");
+      } else {
+        // Outros erros
+        console.error("Erro ao verificar organizações do usuário:", error);
+        alert("Ocorreu um erro ao tentar verificar suas organizações.");
+      }
     }
   };
+  
 
   return (
     <>
