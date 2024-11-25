@@ -24,6 +24,7 @@ body {
 }
 
 #ong-pfp {
+    margin: 20px;
     width: 17.5em;
     border-radius: 50%;
     border: solid 4px rgb(255, 128, 0);
@@ -64,6 +65,7 @@ body {
 }
 
 .ong-info {
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -127,11 +129,12 @@ body {
 }
 
 .ong-cards {
-    display: grid; /* Usamos grid layout */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Garante 3 colunas quando possível */
-    gap: 20px; /* Espaçamento entre os cards */
-    padding: 20px; /* Espaçamento interno */
-    justify-content: center; /* Centraliza os itens */
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   }
   
   @media (max-width: 1024px) {

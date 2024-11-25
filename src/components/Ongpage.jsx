@@ -21,6 +21,8 @@ const Ongpage = () => {
   const [eventos, setEventos] = useState([]);
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     const fetchOrganizations = async (userId) => {
       try {
@@ -169,7 +171,7 @@ const Ongpage = () => {
                     <img src={faceIcon} alt="Ícone do Facebook" id="face-icon" />
                   </a>
                 </div>
-                {/* <Link to={`/criacao_eventos/${selectedOrg._id}`}>Criar Evento</Link> */}
+                <Link to={`/criacao_eventos/${selectedOrg?._id}`}>Criar Evento</Link>
               </div>
             </div>
             <hr id="ong-line" />

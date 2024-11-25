@@ -17,7 +17,7 @@
     transition: height 0.4s ease-out;
     text-align: start;
     overflow: hidden;
-    height: 260px;
+    height: 240px;
 }
 
 .card-capa-img{
@@ -122,7 +122,7 @@
 }
 
 .card-x:hover {
-    height: 24rem; /* Aumenta o card ao hover para exibir a descrição */
+    height: 110%; /* Aumenta o card ao hover para exibir a descrição */
     z-index: 10; /* Para que fique acima de outros elementos */
     
      .card-description-x{

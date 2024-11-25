@@ -26,7 +26,7 @@ root.render (
         <Route path='/ong'                  element= {<><NavBar/> <Ongpage />         <Footer/></>}/>
         <Route path='/eventos'                      element= {<><NavBar/> <Eventos />         <Footer/></>}/>
         <Route path='/detalhes_eventos/:id'         element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
-        <Route path='/criacao_eventos/:ong_id'      element= {<><NavBar/> <CriacaoEventos />  <Footer/></>}/>
+        <Route path='/criacao_eventos/:ongId'      element= {<><NavBar/> <CriacaoEventos />  <Footer/></>}/>
         <Route path='/cadastrar'            element= {<Cadastrar />}/>
         <Route path='/dados_pessoal'        element= {<DadosPessoal /> }/>
         <Route path='/dados_endereco'       element= {<DadosEndereco />}/>
