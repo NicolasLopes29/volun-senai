@@ -255,9 +255,8 @@ const DetalhesEventos = () => {
                         </div>
     
                         <div className="backgound-especificacoes">
-                            <p className="preferencia-descricao">Preferências: nenhuma</p>
-                            <p className="funcao-descricao">
-                                Função: Auxiliar na limpeza da praia coletando resíduos
+                            <p className="preferencia-descricao">
+                                {evento.descricao_2 || "Descrição indisponível..."}
                             </p>
                         </div>
                     </div>
