@@ -10,7 +10,7 @@ html, body {
 }
 
 .cardong-left, .cardong-rigth {
-    height: 130vh;
+    height: 100vh;
 }
 
 .cardong-left {
@@ -32,20 +32,19 @@ html, body {
     color: var(--fonte-cor-branco);
     border: 1.5px solid var(--cor-secundaria);
     border-radius: 10px;
-    height: 80%;
     width: 70%;
 }
 
 .cardong-form-logo {
     width: 3em;
-    margin: .7em 12.5em -1em 12.5em;
+    margin: .5em 12.5em -1em 12.5em;
 }
 
 .cardong-form > p {
     font-family: var(--font-family);
     font-size: 18px;
     text-align: left;
-    padding: 1em 0 .7em 2em
+    padding: .5em 2em 0 3em;
 }
 
 .cardong-form > input, textarea {
@@ -63,7 +62,7 @@ html, body {
 .cardong-form > textarea {
     font-family: var(--font-family);
     padding-top: .4em;
-    height: 6em;
+    height: 5em;
     resize: none;
 }
 
@@ -96,12 +95,11 @@ html, body {
 .cardong-form > button {
     display: block;
     margin: auto;
-    margin-top: 1em;
-    width: 66.7%;
-    height: 7%;
+    margin-bottom: .5em;
     color: var(--fonte-cor-branco);
     background-color: var(--cor-secundaria);
     border: none;
-    border-radius: 20px;
+    border-radius: .8em;
     cursor: pointer;
+    padding: .5em 7em .5em 7em;
 }
