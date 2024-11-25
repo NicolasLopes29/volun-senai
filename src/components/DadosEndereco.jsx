@@ -116,20 +116,24 @@ const DadosEndereco = () => {
                         <button type="button" onClick={buscarCEP}>Buscar</button>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="dadosEndereco">Endereço: </label>
-                        <input
-                            className="input-grande"
-                            type="text"
-                            value={enderecoDados.logradouro}
-                            onChange={(e) => setEnderecoDados({ ...enderecoDados, logradouro: e.target.value })}
-                        />
-                        <label htmlFor="dadosNumero">Número: </label>
-                        <input
-                            className="input-pequeno"
-                            type="text"
-                            value={enderecoDados.numero}
-                            onChange={(e) => setEnderecoDados({ ...enderecoDados, numero: e.target.value })}
-                        />
+                        <div>
+                            <label htmlFor="dadosEndereco">Endereço: </label>
+                            <input
+                                className="input-grande"
+                                type="text"
+                                value={enderecoDados.logradouro}
+                                onChange={(e) => setEnderecoDados({ ...enderecoDados, logradouro: e.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="dadosNumero">Número: </label>
+                            <input
+                                className="input-pequeno"
+                                type="text"
+                                value={enderecoDados.numero}
+                                onChange={(e) => setEnderecoDados({ ...enderecoDados, numero: e.target.value })}
+                            />
+                        </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="dadosBairro">Bairro: </label>
@@ -141,28 +145,32 @@ const DadosEndereco = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="dadosCidade">Cidade: </label>
-                        <input
-                            className="input-grande"
-                            type="text"
-                            value={enderecoDados.cidade}
-                            onChange={(e) => setEnderecoDados({ ...enderecoDados, cidade: e.target.value })}
-                        />
-                        <label htmlFor="dadosEstado">Estado: </label>
-                        <select
-                            className="input-pequeno"
-                            value={enderecoDados.estado}
-                            onChange={(e) => setEnderecoDados({ ...enderecoDados, estado: e.target.value })}
-                        >
-                            <option className="endereco-estado-option">-- Estado --</option>
-                            {Estado().map((estado, index) => (
-                                <option key={index} value={estado}>
-                                    {estado}
-                                </option>
-                            ))}
-                        </select>
+                        <div>
+                            <label htmlFor="dadosCidade">Cidade: </label>
+                            <input
+                                className="input-grande"
+                                type="text"
+                                value={enderecoDados.cidade}
+                                onChange={(e) => setEnderecoDados({ ...enderecoDados, cidade: e.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="dadosEstado">Estado: </label>
+                            <select
+                                className="input-medio-pequeno"
+                                value={enderecoDados.estado}
+                                onChange={(e) => setEnderecoDados({ ...enderecoDados, estado: e.target.value })}
+                            >
+                                <option className="endereco-estado-option">-- Estado --</option>
+                                {Estado().map((estado, index) => (
+                                    <option key={index} value={estado}>
+                                        {estado}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                    <div>
+                    <div className="endereco-cadastrar-button">
                         <button type="submit">Cadastrar</button>
                     </div>
                     {erro && <p className="error">Por favor, preencha todos os campos obrigatórios.</p>}

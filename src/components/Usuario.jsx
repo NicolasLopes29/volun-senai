@@ -137,8 +137,8 @@ const Usuario = () => {
                         </div>
                     </div>
                     <div className="usuario-nav">
-                        <Link to={"#"} onClick={() => setActiveComponent("Historico")}>Histórico</Link>
-                        <Link to={"#"} onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
+                        <Link to={"#"} id="historico-link" onClick={() => setActiveComponent("Historico")}>Histórico</Link>
+                        <Link to={"#"} id="informacao-link" onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
                     </div>
                 </section>
                 <article className="usuario-article">

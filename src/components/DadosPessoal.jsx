@@ -160,25 +160,28 @@ const DadosPessoal = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="ddd">DDD: </label>
-                        <input
-                            className="dados-input-pequeno"
-                            type="text"
-                            name="ddd"
-                            value={userDados.ddd}
-                            placeholder="Ex: 11"
-                            onChange={(e) => setUserDados({ ...userDados, ddd: e.target.value })}
-                        />
-
-                        <label htmlFor="telefone">Telefone: </label>
-                        <input
-                            className="dados-input"
-                            type="text"
-                            name="telefone"
-                            value={userDados.telefone}
-                            placeholder="12345-6789"
-                            onChange={(e) => setUserDados({ ...userDados, telefone: formatarTelefone(e.target.value) })}
-                        />
+                        <div>
+                            <label htmlFor="ddd">DDD: </label>
+                            <input
+                                className="dados-input-pequeno"
+                                type="text"
+                                name="ddd"
+                                value={userDados.ddd}
+                                placeholder="Ex: 11"
+                                onChange={(e) => setUserDados({ ...userDados, ddd: e.target.value })}
+                            />
+                        </div>
+                        <div>                            
+                            <label htmlFor="telefone">Telefone: </label>
+                            <input
+                                className="dados-input"
+                                type="text"
+                                name="telefone"
+                                value={userDados.telefone}
+                                placeholder="12345-6789"
+                                onChange={(e) => setUserDados({ ...userDados, telefone: formatarTelefone(e.target.value) })}
+                            />
+                        </div>
                     </div>
                     <div>
                         <button type="submit">Finalizar Cadastro</button>
