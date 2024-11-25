@@ -100,3 +100,11 @@
     font-weight: bold;
 }
 
+@media (max-width: 500px) {
+    .dados-pessoal-container label{
+        display: grid;
+        text-align: left;
+    }    
+    
+}
+
