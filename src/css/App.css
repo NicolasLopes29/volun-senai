@@ -1,11 +1,8 @@
 @import url(./Global.css);
 
 :root {
-  --primary-color: #4A90E2;
+  --primary-color: whitesmoke;
   --secondary-color: #50E3C2;
-  --text-color: #333;
-  --background-color: #F5F7FA;
-  --card-background: #FFFFFF;
   --transition-speed: 0.3s;
   --border-radius: 12px;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -14,13 +11,13 @@
 body {
   font-family: var(--font-family, 'Arial', sans-serif);
   color: var(--text-color);
-  background-color: var(--background-color);
   line-height: 1.6;
 }
 
 .app-container {
   margin: 0 auto;
   padding: 2rem;
+  margin-top: 0px;
 }
 
 
@@ -33,9 +30,11 @@ body {
   position: relative;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
+  margin-top: 0px;
 }
 
 .slider-content {
+  margin-top: 0px;
   position: absolute;
   inset: 0;
   display: flex;
@@ -58,7 +57,7 @@ body {
 }
 
 .slider-content.active.left {
-  animation: slideLeft 0.4s forwards;
+  animation: slideLeft 0.9s ease-in-out forwards;
 }
 
 @keyframes slideLeft {
@@ -130,7 +129,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  margin: 4rem 0;
+  margin: 2rem 0;
+  margin-top: 0px;
 }
 
 .app-section-left,
@@ -180,7 +180,7 @@ body {
 
 .article-number-one,
 .article-number-two { 
-  background-color: var(--card-background);
+  background-color: white;
   padding: 3rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -234,9 +234,13 @@ body {
   }
 }
 
+section.benefits-section {
+  background-color: navy;
+  color: whitesmoke;
+}
 /* Modern Card Design */
 .card {
-  background-color: var(--card-background);
+  background-color: navy;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   padding: 2rem;
@@ -311,7 +315,6 @@ h1 {
   padding: 3rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  margin: 4rem 0;
   text-align: center;
 }
 
@@ -364,25 +367,27 @@ h1 {
 
 /* Como Funciona Section */
 .how-it-works-section {
-  background-color: var(--card-background);
+  background-color: coral;
+  color: whitesmoke;
   padding: 3rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  margin: 4rem 0;
+
+  margin-bottom: 0px;
   text-align: center;
 }
 
 .how-it-works-section h2 {
   color: var(--primary-color);
   font-size: clamp(2rem, 4vw, 2.5rem);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0px;
 }
 
 .how-it-works-steps {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .how-it-works-step {
@@ -401,7 +406,7 @@ h1 {
 .how-it-works-step h3 {
   font-size: 1.25rem;
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .how-it-works-step p {
@@ -414,7 +419,7 @@ h1 {
   width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Responsiveness */

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import algoliasearch from "algoliasearch";
+import Slider from "react-slick"; // Biblioteca do carrossel
 import "./../css/Eventos.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
 import Loader from "./Loader";
@@ -35,6 +37,7 @@ const Eventos = () => {
                 ...hit,
                 endereco: hit.endereco ? `${hit.endereco.bairro}, ${hit.endereco.cidade} - ${hit.endereco.estado}` : "Endereço indefinido",
                 organizacaoNome: hit.organizacao?.nome || "Organização indefinida", // Adicionando nome da organização
+                organizacaoLogo: hit.organizacao?.imgLogo || "",
             }));
 
             setEventos(eventosAlgolia);
@@ -49,6 +52,30 @@ const Eventos = () => {
     useEffect(() => {
         buscarEventos({});
     }, []);
+
+    const uniqueOrganizations = [...new Map(eventos.map(e => [e.organizacaoNome, e])).values()];
+
+    const sliderSettings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: Math.min(4, uniqueOrganizations.length),
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: Math.min(2, uniqueOrganizations.length),
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: Math.min(1, uniqueOrganizations.length),
+                },
+            },
+        ],
+    };
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -69,27 +96,48 @@ const Eventos = () => {
             {loading ? (
                 <Loader />
             ) : (
-                <div className="Eventos-resultado-pesquisa-texto">
-                    <div className="Eventos-titulo">
-                        <h1>Resultado da pesquisa:</h1>
-                        <h3>Foram achados {eventos.length} resultados referentes a sua busca</h3>
+                <>
+                    <div className="Eventos-carrossel">
+                        <h2>Organizações Participantes</h2>
+                        {uniqueOrganizations.length > 0 ? (
+                            <Slider {...sliderSettings}>
+                                {uniqueOrganizations.map((org, index) => (
+                                    <div key={index} className="Carrossel-item">
+                                        <img 
+                                            src={org.organizacaoLogo || "/default-logo.png"} 
+                                            alt={org.organizacaoNome} 
+                                            className="Carrossel-logo" 
+                                        />
+                                        <p>{org.organizacaoNome}</p>
+                                    </div>
+                                ))}
+                            </Slider>
+                        ) : (
+                            <p>Não há organizações disponíveis no momento.</p>
+                        )}
                     </div>
-                    <div className="Eventos-resultado-pesquisa">
-                        {currentEventos.map((evento, index) => (
-                            <Card 
-                                key={index}
-                                id={evento.objectID}
-                                titulo={evento.titulo}
-                                descricao={evento.descricao}
-                                ongNome={evento.organizacaoNome} // Passando o nome da organização
-                                dataInicio={evento.dataInicio}
-                                imgUrl={evento.imagem}
-                                vagaLimite={evento.vagaLimite}
-                                endereco={evento.endereco}
-                            />
-                        ))}
+                    <div className="Eventos-resultado-pesquisa-texto">
+                        <div className="Eventos-titulo">
+                            <h1>Resultado da pesquisa:</h1>
+                            <h3>Foram achados {eventos.length} resultados referentes a sua busca</h3>
+                        </div>
+                        <div className="Eventos-resultado-pesquisa">
+                            {currentEventos.map((evento, index) => (
+                                <Card 
+                                    key={index}
+                                    id={evento.objectID}
+                                    titulo={evento.titulo}
+                                    descricao={evento.descricao}
+                                    ongNome={evento.organizacaoNome} // Passando o nome da organização
+                                    dataInicio={evento.dataInicio}
+                                    imgUrl={evento.imagem}
+                                    vagaLimite={evento.vagaLimite}
+                                    endereco={evento.endereco}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </>
             )}
             
             {!loading && eventos.length > 0 && (
