@@ -1,9 +1,43 @@
 .slider-container {
-    width: 80%;
+    /* width: 100%; */
+    gap: 10px;
     margin: 0 auto;
-    margin-bottom: 50px;
     padding-bottom: 50px;
-  }
+ }
+
+ .slick-slide > div {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.slider-container {
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza o slider */
+  padding: 20px; /* Ajuste para espaçamento interno */
+}
+
+.slick-dots{
+  padding-top: 10px;
+  height: 20px;
+}
+
+
+.slick-prev,
+.slick-next {
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: white;
+}
 
   
 .slick-prev:before,
@@ -16,6 +50,6 @@
   border-radius: 10px;
   margin: 20px;
   text-align: left;
-  max-width: 250px;
-  display: inline-block; 
+  max-width: 300px;
+  /* display: inline-block; */
 }

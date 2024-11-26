@@ -129,12 +129,10 @@ body {
 }
 
 .ong-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 400px);
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 20px; /* Espaçamento entre os cards */
+    justify-items: center; /* Alinha os cards ao centro */
   }
   
   @media (max-width: 1024px) {
