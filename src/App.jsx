@@ -114,12 +114,15 @@ function App() {
         <div className="app-articles-container">
           <div className="article-number-one">
             <img src="https://img.freepik.com/free-photo/top-view-young-people-putting-their-hands-together_1139-1008.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 1" />
-            <p>Você busca uma forma de fazer a diferença e deixar o mundo um pouco mais justo? O VOLUN é a plataforma perfeita para você! Com o VOLUN, você tem acesso a uma variedade de eventos com causas sociais, desde campanhas de doação de sangue até mutirões de limpeza em praças e parques.</p>
+            <b><h1>
+            Seja a Mudança que o Mundo Precisa com o VOLUN</h1></b>
+            <p>Quer contribuir para um mundo mais justo? O VOLUN é a plataforma ideal para você! Explore uma ampla gama de eventos sociais, como campanhas de doação de sangue e mutirões de limpeza em praças e parques.</p>
           </div>
           <BenefitsSection /> {/* Nova seção adicionada */}
           <div className="article-number-two">
             <img src="https://img.freepik.com/free-photo/full-shot-woman-jumping-outdoors_23-2149913414.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 2" />
-            <p>Criar sua própria campanha: Se você tem uma ideia para um evento social, utilize o VOLUN para divulgá-la e encontrar parceiros para realizá-la. Acompanhar o impacto: Veja de perto os resultados dos eventos que você participa e saiba como suas ações estão contribuindo para um futuro melhor.</p>
+            <h1>Transforme Ideias em Ação com o VOLUN</h1>
+            <p><b>Crie sua própria campanha:</b> Tem uma ideia para um evento social? Use o VOLUN para divulgá-la e encontrar parceiros dispostos a ajudar na realização <br/> <b>Acompanhe o impacto:</b> Monitore os resultados dos eventos em que participa e descubra como suas ações estão contribuindo para um futuro melhor</p>
           </div>
         </div>
         
