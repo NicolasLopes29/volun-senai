@@ -1,5 +1,67 @@
 @import url(./Global.css);
 
+.Eventos-carrossel {
+  margin: 20px auto;
+  text-align: center;
+  max-width: 50%;
+}
+
+.Carrossel-item {
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Carrossel-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+}
+
+.Carrossel-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #1f0171;
+  font-weight: bold;
+  text-align: center;
+}
+
+.Carrossel-seta {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: -60px;
+  z-index: 10;
+}
+
+.slick-next {
+  right: -60px;
+  z-index: 10;
+}
+
+.slick-dots {
+  bottom: -20px;
+}
+
+.slick-dots li button:before {
+  color: #1f0171;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #1f0171;
+  opacity: 1;
+}
+
 .Pesquisa-Eventos {
   justify-content: flex-start;
   align-items: flex-start;
