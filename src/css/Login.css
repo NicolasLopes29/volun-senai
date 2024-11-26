@@ -106,6 +106,7 @@
     align-items: center;
     display: flex;
     border-radius: 10px;
+    box-shadow: var(--input-shadow);
 }
 
 .login-other a {
