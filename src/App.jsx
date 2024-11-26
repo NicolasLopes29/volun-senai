@@ -108,7 +108,11 @@ function App() {
         <section className="app-section-container">
           <AutoSlider />
         </section>
-        
+        <div className="app-destaque-container">
+          <h1>Em destaque</h1>
+          <h2>Eventos e causas esperando por você</h2>
+          <SimpleSlider />
+        </div>
 
         
         <div className="app-articles-container">
@@ -126,11 +130,7 @@ function App() {
           </div>
         </div>
         
-        <div className="app-destaque-container">
-          <h1>Em destaque</h1>
-          <h2>Eventos e causas esperando por você</h2>
-          <SimpleSlider />
-        </div>
+       
 
         
         <HowItWorksSection /> {/* Nova seção adicionada */}
