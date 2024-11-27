@@ -239,7 +239,7 @@ const InformacaoPessoal = () => {
                                 type="text"
                                 value={userData.cpf}
                                 onChange={(e) => setUserData({ ...userData, cpf: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             />
                         </div>
                         <div>
