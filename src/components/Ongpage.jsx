@@ -21,8 +21,6 @@ const Ongpage = () => {
   const [eventos, setEventos] = useState([]);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const fetchOrganizations = async (userId) => {
       try {
@@ -55,6 +53,7 @@ const Ongpage = () => {
     const fetchEventos = async () => {
       if (selectedOrg) {
         try {
+          setEventos([]);
           const response = await axios.get(
             `https://volun-api-eight.vercel.app/eventos/ong/${selectedOrg._id}`
           );
@@ -74,6 +73,8 @@ const Ongpage = () => {
         } catch (error) {
           console.error("Erro ao buscar eventos:", error);
         }
+      }else{
+        setEventos([]);
       }
     };
 
@@ -136,12 +137,12 @@ const Ongpage = () => {
                 <h2 id="ong-date" className="blue">
                   Fundado em: {dataFundacao}
                 </h2>
-                <span id="ong-address">
+                {/* <span id="ong-address">
                   <img src={gpsIcon} id="gps-icon" alt="Ícone de GPS" />
                   <span id="ong-address-text" className="blue">
                     Rua Bento de Andrade, 647
                   </span>
-                </span>
+                </span> */}
                 <strong id="ong-genre">
                   <img
                     src={cateIcon}
@@ -152,12 +153,6 @@ const Ongpage = () => {
                     {selectedOrg.razao_social}
                   </span>
                 </strong>
-                <span id="ong-followers">
-                  <img src={flwsIcon} id="flws-icon" alt="Ícone de seguidores" />
-                  <span id="ong-flws-text" className="blue">
-                    327 seguidores
-                  </span>
-                </span>
               </div>
               <div className="ong-media">
                 <div className="media-icons">
@@ -188,6 +183,7 @@ const Ongpage = () => {
 
           <div className="ong-events">
             <h2 className="ong-events-title blue">Eventos criados:</h2>
+            {eventos.length > 0 ? (
             <div className="ong-cards">
               {eventos.map((evento) => (
                 <Card
@@ -203,6 +199,12 @@ const Ongpage = () => {
                 />
               ))}
             </div>
+          ) : (
+            <div className="no-events">
+              <p>Nenhum evento encontrado para esta organização.</p>
+            </div>
+          )}
+            
           </div>
         </>
       )}

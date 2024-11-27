@@ -1,6 +1,5 @@
 .slider-container {
-    /* width: 100%; */
-    gap: 10px;
+    width: 80%;
     margin: 0 auto;
     padding-bottom: 50px;
  }
@@ -14,7 +13,6 @@
 
 
 .slider-container {
-  max-width: 1200px;
   margin: 0 auto; /* Centraliza o slider */
   padding: 20px; /* Ajuste para espaçamento interno */
 }
@@ -28,10 +26,9 @@
 .slick-prev,
 .slick-next {
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 .slick-prev:before,

@@ -129,10 +129,6 @@ function App() {
             <p><b>Crie sua própria campanha:</b> Tem uma ideia para um evento social? Use o VOLUN para divulgá-la e encontrar parceiros dispostos a ajudar na realização <br/> <b>Acompanhe o impacto:</b> Monitore os resultados dos eventos em que participa e descubra como suas ações estão contribuindo para um futuro melhor</p>
           </div>
         </div>
-        
-       
-
-        
         <HowItWorksSection /> {/* Nova seção adicionada */}
       </div>
     </>

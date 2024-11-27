@@ -109,6 +109,14 @@ const CriacaoEventos = () => {
 
     const handleSubmit = async () => {
         try {
+            const dataInicio = new Date(formData.data_inicio);
+            const dataFim = new Date(formData.data_fim);
+            const agora = new Date();
+
+            if (isNaN(dataInicio) || isNaN(dataFim) || dataInicio <= agora || dataInicio > dataFim) {
+                return alert("Verifique as datas/horas: inválidas, início no passado, ou início maior que término.");
+            }
+
             console.log("Formulário enviado:", formData);
             let imagemUrl = "";
             let enderecoId = "";

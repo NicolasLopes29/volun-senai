@@ -14,7 +14,7 @@ const Cardong = () => {
     cnpj: '',
     ddd: '',
     telefone: '',
-    img_logo: '' // Para armazenar a URL da imagem
+    img_logo: ''
   });
   
   const [message, setMessage] = useState('');
@@ -73,74 +73,88 @@ const Cardong = () => {
     e.preventDefault();
 
     if (!validateCNPJ(data.cnpj)) {
-      alert("CNPJ inválido. Deve conter 14 dígitos.");
-      return;
+        alert("CNPJ inválido. Deve conter 14 dígitos.");
+        return;
     }
-    
+
     if (!validateDDD(data.ddd)) {
-      alert("DDD inválido. Deve conter 2 dígitos.");
-      return;
+        alert("DDD inválido. Deve conter 2 dígitos.");
+        return;
     }
 
     if (!validateTelefone(data.telefone)) {
-      alert("Telefone inválido. Deve ter entre 8 e 9 dígitos.");
-      return;
+        alert("Telefone inválido. Deve ter entre 8 e 9 dígitos.");
+        return;
     }
 
     try {
-      setIsSubmitting(true); // Ativar a trava no botão
+        setIsSubmitting(true); // Ativar a trava no botão
 
-      // Obter o UID do usuário logado
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (!user) {
-        alert("Você precisa estar logado para criar uma organização.");
-        setIsSubmitting(false); // Desativar a trava se o usuário não estiver logado
-        return;
-      }
-
-      const criador_id = user.uid; // UID do usuário logado
-
-      // Adicionar o criador_id ao payload
-      const payload = {
-        ...data,
-        criador_id
-      };
-
-      // Enviar a requisição para criar a organização
-      const response = await axios.post('https://volun-api-eight.vercel.app/organizacao', payload, {
-        headers: {
-          'Content-Type': 'application/json'
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+            alert("Você precisa estar logado para criar uma organização.");
+            setIsSubmitting(false); // Desativar a trava se o usuário não estiver logado
+            return;
         }
-      });
 
-      setMessage(response.data.mensagem);
+        const criador_id = user.uid; // UID do usuário logado
 
-      // Limpar os campos do formulário
-      setData({
-        nome: '',
-        razao_social: '',
-        descricao: '',
-        cnpj: '',
-        ddd: '',
-        telefone: ''
-      });
+        let imgLogoUrl = "";
+        if (imgFile) {
+            try {
+                imgLogoUrl = await uploadImage(imgFile); // Fazer o upload e obter a URL
+            } catch (uploadError) {
+                console.error("Erro ao fazer upload da imagem:", uploadError);
+                alert("Erro ao fazer upload da imagem. Tente novamente.");
+                setIsSubmitting(false);
+                return;
+            }
+        } else {
+            alert("Por favor, selecione uma imagem para o logo.");
+            setIsSubmitting(false);
+            return;
+        }
 
-      alert("Organização cadastrada com sucesso! ;)");
+        const payload = {
+            ...data,
+            criador_id,
+            img_logo: imgLogoUrl, // Adicionar a URL da imagem
+        };
 
-      // Redirecionar para a tela inicial após o cadastro
-      navigate("/");
+        const response = await axios.post('https://volun-api-eight.vercel.app/organizacao', payload, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
+        setMessage(response.data.mensagem);
+
+        setData({
+            nome: '',
+            razao_social: '',
+            descricao: '',
+            cnpj: '',
+            ddd: '',
+            telefone: '',
+            img_logo: '',
+        });
+
+        setImgFile(null); // Limpar o estado da imagem
+        alert("Organização cadastrada com sucesso! ;)");
+
+        navigate("/"); // Redirecionar para a página inicial
     } catch (err) {
-      if (err.response) {
-        setMessage(err.response.data.mensagem);
-      } else {
-        alert("O cadastro não ocorreu como o esperado, tente novamente mais tarde :/");
-      }
+        if (err.response) {
+            setMessage(err.response.data.mensagem);
+        } else {
+            alert("O cadastro não ocorreu como esperado. Tente novamente mais tarde :/");
+        }
     } finally {
-      setIsSubmitting(false); // Desativar a trava no botão após a resposta da API
+        setIsSubmitting(false); // Desativar a trava no botão
     }
-  };
+};
+
 
   return (
     <div className="cardong">

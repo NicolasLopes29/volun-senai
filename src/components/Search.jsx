@@ -25,7 +25,7 @@ const Search = ({ onBuscar }) => {
 
   return (
     <section className="arrumar-tudo">
-      <h1 className="Eventos-h1">Pesquise aqui</h1>
+      <h1 className="Eventos-h1">Busque por seus Eventos aqui!</h1>
       <form onSubmit={handleSubmit} className="Eventos-form">
         <div className="Eventos-barra-pesquisa">
           <input

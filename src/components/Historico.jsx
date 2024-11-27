@@ -86,6 +86,7 @@ const Historico = () => {
     eventos.length > 0 ? (
       <div className="historico-container">
           <h3>Histórico</h3>
+          <h5>confira aqui os ultimos eventos que você se inscreveu ou participou!</h5>
           <div className="historico-eventos">
               {eventos.map((evento) => (
                   <Card

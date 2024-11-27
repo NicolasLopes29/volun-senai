@@ -9,8 +9,8 @@
     inset: 0;
     display: flex;
     flex-direction: column;
-    width: 18em;
-    height: 16em;
+    width: 20em;
+    height: 18em;
     border-radius: 15px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.20);
     transition: height 0.2s ease-out;
@@ -119,4 +119,12 @@
         justify-content: center;
     }
     
+}
+
+
+@media (max-width: 1180px){
+    .card-x{
+        width: 18em;
+        height: 16em;
+    }
 }

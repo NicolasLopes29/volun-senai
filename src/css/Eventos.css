@@ -19,6 +19,8 @@
   height: 80px;
   object-fit: contain;
   margin: 0 auto 10px;
+  border-radius: 50%;
+  border: #2196f3 solid 3px;
 }
 
 .Carrossel-item p {
@@ -75,9 +77,12 @@
 }
 
 .Eventos-h1 {
+  text-align: center;
   font-size: 30px;
   color: #1f0171;
-  margin-left: 15px;
+  padding-top: 15px;
+  font-size: 40px;
+  padding-bottom: 15px;
 }
 
 .Eventos-barra-pesquisa {
@@ -230,9 +235,9 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  margin: 10px;
+  margin-top: 40px;
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .Botao-page button {

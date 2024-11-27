@@ -184,12 +184,12 @@ body {
   padding: 3rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  margin: 4rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   align-items: center;
 }
+
 
 .article-number-two {
   direction: rtl;
@@ -372,8 +372,7 @@ h1 {
   padding: 3rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-
-  margin-bottom: 0px;
+  margin-bottom: 4rem;
   text-align: center;
 }
 
