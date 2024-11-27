@@ -130,7 +130,6 @@ html, body {
     
     .cardong-form {
         width: 85%;
-        height: 85%;
     }
 
     .cardong-form-logo {
@@ -152,9 +151,7 @@ html, body {
     
     .telefone-container {
         margin: .8em 0 0 2em;
-        display: flex;
-        gap: 1.5em;
-        justify-content: space-between;
+        gap: .5em
     }
 
     .telefone-container > input {
