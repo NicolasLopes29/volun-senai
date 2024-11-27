@@ -28,7 +28,7 @@ const Eventos = () => {
                 filters: [
                     estadoSelecionado ? `endereco.estado:${estadoSelecionado}` : "",
                     cidade ? `endereco.cidade:${cidade}` : "",
-                    categoria ? `tags:${categoria}` : "",
+                    categoria.length > 0 ? categoria.map(cat => `tags:${cat}`).join(" OR ") : "",
                 ].filter(Boolean).join(" AND "),
             });
 
@@ -50,7 +50,12 @@ const Eventos = () => {
     };
 
     useEffect(() => {
-        buscarEventos({});
+        buscarEventos({
+            estadoSelecionado: "",
+            categoria: [],
+            cidade: "",
+            searchQuery: "",
+        });
     }, []);
 
     const uniqueOrganizations = [...new Map(eventos.map(e => [e.organizacaoNome, e])).values()];
