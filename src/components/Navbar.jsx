@@ -216,6 +216,9 @@ const Navbar = () => {
                     <p>Bem-Vindo</p>
                     <p>{userData.nome}</p>
                   </div>
+                  <div className="logout-button">
+                    <button onClick={handleUserLogOut}>Deslogar</button>
+                  </div>
                 </div>
               )}
               <button
@@ -224,7 +227,7 @@ const Navbar = () => {
               >
                 <MdOutlineArrowDropDown className="perfil-dropdown" />
               </button>
-              {userMenu && <UsuarioMenu />}
+              {userMenu}
             </div>
           ) : (
             <button

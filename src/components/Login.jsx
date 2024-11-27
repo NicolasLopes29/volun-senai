@@ -120,7 +120,7 @@ const Login = ({ fecharLogin }) => {
 
 
   const CadastrarRedir = () => {
-    window.open("/cadastrar", "_blank");
+    navigate("/cadastrar")
   };
 
   return (

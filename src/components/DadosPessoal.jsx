@@ -30,6 +30,8 @@ const DadosPessoal = () => {
     }, [navigate]);
 
     const validarCPF = (cpf) => {
+        const cpfnumero = [0,1,2,3,4,5,6,7,8,9]
+
         cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
 
         if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
@@ -44,7 +46,7 @@ const DadosPessoal = () => {
         let rev1 = 11 - (soma % 11);
         if (rev1 === 10 || rev1 === 11) rev1 = 0;
         if (rev1 !== parseInt(cpf.charAt(9))) return false;
-
+        
         soma = 0;
         for (let i = 0; i < 10; i++) {
             soma += parseInt(cpf.charAt(i)) * (11 - i);
@@ -62,6 +64,17 @@ const DadosPessoal = () => {
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Coloca o hífen
         return cpf;
     };
+    const formatarDDD = (ddd) => {
+        // Remove caracteres não numéricos
+        ddd = ddd.replace(/\D/g, '');
+        
+        // Garantir que o DDD tenha exatamente 2 dígitos
+        if (ddd.length === 2) {
+            return ddd; // Retorna o DDD formatado corretamente
+        } else {
+            setErro(true); // Retorna uma string vazia se o DDD não for válido
+        }
+    };
 
     const formatarTelefone = (telefone) => {
         telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
@@ -69,6 +82,7 @@ const DadosPessoal = () => {
         return telefone;
     };
 
+    
     const EnviarDados = async (e) => {
         e.preventDefault();
         setErro(false);
@@ -155,7 +169,9 @@ const DadosPessoal = () => {
                             type="date"
                             name="dataNasc"
                             value={userDados.dataNasc}
-                            onChange={(e) => setUserDados({ ...userDados, dataNasc: e.target.value })}
+                            onChange={(e) => setUserDados({...userDados, dataNasc: e.target.value})}
+                            min="1900-01-01" // Data mínima permitida
+                            max={`${new Date().toISOString().split("T")[0]}`} // Data máxima (hoje)      
                         />
                     </div>
 
@@ -168,7 +184,7 @@ const DadosPessoal = () => {
                                 name="ddd"
                                 value={userDados.ddd}
                                 placeholder="Ex: 11"
-                                onChange={(e) => setUserDados({ ...userDados, ddd: e.target.value })}
+                                onChange={(e) => setUserDados({ ...userDados, ddd: formatarDDD(e.target.value) })}
                             />
                         </div>
                         <div>                            

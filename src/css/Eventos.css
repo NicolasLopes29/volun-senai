@@ -1,89 +1,81 @@
 @import url(./Global.css);
 
-.Pesquisa-Eventos{
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-top: 4rem;
-    width: 100%;
-    font-family: var(--font-family);
-  }
+.Pesquisa-Eventos {
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 4rem;
+  width: 100%;
+  font-family: var(--font-family);
+}
 
-.arrumar-tudo{
+.arrumar-tudo {
   padding-top: 5px;
 }
 
 .Eventos-h1 {
   font-size: 30px;
-  color: #1F0171;
+  color: #1f0171;
   margin-left: 15px;
 }
 
-.Eventos-barra-pesquisa{
+.Eventos-barra-pesquisa {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
 
-.Eventos-input-pesquisa{
+.Eventos-input-pesquisa {
   padding: 5px;
   width: 80%;
   text-align: justify;
   border-radius: 0.3rem;
 }
 
-/* input tirado do uiverso  */
 .Eventos-input-filtro {
-    position: relative;
-    display: inline-block;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-left: 10px;    
-   }
-   
-   .Eventos-input {
-    border: solid 2px #1F0171;
-    border-radius: 2rem;
-    padding: 10px;
-    font-size: 20px;
-    color: #1F0171;
-    transition: border 150ms cubic-bezier(0.4,0,0.2,1);
-    box-shadow: #1F0171 5px;
-   }
-   /* putz gril, como arrumar essa porcaria é chato, esqueci
-   quase tudo de programação
-   Detalhe: css não é linguagem de programação*/
-   .Eventos-user-label {
-    position: absolute;
-    left: 30px;
-    color: #1F0171;
-    pointer-events: none;
-    transform: translateY(15px);
-    transition: 150ms cubic-bezier(0.4,0,0.2,1);
-   }
-   
-   .input:focus, input:valid {
-    outline: none;
-    border: 1px solid #1a73e8;
-   }
-   
-   .input:focus ~ label, input:valid ~ label {
-    transform: translateY(-50%) scale(0.8);
-    /* background-color: #FBFBFE; */
-    padding:  0.2em;
-    /* color: #2196f3; */
-   }
+  position: relative;
+  display: inline-block;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
 
-.Eventos-form{
+.Eventos-input {
+  border: solid 2px #1f0171;
+  border-radius: 2rem;
+  padding: 10px;
+  font-size: 20px;
+  color: #1f0171;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px #1f0171;
+}
+
+.Eventos-input.filled ~ .Eventos-user-label,
+.Eventos-input:focus ~ .Eventos-user-label {
+  transform: translateY(-90%) scale(0.8);
+  background-color: #fbfbfe00;
+  padding: 0.2em;
+  color: #2196f3;
+}
+
+.Eventos-user-label {
+  position: absolute;
+  left: 30px;
+  color: #1f0171;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.Eventos-form {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-  /* From Uiverse.io by adamgiebl */ 
 .Eventos-button-buscar {
-  background: #1F0171;
+  background: #1f0171;
   padding: 5px;
   font-weight: 700;
   font-size: 16px;
@@ -91,15 +83,15 @@
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
   cursor: pointer;
-  color: #FBFBFE;
+  color: #fbfbfe;
   width: 10rem;
 }
 
-.Eventos-toggle-filtros{
-  background: none; /* Remove o fundo */
-  border: none; /* Remove a borda */
+.Eventos-toggle-filtros {
+  background: none;
+  border: none;
   padding: 5px;
-  border-bottom: 3px solid #1F0171 ;
+  border-bottom: 3px solid #1f0171;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -116,10 +108,10 @@
   box-shadow: 0.15em 0.15em;
 }
 
-.Eventos-estado-busca{
-  color: #1F0171;
+.Eventos-estado-busca {
+  color: #1f0171;
   display: block;
-  border: 2px solid #1F0171;
+  border: 2px solid #1f0171;
   border-radius: 20px;
   width: 8rem;
   height: 40px;
@@ -128,9 +120,9 @@
   margin: 1rem;
 }
 
-.Eventos-tipo{
-  border: 2px solid #1F0171;
-  color: #1F0171;
+.Eventos-tipo {
+  border: 2px solid #1f0171;
+  color: #1f0171;
   border-radius: 20px;
   padding-left: 5px;
   width: 14rem;
@@ -138,43 +130,41 @@
   margin: 1rem;
 }
 
-.Eventos-select{
+.Eventos-select {
   display: flex;
 }
 
-.Eventos-arrumar-botão{
+.Eventos-arrumar-botão {
   padding-left: 15px;
   padding-top: 15px;
 }
 
-.Eventos-resultado-pesquisa-texto{
+.Eventos-resultado-pesquisa-texto {
   font-size: 900px;
   padding-top: 10px;
-  color: #1F0171;
+  color: #1f0171;
 }
 
-.Eventos-titulo h1{
+.Eventos-titulo h1 {
   padding-top: 15px;
   padding-left: 100px;
   font-size: 50px;
 }
 
-.Eventos-titulo h3{
+.Eventos-titulo h3 {
   padding-left: 100px;
   font: 'sans-serif';
   font-size: 25px;
 }
 
 .Eventos-resultado-pesquisa {
-  display: grid;
-  grid-template-columns: repeat(3, 400px);
-  gap: 16px;
+  margin-top: 1em;
+  display: flex;
+  flex-flow: wrap row;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  gap: 5em;
 }
-
-.page-count{
+.page-count {
   align-items: center;
   text-align: center;
   justify-content: center;
@@ -183,18 +173,18 @@
   margin-bottom: 20px;
 }
 
-.Botao-page button{
+.Botao-page button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   font-size: 20px;
-  color: #1F0171;
+  color: #1f0171;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.seta{
+.seta {
   cursor: pointer;
 }
 
@@ -203,20 +193,19 @@
   cursor: pointer;
 }
 
-.numero-page button{
+.numero-page button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   font-size: 25px;
-  color: #1F0171;
+  color: #1f0171;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-
-@media (max-width: 1037px){
-  .Eventos-resultado-pesquisa{
+@media (max-width: 1037px) {
+  .Eventos-resultado-pesquisa {
     grid-template-columns: repeat(2, 2fr);
     padding: 60px;
     gap: 8px;

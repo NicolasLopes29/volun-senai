@@ -104,27 +104,6 @@ const DetalhesEventos = () => {
         }
     };
 
-    const handleCancelar = async () => {
-        if (!participacaoId) return console.error("ID de participação não encontrado");
-    
-        try {
-            const response = await fetch(`https://volun-api-eight.vercel.app/participacao/${participacaoId}`, {
-                method: "DELETE",
-            });
-    
-            if (response.ok) {
-                setIsParticipating(false); // Atualiza estado para não participante
-                setParticipacaoId(null); // Remove o ID da participação
-                alert("Participação cancelada com sucesso.");
-            } else {
-                throw new Error("Erro ao cancelar participação");
-            }
-        } catch (error) {
-            console.error("Erro ao cancelar participação:", error);
-        } finally {
-            setShowModal(false); // Fecha o modal
-        }
-    };
 
     const handleParticipar = async () => {
         if (isParticipating) {
@@ -237,17 +216,22 @@ const DetalhesEventos = () => {
                 <Loader />
             ) : (
                 <div className="pega-tudo">
+                    {/* Parte 1: Informações do evento */}
                     <div className="parte-1">
                         <div className="titulo-evento">
                             <h1>{evento.titulo || "Evento não encontrado"}</h1>
                             <div className="tags-container">
-                                {evento.tags && evento.tags.map((tag, index) => (
-                                    <span key={index} className="tag-item">{tag}</span>
-                                ))}
+                                {evento.tags &&
+                                    evento.tags.map((tag, index) => (
+                                        <span key={index} className="tag-item">
+                                            {tag}
+                                        </span>
+                                    ))}
                             </div>
                         </div>
+    
                         <div className="buttons-detalhes-evento">
-                        {participacaoId ? (
+                            {participacaoId ? (
                                 <button
                                     className="cancelar-participar"
                                     onClick={() => setShowModal(true)}
@@ -255,46 +239,69 @@ const DetalhesEventos = () => {
                                     Cancelar Participação
                                 </button>
                             ) : (
-                                <button
-                                    className="participar"
-                                    onClick={handleParticipar}
-                                >
+                                <button className="participar" onClick={handleParticipar}>
                                     Participar
                                 </button>
                             )}
-
-                            <button className="compartilhar" onClick={handleCompartilhar}>Compartilhar</button>
-
+                            <button className="compartilhar" onClick={handleCompartilhar}>
+                                Compartilhar
+                            </button>
                         </div>
+    
                         <div className="background-descricao">
-                            <p className="descricao-evento">{evento.descricao || "Descrição indisponível..."}</p>
+                            <p className="descricao-evento">
+                                {evento.descricao || "Descrição indisponível..."}
+                            </p>
                         </div>
+    
                         <div className="backgound-especificacoes">
-                            <p className="preferencia-descricao">Preferências: nenhuma</p>
-                            <p className="funcao-descricao">Função: Auxiliar na limpeza da praia coletando resíduos</p>
+                            <p className="preferencia-descricao">
+                                {evento.descricao_2 || "Descrição indisponível..."}
+                            </p>
                         </div>
                     </div>
-        
+    
+                    {/* Parte 2: Dados visuais do evento */}
                     <div className="parte-2">
                         <div className="imagem-evento">
-                            <img src={evento.imagem || praia} alt={evento.titulo} className="praia-img" />
+                            <img
+                                src={evento.imagem || praia}
+                                alt={evento.titulo}
+                                className="praia-img"
+                            />
                         </div>
                         <div className="barra-participantes">
                             <img src={pessoas} alt="ícone pessoas" className="pessoas" />
                             <p>{evento.vagaLimite} vagas</p>
                         </div>
                         <div className="data-evento">
-                            <img src={calendario} alt="ícone calendário" className="calendario-icon" />
-                            <p>{dataInicio} à {dataFim}</p>
+                            <img
+                                src={calendario}
+                                alt="ícone calendário"
+                                className="calendario-icon"
+                            />
+                            <p>
+                                {dataInicio} à {dataFim}
+                            </p>
                         </div>
                         <div className="horario-evento">
-                            <img src={relogio} alt="ícone relógio" className="relogio-icon" />
-                            <p>Horário: {horaInicio} à {horaFim}</p>
+                            <img
+                                src={relogio}
+                                alt="ícone relógio"
+                                className="relogio-icon"
+                            />
+                            <p>
+                                Horário: {horaInicio} à {horaFim}
+                            </p>
                         </div>
                         <div className="local-eventos">
                             <img src={local} alt="ícone local" className="local-icon" />
                             <p>
-                                {evento.endereco ? `${evento.endereco.logradouro}, ${evento.endereco.numero}, ${evento.endereco.cidade} - ${evento.endereco.estado}, ${formatarCEP(evento.endereco.cep)}` : "Endereço indisponível"}
+                                {evento.endereco
+                                    ? `${evento.endereco.logradouro}, ${evento.endereco.numero}, ${evento.endereco.cidade} - ${evento.endereco.estado}, ${formatarCEP(
+                                          evento.endereco.cep
+                                      )}`
+                                    : "Endereço indisponível"}
                             </p>
                         </div>
                         <div className="informacoes-ong">
@@ -302,7 +309,11 @@ const DetalhesEventos = () => {
                                 <p className="link-ong">Visite o perfil da ONG:</p>
                                 <div className="logo-and-name-ong">
                                     <div className="logo-img-container">
-                                        <img className="logo-img-ong" alt="logo ONG" src={evento.organizacao?.imgLogo} />
+                                        <img
+                                            className="logo-img-ong"
+                                            alt="logo ONG"
+                                            src={evento.organizacao?.imgLogo}
+                                        />
                                     </div>
                                     <h2 className="link-ong-name">{evento.organizacao?.nome}</h2>
                                 </div>
@@ -311,9 +322,12 @@ const DetalhesEventos = () => {
                     </div>
                 </div>
             )}
-
+    
+            {/* Mapa e endereço */}
             <div className="endereco-mapa">
-                <h2>Endereço: {evento.endereco?.logradouro}, {evento.endereco?.numero}</h2>
+                <h2>
+                    Endereço: {evento.endereco?.logradouro}, {evento.endereco?.numero}
+                </h2>
                 <div className="mapa-lugar">
                     {coordinates ? (
                         <MapContainer
@@ -330,24 +344,24 @@ const DetalhesEventos = () => {
                             </Marker>
                         </MapContainer>
                     ) : (
-                        <p>mapa não encontrado</p>
+                        <p>Mapa não encontrado</p>
                     )}
                 </div>
-                {/* Modal de confirmação */}
-                    {showModal && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <h3>Tem certeza que deseja cancelar sua participação?</h3>
-                                <div className="modal-actions">
-                                    <button onClick={handleCancelarParticipacao}>Sim</button>
-                                    <button onClick={() => setShowModal(false)}>Não</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
             </div>
             <Coment eventoId={id}/>
-
+    
+            {/* Modal de confirmação */}
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h3>Tem certeza que deseja cancelar sua participação?</h3>
+                        <div className="modal-buttons">
+                            <button onClick={handleCancelarParticipacao}>Sim</button>
+                            <button onClick={() => setShowModal(false)}>Não</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

@@ -24,6 +24,7 @@ body {
 }
 
 #ong-pfp {
+    margin: 20px;
     width: 17.5em;
     border-radius: 50%;
     border: solid 4px rgb(255, 128, 0);
@@ -64,6 +65,7 @@ body {
 }
 
 .ong-info {
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -127,11 +129,12 @@ body {
 }
 
 .ong-cards {
-    display: grid; /* Usamos grid layout */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Garante 3 colunas quando possível */
-    gap: 20px; /* Espaçamento entre os cards */
-    padding: 20px; /* Espaçamento interno */
-    justify-content: center; /* Centraliza os itens */
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   }
   
   @media (max-width: 1024px) {
@@ -145,5 +148,73 @@ body {
     .ong-cards {
       grid-template-columns: 1fr; /* Apenas uma coluna em telas muito pequenas */
     }
+  }
+  
+  .org-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .org-nav-btn {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .org-nav-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .org-nav-btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .org-nav-action {
+    display: flex;
+    align-items: center;
+  }
+  
+  .org-nav-add-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .org-nav-add-btn:hover {
+    background-color: #e68900;
+    transform: scale(1.05);
+  }
+  
+  .ong-media a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007bff;
+    transition: 0.3s ease;
+  }
+  
+  .ong-media a:hover {
+    text-decoration: underline;
+    color: #0056b3;
   }
   

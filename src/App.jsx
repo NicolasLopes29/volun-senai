@@ -109,12 +109,14 @@ function App() {
           <AutoSlider />
         </section>
         
+
+        
         <div className="app-articles-container">
           <div className="article-number-one">
             <img src="https://img.freepik.com/free-photo/top-view-young-people-putting-their-hands-together_1139-1008.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 1" />
             <p>Você busca uma forma de fazer a diferença e deixar o mundo um pouco mais justo? O VOLUN é a plataforma perfeita para você! Com o VOLUN, você tem acesso a uma variedade de eventos com causas sociais, desde campanhas de doação de sangue até mutirões de limpeza em praças e parques.</p>
           </div>
-
+          <BenefitsSection /> {/* Nova seção adicionada */}
           <div className="article-number-two">
             <img src="https://img.freepik.com/free-photo/full-shot-woman-jumping-outdoors_23-2149913414.jpg?ga=GA1.1.1726533856.1700858386&semt=ais_hybrid" alt="Article 2" />
             <p>Criar sua própria campanha: Se você tem uma ideia para um evento social, utilize o VOLUN para divulgá-la e encontrar parceiros para realizá-la. Acompanhar o impacto: Veja de perto os resultados dos eventos que você participa e saiba como suas ações estão contribuindo para um futuro melhor.</p>
@@ -127,7 +129,7 @@ function App() {
           <SimpleSlider />
         </div>
 
-        <BenefitsSection /> {/* Nova seção adicionada */}
+        
         <HowItWorksSection /> {/* Nova seção adicionada */}
       </div>
     </>

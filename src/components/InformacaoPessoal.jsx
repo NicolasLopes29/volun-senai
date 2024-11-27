@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import "./../css/InformacaoPessoal.css";
+import { getDate } from "date-fns/fp";
+
 
 const InformacaoPessoal = () => {
     const [disable, setDisable] = useState(true);
@@ -43,26 +45,27 @@ const InformacaoPessoal = () => {
     const handleSalvarAlteracoes = async () => {
         setLoading(true);
         setError(false);
-        
+
         const auth = getAuth();
         const user = auth.currentUser;
-    
+
         if (!user) {
             setError("Usuário não autenticado.");
             return;
         }
-    
+
         const uid = user.uid;
-    
+
         // Atualizar os dados pessoais no estado
         const updatedUserData = {
             nome: userData.nome,
             sobrenome: userData.sobrenome,
             cpf: userData.cpf,
+            data_nascimento : formatDate(userData.data_nascimento),
             ddd: userData.ddd,
             telefone: userData.telefone,
         };
-    
+
         // Atualizar os dados de endereço no estado
         const updatedEnderecoData = {
             logradouro: enderecoData.logradouro,
@@ -72,16 +75,16 @@ const InformacaoPessoal = () => {
             estado: enderecoData.estado,
             numero: enderecoData.numero,
         };
-    
+
         try {
             // Atualizar os dados pessoais do usuário
             await axios.put(`https://volun-api-eight.vercel.app/usuarios/${uid}`, updatedUserData);
-    
+
             // Atualizar os dados de endereço se um ID existir
             if (enderecoData.id) {
                 await axios.put(`https://volun-api-eight.vercel.app/endereco/${enderecoData.id}`, updatedEnderecoData);
             }
-    
+
             // Recarregar a página após salvar as alterações
             window.location.reload();
         } catch (error) {
@@ -120,7 +123,40 @@ const InformacaoPessoal = () => {
             alert("CEP inválido.");
         }
     };
-    
+
+    // Função para converter "dd/mm/yyyy" para "yyyy-mm-dd"
+    const formatDate = (date) => {
+        // Verifica se a data está no formato correto
+        const [dia, mes, ano] = date.split('/').map(Number);
+        // Verifica se a data é válida
+        if (isNaN(dia) || isNaN(mes) || isNaN(ano)) {
+            throw new Error("Data inválida. A data deve estar no formato dd/mm/yyyy.");
+        }
+        // Cria um objeto Date com ano, mês (0-indexado), e dia
+        const dataConvertida = new Date(ano, mes - 1, dia);
+        // Verifica se a data foi criada corretamente
+        if (dataConvertida.getDate() !== dia || dataConvertida.getMonth() + 1 !== mes || dataConvertida.getFullYear() !== ano) {
+            throw new Error("Data inválida.");
+        }
+        // Formata a data para o formato "yyyy-mm-dd"
+        const dataFormatada = dataConvertida.toISOString().split('T')[0];
+        return dataFormatada;
+    }
+    // Função para converter "yyyy-mm-dd" para "dd/mm/yyyy"
+    const formatDateISO = (date) => {
+        const dateObj = new Date(date);
+        // Verifica se a data é válida
+        if (isNaN(dateObj.getTime())) {
+            throw new Error("Data inválida.");
+        }
+        const day = dateObj.getUTCDate();
+        const month = dateObj.getMonth() + 1;
+        const year = dateObj.getFullYear();
+        // Adiciona zero à esquerda para dia e mês, se necessário
+        const formattedDay = day < 10 ? `0${day}` : day;
+        const formattedMonth = month < 10 ? `0${month}` : month;
+        return `${formattedDay}/${formattedMonth}/${year}`;
+    }
 
     const handleFormUser = async () => {
         const auth = getAuth();
@@ -137,7 +173,8 @@ const InformacaoPessoal = () => {
 
         try {
             const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
-            setUserData({ ...response.data, email: user.email });
+            const formattedDate = formatDateISO(response.data.data_nascimento)
+            setUserData({ ...response.data, data_nascimento: formattedDate, email: user.email });
 
             const enderecoResponse = await axios.get(`https://volun-api-eight.vercel.app/endereco/usuario/${uid}`);
             if (enderecoResponse.data && enderecoResponse.data.length > 0) {
@@ -202,14 +239,14 @@ const InformacaoPessoal = () => {
                                 type="text"
                                 value={userData.cpf}
                                 onChange={(e) => setUserData({ ...userData, cpf: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             />
                         </div>
                         <div>
                             <input
                                 className="input-medio-pequeno"
                                 placeholder="Data de Nascimento"
-                                type="date"
+                                type="text"
                                 value={userData.data_nascimento}
                                 onChange={(e) => setUserData({ ...userData, data_nascimento: e.target.value })}
                                 disabled={true} // Desabilitado para edição
@@ -236,7 +273,7 @@ const InformacaoPessoal = () => {
                         <div>
                             <input
                                 placeholder="Email"
-                                className="input-medio-grande"
+                                className="input-grande"
                                 type="email"
                                 value={userData.email}
                                 onChange={(e) => setUserData({ ...userData, email: e.target.value })}
