@@ -129,38 +129,43 @@ html, body {
     }
     
     .cardong-form {
-        width:45%;
+        width: 85%;
+        height: 85%;
     }
 
     .cardong-form-logo {
-        width: 1.9em;
-        margin: .5em 0 0 4.7em;
+        width: 3.5em;
+        margin: 1em 0 .1em 8.7em;
     }
 
     .cardong-form > p {
-        padding: 0 0 0 2em;
-        font-size: .7em;
+        padding: 0 0 0 1.7em;
+        font-size: 1.35em;
     }
 
     .cardong-form > input, textarea {
-        width: 70%;
-        height: 1.7em;
-        font-size: .70em;
+        width: 80%;
+        height: 3em;
+        font-size: 1em;
+        margin-top: 2em;
     }
     
     .telefone-container {
-        margin: .6em 0 0 1.3em;
+        margin: .8em 0 0 2em;
+        display: flex;
+        gap: 1.5em;
+        justify-content: space-between;
     }
 
     .telefone-container > input {
-        font-size: .55em;
+        font-size: 1em;
         height: 1.7em;
     }
 
     .cardong-form > button {
-        margin: 1em 0 1em 2.5em;
-        padding: .4em 3.3em;
-        font-size: .70em;
+        margin: .7em 0 1em 2em;
+        padding: .76em 4em;
+        font-size: 1.3em;
     }
 
 }
