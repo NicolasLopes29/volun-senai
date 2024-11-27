@@ -118,6 +118,8 @@
     text-align: justify;
     padding: 10px;
     margin-right: 1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Parte 2 Estilos */
@@ -222,6 +224,8 @@
 .preferencia-descricao{
     margin: 10px;
     color: #1F0171;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .funcao-descricao{
