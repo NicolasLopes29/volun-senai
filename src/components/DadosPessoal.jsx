@@ -16,6 +16,7 @@ const DadosPessoal = () => {
     });
     const [uid, setUid] = useState(null);
     const [erro, setErro] = useState(false);
+    const [anoErro, setAno] = useState
     const [sucesso, setSucesso] = useState(false);
 
     const navigate = useNavigate();
@@ -69,6 +70,18 @@ const DadosPessoal = () => {
         return telefone;
     };
 
+    const formatarAno = (dataNasc) => {
+        const ano = dataNasc.substring(0, 4); // Extrai o ano
+        const anoAtual = new Date().getFullYear();
+
+        // Valida se o ano está dentro do intervalo permitido
+        if (parseInt(ano, 10) < 1900 || parseInt(ano, 10) > anoAtual) {
+            return ''; // Retorna vazio se o ano for inválido
+        }
+
+        return dataNasc; // Retorna a data original se for válida
+    };
+
     const EnviarDados = async (e) => {
         e.preventDefault();
         setErro(false);
@@ -83,6 +96,13 @@ const DadosPessoal = () => {
 
         if (!validarCPF(cpf)) {
             alert("CPF inválido");
+            return;
+        }
+
+        const ano = parseInt(dataNasc.substring(0, 4), 10);
+        const anoAtual = new Date().getFullYear();
+        if (ano < 1900 || ano > anoAtual) {
+            alert(`O ano de nascimento deve estar entre 1900 e ${anoAtual}.`);
             return;
         }
 
@@ -155,8 +175,16 @@ const DadosPessoal = () => {
                             type="date"
                             name="dataNasc"
                             value={userDados.dataNasc}
-                            onChange={(e) => setUserDados({ ...userDados, dataNasc: e.target.value })}
+                            onChange={(e) =>
+                                setUserDados({
+                                    ...userDados,
+                                    dataNasc: formatarAno(e.target.value),
+                                })
+                            }
                         />
+                        {userDados.dataNasc === '' && erro && (
+                            <p className="erro-mensagem">Ano de nascimento inválido (1900 - {new Date().getFullYear()}).</p>
+                        )}
                     </div>
 
                     <div>
