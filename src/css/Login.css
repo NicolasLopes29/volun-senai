@@ -98,7 +98,7 @@
 }
 
 .login-other {
-    width: 400px;
+    width: 300px;
     height: 30px;
     margin: 15px;
     padding: 10px;
@@ -107,6 +107,7 @@
     display: flex;
     border-radius: 10px;
     box-shadow: var(--input-shadow);
+    cursor: pointer;
 }
 
 .login-other a {
@@ -146,4 +147,20 @@
         left: auto;
         right: auto;
     }
+}
+
+@media (max-width: 500px){
+    .login-body-container{
+        width: 60%;
+        position: relative;
+        margin: auto;
+        top: 20px;
+        left: auto;
+        right: auto;
+    }
+    .login-main-container {
+        margin: 0px;
+        border-radius: 12px;
+    }
+    
 }

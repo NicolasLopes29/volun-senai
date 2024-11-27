@@ -273,3 +273,27 @@
     gap: 8px;
   }
 }
+@media (max-width: 1037px) {
+  .Eventos-resultado-pesquisa {
+    grid-template-columns: repeat(2, 2fr);
+    padding: 60px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .Pesquisa-Eventos {
+    text-align: center;
+  }
+  .Carrossel-item {
+    grid-template-columns: repeat(2, 2fr);
+  }
+  .Carrossel-item img {
+    gap: 10px
+  }
+  .Eventos-titulo h3, .Eventos-titulo h1{
+    text-align: center;
+    margin: auto;
+    padding: 0px;
+  }
+}
