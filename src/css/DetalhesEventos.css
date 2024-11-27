@@ -280,6 +280,8 @@
     padding: 15px;
     border-radius: 10px;
     text-align: justify;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .publicar-comentario{
