@@ -41,6 +41,9 @@
     margin: 1em .9em 1em .9em;
     text-align: justify;
     font-family: "Inter", sans-serif;
+    overflow-wrap: break-word; /* Força a quebra de palavras longas */
+    word-break: break-word; /* Quebra palavras extensas */
+}
 }
 
 .card-text-first, .card-text-second {
