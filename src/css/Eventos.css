@@ -187,6 +187,103 @@
   margin: 1rem;
 }
 
+.Eventos-filtros {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Eventos-linha {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.Eventos-categorias {
+  text-align: center;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.Eventos-categorias-disponiveis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espaço entre os botões */
+  justify-content: center;
+  max-height: 120px; /* Limite inicial para categorias */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  
+}
+
+.Eventos-categorias-disponiveis.expanded {
+  max-height: none; /* Remova a limitação ao expandir */
+}
+
+.Eventos-categoria-opcao {
+  padding: 10px 15px;
+  border: 1px solid #ddd; /* Borda leve */
+  border-radius: 20px; /* Cantos arredondados */
+  background-color: #f9f9f9; /* Fundo claro */
+  color: #333; /* Texto escuro */
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Efeito de transição */
+}
+
+.Eventos-categoria-opcao:hover {
+  background-color: #e0e0e0; /* Fundo ao passar o mouse */
+  border-color: #bbb; /* Borda ao passar o mouse */
+}
+
+.Eventos-categoria-opcao.disabled {
+  background-color: #ccc; /* Fundo desabilitado */
+  color: #999; /* Texto desabilitado */
+  cursor: not-allowed;
+}
+
+.Eventos-categorias-selecionadas {
+  margin-top: 20px; /* Espaço entre as categorias selecionadas e o botão "Ver Mais" */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espaço entre os botões */
+}
+
+.Eventos-categoria-removida {
+  padding: 5px 10px;
+  border: 1px solid #ff6666;
+  border-radius: 15px;
+  background-color: #ffe6e6; /* Fundo suave */
+  color: #ff3333;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Eventos-categoria-removida:hover {
+  background-color: #ffcccc; /* Fundo mais forte ao passar o mouse */
+}
+
+.Eventos-categorias-toggle {
+  margin-top: 10px;
+  padding: 5px 15px;
+  font-size: 14px;
+  border: none;
+  background-color: #1f0171; /* Cor de fundo */
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Eventos-categorias-toggle:hover {
+  background-color: #1f0171; /* Cor mais escura ao passar o mouse */
+}
+
+
 .Eventos-tipo {
   border: 2px solid #1f0171;
   color: #1f0171;
