@@ -103,3 +103,64 @@ html, body {
     cursor: pointer;
     padding: .5em 7em .5em 7em;
 }
+
+@media screen and (max-width: 468px) {
+
+    html, body {
+        width: 100vw;
+    }
+
+    .cardong-right {
+        display: none;
+    }
+
+    .cardong-left {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+    }
+ 
+    .cardong {
+        display: block;
+        width: 100vw;
+    }
+    
+    .cardong-form {
+        width:45%;
+    }
+
+    .cardong-form-logo {
+        width: 1.9em;
+        margin: .5em 0 0 4.7em;
+    }
+
+    .cardong-form > p {
+        padding: 0 0 0 2em;
+        font-size: .7em;
+    }
+
+    .cardong-form > input, textarea {
+        width: 70%;
+        height: 1.7em;
+        font-size: .70em;
+    }
+    
+    .telefone-container {
+        margin: .6em 0 0 1.3em;
+    }
+
+    .telefone-container > input {
+        font-size: .55em;
+        height: 1.7em;
+    }
+
+    .cardong-form > button {
+        margin: 1em 0 1em 2.5em;
+        padding: .4em 3.3em;
+        font-size: .70em;
+    }
+
+}
