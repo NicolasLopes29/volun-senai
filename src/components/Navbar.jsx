@@ -237,7 +237,6 @@ const Navbar = () => {
           )}
           <ul>
             <li><Link to="/eventos" id="navbar-eventos">Eventos</Link></li>
-            <li><Link to="/sobre" id="navbar-sobre">Sobre Nós</Link></li>
             <li><Link to="/cardong" id="navbar-org">Sou uma organização</Link></li>
           </ul>
         </div>
