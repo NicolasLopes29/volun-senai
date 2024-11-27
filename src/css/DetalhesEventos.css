@@ -99,6 +99,7 @@
     margin-top: 20px;
     box-shadow:  0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
+    padding bottom: 40px;
 }
 
 .backgound-especificacoes{
@@ -116,7 +117,7 @@
     color: #1F0171;
     font: 'sans-serif';
     text-align: justify;
-    padding: 10px;
+    padding: 20px;
     margin-right: 1rem;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -222,6 +223,7 @@
 }
 
 .preferencia-descricao{
+    padding-bottom: 20px;
     margin: 10px;
     color: #1F0171;
     overflow-wrap: break-word;
