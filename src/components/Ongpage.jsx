@@ -160,11 +160,13 @@ const Ongpage = () => {
                 </strong>
               </div>
 
-              {/* Substituindo os ícones de mídia social pelo botão de exclusão */}
-              <div className="delete-org-btn">
-                <button onClick={handleModalOpen} className="delete-btn">
+              <div className="ong-media">
+                <button className="delete-org-btn"onClick={() => setShowModal(true)}>
                   Excluir Organização
                 </button>
+                <Link to={`/criacao_eventos/${selectedOrg?._id}`} className="create-event-btn">
+                  Criar Evento
+                </Link>
               </div>
             </div>
             <hr id="ong-line" />
