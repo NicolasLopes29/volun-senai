@@ -29,9 +29,18 @@ const DadosPessoal = () => {
         }
     }, [navigate]);
 
-    const validarCPF = (cpf) => {
-        const cpfnumero = [0,1,2,3,4,5,6,7,8,9]
 
+    const formatarNome = (nome) =>{
+        nome = nome.replace(/[^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
+        return nome;
+    }
+
+    const formatarSobrenome = (sobrenome) => {
+        sobrenome = sobrenome.replace(/[^a-zA-Z][^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
+        return sobrenome;
+    }
+
+    const validarCPF = (cpf) => {
         cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
 
         if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
@@ -79,9 +88,9 @@ const DadosPessoal = () => {
     const formatarTelefone = (telefone) => {
         telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
         telefone = telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Coloca o hífen no número
-        return telefone;
-    };
 
+        return telefone.length != 9 ? setErro(true) : telefone 
+    }
     
     const EnviarDados = async (e) => {
         e.preventDefault();
@@ -137,7 +146,7 @@ const DadosPessoal = () => {
                             name="nome"
                             value={userDados.nome}
                             placeholder="Digite seu nome"
-                            onChange={(e) => setUserDados({ ...userDados, nome: e.target.value })}
+                            onChange={(e) => setUserDados({ ...userDados, nome: formatarNome(e.target.value) })}
                         />
                     </div>
                     <div>
@@ -148,7 +157,7 @@ const DadosPessoal = () => {
                             name="sobrenome"
                             value={userDados.sobrenome}
                             placeholder="Digite seu sobrenome"
-                            onChange={(e) => setUserDados({ ...userDados, sobrenome: e.target.value })}
+                            onChange={(e) => setUserDados({ ...userDados, sobrenome: formatarSobrenome(e.target.value)})}
                         />
                     </div>
                     <div>

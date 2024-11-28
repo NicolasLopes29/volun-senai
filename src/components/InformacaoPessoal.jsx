@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 import "./../css/InformacaoPessoal.css";
-import { getDate } from "date-fns/fp";
-
 
 const InformacaoPessoal = () => {
     const [disable, setDisable] = useState(true);
@@ -58,12 +56,12 @@ const InformacaoPessoal = () => {
 
         // Atualizar os dados pessoais no estado
         const updatedUserData = {
-            nome: userData.nome,
-            sobrenome: userData.sobrenome,
+            nome: formatarNome(userData.nome),
+            sobrenome: formatarNome(userData.sobrenome),
             cpf: userData.cpf,
             data_nascimento : formatDate(userData.data_nascimento),
-            ddd: userData.ddd,
-            telefone: userData.telefone,
+            ddd: formatarDDD(userData.ddd),
+            telefone: formatarTelefone(userData.telefone),
         };
 
         // Atualizar os dados de endereço no estado
@@ -123,6 +121,40 @@ const InformacaoPessoal = () => {
             alert("CEP inválido.");
         }
     };
+    const formatarNome = (nome) =>{
+        nome = nome.replace(/[^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
+        return nome;
+    }
+
+    const formatarSobrenome = (sobrenome) => {
+        sobrenome = sobrenome.replace(/[^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
+        return sobrenome;
+    }
+
+    const formatarDDD = (ddd) => {
+        // Remove caracteres não numéricos
+        ddd = ddd.replace(/\D/g, '');
+        
+        // Garantir que o DDD tenha exatamente 2 dígitos
+        if (ddd.length === 2) {
+            return ddd; // Retorna o DDD formatado corretamente
+        } else {
+            setError(true); // Retorna uma string vazia se o DDD não for válido
+        }
+    };
+
+    const formatarTelefone = (telefone) => {
+        telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
+        telefone = telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Coloca o hífen no número
+
+        if (telefone.length != 10) {
+            setError(true)
+        }
+        else {
+            return telefone;
+        } 
+          
+    }
 
     // Função para converter "dd/mm/yyyy" para "yyyy-mm-dd"
     const formatDate = (date) => {
@@ -220,7 +252,7 @@ const InformacaoPessoal = () => {
                                 className="input-medio-grande"
                                 type="text"
                                 value={userData.nome}
-                                onChange={(e) => setUserData({ ...userData, nome: e.target.value })}
+                                onChange={(e) => setUserData({ ...userData, nome: formatarNome(e.target.value) })}
                                 disabled={disable}
                             />
                             <input
@@ -228,7 +260,7 @@ const InformacaoPessoal = () => {
                                 className="input-medio-grande"
                                 type="text"
                                 value={userData.sobrenome}
-                                onChange={(e) => setUserData({ ...userData, sobrenome: e.target.value })}
+                                onChange={(e) => setUserData({ ...userData, sobrenome: formatarSobrenome(e.target.value) })}
                                 disabled={disable}
                             />
                         </div>
@@ -258,7 +290,7 @@ const InformacaoPessoal = () => {
                                 className="input-pequeno"
                                 type="text"
                                 value={userData.ddd}
-                                onChange={(e) => setUserData({ ...userData, ddd: e.target.value })}
+                                onChange={(e) => setUserData({ ...userData, ddd: formatarDDD(e.target.value) })}
                                 disabled={disable}
                             />
                             <input
@@ -266,7 +298,7 @@ const InformacaoPessoal = () => {
                                 placeholder="Telefone"
                                 type="text"
                                 value={userData.telefone}
-                                onChange={(e) => setUserData({ ...userData, telefone: e.target.value })}
+                                onChange={(e) => setUserData({ ...userData, telefone: formatarTelefone(e.target.value) })}
                                 disabled={disable}
                             />
                         </div>
@@ -286,12 +318,23 @@ const InformacaoPessoal = () => {
                         <h3>Dados de Endereço: </h3>
                         <div>
                             <input
+                                className="input-medio-pequeno"
+                                placeholder="CEP"
+                                type="text"
+                                value={enderecoData.cep}
+                                onChange={(e) => setEnderecoData({ ...enderecoData, cep: e.target.value })}
+                                disabled={disable}
+                            />
+                            <button type="button" onClick={buscarCEP} disabled={disable}>Buscar</button>
+                        </div>
+                        <div>
+                            <input
                                 placeholder="Endereço"
                                 className="input-grande"
                                 type="text"
                                 value={enderecoData.logradouro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, logradouro: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             />
                             <input
                                 placeholder="Número"
@@ -304,23 +347,12 @@ const InformacaoPessoal = () => {
                         </div>
                         <div>
                             <input
-                                className="input-medio-pequeno"
-                                placeholder="CEP"
-                                type="text"
-                                value={enderecoData.cep}
-                                onChange={(e) => setEnderecoData({ ...enderecoData, cep: e.target.value })}
-                                disabled={disable}
-                            />
-                            <button type="button" onClick={buscarCEP} disabled={disable}>Buscar</button>
-                        </div>
-                        <div>
-                            <input
                                 className="input-medio-grande"
                                 placeholder="Bairro"
                                 type="text"
                                 value={enderecoData.bairro}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, bairro: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             />
 
                         </div>
@@ -331,13 +363,13 @@ const InformacaoPessoal = () => {
                                 type="text"
                                 value={enderecoData.cidade}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, cidade: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             />
                             <select
                                 className="input-select"
                                 value={enderecoData.estado}
                                 onChange={(e) => setEnderecoData({ ...enderecoData, estado: e.target.value })}
-                                disabled={disable}
+                                disabled={true}
                             >
                                 <option value="">Selecione o Estado</option>
                                 {["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"].map((estado) => (
