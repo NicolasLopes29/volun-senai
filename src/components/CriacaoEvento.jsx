@@ -46,6 +46,12 @@ const CriacaoEventos = () => {
     const [showTags, setShowTags] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
+    function validarLimiteVagas(value) {
+        if (value > 4999) return 4999;
+        if (value < 10) return 10;
+        return value;
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -77,7 +83,11 @@ const CriacaoEventos = () => {
 
     const handleEnderecoChange = (e) => {
         const { name, value } = e.target;
-        setEnderecoDados((prevData) => ({ ...prevData, [name]: value }));
+        // Permitir apenas números no campo "número" e limitar a 4 dígitos
+        if (name === "numero" && value.length > 4) {
+            return;
+        }
+        setEnderecoDados({ ...enderecoDados, [name]: value });
     };
 
     const buscarCEP = async (e) => {
@@ -109,7 +119,33 @@ const CriacaoEventos = () => {
 
     const handleSubmit = async () => {
         try {
+            // Verificar se todos os campos obrigatórios estão preenchidos
+            if (
+                !formData.titulo ||
+                !formData.descricao ||
+                !formData.data_inicio ||
+                !formData.data_fim ||
+                !formData.vaga_limite ||
+                !imagemFile ||
+                !enderecoDados.cep ||
+                !enderecoDados.numero ||
+                !enderecoDados.logradouro ||
+                !enderecoDados.bairro ||
+                !enderecoDados.cidade ||
+                !enderecoDados.estado
+            ) {
+                alert("Por favor, preencha todos os campos obrigatórios antes de enviar o formulário.");
+                return;
+            }
+    
+            // Restrição de número com 4 dígitos
+            if (enderecoDados.numero.length > 4) {
+                alert("O número do endereço deve ter no máximo 4 dígitos.");
+                return;
+            }
+    
             console.log("Formulário enviado:", formData);
+    
             let imagemUrl = "";
             let enderecoId = "";
     
@@ -122,7 +158,10 @@ const CriacaoEventos = () => {
             }
     
             // Criação do endereço e captura do ID
-            const enderecoResponse = await axios.post("https://volun-api-eight.vercel.app/endereco", enderecoDados);
+            const enderecoResponse = await axios.post(
+                "https://volun-api-eight.vercel.app/endereco",
+                enderecoDados
+            );
             console.log("Resposta da API de endereço:", enderecoResponse.data);
     
             if (enderecoResponse.data.endereco?._id) {
@@ -140,13 +179,20 @@ const CriacaoEventos = () => {
                 tags,
             };
     
-            const response = await axios.post("https://volun-api-eight.vercel.app/eventos/", eventoData);
+            const response = await axios.post(
+                "https://volun-api-eight.vercel.app/eventos/",
+                eventoData
+            );
             setShowModal(true);
         } catch (error) {
-            console.error("Erro ao criar evento ou endereço:", error.response?.data || error.message);
+            console.error(
+                "Erro ao criar evento ou endereço:",
+                error.response?.data || error.message
+            );
             alert("Erro ao criar evento ou endereço. Por favor, tente novamente.");
         }
     };
+    
 
     const closeModal = () => {
         setShowModal(false);
@@ -266,9 +312,13 @@ const CriacaoEventos = () => {
                                 className="numero-vagas"
                                 name="vaga_limite"
                                 type="number"
+                                max="4999" min="10"
                                 value={formData.vaga_limite}
-                                onChange={handleChange}
-                            ></input>
+                                onChange={(e) => {
+                                    const valorValidado = validarLimiteVagas(parseInt(e.target.value, 10));
+                                    handleChange({ target: { name: e.target.name, value: valorValidado } });
+                                }}
+                            />
                         </div>
                         <p>Defina os dias de ínicio e término do evento</p>
                         <div className="definir-dia">
@@ -332,6 +382,7 @@ const CriacaoEventos = () => {
                                     placeholder="Digite o número"
                                     value={enderecoDados.numero}
                                     onChange={handleEnderecoChange}
+                                    maxLength="4"
                                 />
                             </div>
                             <button onClick={buscarCEP} className="buscar-cep-btn">

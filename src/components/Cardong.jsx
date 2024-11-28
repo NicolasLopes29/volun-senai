@@ -72,16 +72,31 @@ const Cardong = () => {
   const addOng = async (e) => {
     e.preventDefault();
 
-    if (!validateCNPJ(data.cnpj)) {
+    // Verificar campos obrigatórios
+    if (
+        !data.nome.trim() ||
+        !data.razao_social.trim() ||
+        !data.descricao.trim() ||
+        !data.ddd.trim() ||
+        !data.telefone.trim()
+    ) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    // Validação do CNPJ (apenas se fornecido)
+    if (data.cnpj.trim() && !validateCNPJ(data.cnpj)) {
         alert("CNPJ inválido. Deve conter 14 dígitos.");
         return;
     }
 
+    // Validação do DDD
     if (!validateDDD(data.ddd)) {
         alert("DDD inválido. Deve conter 2 dígitos.");
         return;
     }
 
+    // Validação do telefone
     if (!validateTelefone(data.telefone)) {
         alert("Telefone inválido. Deve ter entre 8 e 9 dígitos.");
         return;
@@ -154,6 +169,7 @@ const Cardong = () => {
         setIsSubmitting(false); // Desativar a trava no botão
     }
 };
+
 
 
   return (

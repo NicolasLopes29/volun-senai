@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import Card from "./Card";
 import gpsIcon from "./../assets/images/gps-icon.svg";
 import cateIcon from "./../assets/images/category-icon.svg";
-import flwsIcon from "./../assets/images/followers-icon.svg";
-import twtIcon from "./../assets/images/x-icon.svg";
-import instaIcon from "./../assets/images/insta-icon.svg";
-import faceIcon from "./../assets/images/face-icon.svg";
 import "./../css/Ongpage.css";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
 
 const Ongpage = () => {
   const [organizations, setOrganizations] = useState([]);
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [loading, setLoading] = useState(true);
   const [eventos, setEventos] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controla a visibilidade da modal
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,23 +63,19 @@ const Ongpage = () => {
             vagaLimite: evento.vaga_limite,
             endereco: evento.endereco_id
               ? `${evento.endereco_id.bairro}, ${evento.endereco_id.cidade} - ${evento.endereco_id.estado}`
-              : "Endereço não disponível",
+              : "Endereço Indefinido",
           }));
           setEventos(eventosDetalhes);
         } catch (error) {
           console.error("Erro ao buscar eventos:", error);
         }
-      }else{
+      } else {
         setEventos([]);
       }
     };
 
     fetchEventos();
   }, [selectedOrg]);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const formatarData = (data) => {
     return format(new Date(data), "dd/MM/yyyy");
@@ -92,6 +84,25 @@ const Ongpage = () => {
   const dataFundacao = selectedOrg?.createdAt
     ? formatarData(selectedOrg.createdAt)
     : "Data indefinida";
+
+  const handleDeleteOrg = async () => {
+    try {
+      const response = await axios.delete(
+        `https://volun-api-eight.vercel.app/organizacao/${selectedOrg._id}`
+      );
+      window.location.reload() 
+    } catch (error) {
+      console.error("Erro ao excluir a organização:", error);
+    }
+  };
+
+  const handleModalClose = () => setIsModalOpen(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -137,12 +148,6 @@ const Ongpage = () => {
                 <h2 id="ong-date" className="blue">
                   Fundado em: {dataFundacao}
                 </h2>
-                {/* <span id="ong-address">
-                  <img src={gpsIcon} id="gps-icon" alt="Ícone de GPS" />
-                  <span id="ong-address-text" className="blue">
-                    Rua Bento de Andrade, 647
-                  </span>
-                </span> */}
                 <strong id="ong-genre">
                   <img
                     src={cateIcon}
@@ -154,19 +159,12 @@ const Ongpage = () => {
                   </span>
                 </strong>
               </div>
-              <div className="ong-media">
-                <div className="media-icons">
-                  <a>
-                    <img src={twtIcon} alt="Ícone do Twitter" id="twt-icon" />
-                  </a>
-                  <a>
-                    <img src={instaIcon} alt="Ícone do Instagram" id="insta-icon" />
-                  </a>
-                  <a>
-                    <img src={faceIcon} alt="Ícone do Facebook" id="face-icon" />
-                  </a>
-                </div>
-                <Link to={`/criacao_eventos/${selectedOrg?._id}`}>Criar Evento</Link>
+
+              {/* Substituindo os ícones de mídia social pelo botão de exclusão */}
+              <div className="delete-org-btn">
+                <button onClick={handleModalOpen} className="delete-btn">
+                  Excluir Organização
+                </button>
               </div>
             </div>
             <hr id="ong-line" />
@@ -184,33 +182,48 @@ const Ongpage = () => {
           <div className="ong-events">
             <h2 className="ong-events-title blue">Eventos criados:</h2>
             {eventos.length > 0 ? (
-            <div className="ong-cards">
-              {eventos.map((evento) => (
-                <Card
-                  key={evento.id}
-                  id={evento.id}
-                  titulo={evento.titulo}
-                  descricao={evento.descricao}
-                  ongNome={evento.ongNome}
-                  dataInicio={evento.dataInicio}
-                  imgUrl={evento.imgUrl}
-                  vagaLimite={evento.vagaLimite}
-                  endereco={evento.endereco}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="no-events">
-              <p>Nenhum evento encontrado para esta organização.</p>
-            </div>
-          )}
-            
+              <div className="ong-cards">
+                {eventos.map((evento) => (
+                  <Card
+                    key={evento.id}
+                    id={evento.id}
+                    titulo={evento.titulo}
+                    descricao={evento.descricao}
+                    ongNome={evento.ongNome}
+                    dataInicio={evento.dataInicio}
+                    imgUrl={evento.imgUrl}
+                    vagaLimite={evento.vagaLimite}
+                    endereco={evento.endereco}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="no-events">
+                <p>Nenhum evento encontrado para esta organização.</p>
+              </div>
+            )}
           </div>
         </>
+      )}
+
+      {/* Modal de confirmação de exclusão */}
+      {isModalOpen && (
+        <div className="modal-delete-org">
+          <div className="modal-content-org">
+            <h3>Tem certeza que deseja excluir esta organização?</h3>
+            <div className="modal-buttons-org">
+              <button onClick={handleDeleteOrg} className="modal-delete-btn-org">
+                Confirmar
+              </button>
+              <button onClick={handleModalClose} className="modal-cancel-btn-org">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
 };
 
 export default Ongpage;
-

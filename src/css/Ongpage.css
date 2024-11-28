@@ -84,6 +84,72 @@ body {
     gap: 1.5em;
 }
 
+/* Estilizando o botão de exclusão */
+.delete-btn {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+/* Estilizando a modal */
+.modal-delete-org {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content-org {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-buttons-org {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.modal-delete-btn-org {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-cancel-btn-org {
+  background-color: rgb(99, 99, 99);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-delete-btn-org:hover,
+.modal-cancel-btn-org:hover {
+  opacity: 0.8;
+}
+
+
 #flw-btn {
     background-color: #1F0171;
     color: white;

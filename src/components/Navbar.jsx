@@ -76,6 +76,7 @@ const Navbar = () => {
       setUserData(response.data, userData.nome);
     } catch (error) {
       setError("Erro ao buscar dados do usuário.");
+      handleUserLogOut();
     }
   };
 
