@@ -36,7 +36,7 @@ const DadosPessoal = () => {
     }
 
     const formatarSobrenome = (sobrenome) => {
-        sobrenome = sobrenome.replace(/[^a-zA-Z][^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
+        sobrenome = sobrenome.replace(/[^a-zA-ZáéíóúàèìòùãõâêîôûçÇÁÉÍÓÚÀÈÌÒÙ\s]/g, '');
         return sobrenome;
     }
 
@@ -89,7 +89,11 @@ const DadosPessoal = () => {
         telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
         telefone = telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Coloca o hífen no número
 
-        return telefone.length != 9 ? setErro(true) : telefone 
+        if (telefone.length != 9) {
+            setErro(true)
+        } else {
+            return telefone;
+        }
     }
     
     const EnviarDados = async (e) => {
