@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
+import axios from "axios";
 import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -32,6 +33,7 @@ const DetalhesEventos = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [participacaoId, setParticipacaoId] = useState(null);
+    const [numeroParticipacao, setnumeroParticipacao] = useState(0);
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -61,6 +63,20 @@ const DetalhesEventos = () => {
             });
         }
     };
+
+    useEffect(() => {
+        const fetchnumeroParticipacao = async () => {
+            try {
+                console.log("Buscando participações para o evento:", id);
+                const response = await axios.get(`https://volun-api-eight.vercel.app/participacao/evento/${id}`);
+                setnumeroParticipacao(response.data.length); // Atualiza a contagem de participações
+            } catch (error) {
+                console.error("Erro ao buscar participações:", error);
+            }
+        };
+    
+        fetchnumeroParticipacao(); // Chame a função diretamente
+    }, [id]); // Baseie-se no `id` e não no `evento._id`
     
     // Verifica a participação do usuário no evento
     const verificarParticipacao = async () => {
@@ -272,7 +288,7 @@ const DetalhesEventos = () => {
                         </div>
                         <div className="barra-participantes">
                             <img src={pessoas} alt="ícone pessoas" className="pessoas" />
-                            <p>{evento.vagaLimite} vagas</p>
+                            <p>{evento.vagaLimite} - {numeroParticipacao} vagas</p>
                         </div>
                         <div className="data-evento">
                             <img

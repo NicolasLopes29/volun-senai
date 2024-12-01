@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth"; // Adicionado updateProfile
 import { auth } from "../services/firebase-config";
-import defaultProfileImage from "../assets/images/photo-perfil.png"; // Imagem de perfil padrão
+import defaultProfileImage from "../assets/avatars/avatar1.png"; // Imagem de perfil padrão
 import logo from "../assets/logos/logo-small.svg"; // Logo do site
 import "./../css/DadosIniciais.css";
 

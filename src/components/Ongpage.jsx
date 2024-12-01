@@ -4,7 +4,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import Card from "./Card";
-import gpsIcon from "./../assets/images/gps-icon.svg";
 import cateIcon from "./../assets/images/category-icon.svg";
 import "./../css/Ongpage.css";
 import { format } from "date-fns";
@@ -49,7 +48,7 @@ const Ongpage = () => {
     const fetchEventos = async () => {
       if (selectedOrg) {
         try {
-          setEventos([]);
+          setEventos([]); // Limpa eventos antes de carregar
           const response = await axios.get(
             `https://volun-api-eight.vercel.app/eventos/ong/${selectedOrg._id}`
           );
@@ -70,12 +69,24 @@ const Ongpage = () => {
           console.error("Erro ao buscar eventos:", error);
         }
       } else {
-        setEventos([]);
+        setEventos([]); // Limpa eventos se nenhuma organização for selecionada
       }
     };
 
     fetchEventos();
   }, [selectedOrg]);
+
+  const handleDeleteEvento = async (id) => {
+    try {
+      await axios.delete(
+        `https://volun-api-eight.vercel.app/eventos/${id}`
+      );
+      setEventos((prevEventos) => prevEventos.filter((evento) => evento.id !== id));
+      console.log(`Evento ${id} deletado com sucesso.`);
+    } catch (error) {
+      console.error("Erro ao excluir evento:", error);
+    }
+  };
 
   const formatarData = (data) => {
     return format(new Date(data), "dd/MM/yyyy");
@@ -87,17 +98,16 @@ const Ongpage = () => {
 
   const handleDeleteOrg = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://volun-api-eight.vercel.app/organizacao/${selectedOrg._id}`
       );
-      window.location.reload() 
+      window.location.reload(); // Atualiza a página após exclusão
     } catch (error) {
       console.error("Erro ao excluir a organização:", error);
     }
   };
 
   const handleModalClose = () => setIsModalOpen(false);
-
   const handleModalOpen = () => setIsModalOpen(true);
 
   if (loading) {
@@ -161,7 +171,10 @@ const Ongpage = () => {
               </div>
 
               <div className="ong-media">
-                <button className="delete-org-btn"onClick={() => setShowModal(true)}>
+                <button
+                  className="delete-btn"
+                  onClick={handleModalOpen}
+                >
                   Excluir Organização
                 </button>
                 <Link to={`/criacao_eventos/${selectedOrg?._id}`} className="create-event-btn">
@@ -196,6 +209,8 @@ const Ongpage = () => {
                     imgUrl={evento.imgUrl}
                     vagaLimite={evento.vagaLimite}
                     endereco={evento.endereco}
+                    isOngPage={true}
+                    onDelete={handleDeleteEvento}
                   />
                 ))}
               </div>
@@ -208,7 +223,6 @@ const Ongpage = () => {
         </>
       )}
 
-      {/* Modal de confirmação de exclusão */}
       {isModalOpen && (
         <div className="modal-delete-org">
           <div className="modal-content-org">
