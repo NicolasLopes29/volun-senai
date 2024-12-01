@@ -25,9 +25,10 @@ body {
 
 #ong-pfp {
     margin: 20px;
-    width: 17.5em;
+    width: 16em;
+    height: 16em;
     border-radius: 50%;
-    border: solid 4px rgb(255, 128, 0);
+    border: solid 3px #1f0171;
 }
 
 #ong-name {
