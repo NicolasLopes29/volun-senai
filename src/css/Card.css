@@ -6,6 +6,7 @@
 }
 
 .card-x {
+    position: relative;
     inset: 0;
     display: flex;
     flex-direction: column;

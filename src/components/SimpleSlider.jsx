@@ -15,20 +15,20 @@ export default function SimpleSlider() {
     infinite: false,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 2,
+    slidesToScroll: 3,
     responsive: [
       {
         breakpoint: 1130,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 3,
         },
       },
     ],
@@ -57,7 +57,7 @@ export default function SimpleSlider() {
             : "Endereço não disponível",
         }));
 
-        setEventos(eventosDetalhes);
+        setEventos(eventosDetalhes.slice(0, 9));
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
       } finally {

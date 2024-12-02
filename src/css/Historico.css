@@ -1,33 +1,78 @@
 
 
 .historico-container {
-    padding: 30px;
-    padding-bottom: 80px;
-    color: #1F0171;;
-  }
+  padding: 30px;
+  padding-bottom: 80px;
+  color: #1F0171;;
+  align-items: center;
+}
   
-  .historico-container h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-  }
-  .historico-container h5{
-    text-align: center;
-    margin-bottom: 40px;
-  }
+.historico-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+.historico-container h5{
+  text-align: center;
+  margin-bottom: 40px;
+}
   
-  .historico-eventos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
-    gap: 20px; /* Espaçamento entre os cards */
-    justify-items: center; /* Alinha os cards ao centro */
-  }
+.historico-eventos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+  gap: 20px; /* Espaçamento entre os cards */
+  justify-items: center; /* Alinha os cards ao centro */
+}
   
-  .historico-vazio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-    font-size: 18px;
-    color: #666;
+.historico-vazio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-size: 18px;
+  color: #666;
+}
+
+.eventos-vazio {
+  text-align: center;
+  display: grid;
+  align-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.eventos-vazio p {
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.historico-nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.historico-nav button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.historico-nav button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.historico-nav button:hover {
+  background-color: #e0e0e0;
+}
+
+.historico-nav button.active:hover {
+  background-color: #0056b3;
 }

@@ -1,5 +1,5 @@
 .slider-container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding-bottom: 50px;
  }
@@ -9,8 +9,6 @@
   display: flex;
   justify-content: center;
 }
-
-
 
 .slider-container {
   margin: 0 auto; /* Centraliza o slider */
