@@ -73,28 +73,32 @@ const DadosPessoal = () => {
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Coloca o hífen
         return cpf;
     };
+
     const formatarDDD = (ddd) => {
         // Remove caracteres não numéricos
         ddd = ddd.replace(/\D/g, '');
-        
-        // Garantir que o DDD tenha exatamente 2 dígitos
-        if (ddd.length === 2) {
+    
+        // Permite que o DDD tenha até 2 caracteres
+        if (ddd.length <= 2) {
             return ddd; // Retorna o DDD formatado corretamente
-        } else {
-            setErro(true); // Retorna uma string vazia se o DDD não for válido
         }
+    
+        return ddd.substring(0, 2); // Limita a 2 caracteres
     };
-
+    
     const formatarTelefone = (telefone) => {
-        telefone = telefone.replace(/\D/g, ""); // Remove caracteres não numéricos
-        telefone = telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Coloca o hífen no número
-
-        if (telefone.length != 9) {
-            setErro(true)
-        } else {
-            return telefone;
+        // Remove caracteres não numéricos
+        telefone = telefone.replace(/\D/g, '');
+    
+        // Aplica a formatação conforme o número de dígitos
+        if (telefone.length <= 5) {
+            return telefone.replace(/(\d{1,5})/, "$1"); // Exemplo: 12345
         }
-    }
+    
+        return telefone.replace(/(\d{5})(\d{4})/, "$1-$2"); // Exemplo: 12345-6789
+    };
+    
+    
     
     const EnviarDados = async (e) => {
         e.preventDefault();

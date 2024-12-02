@@ -14,6 +14,7 @@ import avatar6 from "../assets/avatars/avatar6.png";
 import avatar7 from "../assets/avatars/avatar7.png";
 import avatar8 from "../assets/avatars/avatar8.png";
 import avatar9 from "../assets/avatars/avatar9.png";
+import editIcon from "../assets/images/edit-icon.svg";
 import Loader from "./Loader"; 
 import Historico from "./Historico";
 import InformacaoPessoal from "./InformacaoPessoal";
@@ -144,10 +145,9 @@ const Usuario = () => {
                                 style={{ display: "none" }}
                             />
                         </label>
-                        <button 
-                            className="avatar-menu-button"
-                            onClick={() => setShowAvatarMenu(!showAvatarMenu)}
-                        />
+                        <button className="avatar-menu-button" onClick={() => setShowAvatarMenu(!showAvatarMenu)}>
+                             <img src={editIcon} alt="Editar foto de perfil" className="edit-icon" />
+                        </button>
                     </div>
                     <div className="usuario-dados">
                         <h3>Nome: {userData.nome} {userData.sobrenome}</h3>

@@ -37,14 +37,20 @@
     position: relative;
 }
 
+.edit-icon{
+    align-items: center;
+    width: 1.5em;
+    height: 1.5em;
+}
+
 .avatar-menu-button {
     position: absolute;
     bottom: 10px; /* Move o botão mais próximo ao centro inferior da imagem */
     right: 30px;
     width: 40px;
     height: 40px;
-    background: #fff;
-    border: 2px solid #ccc;
+    background: #ffffff;
+    border: 2px solid #4400c4;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

@@ -27,6 +27,7 @@ const estiloModal = {
     left: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     margin: 'auto',
+    backdropFilter: 'blur(8px)',
   },
   content: {
     top: 20,
@@ -52,7 +53,10 @@ const Navbar = () => {
   const [userData, setUserData] = useState({
     nome: "",
   });
+  const [showIncompleteModal, setShowIncompleteModal] = useState(false); // Modal de cadastro incompleto
+  const [incompleteEmail, setIncompleteEmail] = useState(""); // Email do cadastro incompleto
   const [error, setError] = useState(null);
+  const [redirectPath, setRedirectPath] = useState("");
   const navigate = useNavigate();
   const auth = getAuth(app);
 
@@ -69,16 +73,68 @@ const Navbar = () => {
   };
 
   const handleGetUsername = async (uid) => {
-    setError(false);
-
     try {
-      const response = await axios.get(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
-      setUserData(response.data, userData.nome);
+      // Fetch para buscar o usuário
+      const userResponse = await fetch(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
+      
+      // Verificando se o usuário existe
+      if (!userResponse.ok) {
+        if (userResponse.status === 404) {
+          // Não exibe erro 404 no console
+          setIncompleteEmail(incompleteEmail);
+          setRedirectPath("/dados_pessoal");
+          setShowIncompleteModal(true);
+        }
+        return;
+      }
+  
+      const userData = await userResponse.json();
+      
+      // Se o usuário não existir
+      if (!userData) {
+        setIncompleteEmail(incompleteEmail);
+        setRedirectPath("/dados_pessoal");
+        setShowIncompleteModal(true);
+        return;
+      }
+  
+      // Fetch para buscar o endereço
+      const enderecoResponse = await fetch(`https://volun-api-eight.vercel.app/endereco/usuario/${uid}`);
+      
+      // Verificando se o endereço não existe
+      if (!enderecoResponse.ok || enderecoResponse.status === 404) {
+        // Não exibe erro 404 no console
+        setRedirectPath("/dados_endereco");
+        setIncompleteEmail(incompleteEmail);
+        setShowIncompleteModal(true);
+        return;
+      }
+  
+      const enderecoData = await enderecoResponse.json();
+  
+      // Se o endereço não for encontrado, exibe a modal
+      if (!enderecoData) {
+        setRedirectPath("/dados_endereco");
+        setIncompleteEmail(incompleteEmail);
+        setShowIncompleteModal(true);
+        return;
+      }
+  
     } catch (error) {
-      setError("Erro ao buscar dados do usuário.");
-      handleUserLogOut();
+      // Aqui estamos tratando especificamente o erro 404, mas não exibe no console
+      if (error instanceof Error && error.message.includes("404")) {
+        return;
+      }
     }
   };
+  
+
+  
+  
+  
+  
+  
+  
 
   const handleProfileClick = () => {
     navigate("/usuario");
@@ -165,9 +221,6 @@ const Navbar = () => {
         <div className="navbar-menu-container">
           <Link to="/eventos" id="navbar-eventos">Eventos</Link>
           <button onClick={handleOrgPageRedirect} id="navbar-org" >Sou uma organização</button>
-          {/* <Link to="/ong">org page</Link> */}
-          {/* <Link to="/sobre" id="navbar-sobre">Sobre Nós</Link> */}
-          {/* descomente a linha acima para acessar a pagina de perfil de Organização */}
         
           {usuarioLogado ? (
             <div className="perfil-dropdown-container">
@@ -249,6 +302,33 @@ const Navbar = () => {
       >
         <Login fecharLogin={() => setLoginAbrir(false)} />
       </Modal>
+
+      <Modal
+        isOpen={showIncompleteModal}
+        onRequestClose={() => {}}
+        shouldCloseOnOverlayClick={false}
+        style={estiloModal}
+      >
+        <div className="modal-container">
+          <div className="modal-header">Cadastro Incompleto</div>
+          <div className="modal-body">
+            O cadastro para a conta {incompleteEmail} não foi concluído. Por favor, finalize seu cadastro para continuar utilizando a plataforma.
+          </div>
+          <div className="modal-footer">
+            <button
+              className="modal-button"
+              onClick={() => {
+                setShowIncompleteModal(false);
+                navigate(redirectPath);
+              }}
+            >
+              Finalizar Cadastro
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+
     </>
   );
 };

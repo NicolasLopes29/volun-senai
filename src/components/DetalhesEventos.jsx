@@ -221,6 +221,10 @@ const DetalhesEventos = () => {
         return format(new Date(data), "HH:mm");
     };
 
+    const progressPercentage = Math.min((numeroParticipacao / evento.vagaLimite) * 100, 100);
+    const isOverLimit = numeroParticipacao > evento.vagaLimite;
+
+
     const dataInicio = evento.dataInicio ? formatarData(evento.dataInicio) : "Data indefinida";
     const dataFim = evento.dataFim ? formatarData(evento.dataFim) : "Data indefinida";
     const horaInicio = evento.dataInicio ? formatarHora(evento.dataInicio) : "Data indefinida";
@@ -288,7 +292,24 @@ const DetalhesEventos = () => {
                         </div>
                         <div className="barra-participantes">
                             <img src={pessoas} alt="ícone pessoas" className="pessoas" />
-                            <p>{evento.vagaLimite} - {numeroParticipacao} vagas</p>
+                            <div className="progress-container">
+                                <div className="progress-bar">
+                                    <div 
+                                        className={`progress-fill ${isOverLimit ? 'progress-fill-over' : 'progress-fill-normal'}`}
+                                        style={{ width: `${progressPercentage}%` }}
+                                        role="progressbar"
+                                        aria-valuenow={numeroParticipacao}
+                                        aria-valuemin={0}
+                                        aria-valuemax={evento.vagaLimite}
+                                    ></div>
+                                </div>
+                                <p className="progress-text">
+                                    {isOverLimit 
+                                        ? `Mais de ${evento.vagaLimite} vagas foram preenchidas`
+                                        : `${numeroParticipacao} / ${evento.vagaLimite} vagas preenchidas`
+                                    }
+                                </p>
+                            </div>
                         </div>
                         <div className="data-evento">
                             <img

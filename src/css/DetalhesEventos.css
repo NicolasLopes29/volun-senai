@@ -148,9 +148,37 @@
     font-size: 20px;
 }
 
-.barra-participantes p{
-    font-size: 20px;
-}
+.progress-container {
+    width: 100%;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    background-color: #BFDBFE;  /* bg-blue-200 */
+    border-radius: 9999px;
+    height: 10px;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .progress-fill-normal {
+    background-color: #F97316;  /* bg-orange-500 */
+  }
+  
+  .progress-fill-over {
+    background-color: #EF4444;  /* bg-red-500 */
+  }
+  
+  .progress-text {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  
 
 /*  estilos data */
 .data-evento{
