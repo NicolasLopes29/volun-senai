@@ -70,21 +70,62 @@ const CriacaoEventos = () => {
     setShowTags(!showTags);
   };
 
+  //função que limita o número de caracteres do titulo a 30
   const handleNomeEvento = (e) => {
     const { name, value } = e.target;
-    // Limitar o título a 30 caracteres
-    if (name === "titulo" && value.length > 30) {
+    if (value.length > 30) {
         alert("O título do evento deve ter no máximo 30 caracteres.");
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value.substring(0, 30), // Tranca o numero maximo de caracteres
+        }));
+        return;
+    }
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+};
+//função conjunta pra incluir o handlechange no handleNomeEvento
+const handleTituloChange = (e) => {
+    handleChange(e); 
+    handleNomeEvento(e); 
+};
+
+// função que limita a descrição a 500 caracteres
+const handleDescricaoCaracteres = (e) => {
+    const { name, value } = e.target;
+    if (value.length > 500) {
+        alert("A descrição do evento deve ter no máximo 500 caracteres.");
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value.substring(0, 500), // Tranca o numero maximo de caracteres
+        }));
         return;
     }
     setFormData((prevData) => ({ ...prevData, [name]: value }));
 };
 
-const handleTituloChange = (e) => {
-    handleChange(e); // Atualiza o estado geral
-    handleNomeEvento(e); // Valida o campo de título
+const handleDescricaoChange = (e) => {
+    handleChange(e);
+    handleDescricaoCaracteres(e);
+}
+
+const handlePreferenciasCaracteres = (e) => {
+    const { name, value } = e.target;
+    if (value.length > 150) {
+        alert("O campo de preferências deve ter no máximo 150 caracteres.");
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value.substring(0, 150), // Tranca o numero maximo de caracteres
+        }));
+        return;
+    }
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
 };
 
+const handlePreferenciasChange = (e) => {
+    handleChange(e);
+    handlePreferenciasCaracteres(e);
+
+}
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -277,7 +318,7 @@ const handleTituloChange = (e) => {
                                 className="descricao-novo"
                                 name="descricao"
                                 value={formData.descricao}
-                                onChange={handleChange}
+                                onChange={handleDescricaoChange}
                             ></textarea>
                         </div>
                     </div>
@@ -367,7 +408,7 @@ const handleTituloChange = (e) => {
                                 placeholder="Preferências"
                                 name="descricao_2"
                                 value={formData.descricao_2}
-                                onChange={handleChange}
+                                onChange={handlePreferenciasChange}
                             ></textarea>
                         </div>
                     </div>
