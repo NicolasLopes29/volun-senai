@@ -14,6 +14,7 @@ import Cardong from './components/Cardong.jsx'
 import Footer from './components/Footer.jsx'
 import NavBar from './components/Navbar.jsx'
 import Ongpage from './components/Ongpage.jsx'
+import OngpageVisitor from './components/OngpageVisitor.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render (
@@ -24,6 +25,7 @@ root.render (
         <Route path='/'                             element= {<><NavBar/> <App />             <Footer/></>}/>
         <Route path='/usuario'                      element= {<><NavBar/> <Usuario />         <Footer/></>}/>
         <Route path='/ong'                          element= {<><NavBar/> <Ongpage />         <Footer/></>}/>
+        <Route path='/ongVisitor/:orgId'            element= {<><NavBar/> <OngpageVisitor />  <Footer/></>}/>
         <Route path='/eventos'                      element= {<><NavBar/> <Eventos />         <Footer/></>}/>
         <Route path='/detalhes_eventos/:id'         element= {<><NavBar/> <DetalhesEventos /> <Footer/></>}/>
         <Route path='/criacao_eventos/:ongId'       element= {<><NavBar/> <CriacaoEventos />  <Footer/></>}/>

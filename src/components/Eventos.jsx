@@ -95,7 +95,7 @@ const Eventos = () => {
     };
 
     return (
-        <div className="Pesquisa-Eventos">
+        <div className="Eventos-page-container">
             <Search onBuscar={buscarEventos} />
 
             {loading ? (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
+import { format } from "date-fns";
 import "./../css/DetalhesEventos.css";
 import user_non_Photo from "../assets/images/userphoto.jpg";
 
@@ -10,7 +11,6 @@ const Coment = ({ eventoId }) => {
     const auth = getAuth();
     const userPhoto = auth.currentUser?.photoURL;
 
-    // Buscar Comentários
     const handleBuscarComentarios = async () => {
         try {
             const response = await fetch(`https://volun-api-eight.vercel.app/comentarios/evento/${eventoId}`);
@@ -18,7 +18,6 @@ const Coment = ({ eventoId }) => {
 
             const comentariosData = await response.json();
 
-            // Adiciona dados do usuário a cada comentário
             const comentariosComUsuarios = await Promise.all(
                 comentariosData.map(async (comentario) => {
                     const usuarioResponse = await fetch(`https://volun-api-eight.vercel.app/usuarios/${comentario.usuario_id}`);
@@ -33,7 +32,6 @@ const Coment = ({ eventoId }) => {
         }
     };
 
-    // Publicar Comentário
     const handlePublicarComentario = async () => {
         const userId = auth.currentUser?.uid;
         if (!userId) return console.error("Usuário não está logado");
@@ -50,19 +48,16 @@ const Coment = ({ eventoId }) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(comentarioData),
             });
-            const textResponse = await response.text();
-            console.log("Resposta do servidor:", textResponse);
 
             if (!response.ok) throw new Error("Erro ao publicar comentário");
 
             setNovoComentario(""); 
-            handleBuscarComentarios(); // Atualiza os comentários
+            handleBuscarComentarios();
         } catch (error) {
             console.error("Erro ao publicar comentário:", error);
         }
     };
 
-    // Alternar visibilidade dos comentários
     const toggleshowComentarios = () => {
         if (!showComentarios) {
             handleBuscarComentarios();
@@ -72,58 +67,63 @@ const Coment = ({ eventoId }) => {
 
     useEffect(() => {
         if (eventoId) {
-            handleBuscarComentarios(); // Carrega os comentários ao inicializar
+            handleBuscarComentarios();
         }
     }, [eventoId]);
 
+    const formatarData = (data) => {
+        return format(new Date(data), "dd/MM/yyyy HH:mm");
+    };
+
     return (
-        <>
-            <div className="comentarios">
-                <div className="usuario-info-coment">
-                    <img 
-                        src={userPhoto || "https://miro.medium.com/v2/resize:fit:1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg"} 
-                        className="usuario-foto-coment" 
-                        alt="foto do usuário" 
-                    />
-                </div>
-                <div className="publicar-comentario">
-                    <input 
-                        className="comentar" 
-                        placeholder="Comente aqui..." 
-                        value={novoComentario} 
-                        onChange={(e) => setNovoComentario(e.target.value)} 
-                    />
-                </div>
+        <div className="comment-section">
+            <div className="comment-input">
+                <img 
+                    src={userPhoto || user_non_Photo} 
+                    className="user-avatar" 
+                    alt="foto do usuário" 
+                />
+                <textarea 
+                    className="comment-textarea" 
+                    placeholder="Comente aqui..." 
+                    value={novoComentario} 
+                    onChange={(e) => setNovoComentario(e.target.value)} 
+                />
             </div>
-            <div className="buttons-comentarios">
-                <button className="button-publicar" onClick={handlePublicarComentario}>Publicar</button>
-                <button className="button-visualizar" onClick={toggleshowComentarios}>
+            <div className="comment-actions">
+                <button className="button button-publicar" onClick={handlePublicarComentario}>Publicar</button>
+                <button className="button button-visualizar" onClick={toggleshowComentarios}>
                     {showComentarios ? "Ocultar comentários" : `Exibir comentários (${comentarios.length})`}
                 </button>
             </div>
 
-            {/* Seção de exibição dos comentários */}
             {showComentarios && (
-                <div className="lista-comentarios">
+                <div className="comment-list">
                     {comentarios.length > 0 ? (
                         comentarios.map((comentario) => (
-                            <div key={comentario._id} className="comentarios">
-                                <div className="comentario-usuario-info">
-                                    <img src={comentario.usuario?.photoUrl || user_non_Photo} alt="Foto do usuário" className="usuario-foto-coment"/>           
-                                    <h2>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h2>
+                            <div key={comentario._id} className="comment-item">
+                                <div className="comment-header">
+                                    <img src={comentario.usuario?.photoUrl || user_non_Photo} alt="Foto do usuário" className="user-avatar"/>           
+                                    <div className="comment-info">
+                                        <h3>{comentario.usuario?.nome} {comentario.usuario?.sobrenome}</h3>
+                                        <span className="comment-date">
+                                            {comentario.data_criacao ? formatarData(comentario.data_criacao) : "Data indefinida"}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="comentario-conteudo">
+                                <div className="comment-content">
                                     <p>{comentario.conteudo}</p>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <p>Nenhum comentário encontrado para este evento.</p>
+                        <p className="no-comments">Nenhum comentário encontrado para este evento.</p>
                     )}
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
 export default Coment;
+

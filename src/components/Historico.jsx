@@ -9,6 +9,7 @@ const Historico = () => {
   const [eventos, setEventos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("upcoming");
+  
 
   useEffect(() => {
     const auth = getAuth();

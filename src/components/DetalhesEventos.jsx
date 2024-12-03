@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { format } from "date-fns";
 import axios from "axios";
 import algoliaClient from "./../services/algoliaConfig"; // Importando o cliente configurado do Algolia
@@ -342,7 +342,7 @@ const DetalhesEventos = () => {
                             </p>
                         </div>
                         <div className="informacoes-ong">
-                            <div className="perfil-ong-container">
+                            <Link className="perfil-ong-container" to={`/ongVisitor/${evento.organizacao?._id}`}>
                                 <p className="link-ong">Visite o perfil da ONG:</p>
                                 <div className="logo-and-name-ong">
                                     <div className="logo-img-container">
@@ -354,7 +354,7 @@ const DetalhesEventos = () => {
                                     </div>
                                     <h2 className="link-ong-name">{evento.organizacao?.nome}</h2>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

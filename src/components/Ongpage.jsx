@@ -13,7 +13,13 @@ const Ongpage = () => {
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [loading, setLoading] = useState(true);
   const [eventos, setEventos] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controla a visibilidade da modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("upcoming");
+  const [categorizedEvents, setCategorizedEvents] = useState({
+    upcoming: [],
+    ongoing: [],
+    past: [],
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,11 +107,40 @@ const Ongpage = () => {
       await axios.delete(
         `https://volun-api-eight.vercel.app/organizacao/${selectedOrg._id}`
       );
-      window.location.reload(); // Atualiza a página após exclusão
+        // Atualiza a lista de organizações após excluir
+        const updatedOrganizations = organizations.filter(
+          (org) => org._id !== selectedOrg._id
+        );
+      setOrganizations(updatedOrganizations);
+    
+      if (updatedOrganizations.length > 0) {
+        // Define a primeira organização restante como selecionada
+        setSelectedOrg(updatedOrganizations[0]);
+      } else {
+        // Redireciona para a tela inicial se não houver mais organizações
+        navigate("/");
+      }
     } catch (error) {
       console.error("Erro ao excluir a organização:", error);
     }
   };
+
+  useEffect(() => {
+    const categorizeEvents = () => {
+      const upcoming = eventos.filter((evento) => new Date(evento.dataInicio) > new Date());
+      const ongoing = eventos.filter((evento) => new Date(evento.dataInicio) <= new Date() && (new Date(evento.dataFim) >= new Date() || !evento.dataFim));
+      const past = eventos.filter((evento) => new Date(evento.dataFim) < new Date() && evento.dataFim);
+
+      setCategorizedEvents({
+        upcoming: upcoming,
+        ongoing: ongoing,
+        past: past,
+      });
+    };
+    categorizeEvents();
+  }, [eventos]);
+
+    
 
   const handleModalClose = () => setIsModalOpen(false);
   const handleModalOpen = () => setIsModalOpen(true);
@@ -195,30 +230,58 @@ const Ongpage = () => {
           </div>
 
           <div className="ong-events">
-            <h2 className="ong-events-title blue">Eventos criados:</h2>
-            {eventos.length > 0 ? (
-              <div className="ong-cards">
-                {eventos.map((evento) => (
-                  <Card
-                    key={evento.id}
-                    id={evento.id}
-                    titulo={evento.titulo}
-                    descricao={evento.descricao}
-                    ongNome={evento.ongNome}
-                    dataInicio={evento.dataInicio}
-                    imgUrl={evento.imgUrl}
-                    vagaLimite={evento.vagaLimite}
-                    endereco={evento.endereco}
-                    isOngPage={true}
-                    onDelete={handleDeleteEvento}
-                  />
-                ))}
-              </div>
+          <h2 className="ong-events-title blue">Eventos criados:</h2>
+      {eventos.length > 0 ? (
+        <>
+          <div className="events-nav">
+            <button
+              className={`events-nav-btn ${activeTab === "upcoming" ? "active" : ""}`}
+              onClick={() => setActiveTab("upcoming")}
+            >
+              Eventos não iniciados
+            </button>
+            <button
+              className={`events-nav-btn ${activeTab === "ongoing" ? "active" : ""}`}
+              onClick={() => setActiveTab("ongoing")}
+            >
+              Eventos em andamento
+            </button>
+            <button
+              className={`events-nav-btn ${activeTab === "past" ? "active" : ""}`}
+              onClick={() => setActiveTab("past")}
+            >
+              Eventos finalizados
+            </button>
+          </div>
+          <div className="ong-cards">
+            {categorizedEvents[activeTab].length > 0 ? (
+              categorizedEvents[activeTab].map((evento) => (
+                <Card
+                  key={evento.id}
+                  id={evento.id}
+                  titulo={evento.titulo}
+                  descricao={evento.descricao}
+                  ongNome={evento.ongNome}
+                  dataInicio={evento.dataInicio}
+                  imgUrl={evento.imgUrl}
+                  vagaLimite={evento.vagaLimite}
+                  endereco={evento.endereco}
+                  isOngPage={true}
+                  onDelete={handleDeleteEvento}
+                />
+              ))
             ) : (
               <div className="no-events">
-                <p>Nenhum evento encontrado para esta organização.</p>
+                <p>Nenhum evento encontrado nesta categoria.</p>
               </div>
             )}
+          </div>
+        </>
+      ) : (
+        <div className="no-events">
+          <p>Nenhum evento encontrado para esta organização.</p>
+        </div>
+      )}
           </div>
         </>
       )}
