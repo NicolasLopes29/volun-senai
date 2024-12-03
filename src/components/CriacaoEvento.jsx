@@ -70,6 +70,21 @@ const CriacaoEventos = () => {
     setShowTags(!showTags);
   };
 
+  const handleNomeEvento = (e) => {
+    const { name, value } = e.target;
+    // Limitar o título a 30 caracteres
+    if (name === "titulo" && value.length > 30) {
+        alert("O título do evento deve ter no máximo 30 caracteres.");
+        return;
+    }
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+};
+
+const handleTituloChange = (e) => {
+    handleChange(e); // Atualiza o estado geral
+    handleNomeEvento(e); // Valida o campo de título
+};
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -215,7 +230,7 @@ const CriacaoEventos = () => {
                             className="nome-evento"
                             name="titulo"
                             value={formData.titulo}
-                            onChange={handleChange}
+                            onChange={handleTituloChange}
                         ></input>
                         <div className="tags-container">
                         <label htmlFor="tags-dropdown" className="tags-label">Selecione as tags do evento (máx. 5)</label>
