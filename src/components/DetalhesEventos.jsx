@@ -34,6 +34,7 @@ const DetalhesEventos = () => {
     const [showModal, setShowModal] = useState(false);
     const [participacaoId, setParticipacaoId] = useState(null);
     const [numeroParticipacao, setnumeroParticipacao] = useState(0);
+    const [firebaseInitialized, setFirebaseInitialized] = useState(false);
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -44,6 +45,38 @@ const DetalhesEventos = () => {
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
         shadowSize: [41, 41]
     });
+
+    useEffect(() => {
+        const verificarUserId = () => {
+            const userId = auth.currentUser?.uid;
+            console.log("UserId:", userId);
+    
+            if (userId) {
+                verificarParticipacao(userId);
+            }
+        };
+    
+        if (firebaseInitialized) {
+            verificarUserId();
+            setIsLoading(false); // Definir o loading como false depois que o Firebase for inicializado
+        }
+    }, [firebaseInitialized]);
+    
+    useEffect(() => {
+        const checkFirebaseInitialization = () => {
+            const unsubscribe = auth.onAuthStateChanged((user) => {
+                if (user) {
+                    setFirebaseInitialized(true); // Firebase está inicializado
+                }
+            });
+    
+            return () => unsubscribe();
+        };
+    
+        checkFirebaseInitialization();
+    }, []);
+    
+    
 
 
     const handleCompartilhar = () => {
@@ -78,16 +111,14 @@ const DetalhesEventos = () => {
         fetchnumeroParticipacao(); // Chame a função diretamente
     }, [id]); // Baseie-se no `id` e não no `evento._id`
     
-    // Verifica a participação do usuário no evento
-    const verificarParticipacao = async () => {
-        const userId = auth.currentUser?.uid;
+    const verificarParticipacao = async (userId) => {
         if (!userId) return;
-
+    
         try {
             const response = await fetch(
                 `https://volun-api-eight.vercel.app/participacao/usuario/${userId}/evento/${id}`
             );
-
+    
             if (response.ok) {
                 const data = await response.json();
                 if (data && data._id) {
@@ -98,6 +129,13 @@ const DetalhesEventos = () => {
             console.error("Erro ao verificar participação:", error);
         }
     };
+    
+
+
+
+    useEffect(() => {
+        verificarParticipacao(); // Chama a verificação ao carregar a página
+    }, [id]); 
 
     // Cancela a participação do usuário no evento
     const handleCancelarParticipacao = async () => {

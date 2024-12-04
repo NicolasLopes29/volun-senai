@@ -31,9 +31,8 @@ const Card = ({ id, titulo, descricao, ongNome, dataInicio, imgUrl, vagaLimite, 
             setShowModal(false); // Fecha o modal após a ação
         }
     };
-    
-    
 
+    // Função para limitar o texto a um número máximo de caracteres
     const truncateText = (text, limit) => {
         if (!text) return "";
         if (text.length <= limit) return text;
@@ -45,7 +44,7 @@ const Card = ({ id, titulo, descricao, ongNome, dataInicio, imgUrl, vagaLimite, 
     return (
         <div className="card-x">
             <div className="card-capa-img" style={{ backgroundImage: `url(${imgUrl})` }}>
-                <p><span className="card-title">{titulo}</span></p>
+                <p><span className="card-title">{truncateText(titulo, 40)}</span></p>
             </div>
             <div className="card-text">
                 <p className="card-description-x">{truncateText(descricao, 100)}</p>
