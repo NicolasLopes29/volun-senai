@@ -8,6 +8,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
+  padding: 10px;
 }
 
 .slider-container {

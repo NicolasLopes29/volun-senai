@@ -3,6 +3,22 @@
 /* estilização responsavel pelo Heitor */
 /* Aqui vai a estilização da página em geral */
 
+.custom-datepicker {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+
+
 .pega-tudo2{
     display: flex;
     justify-content: center;

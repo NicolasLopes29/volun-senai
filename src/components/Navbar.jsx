@@ -10,6 +10,7 @@ import { app } from "../services/firebase-config";
 import Login from "./Login";
 import UsuarioMenu from "./UsuarioMenu";
 import Modal from "react-modal";
+import defaultProfile from "../assets/images/userphoto.jpg";
 
 import "./../css/Navbar.css";
 import Logo from "../assets/images/logo.svg";
@@ -227,7 +228,7 @@ const Navbar = () => {
               {fotoPerfilUrl && (
                 <div className="perfil-detalhes">
                   <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                    <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                    <img src={fotoPerfilUrl || defaultProfile} alt="Foto de perfil" className="foto-usuario" />
                   </div>
                   <div className="perfil-saudacao">
                     <p>Bem-Vindo</p>
@@ -264,7 +265,7 @@ const Navbar = () => {
               {fotoPerfilUrl && (
                 <div className="perfil-detalhes">
                   <div className="perfil-foto" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
-                    <img src={fotoPerfilUrl} alt="Foto de perfil" className="foto-usuario" />
+                    <img src={fotoPerfilUrl || defaultProfile} alt="Foto de perfil" className="foto-usuario" />
                   </div>
                   <div className="perfil-saudacao">
                     <p>Bem-Vindo</p>

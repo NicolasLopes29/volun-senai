@@ -7,6 +7,9 @@ import calendario from "./../assets/images/calendario.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
 import correto from "./../assets/images/icon-correto.svg";
 import cancela from "./../assets/images/icon-cancela.svg";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const CriacaoEventos = () => { 
     const { ongId } = useParams(); // Extrai o ID da ONG da rot4
@@ -16,8 +19,8 @@ const CriacaoEventos = () => {
         titulo: "",
         descricao: "",
         descricao_2: "",
-        data_inicio: "",
-        data_fim: "",
+        data_inicio: null,
+        data_fim: null,
         vaga_limite: "",
         imagem: "",
     });
@@ -254,6 +257,48 @@ const handlePreferenciasChange = (e) => {
         setShowModal(false);
         navigate("/ong"); // Navega para a página /ong
       };
+
+      const handleDateChange = (date, name) => {
+        const now = new Date();
+        now.setSeconds(0, 0); // Reseta segundos e milissegundos
+
+        if (name === "data_inicio") {
+            if (date < now) {
+                alert("A data de início não pode ser menor que a data atual.");
+                return;
+            }
+            setFormData((prevData) => ({
+                ...prevData,
+                data_inicio: date,
+                data_fim: prevData.data_fim && prevData.data_fim <= date ? null : prevData.data_fim,
+            }));
+        } else if (name === "data_fim") {
+            const startDate = formData.data_inicio;
+            if (!startDate) {
+                alert("Por favor, selecione primeiro a data de início.");
+                return;
+            }
+            if (date <= startDate) {
+                alert("A data de término deve ser posterior à data de início.");
+                return;
+            }
+            const maxEndDate = new Date(startDate);
+            maxEndDate.setDate(startDate.getDate() + 30);
+            if (date > maxEndDate) {
+                alert("A data de término não pode exceder 30 dias a partir da data de início.");
+                return;
+            }
+            setFormData((prevData) => ({ ...prevData, data_fim: date }));
+        }
+    };
+
+    // Obter a data/hora atual no formato adequado
+    const getCurrentDateTime = () => {
+        const now = new Date();
+        return now.toISOString().slice(0, 16); // Formato: YYYY-MM-DDTHH:mm
+    };
+
+
     
     
     return (
@@ -383,23 +428,34 @@ const handlePreferenciasChange = (e) => {
                                 alt="dia do evento"
                                 className="icon-calendario2"
                             />
-                            <input
-                                className="data-dia-evento"
-                                type="datetime-local" // Alterado para datetime-local
-                                name="data_inicio"
-                                value={formData.data_inicio}
-                                onChange={handleChange}
-                                min={`${new Date().toISOString().split("T")[0]}`} // Data mínima permitida
-                                max={`${new Date().toISOString().split("T")[0]}T23:59`}
+                             <DatePicker
+                                selected={formData.data_inicio}
+                                onChange={(date) => handleDateChange(date, "data_inicio")}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                dateFormat="dd/MM/yyyy HH:mm"
+                                minDate={new Date()}
+                                placeholderText="Selecione a data e hora de início"
+                                className="custom-datepicker"
+                                isClearable={false}
+                                showPopperArrow={false}
+                                onChangeRaw={(e) => e.preventDefault()}
                             />
-                            <input
-                                className="data-dia-evento"
-                                type="datetime-local" // Alterado para datetime-local
-                                name="data_fim"
-                                value={formData.data_fim}
-                                onChange={handleChange}
-                                min={formData.data_inicio} // Data mínima permitida
-                                max={`${new Date().toISOString().split("T")[0]}`} // Data máxima (hoje)
+                            <DatePicker
+                                selected={formData.data_fim}
+                                onChange={(date) => handleDateChange(date, "data_fim")}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                dateFormat="dd/MM/yyyy HH:mm"
+                                minDate={formData.data_inicio ? new Date(formData.data_inicio) : new Date()}
+                                maxDate={formData.data_inicio ? new Date(new Date(formData.data_inicio).setDate(new Date(formData.data_inicio).getDate() + 30)) : null}
+                                placeholderText="Selecione a data e hora de término"
+                                className="custom-datepicker"
+                                isClearable={false}
+                                showPopperArrow={false}
+                                onChangeRaw={(e) => e.preventDefault()}
                             />
                         </div>
                         <div>
@@ -496,7 +552,7 @@ const handlePreferenciasChange = (e) => {
 
 
                 <div className="botões-evento">
-                    <button className="cancelar-evento">
+                    <button className="cancelar-evento" onClick={handleVoltar}>
                         <img
                             src={cancela}
                             alt="cancelar evento"
