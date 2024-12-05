@@ -15,6 +15,7 @@ import local from "./../assets/images/icon-local.svg";
 import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
 import Coment from "./Coment"
+import ErrorPage from "./ErrorPage";
 
 // Inicializando o índice de eventos
 const indexEventos = algoliaClient.initIndex("eventos");
@@ -35,6 +36,7 @@ const DetalhesEventos = () => {
     const [participacaoId, setParticipacaoId] = useState(null);
     const [numeroParticipacao, setnumeroParticipacao] = useState(0);
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+    const [errorCode, setErrorCode] = useState(null);
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -187,7 +189,8 @@ const DetalhesEventos = () => {
                 const data = await response.json();
                 setIsParticipating(true); // Marca como participante
                 setParticipacaoId(data._id); // Salva o ID do documento
-                alert("Confirmado");
+                alert("Confirmado com sucesso!");
+                window.location.reload(); // Recarrega a página
             } else {
                 throw new Error("Erro ao confirmar participação");
             }
@@ -213,6 +216,7 @@ const DetalhesEventos = () => {
                 }
             } catch (error) {
                 console.error("Erro ao carregar evento:", error);
+                setErrorCode(error.response?.status || 500);
             } finally {
                 setIsLoading(false);
             }
@@ -223,10 +227,11 @@ const DetalhesEventos = () => {
 
     const fetchEvento = async (id) => {
         try {
-            const response = await indexEventos.getObject(id); // Busca o evento pelo ID no Algolia
+            const response = await indexEventos.getObject(id);
             return response;
         } catch (error) {
-            console.error("Erro ao buscar dados do evento:", error);
+            setErrorCode(error.status || 500);
+            throw error;
         }
     };
 
@@ -267,6 +272,12 @@ const DetalhesEventos = () => {
     const dataFim = evento.dataFim ? formatarData(evento.dataFim) : "Data indefinida";
     const horaInicio = evento.dataInicio ? formatarHora(evento.dataInicio) : "Data indefinida";
     const horaFim = evento.dataFim ? formatarHora(evento.dataFim) : "Data indefinida";
+
+    if (errorCode) {
+        // Exibe o componente ErrorPage quando ocorre um erro
+        return <ErrorPage errorCode={errorCode} />;
+      }
+
 
     return (
         <>

@@ -86,7 +86,10 @@ const EventosVitrine = () => {
 
     const eventosRecentes = [...eventos].sort((a, b) => new Date(b.data_inicio) - new Date(a.data_inicio)).slice(0, 9);
     const eventosSP = eventos.filter(evento => evento.endereco_id?.estado === "SP").slice(0, 9);
-    const eventosRJ = eventos.filter(evento => evento.endereco_id?.estado === "RJ").slice(0, 9);
+    const eventosProximos = eventos
+        .filter(evento => new Date(evento.data_inicio) >= new Date())
+        .sort((a, b) => new Date(a.data_inicio) - new Date(b.data_inicio))
+        .slice(0, 9);
     const eventosEducacao = eventos.filter(evento => evento.tags?.includes("Educação")).slice(0, 9);
 
     if (loading) {
@@ -98,7 +101,7 @@ const EventosVitrine = () => {
             <h1 className="eventos-vitrine-title">Descubra Eventos Incríveis</h1>
             {renderEventSlider(eventosRecentes, "Eventos Mais Recentes")}
             {renderEventSlider(eventosSP, "Eventos em São Paulo")}
-            {renderEventSlider(eventosRJ, "Eventos no Rio de Janeiro")}
+            {renderEventSlider(eventosProximos, "Eventos Próximos de Iniciar")}
             {renderEventSlider(eventosEducacao, "Eventos de Educação")}
         </div>
     );

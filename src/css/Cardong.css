@@ -33,12 +33,16 @@ html, body {
     border: 1.5px solid var(--cor-secundaria);
     border-radius: 10px;
     width: 70%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
 }
 
 .cardong-form-logo {
     width: 3em;
-    margin: .5em 12.5em -1em 12.5em;
-}
+    }
 
 .cardong-form > p {
     font-family: var(--font-family);
@@ -50,7 +54,7 @@ html, body {
 .cardong-form > input, textarea {
     display: block;
     margin: auto;
-    width: 65%;
+    width: 85%;
     height: 2.5em;
     border-radius: 15px;
     border: none;
@@ -104,7 +108,7 @@ html, body {
     padding: .5em 7em .5em 7em;
 }
 
-@media screen and (max-width: 468px) {
+@media screen and (max-width: 898px) {
 
     html, body {
         width: 100vw;
@@ -129,12 +133,12 @@ html, body {
     }
     
     .cardong-form {
-        width: 85%;
+        width: 80%;
     }
 
     .cardong-form-logo {
-        width: 3.5em;
-        margin: 1em 0 .1em 8.7em;
+        width: 7.5em;
+        margin: 10px;
     }
 
     .cardong-form > p {

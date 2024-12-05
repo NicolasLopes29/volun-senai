@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick"; // Biblioteca do carrossel
+import Slider from "react-slick";
 import "./../css/Eventos.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,15 +7,18 @@ import Card from "./Card";
 import seta from "./../assets/images/seta-page.svg";
 import Loader from "./Loader";
 import Search from "./Search";
+import EventosVitrine from "./EventosVitrine";
 import algoliaClient from "../services/algoliaConfig";
+import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Configuração do cliente Algolia
 const index = algoliaClient.initIndex("eventos");
 
 const Eventos = () => {
     const [eventos, setEventos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [hasSearch, setHasSearch] = useState(false);
     const itemsPerPage = 9;
 
     const buscarEventos = async (filtros) => {
@@ -23,7 +26,9 @@ const Eventos = () => {
             setLoading(true);
             const { estadoSelecionado, categoria, cidade, searchQuery } = filtros;
 
-            // Realiza a busca no Algolia aplicando apenas os filtros preenchidos
+            const hasFilters = estadoSelecionado || categoria.length > 0 || cidade || searchQuery;
+            setHasSearch(!!hasFilters);
+
             const algoliaResponse = await index.search(searchQuery || "", {
                 filters: [
                     estadoSelecionado ? `endereco.estado:${estadoSelecionado}` : "",
@@ -32,11 +37,10 @@ const Eventos = () => {
                 ].filter(Boolean).join(" AND "),
             });
 
-            // Processa os resultados do Algolia e configura o endereço e o nome da organização
             const eventosAlgolia = algoliaResponse.hits.map(hit => ({
                 ...hit,
                 endereco: hit.endereco ? `${hit.endereco.bairro}, ${hit.endereco.cidade} - ${hit.endereco.estado}` : "Endereço indefinido",
-                organizacaoNome: hit.organizacao?.nome || "Organização indefinida", // Adicionando nome da organização
+                organizacaoNome: hit.organizacao?.nome || "Organização indefinida",
                 organizacaoLogo: hit.organizacao?.imgLogo || "",
             }));
 
@@ -60,13 +64,31 @@ const Eventos = () => {
 
     const uniqueOrganizations = [...new Map(eventos.map(e => [e.organizacaoNome, e])).values()];
 
+    const SliderArrow = ({ className, style, onClick, direction }) => (
+        <div
+            className={`custom-arrow ${className} ${direction}`}
+            style={{ ...style, display: "block" }}
+            onClick={onClick}
+        >
+            {direction === "prev" ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+        </div>
+    );
+
     const sliderSettings = {
         dots: true,
         infinite: false,
         speed: 500,
         slidesToShow: Math.min(4, uniqueOrganizations.length),
         slidesToScroll: 1,
+        prevArrow: <SliderArrow direction="prev" />,
+        nextArrow: <SliderArrow direction="next" />,
         responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: Math.min(3, uniqueOrganizations.length),
+                },
+            },
             {
                 breakpoint: 768,
                 settings: {
@@ -76,7 +98,7 @@ const Eventos = () => {
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: Math.min(1, uniqueOrganizations.length),
+                    slidesToShow: 1,
                 },
             },
         ],
@@ -100,22 +122,29 @@ const Eventos = () => {
 
             {loading ? (
                 <Loader />
-            ) : (
+            ) : hasSearch ? (
                 <>
                     <div className="Eventos-carrossel">
                         <h2>Organizações Participantes</h2>
                         {uniqueOrganizations.length > 0 ? (
                             <Slider {...sliderSettings}>
-                                {uniqueOrganizations.map((org, index) => (
-                                    <div key={index} className="Carrossel-item">
-                                        <img 
-                                            src={org.organizacaoLogo || "/default-logo.png"} 
-                                            alt={org.organizacaoNome} 
-                                            className="Carrossel-logo" 
-                                        />
-                                        <p>{org.organizacaoNome}</p>
-                                    </div>
-                                ))}
+                                {uniqueOrganizations.map((org, index) => {
+                                    const orgId = org.organizacao._id; 
+                                    return (
+                                        <div key={index} className="Carrossel-item">
+                                            <Link to={`/ongVisitor/${orgId}`} className="Carrossel-link">
+                                                <div className="Carrossel-image-container">
+                                                    <img 
+                                                        src={org.organizacaoLogo || "/default-logo.png"} 
+                                                        alt={org.organizacaoNome} 
+                                                        className="Carrossel-logo" 
+                                                    />
+                                                </div>
+                                                <p>{org.organizacaoNome}</p>
+                                            </Link>
+                                        </div>
+                                    );
+                                })}
                             </Slider>
                         ) : (
                             <p>Não há organizações disponíveis no momento.</p>
@@ -133,7 +162,7 @@ const Eventos = () => {
                                     id={evento.objectID}
                                     titulo={evento.titulo}
                                     descricao={evento.descricao}
-                                    ongNome={evento.organizacaoNome} // Passando o nome da organização
+                                    ongNome={evento.organizacaoNome}
                                     dataInicio={evento.dataInicio}
                                     imgUrl={evento.imagem}
                                     vagaLimite={evento.vagaLimite}
@@ -143,9 +172,11 @@ const Eventos = () => {
                         </div>
                     </div>
                 </>
+            ) : (
+                <EventosVitrine />
             )}
-            
-            {!loading && eventos.length > 0 && (
+
+            {!loading && hasSearch && eventos.length > 0 && (
                 <div className="page-count">
                     <img src={seta} alt="" className="seta" onClick={() => handlePageChange(currentPage - 1)} />
                     <div className="Botao-page">
@@ -176,3 +207,5 @@ const Eventos = () => {
 };
 
 export default Eventos;
+
+

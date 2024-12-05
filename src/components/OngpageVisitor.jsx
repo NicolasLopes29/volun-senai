@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
 import Card from "./Card";
+import ErrorPage from "./ErrorPage";
 import cateIcon from "./../assets/images/category-icon.svg";
 import "./../css/Ongpage.css";
 import { format } from "date-fns";
@@ -18,8 +19,10 @@ const OngpageVisitor = () => {
   });
   const [activeTab, setActiveTab] = useState("upcoming");
   const [loading, setLoading] = useState(true);
+  const [errorCode, setErrorCode] = useState(null);
 
   useEffect(() => {
+
     const fetchOrganization = async () => {
       try {
         const response = await axios.get(
@@ -28,6 +31,7 @@ const OngpageVisitor = () => {
         setSelectedOrg(response.data);
       } catch (error) {
         console.error("Erro ao buscar organização:", error);
+        setErrorCode(error.response?.status || 500);
       }
     };
 
@@ -97,6 +101,12 @@ const OngpageVisitor = () => {
   if (loading) {
     return <Loader />;
   }
+
+  if (errorCode) {
+    // Exibe o componente ErrorPage quando ocorre um erro
+    return <ErrorPage errorCode={errorCode} />;
+  }
+
 
   return (
     <>

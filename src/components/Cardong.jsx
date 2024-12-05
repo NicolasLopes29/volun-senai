@@ -23,14 +23,30 @@ const Cardong = () => {
 
   const navigate = useNavigate(); // Função para redirecionamento
 
-  const valueInput = (e) => setData({ ...data, [e.target.name]: e.target.value });
+  const valueInput = (e) => {
+    const { name, value } = e.target;
+
+    // Aplicando limites de caracteres
+    if (name === 'nome' && value.length > 40) return;
+    if (name === 'razao_social' && value.length > 60) return;
+    if (name === 'descricao' && value.length > 400) return;
+
+    setData({ ...data, [name]: value });
+  };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Captura o arquivo de imagem
+    const file = e.target.files[0]; 
     if (file) {
-      setImgFile(file);
+        // Verifica se o tipo do arquivo é uma imagem
+        if (file.type.startsWith("image/")) {
+            setImgFile(file);
+        } else {
+            alert("Por favor, insira um arquivo do tipo imagem (JPEG, PNG, etc.).");
+            e.target.value = ""; 
+        }
     }
-  };
+};
+
 
   const validateCNPJ = (cnpj) => {
     cnpj = cnpj.replace(/[^\d]+/g, '');
@@ -168,7 +184,9 @@ const Cardong = () => {
     } finally {
         setIsSubmitting(false); // Desativar a trava no botão
     }
-};
+  };
+
+
 
 
 
@@ -178,9 +196,31 @@ const Cardong = () => {
         <form className="cardong-form" onSubmit={addOng}>
           <img src={Logo} className="cardong-form-logo" alt="Logo" />
           <p>Crie já um perfil para a sua organização e anuncie seus projetos na Volun</p>
-          <input type="text" name="nome" placeholder="Nome da ONG" onChange={valueInput} value={data.nome} />
-          <input type="text" name="razao_social" placeholder="Razão social" onChange={valueInput} value={data.razao_social} />
-          <textarea name="descricao" id="descricao" placeholder="Descreva a sua organização" rows="4" onChange={valueInput} value={data.descricao}></textarea>
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome da ONG"
+            maxLength="40" // Limite de caracteres
+            onChange={valueInput}
+            value={data.nome}
+          />
+          <input
+            type="text"
+            name="razao_social"
+            placeholder="Razão social"
+            maxLength="60" // Limite de caracteres
+            onChange={valueInput}
+            value={data.razao_social}
+          />
+          <textarea
+            name="descricao"
+            id="descricao"
+            placeholder="Descreva a sua organização"
+            rows="4"
+            maxLength="400" // Limite de caracteres
+            onChange={valueInput}
+            value={data.descricao}
+          ></textarea>
           <input type="text" name="cnpj" placeholder="CNPJ" onChange={valueInput} value={data.cnpj} />
           <div className="telefone-container">
             <input type="text" id="ddd-ong" name="ddd" placeholder="DDD" onChange={valueInput} value={data.ddd} />

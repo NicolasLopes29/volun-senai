@@ -49,6 +49,10 @@ const CriacaoEventos = () => {
     const [showTags, setShowTags] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
+    function handleVoltar(){
+        navigate(`/ong`);
+    }
+
     function validarLimiteVagas(value) {
         if (value > 4999) return 4999;
         if (value < 10) return 10;

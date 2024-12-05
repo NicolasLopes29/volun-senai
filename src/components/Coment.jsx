@@ -28,7 +28,6 @@ const Coment = ({ eventoId }) => {
 
             setComentarios(comentariosComUsuarios);
         } catch (error) {
-            console.error("Erro ao buscar comentários:", error);
         }
     };
 
