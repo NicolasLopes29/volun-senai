@@ -11,7 +11,6 @@ import Login from "./Login";
 import UsuarioMenu from "./UsuarioMenu";
 import Modal from "react-modal";
 import defaultProfile from "../assets/images/userphoto.jpg";
-
 import "./../css/Navbar.css";
 import Logo from "../assets/images/logo.svg";
 
@@ -58,6 +57,7 @@ const Navbar = () => {
   const [incompleteEmail, setIncompleteEmail] = useState(""); // Email do cadastro incompleto
   const [error, setError] = useState(null);
   const [redirectPath, setRedirectPath] = useState("");
+  // const [showSuspendedModal, setShowSuspendedModal] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth(app);
 
@@ -120,7 +120,13 @@ const Navbar = () => {
         setShowIncompleteModal(true);
         return;
       }
-  
+
+      // // Verificação do campo userSuspenso
+      // if (userData.userSuspenso) {
+      //   setShowSuspendedModal(true);
+      //   return;
+      // }
+        
     } catch (error) {
       // Aqui estamos tratando especificamente o erro 404, mas não exibe no console
       if (error instanceof Error && error.message.includes("404")) {
@@ -128,14 +134,7 @@ const Navbar = () => {
       }
     }
   };
-  
 
-  
-  
-  
-  
-  
-  
 
   const handleProfileClick = () => {
     navigate("/usuario");
@@ -328,8 +327,6 @@ const Navbar = () => {
           </div>
         </div>
       </Modal>
-
-
     </>
   );
 };

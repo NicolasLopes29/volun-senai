@@ -16,6 +16,7 @@ import pessoas from "./../assets/images/icon-pessoas.svg";
 import praia from "./../assets/images/img-praia.svg";
 import Coment from "./Coment"
 import ErrorPage from "./ErrorPage";
+import ReportModal from "./ReportModal"
 
 // Inicializando o índice de eventos
 const indexEventos = algoliaClient.initIndex("eventos");
@@ -37,6 +38,7 @@ const DetalhesEventos = () => {
     const [numeroParticipacao, setnumeroParticipacao] = useState(0);
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
     const [errorCode, setErrorCode] = useState(null);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -47,6 +49,14 @@ const DetalhesEventos = () => {
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
         shadowSize: [41, 41]
     });
+
+    const handleOpenReportModal = () => {
+        setIsReportModalOpen(true);
+    };
+
+    const handleCloseReportModal = () => {
+        setIsReportModalOpen(false);
+    };
 
     useEffect(() => {
         const verificarUserId = () => {
@@ -288,7 +298,12 @@ const DetalhesEventos = () => {
                     {/* Parte 1: Informações do evento */}
                     <div className="parte-1">
                         <div className="titulo-evento">
-                            <h1>{evento.titulo || "Evento não encontrado"}</h1>
+                            <div className="titulo-report-container">
+                                <h1>{evento.titulo || "Evento não encontrado"}</h1>
+                                <button onClick={handleOpenReportModal} className="report-btn">
+                                    Denunciar
+                                </button>
+                            </div>
                             <div className="tags-container">
                                 {evento.tags &&
                                     evento.tags.map((tag, index) => (
@@ -448,6 +463,12 @@ const DetalhesEventos = () => {
                     </div>
                 </div>
             )}
+
+            <ReportModal
+                isOpen={isReportModalOpen}
+                onClose={handleCloseReportModal}
+                eventoId={id}
+            />
         </>
     );
 };

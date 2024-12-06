@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Loader from "./Loader";
-import Card from "./Card";
-import ErrorPage from "./ErrorPage";
-import cateIcon from "./../assets/images/category-icon.svg";
-import "./../css/Ongpage.css";
-import { format } from "date-fns";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { format } from 'date-fns';
+import Loader from './Loader';
+import ErrorPage from './ErrorPage';
+import Card from './Card';
+import ReportModal from './ReportModal';
+import cateIcon from './../assets/images/category-icon.svg';
+import './../css/Ongpage.css';
 
 const OngpageVisitor = () => {
   const { orgId } = useParams();
@@ -20,9 +21,9 @@ const OngpageVisitor = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [loading, setLoading] = useState(true);
   const [errorCode, setErrorCode] = useState(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   useEffect(() => {
-
     const fetchOrganization = async () => {
       try {
         const response = await axios.get(
@@ -98,15 +99,21 @@ const OngpageVisitor = () => {
     ? formatarData(selectedOrg.createdAt)
     : "Data indefinida";
 
+  const handleOpenReportModal = () => {
+    setIsReportModalOpen(true);
+  };
+
+  const handleCloseReportModal = () => {
+    setIsReportModalOpen(false);
+  };
+
   if (loading) {
     return <Loader />;
   }
 
   if (errorCode) {
-    // Exibe o componente ErrorPage quando ocorre um erro
     return <ErrorPage errorCode={errorCode} />;
   }
-
 
   return (
     <>
@@ -120,9 +127,14 @@ const OngpageVisitor = () => {
             />
           </div>
           <div className="ong-info">
-            <h1 id="ong-name" className="blue">
-              {selectedOrg.nome}
-            </h1>
+            <div className="ong-name-report">
+              <h1 id="ong-name" className="blue">
+                {selectedOrg.nome}
+              </h1>
+              <button onClick={handleOpenReportModal} className="report-btn">
+                Denunciar
+              </button>
+            </div>
             <h2 id="ong-date" className="blue">
               Fundado em: {dataFundacao}
             </h2>
@@ -202,11 +214,14 @@ const OngpageVisitor = () => {
           </div>
         )}
       </div>
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={handleCloseReportModal}
+        orgId={orgId}
+      />
     </>
   );
 };
 
 export default OngpageVisitor;
-
-
 

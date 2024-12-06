@@ -21,7 +21,28 @@
     margin: 50px 40px 40px 40px;
 }
 
-
+.titulo-report-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .report-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .report-btn:hover {
+    background-color: #ff3333;
+  }
+  
+  
 
 /* parte-1 estilos */
 
@@ -382,6 +403,7 @@
 
 .comment-info {
     margin-left: 15px;
+    flex-grow: 1;
 }
 
 .comment-info h3 {
@@ -410,6 +432,22 @@
     color: #ffffff;
     font-style: italic;
 }
+
+.report-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.report-btn:hover {
+    background-color: #ff3333;
+}
+
 
 /* Aqui vai o mapa */
 .mapa-lugar{

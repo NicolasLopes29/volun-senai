@@ -3,11 +3,14 @@ import { getAuth } from "firebase/auth";
 import { format } from "date-fns";
 import "./../css/DetalhesEventos.css";
 import user_non_Photo from "../assets/images/userphoto.jpg";
+import ReportModal from "./ReportModal";
 
 const Coment = ({ eventoId }) => {
     const [novoComentario, setNovoComentario] = useState("");
     const [comentarios, setComentarios] = useState([]);
     const [showComentarios, setShowComentarios] = useState(false);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [reportTarget, setReportTarget] = useState(null);
     const auth = getAuth();
     const userPhoto = auth.currentUser?.photoURL;
 
@@ -28,6 +31,7 @@ const Coment = ({ eventoId }) => {
 
             setComentarios(comentariosComUsuarios);
         } catch (error) {
+            console.error("Erro ao buscar comentários:", error);
         }
     };
 
@@ -74,6 +78,16 @@ const Coment = ({ eventoId }) => {
         return format(new Date(data), "dd/MM/yyyy HH:mm");
     };
 
+    const handleOpenReportModal = (comentario) => {
+        setReportTarget(comentario);
+        setIsReportModalOpen(true);
+    };
+
+    const handleCloseReportModal = () => {
+        setIsReportModalOpen(false);
+        setReportTarget(null);
+    };
+
     return (
         <div className="comment-section">
             <div className="comment-input">
@@ -109,6 +123,12 @@ const Coment = ({ eventoId }) => {
                                             {comentario.data_criacao ? formatarData(comentario.data_criacao) : "Data indefinida"}
                                         </span>
                                     </div>
+                                    <button 
+                                        className="report-btn"
+                                        onClick={() => handleOpenReportModal(comentario)}
+                                    >
+                                        Denunciar
+                                    </button>
                                 </div>
                                 <div className="comment-content">
                                     <p>{comentario.conteudo}</p>
@@ -120,9 +140,18 @@ const Coment = ({ eventoId }) => {
                     )}
                 </div>
             )}
+            <ReportModal
+                isOpen={isReportModalOpen}
+                onClose={handleCloseReportModal}
+                targetId={reportTarget?.usuario_id}
+                targetType="comentario"
+                comentarioId={reportTarget?._id}
+            />
         </div>
     );
 };
 
 export default Coment;
+
+
 
