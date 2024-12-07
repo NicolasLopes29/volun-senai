@@ -19,10 +19,12 @@ const Card = ({ id, titulo, descricao, ongNome, dataInicio, imgUrl, vagaLimite, 
             if (response.ok) {
                 // Exibe mensagem de sucesso somente quando a exclusão ocorre
                 alert("Evento excluído com sucesso!");
-                onDelete(id); // Remove o evento da lista na OngPage
+                onDelete(id);
+window.location.reload();
+
             } else {
                 // Exibe mensagem de erro para respostas não bem-sucedidas
-                alert("Erro ao excluir o evento. Tente novamente.");
+                window.location.reload();
             }
         } catch (error) {
             // Trata erros de conexão ou outros problemas não relacionados à API
