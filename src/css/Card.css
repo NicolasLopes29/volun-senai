@@ -5,6 +5,11 @@
     font-weight: bold;
 }
 
+button.card-details-x {
+    width: 100%;
+    color: whitesmoke;
+}
+
 .card-x {
     position: relative;
     inset: 0;
