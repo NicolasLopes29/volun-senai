@@ -68,10 +68,12 @@ window.location.reload();
             {isOngPage && (
                 <button className="card-ong-button" title="excluir evento" onClick={() => setShowModal(true)}>X</button>
             )}
+            <Link to={`/detalhes_eventos/${id}`} id="card-link">
             <button className="card-details-x">
-                <Link to={`/detalhes_eventos/${id}`} id="card-link">Ver detalhes</Link>
+                Ver detalhes
                 <img src={ArrowDown} alt="Ícone de seta para baixo" />
             </button>
+                </Link>
 
             {showModal && (
                 <div className="modal-card-overlay">
