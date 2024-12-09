@@ -45,7 +45,7 @@ const OngpageVisitor = () => {
           id: evento._id,
           titulo: evento.titulo,
           descricao: evento.descricao,
-          ongNome: selectedOrg?.nome || "Nome da ONG não disponível",
+          ongNome: evento.ong_id?.nome || "Nome da ONG não disponível",
           dataInicio: evento.data_inicio,
           dataFim: evento.data_fim,
           imgUrl: evento.imagem,
