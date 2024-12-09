@@ -80,7 +80,10 @@
 
 /* Botões */
 .buttons-detalhes-evento{
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .participar{
@@ -94,10 +97,8 @@
     background-color: #ff6363;
 }
 
-.participar , .compartilhar ,.cancelar-participar{
-    width: 100%;
+.participar , .compartilhar ,.cancelar-participar, .report-btn {
     padding: 10px;
-    margin-top: 10px;
     color: white;
     border-radius: 10px;
     cursor: pointer; 
@@ -106,10 +107,29 @@
     border: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Sombra */
     transition: box-shadow 0.3s ease; /* Transição suave */
+    flex: 1;
+    margin: 0 5px;
 }
 
 .participar:hover , .cancelar-participar:hover, .compartilhar:hover{
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.4); 
+}
+
+.buttons-detalhes-evento .report-btn { /* Modified .report-btn for event report button */
+    background-color: #ff4d4d;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.participar:disabled, .cancelar-participar:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.participar:disabled:hover, .cancelar-participar:disabled:hover {
+    box-shadow: none;
 }
 
 .background-descricao{
@@ -121,6 +141,7 @@
     box-shadow:  0px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
     padding-bottom: 40px;
+    min-height: 270px;
 }
 
 .backgound-especificacoes{
@@ -433,21 +454,6 @@
     font-style: italic;
 }
 
-.report-btn {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: background-color 0.3s;
-}
-
-.report-btn:hover {
-    background-color: #ff3333;
-}
-
 
 /* Aqui vai o mapa */
 .mapa-lugar{
@@ -456,8 +462,25 @@
     padding: 20px;
     margin: 20px 10px 20px 75px;
     border-radius: 10px; 
+    min-height: 300px; /* Ensure a minimum height for the map container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.mapa-indisponivel {
+    text-align: center;
+    color: #1F0171;
+    font-size: 18px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mapa-indisponivel p {
+    margin: 0;
+}
 
 .endereco-mapa h2{
     margin-left: 80px;
@@ -492,5 +515,22 @@
     background-color: white;
     border: #1F0171 4px solid;
     border-radius: 10px;
+}
+
+/* Estilo para o botão de denúncia nos comentários */
+.comment-item .report-btn {
+    max-width: 100px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.comment-item .report-btn:hover {
+    background-color: #ff3333;
 }
 

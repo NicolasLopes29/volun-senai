@@ -39,6 +39,8 @@ const DetalhesEventos = () => {
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
     const [errorCode, setErrorCode] = useState(null);
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [eventEnded, setEventEnded] = useState(false); // New state variable
+    const [mapError, setMapError] = useState(null); // Added state for map errors
     const auth = getAuth();
 
     const markerIcon = new L.Icon({
@@ -172,6 +174,11 @@ const DetalhesEventos = () => {
 
 
     const handleParticipar = async () => {
+        if (eventEnded) {
+            alert("Este evento já foi finalizado.");
+            return;
+        }
+
         if (isParticipating) {
             // Se já estiver participando, exibe o modal de confirmação
             setShowModal(true);
@@ -211,6 +218,14 @@ const DetalhesEventos = () => {
         }
     };
 
+    const checkEventEnded = () => {
+        if (evento.dataFim) {
+            const currentDate = new Date();
+            const eventEndDate = new Date(evento.dataFim);
+            setEventEnded(currentDate > eventEndDate);
+        }
+    };
+
     useEffect(() => {
         verificarParticipacao(); // Chama a verificação ao carregar a página
     }, [id]); // Reexecuta a verificação se o ID do evento mudar
@@ -223,6 +238,7 @@ const DetalhesEventos = () => {
                 if (dadosEvento) {
                     setEvento(dadosEvento);
                     await fetchCoordinates(dadosEvento.endereco);
+                    checkEventEnded();
                 }
             } catch (error) {
                 console.error("Erro ao carregar evento:", error);
@@ -234,6 +250,10 @@ const DetalhesEventos = () => {
 
         getEventoEEndereco();
     }, [id]);
+
+    useEffect(() => {
+        checkEventEnded();
+    }, [evento.dataFim]);
 
     const fetchEvento = async (id) => {
         try {
@@ -259,11 +279,14 @@ const DetalhesEventos = () => {
             if (data && data.length > 0) {
                 const location = data[0];
                 setCoordinates({ lat: parseFloat(location.lat), lng: parseFloat(location.lon) });
+                setMapError(null);
             } else {
                 console.warn("Nenhuma coordenada encontrada para o endereço fornecido.");
+                setMapError("Não foi possível encontrar as coordenadas para este endereço.");
             }
         } catch (error) {
             console.error("Erro ao buscar coordenadas:", error);
+            setMapError("Ocorreu um erro ao carregar o mapa. Por favor, tente novamente mais tarde.");
         }
     };
 
@@ -298,20 +321,7 @@ const DetalhesEventos = () => {
                     {/* Parte 1: Informações do evento */}
                     <div className="parte-1">
                         <div className="titulo-evento">
-                            <div className="titulo-report-container">
-                                <h1>{evento.titulo || "Evento não encontrado"}</h1>
-                                <button onClick={handleOpenReportModal} className="report-btn">
-                                    Denunciar
-                                </button>
-                            </div>
-                            <div className="tags-container">
-                                {evento.tags &&
-                                    evento.tags.map((tag, index) => (
-                                        <span key={index} className="tag-item">
-                                            {tag}
-                                        </span>
-                                    ))}
-                            </div>
+                            <h1>{evento.titulo || "Evento não encontrado"}</h1>
                         </div>
     
                         <div className="buttons-detalhes-evento">
@@ -319,16 +329,24 @@ const DetalhesEventos = () => {
                                 <button
                                     className="cancelar-participar"
                                     onClick={() => setShowModal(true)}
+                                    disabled={eventEnded}
                                 >
-                                    Cancelar Participação
+                                    {eventEnded ? "Evento finalizado" : "Cancelar Participação"}
                                 </button>
                             ) : (
-                                <button className="participar" onClick={handleParticipar}>
-                                    Participar
+                                <button 
+                                    className="participar" 
+                                    onClick={handleParticipar}
+                                    disabled={eventEnded}
+                                >
+                                    {eventEnded ? "Evento finalizado" : "Participar"}
                                 </button>
                             )}
                             <button className="compartilhar" onClick={handleCompartilhar}>
                                 Compartilhar
+                            </button>
+                            <button onClick={handleOpenReportModal} className="report-btn">
+                                Denunciar
                             </button>
                         </div>
     
@@ -445,7 +463,9 @@ const DetalhesEventos = () => {
                             </Marker>
                         </MapContainer>
                     ) : (
-                        <p>Mapa não encontrado</p>
+                        <div className="mapa-indisponivel"> {/* Changed to a div for better styling */}
+                            <p>{mapError || "Mapa indisponível no momento. Desculpe pelo inconveniente."}</p>
+                        </div>
                     )}
                 </div>
             </div>
@@ -474,3 +494,6 @@ const DetalhesEventos = () => {
 };
 
 export default DetalhesEventos;
+
+
+

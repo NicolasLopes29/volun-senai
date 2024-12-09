@@ -567,3 +567,45 @@
     background: #45a049;
   }
   
+
+.map-preview {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden; /* Add this line to ensure the map stays within the container */
+}
+
+.map-container {
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    min-height: 340px; /* Add this line to ensure a minimum height */
+}
+
+.map-placeholder {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #6b7280;
+    text-align: center;
+    padding: 1rem;
+}
+
+.map-error {
+    color: #ef4444;
+}
+
+.cancelar-evento:disabled,
+.adicionar-evento:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+

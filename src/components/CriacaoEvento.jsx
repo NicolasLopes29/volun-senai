@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./../css/CriacaoEventos.css";
@@ -9,10 +9,12 @@ import correto from "./../assets/images/icon-correto.svg";
 import cancela from "./../assets/images/icon-cancela.svg";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 const CriacaoEventos = () => { 
-    const { ongId } = useParams(); // Extrai o ID da ONG da rot4
+    const { ongId } = useParams(); // Extrai o ID da ONG da rota
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -41,13 +43,17 @@ const CriacaoEventos = () => {
         "Bem-Estar", "Direitos Humanos", "Reforma de Espaços", "Defesa Civil",
         "Combate à Violência", "Saúde Mental", "Outros", "Governamental", "Doação",
         "Urbano", "Rural"
-      ];
+    ];
 
     const [imagemFile, setImagemFile] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
     const [tags, setTags] = useState([]);
     const [showTags, setShowTags] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [coordinates, setCoordinates] = useState(null);
+    const [showMap, setShowMap] = useState(false); // Adiciona estado para mostrar/esconder o mapa
+    const [mapError, setMapError] = useState(""); // Adiciona estado para erros de mapa
+    const [isSubmitting, setIsSubmitting] = useState(false); // Adiciona estado para controlar a submissão
 
     function handleVoltar(){
         navigate(`/ong`);
@@ -64,85 +70,84 @@ const CriacaoEventos = () => {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-  // Adicionar ou remover tags predefinidas
-  const toggleTag = (tag) => {
-    if (tags.includes(tag)) {
-      setTags((prevTags) => prevTags.filter((t) => t !== tag));
-    } else if (tags.length < 5) {
-      setTags((prevTags) => [...prevTags, tag]);
+    // Adicionar ou remover tags predefinidas
+    const toggleTag = (tag) => {
+        if (tags.includes(tag)) {
+            setTags((prevTags) => prevTags.filter((t) => t !== tag));
+        } else if (tags.length < 5) {
+            setTags((prevTags) => [...prevTags, tag]);
+        }
+    };
+
+    const handleToggleTagsVisibility = () => {
+        setShowTags(!showTags);
+    };
+
+    //função que limita o número de caracteres do titulo a 30
+    const handleNomeEvento = (e) => {
+        const { name, value } = e.target;
+        if (value.length > 30) {
+            alert("O título do evento deve ter no máximo 30 caracteres.");
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value.substring(0, 30), // Tranca o numero maximo de caracteres
+            }));
+            return;
+        }
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+    //função conjunta pra incluir o handlechange no handleNomeEvento
+    const handleTituloChange = (e) => {
+        handleChange(e); 
+        handleNomeEvento(e); 
+    };
+
+    // função que limita a descrição a 500 caracteres
+    const handleDescricaoCaracteres = (e) => {
+        const { name, value } = e.target;
+        if (value.length > 500) {
+            alert("A descrição do evento deve ter no máximo 500 caracteres.");
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value.substring(0, 500), // Tranca o numero maximo de caracteres
+            }));
+            return;
+        }
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleDescricaoChange = (e) => {
+        handleChange(e);
+        handleDescricaoCaracteres(e);
     }
-  };
 
-  const handleToggleTagsVisibility = () => {
-    setShowTags(!showTags);
-  };
+    const handlePreferenciasCaracteres = (e) => {
+        const { name, value } = e.target;
+        if (value.length > 150) {
+            alert("O campo de preferências deve ter no máximo 150 caracteres.");
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value.substring(0, 150), // Tranca o numero maximo de caracteres
+            }));
+            return;
+        }
+        setFormData((prevData) => ({ ...prevData, [name]: value }))
+    };
 
-  //função que limita o número de caracteres do titulo a 30
-  const handleNomeEvento = (e) => {
-    const { name, value } = e.target;
-    if (value.length > 30) {
-        alert("O título do evento deve ter no máximo 30 caracteres.");
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value.substring(0, 30), // Tranca o numero maximo de caracteres
-        }));
-        return;
+    const handlePreferenciasChange = (e) => {
+        handleChange(e);
+        handlePreferenciasCaracteres(e);
     }
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-};
-//função conjunta pra incluir o handlechange no handleNomeEvento
-const handleTituloChange = (e) => {
-    handleChange(e); 
-    handleNomeEvento(e); 
-};
-
-// função que limita a descrição a 500 caracteres
-const handleDescricaoCaracteres = (e) => {
-    const { name, value } = e.target;
-    if (value.length > 500) {
-        alert("A descrição do evento deve ter no máximo 500 caracteres.");
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value.substring(0, 500), // Tranca o numero maximo de caracteres
-        }));
-        return;
-    }
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-};
-
-const handleDescricaoChange = (e) => {
-    handleChange(e);
-    handleDescricaoCaracteres(e);
-}
-
-const handlePreferenciasCaracteres = (e) => {
-    const { name, value } = e.target;
-    if (value.length > 150) {
-        alert("O campo de preferências deve ter no máximo 150 caracteres.");
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value.substring(0, 150), // Tranca o numero maximo de caracteres
-        }));
-        return;
-    }
-    setFormData((prevData) => ({ ...prevData, [name]: value }))
-};
-
-const handlePreferenciasChange = (e) => {
-    handleChange(e);
-    handlePreferenciasCaracteres(e);
-
-}
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setImagemFile(file);
         if (file) {
-          const reader = new FileReader();
-          reader.onloadend = () => setPreviewImage(reader.result);
-          reader.readAsDataURL(file);
+            const reader = new FileReader();
+            reader.onloadend = () => setPreviewImage(reader.result);
+            reader.readAsDataURL(file);
         }
-      };
+    };
 
     const handleEnderecoChange = (e) => {
         const { name, value } = e.target;
@@ -156,31 +161,47 @@ const handlePreferenciasChange = (e) => {
     const buscarCEP = async (e) => {
         e.preventDefault();
         const cep = enderecoDados.cep.replace(/\D/g, "");
-        if (cep.length >= 8) {
+        if (cep.length === 8 && enderecoDados.numero) {
+            setShowMap(false);
+            setMapError("");
             try {
                 const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
                 const data = await response.json();
 
                 if (!data.erro) {
-                    setEnderecoDados({
+                    const novoEnderecoDados = {
                         ...enderecoDados,
                         logradouro: data.logradouro,
                         bairro: data.bairro,
                         cidade: data.localidade,
                         estado: data.uf,
-                    });
+                    };
+                    setEnderecoDados(novoEnderecoDados);
+
+                    // Buscar coordenadas usando o endereço completo
+                    const enderecoCompleto = `${data.logradouro}, ${enderecoDados.numero}, ${data.localidade}, ${data.uf}, ${cep}`;
+                    const geocodeResponse = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(enderecoCompleto)}`);
+                    const geocodeData = await geocodeResponse.json();
+
+                    if (geocodeData.length > 0) {
+                        setCoordinates([parseFloat(geocodeData[0].lat), parseFloat(geocodeData[0].lon)]);
+                        setShowMap(true);
+                    } else {
+                        setMapError("Não foi possível encontrar as coordenadas para este endereço.");
+                    }
                 } else {
-                    alert("CEP não encontrado.");
+                    setMapError("CEP não encontrado.");
                 }
             } catch (error) {
-                alert("Erro ao buscar CEP. Tente novamente.");
+                setMapError("Erro ao buscar CEP. Tente novamente.");
             }
         } else {
-            alert("CEP inválido.");
+            setMapError("Por favor, insira um CEP válido (8 dígitos) e um número.");
         }
     };
 
     const handleSubmit = async () => {
+        setIsSubmitting(true); // Define isSubmitting como true antes de enviar
         try {
             // Verificar se todos os campos obrigatórios estão preenchidos
             if (
@@ -253,6 +274,8 @@ const handlePreferenciasChange = (e) => {
                 error.response?.data || error.message
             );
             alert("Erro ao criar evento ou endereço. Por favor, tente novamente.");
+        } finally {
+            setIsSubmitting(false); // Define isSubmitting como false após o envio (sucesso ou falha)
         }
     };
     
@@ -260,9 +283,9 @@ const handlePreferenciasChange = (e) => {
     const closeModal = () => {
         setShowModal(false);
         navigate("/ong"); // Navega para a página /ong
-      };
+    };
 
-      const handleDateChange = (date, name) => {
+    const handleDateChange = (date, name) => {
         const now = new Date();
         now.setSeconds(0, 0); // Reseta segundos e milissegundos
 
@@ -302,8 +325,44 @@ const handlePreferenciasChange = (e) => {
         return now.toISOString().slice(0, 16); // Formato: YYYY-MM-DDTHH:mm
     };
 
+    useEffect(() => {
+        // Set default coordinates (e.g., center of Brazil)
+        setCoordinates([-14.235, -51.925]);
 
-    
+        if (enderecoDados.cep && enderecoDados.numero) {
+            const fetchCoordinates = async () => {
+                const cep = enderecoDados.cep.replace(/\D/g, "");
+                const addressString = `${cep}, ${enderecoDados.numero}, Brazil`;
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressString)}`);
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        setCoordinates([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
+                        setShowMap(true);
+                    } else {
+                        setCoordinates(null);
+                        setShowMap(false);
+                        setMapError("Não foi possível encontrar as coordenadas para este endereço.");
+                    }
+                } catch (error) {
+                    console.error("Error fetching coordinates:", error);
+                    setCoordinates(null);
+                    setShowMap(false);
+                    setMapError("Erro ao buscar as coordenadas. Tente novamente.");
+                }
+            };
+            fetchCoordinates();
+        }
+    }, [enderecoDados.cep, enderecoDados.numero]);
+
+    const markerIcon = new L.Icon({
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+        shadowSize: [41, 41]
+    });
     
     return (
         <>
@@ -552,26 +611,47 @@ const handlePreferenciasChange = (e) => {
                             </div>
                         </div>
                     </div>
+                    <div className="map-container">
+                        {showMap ? (
+                            <div className="map-preview">
+                                <MapContainer center={coordinates} zoom={15} style={{ height: "300px", width: "100%" }}>
+                                    <TileLayer
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    />
+                                    <Marker position={coordinates} icon={markerIcon} />
+                                </MapContainer>
+                            </div>
+                        ) : (
+                            <div className="map-placeholder">
+                                {mapError ? (
+                                    <p className="map-error">{mapError}</p>
+                                ) : (
+                                    <p>Clique em "Buscar CEP" para visualizar o mapa</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
 
 
                 <div className="botões-evento">
-                    <button className="cancelar-evento" onClick={handleVoltar}>
+                    <button className="cancelar-evento" onClick={handleVoltar} disabled={isSubmitting}>
                         <img
                             src={cancela}
                             alt="cancelar evento"
                             className="cancelar-evento-img"
-                        ></img>
+                        />
                         <p>Cancelar Evento</p>
                     </button>
 
-                    <button className="adicionar-evento" onClick={handleSubmit}>
+                    <button className="adicionar-evento" onClick={handleSubmit} disabled={isSubmitting}>
                         <img
                             src={correto}
                             alt="confirmar evento"
                             className="confirmar-evento-img"
-                        ></img>
-                        <p>Adicionar Evento</p>
+                        />
+                        <p>{isSubmitting ? "Enviando..." : "Adicionar Evento"}</p>
                     </button>
                 </div>
             </div>
