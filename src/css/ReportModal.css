@@ -91,3 +91,8 @@
   .report-btn:hover {
     background-color: #ff3333;
   }  
+
+#descricao{
+  resize: none;
+  
+}
