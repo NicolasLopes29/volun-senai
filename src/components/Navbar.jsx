@@ -57,7 +57,7 @@ const Navbar = () => {
   const [incompleteEmail, setIncompleteEmail] = useState(""); // Email do cadastro incompleto
   const [error, setError] = useState(null);
   const [redirectPath, setRedirectPath] = useState("");
-  // const [showSuspendedModal, setShowSuspendedModal] = useState(false);
+  const [showSuspendedModal, setShowSuspendedModal] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth(app);
 
@@ -75,13 +75,10 @@ const Navbar = () => {
 
   const handleGetUsername = async (uid) => {
     try {
-      // Fetch para buscar o usuário
       const userResponse = await fetch(`https://volun-api-eight.vercel.app/usuarios/${uid}`);
       
-      // Verificando se o usuário existe
       if (!userResponse.ok) {
         if (userResponse.status === 404) {
-          // Não exibe erro 404 no console
           setIncompleteEmail(incompleteEmail);
           setRedirectPath("/dados_pessoal");
           setShowIncompleteModal(true);
@@ -91,7 +88,6 @@ const Navbar = () => {
   
       const userData = await userResponse.json();
       
-      // Se o usuário não existir
       if (!userData) {
         setIncompleteEmail(incompleteEmail);
         setRedirectPath("/dados_pessoal");
@@ -99,12 +95,15 @@ const Navbar = () => {
         return;
       }
   
-      // Fetch para buscar o endereço
+      // Check if user is suspended
+      if (userData.userSuspenso) {
+        setShowSuspendedModal(true);
+        return;
+      }
+
       const enderecoResponse = await fetch(`https://volun-api-eight.vercel.app/endereco/usuario/${uid}`);
       
-      // Verificando se o endereço não existe
       if (!enderecoResponse.ok || enderecoResponse.status === 404) {
-        // Não exibe erro 404 no console
         setRedirectPath("/dados_endereco");
         setIncompleteEmail(incompleteEmail);
         setShowIncompleteModal(true);
@@ -113,22 +112,14 @@ const Navbar = () => {
   
       const enderecoData = await enderecoResponse.json();
   
-      // Se o endereço não for encontrado, exibe a modal
       if (!enderecoData) {
         setRedirectPath("/dados_endereco");
         setIncompleteEmail(incompleteEmail);
         setShowIncompleteModal(true);
         return;
       }
-
-      // // Verificação do campo userSuspenso
-      // if (userData.userSuspenso) {
-      //   setShowSuspendedModal(true);
-      //   return;
-      // }
         
     } catch (error) {
-      // Aqui estamos tratando especificamente o erro 404, mas não exibe no console
       if (error instanceof Error && error.message.includes("404")) {
         return;
       }
@@ -180,31 +171,25 @@ const Navbar = () => {
     const user = auth.currentUser;
   
     if (!user) {
-      // Se o usuário não estiver logado, exibe um alerta e retorna
       alert("Você precisa estar logado para acessar esta página.");
       return;
     }
   
     try {
-      // Requisição para verificar as ONGs do usuário
       const response = await axios.get(
         `https://volun-api-eight.vercel.app/organizacao/criador/${user.uid}`
       );
   
       if (response.data && response.data.length > 0) {
-        // Se o usuário tiver uma ou mais ONGs criadas, navega para a página /ong
         navigate(`/ong`);
       } else {
-        // Caso contrário, navega para a página /cardong
         navigate("/cardong");
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        // Tratar 404 como ausência de organizações
         console.warn("Nenhuma organização encontrada para o usuário.");
         navigate("/cardong");
       } else {
-        // Outros erros
         console.error("Erro ao verificar organizações do usuário:", error);
         alert("Ocorreu um erro ao tentar verificar suas organizações.");
       }
@@ -327,8 +312,34 @@ const Navbar = () => {
           </div>
         </div>
       </Modal>
+
+      <Modal
+        isOpen={showSuspendedModal}
+        onRequestClose={() => {}}
+        shouldCloseOnOverlayClick={false}
+        style={estiloModal}
+      >
+        <div className="modal-container">
+          <div className="modal-header">Conta Suspensa</div>
+          <div className="modal-body">
+            Sua conta foi suspensa. Por favor, entre em contato com o suporte para mais informações.
+          </div>
+          <div className="modal-footer">
+            <button
+              className="modal-button"
+              onClick={() => {
+                setShowSuspendedModal(false);
+                handleUserLogOut();
+              }}
+            >
+              Deslogar
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
 
 export default Navbar;
+
