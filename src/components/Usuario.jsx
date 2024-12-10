@@ -4,25 +4,16 @@ import { Link } from "react-router-dom"
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import axios from "axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import defaultProfileImage from "../assets/images/photo-perfil.png";
-import avatar1 from "../assets/avatars/avatar1.png"; // Avatares padrão
-import avatar2 from "../assets/avatars/avatar2.png";
-import avatar3 from "../assets/avatars/avatar3.png";
-import avatar4 from "../assets/avatars/avatar4.png";
-import avatar5 from "../assets/avatars/avatar5.jpg";
-import avatar6 from "../assets/avatars/avatar6.png";
-import avatar7 from "../assets/avatars/avatar7.png";
-import avatar8 from "../assets/avatars/avatar8.png";
-import avatar9 from "../assets/avatars/avatar9.png";
-import editIcon from "../assets/images/edit-icon.svg";
 import Loader from "./Loader"; 
 import Historico from "./Historico";
 import InformacaoPessoal from "./InformacaoPessoal";
+import Correio from "./Correio";
+import EditPin from "./../assets/images/edit-pin.png"
 
 import "../css/Usuario.css";
 
 const Usuario = () => {
-    const [profileImagePreview, setProfileImagePreview] = useState(defaultProfileImage);
+    const [profileImagePreview, setProfileImagePreview] = useState("https://example.com/default-profile-image.png");
     const [userData, setUserData] = useState({
         nome: "",
         sobrenome: "",
@@ -33,16 +24,29 @@ const Usuario = () => {
     const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null); 
     const [activeComponent, setActiveComponent] = useState("Historico");
-    const [showAvatarMenu, setShowAvatarMenu] = useState(false); // Estado para o modal de avatares
+    const [showAvatarMenu, setShowAvatarMenu] = useState(false);
 
     const navigate = useNavigate();
     const storage = getStorage();
+
+    const avatarOptions = [
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar1.png?alt=media&token=9879ca22-1b8e-4582-ba6a-475407eb7354',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar2.png?alt=media&token=aa865b5e-5309-4cb7-a8fe-cf3a515e3f07',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar3.png?alt=media&token=ffbc3bc0-4a3f-448d-ac69-0846ae1a4276',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar4.png?alt=media&token=f9ceece1-4eb6-487e-8d39-80684536c9fb',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar5.jpg?alt=media&token=41269360-bd63-4b6f-aaf6-aa4566fef1fc',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar6.png?alt=media&token=26ccac40-4456-4bff-94d0-11a951515815',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar7.png?alt=media&token=7d794f6e-da29-4426-b1f7-2a9bc70350c6',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar8.png?alt=media&token=46a28c2a-b823-42db-92ac-b393c2738518',
+        'https://firebasestorage.googleapis.com/v0/b/volun-api.appspot.com/o/avatars%2Favatar9.png?alt=media&token=57aaf0a1-0148-4993-89e8-3e068776f734'
+        
+    ];
 
     const getGooglePhotoURL = () => {
         if (user && user.providerData && user.providerData[0]?.photoURL) {
             return user.providerData[0].photoURL;
         }
-        return null; // Retorna null se o usuário não tiver foto do Google
+        return null;
     };
 
     const handleProfileImageChange = async (e) => {
@@ -56,6 +60,9 @@ const Usuario = () => {
                     photoURL: downloadURL,
                 });
                 setProfileImagePreview(downloadURL);
+                await axios.put(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`, {
+                    photoUrl: downloadURL
+                });
                 window.location.reload();
             } catch (error) {
                 console.error("Erro ao atualizar foto de perfil:", error);
@@ -70,7 +77,10 @@ const Usuario = () => {
                     photoURL: avatarUrl,
                 });
                 setProfileImagePreview(avatarUrl);
-                setShowAvatarMenu(false); // Fecha o modal
+                await axios.put(`https://volun-api-eight.vercel.app/usuarios/${user.uid}`, {
+                    photoUrl: avatarUrl
+                });
+                setShowAvatarMenu(false);
                 window.location.reload();
             } catch (error) {
                 console.error("Erro ao atualizar avatar:", error);
@@ -99,7 +109,7 @@ const Usuario = () => {
                     email: currentUser.email,
                 }));
                 handleGetUserData(currentUser.uid);
-                setProfileImagePreview(currentUser.photoURL || defaultProfileImage);
+                setProfileImagePreview(currentUser.photoURL || "https://example.com/default-profile-image.png");
             }
         });
 
@@ -146,7 +156,7 @@ const Usuario = () => {
                             />
                         </label>
                         <button className="avatar-menu-button" onClick={() => setShowAvatarMenu(!showAvatarMenu)}>
-                             <img src={editIcon} alt="Editar foto de perfil" className="edit-icon" />
+                             <img src={EditPin} alt="Editar foto de perfil" className="edit-icon" />
                         </button>
                     </div>
                     <div className="usuario-dados">
@@ -158,28 +168,30 @@ const Usuario = () => {
                 <div className="usuario-nav">
                     <Link to={"#"} id="historico-link" onClick={() => setActiveComponent("Historico")}>Histórico</Link>
                     <Link to={"#"} id="informacao-link" onClick={() => setActiveComponent("Informação")}>Informações Pessoais</Link>
+                    <Link to={"#"} id="correio-link" onClick={() => setActiveComponent("Correio")}>Correio</Link>
                 </div>
             </section>
             <article className="usuario-article">
-                {activeComponent === "Historico" ? <Historico /> : <InformacaoPessoal />}
+                {activeComponent === "Historico" ? <Historico /> : 
+                 activeComponent === "Informação" ? <InformacaoPessoal /> : <Correio />}
             </article>
 
             {showAvatarMenu && (
                 <div className="avatar-modal">
+                    <button className="close-modal" onClick={() => setShowAvatarMenu(false)}>X</button>
                     <h1>Selecione o seu icone de Avatar:</h1>
                     <div className="avatar-options">
-                        {googlePhotoURL && ( // Só exibe se existir foto do Google
+                        {googlePhotoURL && (
                             <img src={googlePhotoURL} alt="Avatar do Google" onClick={() => handleAvatarSelect(googlePhotoURL)} />
                         )}
-                        <img src={avatar1} alt="Avatar 1" onClick={() => handleAvatarSelect(avatar1)} />
-                        <img src={avatar2} alt="Avatar 2" onClick={() => handleAvatarSelect(avatar2)} />
-                        <img src={avatar3} alt="Avatar 3" onClick={() => handleAvatarSelect(avatar3)} />
-                        <img src={avatar4} alt="Avatar 4" onClick={() => handleAvatarSelect(avatar4)} />
-                        <img src={avatar5} alt="Avatar 5" onClick={() => handleAvatarSelect(avatar5)} />
-                        <img src={avatar6} alt="Avatar 6" onClick={() => handleAvatarSelect(avatar6)} />
-                        <img src={avatar7} alt="Avatar 7" onClick={() => handleAvatarSelect(avatar7)} />
-                        <img src={avatar8} alt="Avatar 8" onClick={() => handleAvatarSelect(avatar8)} />
-                        <img src={avatar9} alt="Avatar 9" onClick={() => handleAvatarSelect(avatar9)} />
+                        {avatarOptions.map((avatarUrl, index) => (
+                            <img 
+                                key={index}
+                                src={avatarUrl} 
+                                alt={`Avatar ${index + 1}`} 
+                                onClick={() => handleAvatarSelect(avatarUrl)} 
+                            />
+                        ))}
                     </div>
                 </div>
             )}
@@ -188,4 +200,3 @@ const Usuario = () => {
 };
 
 export default Usuario;
-

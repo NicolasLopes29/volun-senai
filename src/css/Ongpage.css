@@ -29,6 +29,8 @@ body {
     height: 16em;
     border-radius: 50%;
     border: solid 3px #1f0171;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(31, 1, 113, 0.2);
 }
 
 #ong-name {
@@ -319,7 +321,7 @@ body {
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    color: #007bff;
+  
     transition: 0.3s ease;
   }
   
@@ -328,3 +330,23 @@ body {
     color: #0056b3;
   }
   
+
+  .create-event-btn {
+    display: inline-block;
+    background-color: #1F0171;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.create-event-btn:hover {
+    background-color: #2a0199;
+}
+
